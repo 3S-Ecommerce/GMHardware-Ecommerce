@@ -1,0 +1,11 @@
+@for (item of produtos(); track item.id){
+    <div class="card-produto">
+      <img [src]="item.imagem" alt="{{ item.nome }}">
+      <h3>{{ item.nome }}</h3>
+      <p>{{ item.descricao }}</p>
+      <span class="preco">R$ {{ item.preco }}</span>
+      <button>Adicionar ao Carrinho</button>
+    </div>
+} @empty{
+    <p>Carregando produtos ou nenhum item encontrado...</p>
+}
