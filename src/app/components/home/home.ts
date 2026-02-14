@@ -1,12 +1,13 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { Product } from '../../core/services/product';
 import { Cart } from '../../core/services/cart';
+import { Header } from '../header/header';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [ Header ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

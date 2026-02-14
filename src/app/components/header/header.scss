@@ -1,0 +1,64 @@
+@import "../../../../public/assets/style.scss";
+@mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%) {
+    display: flex;
+    width: $width;
+    justify-content: $justify;
+    align-items: center;
+    gap: 0px;
+}
+header{
+    background-color: $primary-bg;
+}
+.header-search {
+    @include displayFlex();
+    padding: 15px;
+    h1{
+        text-align: end;
+        color: $primary-text;
+        flex: 1;
+        margin-right: 32px;
+    }
+    .search-bar {
+        @include displayFlex($width: 70%, $justify: center);
+        flex: 1;
+        
+        i{
+            position: relative;
+            right: 24px;
+        }
+
+        input {
+            height: 35px;
+            background: none;
+            border: 1px solid $white-color;
+            border-radius: 5px;
+            width: 100%;
+            padding-right: 30px;
+            padding-left: 5px;
+        }
+
+    }
+
+    nav {
+        @include displayFlex($justify: flex-start);
+        flex: 1;
+
+        a {
+            margin-left: 32px;
+            i {
+                color: $white-color;
+            }
+        }
+
+    }
+}
+.header-nav{
+    @include displayFlex($gap: 32px);
+    flex-wrap: wrap;
+    a{
+        margin-left: 16px;
+        margin-right: 16px;
+        color: $white-color;
+    }
+    padding-bottom: 16px;
+}
