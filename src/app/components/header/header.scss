@@ -1,11 +1,4 @@
 @import "../../../../public/assets/style.scss";
-@mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%) {
-    display: flex;
-    width: $width;
-    justify-content: $justify;
-    align-items: center;
-    gap: 0px;
-}
 header{
     background-color: $primary-bg;
 }
@@ -15,6 +8,7 @@ header{
     h1{
         text-align: end;
         color: $primary-text;
+        @include fontSize($size: 40px, $weight: 600);
         flex: 1;
         margin-right: 32px;
     }
@@ -24,6 +18,7 @@ header{
         
         i{
             position: relative;
+            color: $white-color;
             right: 24px;
         }
 
@@ -56,6 +51,7 @@ header{
     @include displayFlex($gap: 32px);
     flex-wrap: wrap;
     a{
+        @include fontSize($size: 20px);
         margin-left: 16px;
         margin-right: 16px;
         color: $white-color;

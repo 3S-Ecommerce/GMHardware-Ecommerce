@@ -1,0 +1,13 @@
+@import "../../../../public/assets/style.scss";
+main{
+    background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+    width: 100%;
+    height: 680px;
+    .main-apresentacao{
+        @include displayFlex($direction: column);
+        flex: 1
+    }
+    .main-image{
+        flex: 1
+    }
+}

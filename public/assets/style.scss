@@ -3,4 +3,16 @@ $secundary-bg: #181C23;
 $primary-text: #2563EB;
 $descont-color: #FF6B00;
 $success-color: #22C55E;
-$white-color: #FFFFFF88
+$white-color: #FFFFFF88;
+@mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%, $direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    width: $width;
+    justify-content: $justify;
+    align-items: center;
+    gap: 0px;
+}
+@mixin fontSize($size: 24px, $weight: 400){
+    font-size: $size;
+    font-weight: $weight;
+}
