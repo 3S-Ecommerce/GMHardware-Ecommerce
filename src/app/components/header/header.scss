@@ -1,31 +1,31 @@
-@import "../../../../public/assets/style.scss";
+@use "../../../../public/assets/style.scss";
 header{
-    background-color: $primary-bg;
+    background-color: style.$primary-bg;
 }
 .header-search {
-    @include displayFlex();
+    @include style.displayFlex();
     padding: 15px;
     h1{
         text-align: end;
-        color: $primary-text;
-        @include fontSize($size: 40px, $weight: 600);
+        color: style.$primary-text;
+        @include style.fontSize($size: 40px, $weight: 600);
         flex: 1;
         margin-right: 32px;
     }
     .search-bar {
-        @include displayFlex($width: 70%, $justify: center);
+        @include style.displayFlex($width: 70%, $justify: center);
         flex: 1;
         
         i{
             position: relative;
-            color: $white-color;
+            color: style.$white-color;
             right: 24px;
         }
 
         input {
             height: 35px;
             background: none;
-            border: 1px solid $white-color;
+            border: 1px solid style.$white-color;
             border-radius: 5px;
             width: 100%;
             padding-right: 30px;
@@ -35,26 +35,26 @@ header{
     }
 
     nav {
-        @include displayFlex($justify: flex-start);
+        @include style.displayFlex($justify: flex-start);
         flex: 1;
 
         a {
             margin-left: 32px;
             i {
-                color: $white-color;
+                color: style.$white-color;
             }
         }
 
     }
 }
 .header-nav{
-    @include displayFlex($gap: 32px);
+    @include style.displayFlex($gap: 32px);
     flex-wrap: wrap;
     a{
-        @include fontSize($size: 20px);
+        @include style.fontSize($size: 20px);
         margin-left: 16px;
         margin-right: 16px;
-        color: $white-color;
+        color: style.$white-color;
     }
     padding-bottom: 16px;
 }

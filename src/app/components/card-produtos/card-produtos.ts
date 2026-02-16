@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 
 @Component({
-  selector: 'app-apresentacao',
+  selector: 'app-card-produtos',
   imports: [NgOptimizedImage],
-  templateUrl: './apresentacao.html',
-  styleUrl: './apresentacao.scss',
+  templateUrl: './card-produtos.html',
+  styleUrl: './card-produtos.scss',
 })
-export class Apresentacao {
+export class CardProdutos {
 
 }

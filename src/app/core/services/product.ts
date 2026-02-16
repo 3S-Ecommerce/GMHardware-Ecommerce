@@ -5,9 +5,9 @@ import { inject, Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class Product {
-  private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8000/produtos.php';
-  getProdutos(){
-    return this.http.get<any[]>(this.apiUrl);
-  }
+  // private http = inject(HttpClient);
+  // private readonly apiUrl = 'http://localhost:8000/produtos.php';
+  // getProdutos(){
+  //   return this.http.get<any[]>(this.apiUrl);
+  // }
 }
