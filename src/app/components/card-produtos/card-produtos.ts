@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, output, Input } from '@angular/core';
+import { Component, inject, signal, OnInit, output, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 import { Hardware } from '../../core/services/hardware';
 import { error } from 'console';
@@ -10,17 +10,26 @@ import { error } from 'console';
   styleUrl: './card-produtos.scss',
 })
 export class CardProdutos implements OnInit {
-  @Input('categoria') categoria: string = '';
+  @Input('categoria') categoria: string = 'todos';
   api = inject(Hardware)
-  produtos = signal<any[]>([]);
+  todosProdutos = signal<any[]>([]);
   ngOnInit(): void {
     this.api.getProdutos().subscribe({
       next: (data) => {
-        this.produtos.set(data);
+        this.todosProdutos.set(data);
       },
       error: (err) => {
         console.error('Erro: ', err)
       }
     })
   }
+  produtos = computed(() => {
+    const categoria = this.categoria;
+    const lista = this.todosProdutos();
+    
+    if (categoria === 'todos'){
+      return lista;
+    }
+    return lista.filter(p => p.categoria === categoria);
+  })
 } 
