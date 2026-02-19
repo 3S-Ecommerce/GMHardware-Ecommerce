@@ -5,7 +5,7 @@
     .card-produto{
         @include style.displayFlex($direction: column, $width: 360px, $aligh: flex-start, $justify: flex-start, $gap: 8px);
         border-radius: 10px;
-        min-height: 700px;
+        height: 600px;
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
         img{

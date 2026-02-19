@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { Apresentacao } from './components/apresentacao/apresentacao';
 import { Categorias } from './components/categorias/categorias';
+import { Login } from './components/login/login';
+import { Baselogin } from './components/baselogin/baselogin';
+import { Cadastro } from './components/cadastro/cadastro';
+import { Recuperacao } from './components/recuperacao/recuperacao';
 
 export const routes: Routes = [
     {
@@ -57,5 +61,23 @@ export const routes: Routes = [
                 data: { categoria: 'Periféricos' }
             }
         ]
+    },
+    {
+        path: 'login',
+        component: Baselogin, children: [
+            {
+                path: '',
+                component: Login    
+            },
+            {
+                path: 'cadastro',
+                component: Cadastro
+            },
+            {
+                path: 'recuperacao',
+                component: Recuperacao
+            }
+        ]
     }
+
 ];

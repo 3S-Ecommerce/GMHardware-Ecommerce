@@ -5,12 +5,13 @@ import { Header } from '../header/header';
 //import { Apresentacao } from '../apresentacao/apresentacao';
 //import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
 import { RouterOutlet } from "@angular/router";
+import { Footer } from '../footer/footer';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Header, /*Apresentacao, MaisVendidos,*/ RouterOutlet],
+  imports: [Header, Footer, /*Apresentacao, MaisVendidos,*/ RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
