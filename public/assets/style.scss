@@ -4,6 +4,7 @@ $primary-text: #2563EB;
 $descont-color: #FF6B00;
 $success-color: #22C55E;
 $white-color: #FFFFFF88;
+$gradient: "linear-gradient(to right, #1F2743, #2A2A4A, #5A3327)";
 @mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%, $direction: row, $wrap: unset){
     display: flex;
     flex-direction: $direction;
