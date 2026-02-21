@@ -6,6 +6,7 @@ import { Login } from './components/login/login';
 import { Baselogin } from './components/baselogin/baselogin';
 import { Cadastro } from './components/cadastro/cadastro';
 import { Recuperacao } from './components/recuperacao/recuperacao';
+import { VisualizarProduto } from './components/visualizar-produto/visualizar-produto';
 
 export const routes: Routes = [
     {
@@ -78,6 +79,9 @@ export const routes: Routes = [
                 component: Recuperacao
             }
         ]
+    },
+    {
+        path: 'produto',
+        component: VisualizarProduto
     }
-
 ];

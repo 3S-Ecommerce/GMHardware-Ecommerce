@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, output, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 import { Hardware } from '../../core/services/hardware';
-import { error } from 'console';
+import { RouterLink, RouterOutlet } from '@angular/router'; 
 
 @Component({
   selector: 'app-card-produtos',

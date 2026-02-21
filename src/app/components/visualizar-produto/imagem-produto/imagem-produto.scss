@@ -1,0 +1,29 @@
+@use "../../../../../public/assets/style.scss";
+
+@media(min-width: 1600px) {
+    :host {
+
+        flex: 1;
+    }
+
+    .main-produto {
+        @include style.displayFlex($direction: column, $aligh: center, $justify: center, $gap: 16px);
+        flex: 1;
+        max-width: 600px;
+
+        img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .imagens {
+            @include style.displayFlex($justify: space-between);
+
+            img {
+                width: 20%;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+@use "../../../../public/assets/style.scss";
+@media(min-width: 1600px){
+.produto {
+    @include style.displayFlex();
+    background-color: style.$secundary-bg;
+    padding: 62px 148px;
+    min-height: 80vh;
+
+    .conteudo {
+        @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
+        flex: 1;
+        height: 100%;
+        h1 {
+            @include style.fontSize($size: 40px, $weight: 600);
+            color: white;
+        }
+        ul{
+            li{
+                @include style.fontSize($size: 25px, $weight: 400);
+                color: style.$white-color;
+                margin-bottom: 8px;
+            }
+        }
+    }
+}
+}
