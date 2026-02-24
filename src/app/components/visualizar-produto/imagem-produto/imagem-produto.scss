@@ -1,12 +1,13 @@
 @use "../../../../../public/assets/style.scss";
 
     :host {
-
+        
         flex: 1;
     }
 
     .main-produto {
         @include style.displayFlex($direction: column, $aligh: center, $justify: center, $gap: 16px);
+        justify-self: end;
         flex: 1;
         max-width: 500px;
         min-width: 300px;

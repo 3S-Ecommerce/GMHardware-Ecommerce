@@ -10,6 +10,8 @@ import { VisualizarProduto } from './components/visualizar-produto/visualizar-pr
 import { FinalizarPedido } from './components/finalizar-pedido/finalizar-pedido';
 import { Entrega } from './components/finalizar-pedido/entrega/entrega';
 import { Pagamento } from './components/finalizar-pedido/pagamento/pagamento';
+import { Endereco } from './components/finalizar-pedido/entrega/endereco/endereco';
+import { Escolher } from './components/finalizar-pedido/entrega/escolher/escolher';
 
 export const routes: Routes = [
     {
@@ -92,11 +94,15 @@ export const routes: Routes = [
         component: FinalizarPedido,
         children: [{
             path: '',
-            component: Entrega
-        },
+            component: Entrega,
+            children: [{
+                path: '',
+                component: Escolher,
+            },
             {
-            path: 'entrega',
-            component: Entrega
+                path: 'endereco',
+                component: Endereco
+            }]
         },
         {
             path: 'pagamento',
