@@ -1,0 +1,69 @@
+@use "../../../../../../public/assets/style.scss";
+
+.div-entrega {
+    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
+    max-width: 70%;
+    padding: 24px;
+    background-color: style.$primary-bg;
+    border-radius: 10px;
+
+    h2 {
+        color: white;
+        @include style.fontSize($size: 24px, $weight: 600);
+    }
+
+    p {
+        color: style.$white-color;
+        @include style.fontSize($size: 16px, $weight: 400);
+
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .div-button {
+        &.receber {
+            @include style.displayFlex($justify: space-between);
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                max-width: 215px;
+                @include style.displayFlex();
+
+                &.escolher-endereco {
+                    color: style.$descont-color;
+                    @include style.fontSize($size: 16px, $weight: 600);
+
+                }
+
+                &.selecionar {
+                    color: style.$success-color;
+                    @include style.fontSize($size: 16px, $weight: 600);
+
+                }
+            }
+        }
+
+        &.retirar {
+            @include style.displayFlex($justify: flex-end);
+
+            button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                max-width: 215px;
+
+                @include style.displayFlex();
+
+                &.selecionar {
+                    color: style.$success-color;
+                    @include style.fontSize($size: 16px, $weight: 600);
+
+                }
+            }
+        }
+    }
+}

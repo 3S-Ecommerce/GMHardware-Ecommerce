@@ -7,6 +7,9 @@ import { Baselogin } from './components/baselogin/baselogin';
 import { Cadastro } from './components/baselogin/cadastro/cadastro';
 import { Recuperacao } from './components/baselogin/recuperacao/recuperacao';
 import { VisualizarProduto } from './components/visualizar-produto/visualizar-produto';
+import { FinalizarPedido } from './components/finalizar-pedido/finalizar-pedido';
+import { Entrega } from './components/finalizar-pedido/entrega/entrega';
+import { Pagamento } from './components/finalizar-pedido/pagamento/pagamento';
 
 export const routes: Routes = [
     {
@@ -83,5 +86,22 @@ export const routes: Routes = [
     {
         path: 'produto',
         component: VisualizarProduto
+    },
+    {
+        path: 'finalizar-compra',
+        component: FinalizarPedido,
+        children: [{
+            path: '',
+            component: Entrega
+        },
+            {
+            path: 'entrega',
+            component: Entrega
+        },
+        {
+            path: 'pagamento',
+            component: Pagamento
+        }
+    ]
     }
 ];
