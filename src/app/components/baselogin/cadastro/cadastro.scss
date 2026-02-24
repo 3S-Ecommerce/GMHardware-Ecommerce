@@ -1,4 +1,4 @@
-@use "../../../../public/assets/style.scss";
+@use "../../../../../public/assets/style.scss";
 
 form {
     width: 380px;
@@ -24,8 +24,7 @@ form {
             height: 50px;
         }
     }
-
-    #termos {
+    #termos{
         appearance: none;
         z-index: 10;
         border: 1px solid white;
@@ -36,17 +35,14 @@ form {
         cursor: pointer;
         vertical-align: middle;
     }
-
-    #termos:checked {
+    #termos:checked{
         appearance: auto;
         border-radius: 5px;
     }
-
-    label[for=termos] {
+    label[for=termos]{
         color: white;
         vertical-align: middle;
-
-        a {
+        a{
             color: style.$primary-text;
         }
     }
@@ -54,7 +50,7 @@ form {
     .button {
         width: 100%;
         margin-top: 16px;
-        justify-content: flex-end;
+        justify-content: space-around;
         align-items: flex-end;
         gap: 16px;
         display: flex;
@@ -64,8 +60,8 @@ form {
             border-radius: 10px;
             padding: 4px 10px;
             min-width: 120px;
-            margin-left: 8px;
             height: 40px;
+            margin-left: 8px;
             cursor: pointer;
             background-color: style.$primary-text;
             color: white;

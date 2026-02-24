@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
+import { MaisVendidos } from "../../mais-vendidos/mais-vendidos";
 
 @Component({
   selector: 'app-apresentacao',

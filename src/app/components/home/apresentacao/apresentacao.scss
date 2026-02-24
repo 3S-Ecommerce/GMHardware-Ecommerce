@@ -1,4 +1,4 @@
-@use "../../../../public/assets/style.scss";
+@use "../../../../../public/assets/style.scss";
 main{
     @include style.displayFlex($gap: 120px);
     background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);

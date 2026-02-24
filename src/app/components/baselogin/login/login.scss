@@ -1,4 +1,4 @@
-@use "../../../../public/assets/style.scss";
+@use "../../../../../public/assets/style.scss";
 
 form {
     width: 380px;
@@ -24,37 +24,22 @@ form {
             height: 50px;
         }
     }
-    #termos{
-        appearance: none;
-        z-index: 10;
-        border: 1px solid white;
-        width: 15px;
-        border-radius: 5px;
-        margin-right: 8px;
-        height: 15px;
-        cursor: pointer;
-        vertical-align: middle;
-    }
-    #termos:checked{
-        appearance: auto;
-        border-radius: 5px;
-    }
-    label[for=termos]{
-        color: white;
-        vertical-align: middle;
-        a{
-            color: style.$primary-text;
-        }
+
+    .esqueceu-a-senha {
+        display: flex;
+        @include style.fontSize($size: 22px, $weight: 600);
+        color: style.$white-color;
+        justify-content: center;
+        margin-top: 8px;
+        margin-bottom: 16px;
     }
 
     .button {
         width: 100%;
-        margin-top: 16px;
-        justify-content: flex-end;
+        justify-content: space-around;
         align-items: flex-end;
         gap: 16px;
         display: flex;
-
         button {
             border: none;
             border-radius: 10px;
@@ -69,11 +54,11 @@ form {
         }
 
         .cadastro {
-            display: flex;
-            @include style.fontSize($size: 18px, $weight: 600);
-            color: style.$white-color;
-            justify-content: center;
-            align-items: end;
-        }
+        display: flex;
+        @include style.fontSize($size: 18px, $weight: 600);
+        color: style.$white-color;
+        justify-content: center;
+        align-items: end;
+    }
     }
 }
