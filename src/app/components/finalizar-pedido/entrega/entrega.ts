@@ -4,7 +4,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-entrega',
-  imports: [ FormaEntrega, RouterLink, RouterOutlet ],
+  imports: [ RouterOutlet ],
   templateUrl: './entrega.html',
   styleUrl: './entrega.scss',
 })
