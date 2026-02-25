@@ -1,0 +1,17 @@
+@use "../../../../../public/assets/style.scss";
+
+.revisar {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    h2{
+        @include style.fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+    .div-layout {
+        @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
+        max-width: 70%;
+        padding: 24px;
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+    }
+
+}

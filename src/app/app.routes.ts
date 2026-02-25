@@ -12,6 +12,7 @@ import { Entrega } from './components/finalizar-pedido/entrega/entrega';
 import { Pagamento } from './components/finalizar-pedido/pagamento/pagamento';
 import { Endereco } from './components/finalizar-pedido/entrega/endereco/endereco';
 import { Escolher } from './components/finalizar-pedido/entrega/escolher/escolher';
+import { Revisar } from './components/finalizar-pedido/revisar/revisar';
 
 export const routes: Routes = [
     {
@@ -107,6 +108,10 @@ export const routes: Routes = [
         {
             path: 'pagamento',
             component: Pagamento
+        },
+        {
+            path: 'revisar',
+            component: Revisar
         }
     ]
     }
