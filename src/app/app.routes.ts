@@ -13,6 +13,9 @@ import { Pagamento } from './components/finalizar-pedido/pagamento/pagamento';
 import { Endereco } from './components/finalizar-pedido/entrega/endereco/endereco';
 import { Escolher } from './components/finalizar-pedido/entrega/escolher/escolher';
 import { Revisar } from './components/finalizar-pedido/revisar/revisar';
+import { RealizarPagamento } from './components/finalizar-pedido/realizar-pagamento/realizar-pagamento';
+import { Pix } from './components/finalizar-pedido/realizar-pagamento/pix/pix';
+import { Cartao } from './components/finalizar-pedido/realizar-pagamento/cartao/cartao';
 
 export const routes: Routes = [
     {
@@ -106,12 +109,31 @@ export const routes: Routes = [
             }]
         },
         {
-            path: 'pagamento',
+            path: 'forma-de-pagamento',
             component: Pagamento
         },
         {
             path: 'revisar',
             component: Revisar
+        },
+        {
+            path: 'pagamento',
+            component: RealizarPagamento,
+            children: [
+                {
+                    path: '',
+                    component: Revisar,
+                    pathMatch: 'full'
+                },
+                {
+                    path: 'pix',
+                    component: Pix
+                },
+                {
+                    path: 'cartao',
+                    component: Cartao
+                }
+            ]
         }
     ]
     }

@@ -1,0 +1,44 @@
+@use "../../../../../../public/assets/style.scss";
+
+.pix {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+
+    h2 {
+        @include style.fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+
+    .pix-pagamento {
+        @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 24px);
+        max-width: 70%;
+        min-width: 700px;
+        padding: 24px;
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+
+        h2 {
+            color: white;
+            line-height: 20px;
+            @include style.fontSize($size: 24px, $weight: 600);
+        }
+
+        p {
+            line-height: 10px;
+            color: style.$white-color;
+            padding-left: 10px;
+            @include style.fontSize($size: 16px, $weight: 400);
+        }
+
+        img {
+            border: 2px solid gray;
+        }
+
+        textarea {
+            resize: none;
+            background: none;
+            color: white;
+            width: 100%;
+        }
+
+    }
+}
