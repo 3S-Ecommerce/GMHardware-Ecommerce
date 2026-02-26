@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-revisar',
-  imports: [],
+  imports: [ RouterLink ],
   templateUrl: './revisar.html',
   styleUrl: './revisar.scss',
 })
