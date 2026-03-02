@@ -1,0 +1,45 @@
+<p>card-carrinho works!</p>
+<div class="cards-produtos">
+    <!-- @for(item of produtos(); track item.id){ -->
+    <!-- @if(item.categoria == categoria){ -->
+    <!-- <div class="card-produto">
+        <img ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360" >
+        <span>Avaliações: 4.8(243)</span>
+        <h4>{{ item.nome }}</h4>
+        <p><span>R$</span>{{ item.preco }}</p>
+        <div class="card-buttons">
+            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                Carrinho</button>
+            <button class="comprar">Comprar</button>
+        </div>
+    </div> -->
+    <!-- Método lento, faz o angular calcular duas vezes a lista de itens -->
+    <!-- } -->
+    <!-- @else if (categoria === 'todos') {
+    <div class="card-produto">
+        <img ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
+        <span>Avaliações: 4.8(243)</span>
+        <h4>{{ item.nome }}</h4>
+        <p><span>R$</span>{{ item.preco }}</p>
+        <div class="card-buttons">
+            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                Carrinho</button>
+            <button class="comprar">Comprar</button>
+        </div>
+    </div>
+    } -->
+    <!-- }@empty {
+        <p>Nenhum hardware encontrado nessa categoria</p>
+    } -->
+    <div class="card-produto">
+        <img ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
+        <span>Avaliações: 4.8(243)</span>
+        <h4>Teclado RGB </h4>
+        <p><span>R$</span>100,00</p>
+        <div class="card-buttons">
+            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                Carrinho</button>
+            <button class="comprar">Comprar</button>
+        </div>
+    </div>
+</div>  

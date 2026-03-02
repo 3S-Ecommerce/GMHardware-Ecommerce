@@ -6,6 +6,8 @@ import { Login } from './components/login/login';
 import { Baselogin } from './components/baselogin/baselogin';
 import { Cadastro } from './components/cadastro/cadastro';
 import { Recuperacao } from './components/recuperacao/recuperacao';
+import { CardCarrinho } from './components/card-carrinho/card-carrinho';
+import { HomeCarrinho } from './components/home-carrinho/home-carrinho';
 
 export const routes: Routes = [
     {
@@ -77,7 +79,19 @@ export const routes: Routes = [
                 path: 'recuperacao',
                 component: Recuperacao
             }
+        
         ]
-    }
+    },
+
+    {
+        path:'',
+        redirectTo:'home-carrinho',
+        pathMatch:'full'
+
+    },
+    {
+        path:'home-carrinho',
+        component: HomeCarrinho
+    },
 
 ];
