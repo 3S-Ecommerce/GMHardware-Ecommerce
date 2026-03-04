@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('phone_number', 11)->nullable();
             $table->string('document', 11);
             $table->rememberToken();
-            $table->timestamp('updated_at')->nullable();
             $table->timestamps();
         });
 

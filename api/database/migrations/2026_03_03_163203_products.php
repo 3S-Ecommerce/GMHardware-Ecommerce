@@ -25,7 +25,6 @@ return new class extends Migration
         $table->text("details")->nullable();
         $table->integer("stock")->default(0);
         $table->timestamps();
-        $table->timestamp("updated_at")->nullable();
         $table->decimal("last_price",10,2)->nullable()->default(null);
         });
     }

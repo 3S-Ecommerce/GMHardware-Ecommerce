@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->decimal("total_price", 10, 2)->default(0);
             $table->string("status", 100);
             $table->timestamps();
-            $table->timestamp("updated_at");
         });
     }
 

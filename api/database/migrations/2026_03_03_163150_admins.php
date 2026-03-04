@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string("document", 11);
             $table->rememberToken();
             $table->timestamps();
-            $table->timestamp("updated_at")->nullable();
             $table->boolean("active")->default(true);
         });
     }
