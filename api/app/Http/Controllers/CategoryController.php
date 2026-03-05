@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return response()->json($categories, 200);
     }
 
     /**
@@ -20,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'create category'], 200);
     }
 
     /**
@@ -28,7 +29,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $category = Category::create($data);
+        return response()->json($category, 200);
     }
 
     /**
@@ -36,7 +39,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $data = Category::find($category->id);
+        if (empty($data))
+            return response()->json(['message' => 'Item não encontrado'], 204);
+        return response()->json($data, 200);
     }
 
     /**
@@ -44,7 +50,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return response()->json(['message' => 'edit category'], 200);
     }
 
     /**
@@ -52,7 +58,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->all();
+        if (empty($data))
+            return response()->json(['message' => 'Categoria não encontrada'], 204);
+        $category->update($data);
+        return response()->json($category, 200);
     }
 
     /**
@@ -60,6 +70,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $data = Category::find($category->id);
+        if (empty($data))
+            return response()->json(['message' => 'Categoria não encontrada'], 204);
+        $category->delete();
+        return response()->json(['message' => "A categoria $data[name] foi Deletada"], 200);
     }
 }

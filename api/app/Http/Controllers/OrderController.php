@@ -12,7 +12,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        if (empty($orders))
+            return response()->json(['message' => 'Nenhuma ordem cadastrada'], 200);
+        return response()->json(['message' => 'index order'], 200);
     }
 
     /**
@@ -20,7 +23,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'create order'], 200);
     }
 
     /**
@@ -28,7 +31,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if (empty($data))
+            return response()->json(['message' => 'Nenhum dado para cadastro'], 200);
+        $order = Order::create($data);
+        return response()->json($order, 200);
     }
 
     /**
@@ -36,7 +43,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $data = Order::find( $order->id );
+        if (empty($data))
+            return response()->json(['message' => 'Nenhuma ordem encontrada'], 200);
+        return response()->json($data, 200);
     }
 
     /**
@@ -44,7 +54,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return response()->json(['message' => 'edit order'], 200);
     }
 
     /**
@@ -52,7 +62,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        $data = $request->all();
+        if (empty($data))
+            return response()->json(['message' => 'Nenhum dado para atualizar'], 200);
+        $order->update($data);
+        return response()->json(['message' => 'update order'], 200);
     }
 
     /**
@@ -60,6 +74,6 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        return response()->json(['message' => 'destroy order'], 200);
     }
 }

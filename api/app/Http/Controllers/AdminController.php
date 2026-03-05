@@ -12,7 +12,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admins = Admin::all();
+        return response()->json($admins, 200);
     }
 
     /**
@@ -20,7 +21,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'create admin'], 200);
     }
 
     /**
@@ -28,7 +29,12 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if (!empty($request['password'])) 
+            $data['password'] = bcrypt($request['password']);
+        $admin = Admin::create($data);
+        return response()->json($admin, 200);
+
     }
 
     /**
@@ -36,7 +42,9 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        $data = Admin::find($admin->id);
+        return response()->json($data, 200);
+
     }
 
     /**
@@ -44,7 +52,8 @@ class AdminController extends Controller
      */
     public function edit(Admin $admin)
     {
-        //
+        return response()->json(['message' => 'edit admin'], 200);
+
     }
 
     /**
@@ -52,7 +61,12 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
-        //
+        $data = $request->all();
+        if (!empty($request['password']))
+            $data['password'] = bcrypt($request['password']);
+        $admin->update($data);
+        return response()->json($admin, 200);
+
     }
 
     /**
@@ -60,6 +74,8 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $data = Admin::find($admin->id);
+        $admin->delete();
+        return response()->json(['message' => "O administrador $data[name] foi deletado!"], 200);
     }
 }

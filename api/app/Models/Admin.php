@@ -12,6 +12,8 @@ class Admin extends Model
     use HasFactory;
 
     protected $fillable = ['name','email','password','phone_number','document','active'];
+
+    protected $hidden = ['password','remember_token','document'];
     public function products(){
         return $this->hasMany(Product::class, 'id_admin');
     }

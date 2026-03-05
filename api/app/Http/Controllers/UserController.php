@@ -12,7 +12,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return response()->json($users, 200);
     }
 
     /**
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'create user'], 200);
     }
 
     /**
@@ -28,7 +29,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        if (!empty($request['password']))
+            $data['password'] = bcrypt($request['password']);
+        $user = User::create($data);
+        return response()->json($user, 200);
     }
 
     /**
@@ -36,7 +41,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $data = User::find( $user->id );
+        return response()->json($data, 200);
     }
 
     /**
@@ -44,7 +50,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return response()->json(['message' => 'edit user'], 200);
     }
 
     /**
@@ -52,7 +58,11 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = $request->all();
+        if (!empty($request['password']))
+            $data['password'] = bcrypt( $request['password']);
+        $user->update($data);
+        return response()->json($user, 200);
     }
 
     /**
@@ -60,6 +70,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $data = User::find($user->id);
+        $user->delete();
+        return response()->json(['message' => "O usuario $data[name] foi deletado!"], 200);
     }
 }
