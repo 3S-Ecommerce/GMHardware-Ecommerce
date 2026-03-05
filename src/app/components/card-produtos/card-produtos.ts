@@ -9,8 +9,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   templateUrl: './card-produtos.html',
   styleUrl: './card-produtos.scss',
 })
-export class CardProdutos /* implements OnInit */ {
-  // @Input('categoria') categoria: string = 'todos';
+export class CardProdutos /*implements OnInit*/ {
+  @Input('categoria') categoria: string = 'todos';
   // api = inject(Hardware)
   // todosProdutos = signal<any[]>([]);
   // ngOnInit(): void {
