@@ -1,5 +1,5 @@
 <div class="cards-produtos">
-    @for(item of produtos(); track item.id){
+   <!--@for(item of produtos(); track item.id){
     @if(item.categoria == categoria){
     <div class="card-produto">
         <img ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360" >
@@ -29,7 +29,7 @@
     } 
     }@empty {
         <p>Nenhum hardware encontrado nessa categoria</p>
-    } 
+} -->
     <div class="card-produto">
         <img routerLink="/produto" ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
         <span>Avaliações: 4.8(243)</span>

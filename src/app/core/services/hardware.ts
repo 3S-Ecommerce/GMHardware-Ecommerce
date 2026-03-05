@@ -7,6 +7,7 @@ import { inject, Injectable, signal } from '@angular/core';
 export class Hardware {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8000/api/product';
+
   
   produtosapi= signal<any[]>([]);
 
