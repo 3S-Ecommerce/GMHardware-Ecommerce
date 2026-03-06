@@ -14,9 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        $category = Category::all();
-        // $data = ["products"=> $products,"category"=> $category];
+        $products = Product::with(['category'])->get();
         return response()->json($products, 200);
     }
 
@@ -45,7 +43,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Product    $product)
+    public function show(Product $product)
     {
         $data = Product::find($product);
         if (empty($data))
@@ -68,7 +66,7 @@ class ProductController extends Controller
     {
         $data = $request->all();
         if (empty($data))
-            return response()->json(null, 404);
+            return response()->json(["message" => "Error"], 404);
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);

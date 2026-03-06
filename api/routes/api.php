@@ -23,4 +23,4 @@ Route::apiResource('category', CategoryController::class);
 
 Route::apiResource('product', ProductController::class);
 
-Route::apiResource('orderItems', OrderItemsController::class);
+Route::apiResource('order-items', OrderItemsController::class);

@@ -12,10 +12,10 @@ class OrderItemsController extends Controller
      */
     public function index()
     {
-        $data = Order_Items::all();
-        if (empty($data))
+        $orderItems = Order_Items::all();
+        if ($orderItems->isEmpty()) 
             return response()->json(['message' => 'Nenhuma Order Item encontrada'], 204);
-        return response()->json($data, 200);
+        return response()->json($orderItems, 200);
     }
 
     /**
@@ -39,12 +39,12 @@ class OrderItemsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Order_Items $orderItems)
+    public function show($id)
     {
-        $data = Order_Items::find( $orderItems->id );
+        $data = Order_Items::find($id);
         if (empty($data))
-            return response()->json(['message' => 'Order Item encontrada'], 204);
-        return response()->json(['message' => 'show order items'], 200);
+            return response()->json(['message' => 'Order Item encontrada'], 404);
+        return response()->json($data, 200);
     }
 
     /**
@@ -58,24 +58,24 @@ class OrderItemsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order_Items $orderItems)
+    public function update(Request $request, Order_Items $order_item)
     {
         $data = $request->all();
         if (empty($data))
             return response()->json(['message' => 'Order Item não sencontrada'], 200);
-        $orderItems->update($data);
-        return response()->json($orderItems, 200);
+        $order_item->update($data);
+        return response()->json($order_item, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Order_Items $orderItems)
+    public function destroy(Order_Items $order_item)
     {
-        $data = Order_Items::find( $orderItems->id );
+        $data = Order_Items::find( $order_item->id );
         // if (empty($data))
         //     return response()->json(['message' => 'Nenhuma ordem Items para exclusão'], 200);
-        $orderItems->delete();
+        $order_item->delete();
         return response()->json(['message' => "O item $data->name foi deletado"], 200);
     }
 }

@@ -16,6 +16,7 @@ import { Revisar } from './components/finalizar-pedido/revisar/revisar';
 import { RealizarPagamento } from './components/finalizar-pedido/realizar-pagamento/realizar-pagamento';
 import { Pix } from './components/finalizar-pedido/realizar-pagamento/pix/pix';
 import { Cartao } from './components/finalizar-pedido/realizar-pagamento/cartao/cartao';
+import { CadastroProduto } from './components/cadastro-produto/cadastro-produto';
 
 export const routes: Routes = [
     {
@@ -33,42 +34,42 @@ export const routes: Routes = [
             {
                 path: 'placas-de-video',
                 component: Categorias,
-                data: { categoria: 'Placas de Vídeo' }
+                data: { categoria: 'Placa de Vídeo' }
             },
             {
                 path: 'processadores',
                 component: Categorias,
-                data: { categoria: 'Processadores' }
+                data: { categoria: 'Processador' }
             },
             {
                 path: 'memorias-ram',
                 component: Categorias,
-                data: { categoria: 'Memórias RAM' }
+                data: { categoria: 'Memória RAM' }
             },
             {
                 path: 'ssds',
                 component: Categorias,
-                data: { categoria: 'SSDs' }
+                data: { categoria: 'Armazenamento' }
             },
             {
                 path: 'gabinetes',
                 component: Categorias,
-                data: { categoria: 'Gabinetes' }
+                data: { categoria: 'Gabinete' }
             },
             {
                 path: 'coolers',
                 component: Categorias,
-                data: { categoria: 'Coolers' }
+                data: { categoria: 'Cooler' }
             },
             {
                 path: 'fontes',
                 component: Categorias,
-                data: { categoria: 'Fontes' }
+                data: { categoria: 'Fonte' }
             },
             {
                 path: 'perifericos',
                 component: Categorias,
-                data: { categoria: 'Periféricos' }
+                data: { categoria: 'Periférico' }
             }
         ]
     },
@@ -77,7 +78,7 @@ export const routes: Routes = [
         component: Baselogin, children: [
             {
                 path: '',
-                component: Login    
+                component: Login
             },
             {
                 path: 'cadastro',
@@ -135,6 +136,11 @@ export const routes: Routes = [
                 }
             ]
         }
-    ]
+        ]
+    },
+    {
+        path: 'cadastro',
+        component: CadastroProduto,
+        pathMatch: 'full'
     }
 ];

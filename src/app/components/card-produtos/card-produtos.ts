@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, output, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { Hardware } from '../../core/services/hardware';
 import { RouterLink, RouterOutlet } from '@angular/router'; 
+import { Product } from '../../core/services/product';
 
 @Component({
   selector: 'app-card-produtos',
@@ -11,25 +11,29 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class CardProdutos /*implements OnInit*/ {
   @Input('categoria') categoria: string = 'todos';
-  // api = inject(Hardware)
-  // todosProdutos = signal<any[]>([]);
-  // ngOnInit(): void {
-  //   this.api.getProdutos().subscribe({
-  //     next: (data) => {
-  //       this.todosProdutos.set(data);
-  //     },
-  //     error: (err) => {
-  //       console.error('Erro: ', err)
-  //     }
-  //   })
-  // }
-  // produtos = computed(() => {
-  //   const categoria = this.categoria;
-  //   const lista = this.todosProdutos();
+  api = inject(Product)
+  todosProdutos = signal<any[]>([]);
+  ngOnInit(): void {
+    this.api.getProduct().subscribe({
+      next: (data) => {
+        this.todosProdutos.set(data);
+      },
+      error: (err) => {
+        console.error('Erro: ', err)
+      }
+    })
+  }
+  produtos = computed(() => {
+    const categoria = this.categoria;
+    const lista = this.todosProdutos();
     
-  //   if (categoria === 'todos'){
-  //     return lista;
-  //   }
-  //   return lista.filter(p => p.z === categoria);
-  // })
+    if (categoria === 'todos' || !categoria){
+      return lista;
+    }
+    return lista.filter(p => p.category?.name === categoria);
+  })
+  teste(){
+    const lista = this.todosProdutos();
+    console.log(lista.filter(p => p.category?.name === this.categoria))
+  }
 } 

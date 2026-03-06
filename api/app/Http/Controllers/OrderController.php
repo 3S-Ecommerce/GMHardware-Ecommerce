@@ -13,9 +13,9 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::all();
-        if (empty($orders))
+        if ($orders->isEmpty())
             return response()->json(['message' => 'Nenhuma ordem cadastrada'], 200);
-        return response()->json(['message' => 'index order'], 200);
+        return response()->json($orders, 200);
     }
 
     /**

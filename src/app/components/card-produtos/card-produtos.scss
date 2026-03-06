@@ -5,13 +5,14 @@
     .card-produto{
         @include style.displayFlex($direction: column, $width: 360px, $aligh: flex-start, $justify: flex-start, $gap: 8px);
         border-radius: 10px;
-        height: 600px;
+        height: 700px;
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
         img{
             width: 100%;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+            overflow-wrap: normal;
             cursor: pointer;
         }
         span{
@@ -33,7 +34,8 @@
             @include style.fontSize($size: 30px, $weight: 600);
         }
         .card-buttons{
-            @include style.displayFlex($justify: flex-end, $gap: 16px);
+            @include style.displayFlex($justify: flex-end, $gap: 16px, $aligh: flex-end);
+            height: 100%;
             padding-right: 8px;
             button{
                 color: white;
