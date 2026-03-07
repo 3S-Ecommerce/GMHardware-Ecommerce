@@ -8,11 +8,20 @@ export class Product {
   private http = inject(HttpClient);
   private readonly apiUrl = 'http://127.0.0.1:8000/api/product';
 
-  getProduct(){
-  return this.http.get<any[]>(this.apiUrl);
+  getProduct(item: string) {
+    if (item == "")
+      return this.http.get<any[]>(this.apiUrl);
+    else {
+      return this.http.get<any[]>(this.apiUrl+item);
+    }
   }
-  
-  createProduct(formdata: FormData){
+
+  createProduct(formdata: FormData) {
     return this.http.post(this.apiUrl, formdata);
   }
+
+  updateProduct(formdata: FormData, item: string){
+    return this.http.put(this.apiUrl+item, formdata)
+  }
+  
 }

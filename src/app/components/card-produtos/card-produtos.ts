@@ -13,8 +13,9 @@ export class CardProdutos /*implements OnInit*/ {
   @Input('categoria') categoria: string = 'todos';
   api = inject(Product)
   todosProdutos = signal<any[]>([]);
+  oie = signal<any[]>([]);
   ngOnInit(): void {
-    this.api.getProduct().subscribe({
+    this.api.getProduct('').subscribe({
       next: (data) => {
         this.todosProdutos.set(data);
       },
@@ -35,5 +36,16 @@ export class CardProdutos /*implements OnInit*/ {
   teste(){
     const lista = this.todosProdutos();
     console.log(lista.filter(p => p.category?.name === this.categoria))
+  }
+  teste2(){
+    this.api.getProduct('/4').subscribe({
+      next: (data) => {
+        this.oie.set(data)
+      },
+      error: (err) => {
+        console.error("Error: ", err)
+      }
+    })
+    console.log(this.oie())
   }
 } 

@@ -45,7 +45,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $data = Product::find($product);
+        $data = Product::find($product->id);
         if (empty($data))
             return response()->json(['message' => 'não exite esse'], 204);
         return response()->json($data, 200);
