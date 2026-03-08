@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             "3": "8GB RAM dedicada",
             "4": "2.5GHz"}',
             'stock'=> '5',
-            'image'=> 'products/Video_gbranco.png',
+            'image'=> 'product/Video_gbranco.png',
         ]);
         Product::updateOrCreate([
             'id_category' => 1,
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
             "3": "6GB RAM dedicada",
             "4": "2.0GHz"}',
             'stock'=> '5',
-            'image'=> 'products/Video_gcinza.png',
+            'image'=> 'product/Video_gcinza.png',
         ]);
         Product::updateOrCreate([
             'id_category' => 1,
@@ -54,7 +54,7 @@ class ProductSeeder extends Seeder
             "3": "8GB RAM dedicada",
             "4": "3.0GHz"}',
             'stock'=> '3',
-            'image'=> 'products/Video_gpreto.png',
+            'image'=> 'product/Video_gpreto.png',
         ]);
     }
 }
