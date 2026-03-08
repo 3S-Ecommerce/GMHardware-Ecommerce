@@ -9,11 +9,14 @@ export class Product {
   private readonly apiUrl = 'http://127.0.0.1:8000/api/product';
 
   getProduct(item: string) {
-    if (item == "")
-      return this.http.get<any[]>(this.apiUrl);
-    else {
-      return this.http.get<any[]>(this.apiUrl+item);
-    }
+    const url = item !== "" ? `${this.apiUrl}/${item}` : `${this.apiUrl}`
+
+    return this.http.get<any>(url)
+    // if (item == "")
+    //   return this.http.get<any[]>(this.apiUrl);
+    // else {
+    //   return this.http.get<any[]>(this.apiUrl+item);
+    // }
   }
 
   createProduct(formdata: FormData) {

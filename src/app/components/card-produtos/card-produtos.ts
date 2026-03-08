@@ -1,16 +1,17 @@
 import { Component, inject, signal, OnInit, output, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { RouterLink, RouterOutlet } from '@angular/router'; 
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router'; 
 import { Product } from '../../core/services/product';
 
 @Component({
   selector: 'app-card-produtos',
-  imports: [NgOptimizedImage, RouterLink],
+  imports: [NgOptimizedImage, RouterLink ],
   templateUrl: './card-produtos.html',
   styleUrl: './card-produtos.scss',
 })
 export class CardProdutos /*implements OnInit*/ {
   @Input('categoria') categoria: string = 'todos';
+
   api = inject(Product)
   todosProdutos = signal<any[]>([]);
   oie = signal<any[]>([]);
@@ -37,8 +38,8 @@ export class CardProdutos /*implements OnInit*/ {
     const lista = this.todosProdutos();
     console.log(lista.filter(p => p.category?.name === this.categoria))
   }
-  teste2(){
-    this.api.getProduct('/4').subscribe({
+  teste2(id:string){
+    this.api.getProduct(id).subscribe({
       next: (data) => {
         this.oie.set(data)
       },

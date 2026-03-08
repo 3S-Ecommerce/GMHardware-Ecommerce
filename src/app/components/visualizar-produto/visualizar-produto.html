@@ -1,14 +1,17 @@
 <app-header></app-header>
 <main class="produto">
-    <app-imagem-produto></app-imagem-produto>
+    @if (produto()){
+    <app-imagem-produto [url]="produto().image_url"></app-imagem-produto>
     <div class="conteudo">
-        <h1>Teclado RGB</h1>
+        <h1 (click)="teste()">{{ produto().name }}</h1>
         <ul>
-            <li>Teclado com teclas mecânicas;</li>
-            <li>Ideal para games;</li>
-            <li>Tempo de resposta 1ms;</li>
+                <li style="white-space: pre-line;">{{ especificacoes() }}</li>
         </ul>
-        <app-adicionar-produto></app-adicionar-produto>
+        <app-adicionar-produto [produtoID]="produto().id" [price]="produto().price"></app-adicionar-produto>
     </div>
+}
+@else{
+    <p>Carregando Produto</p>
+}
 </main>
 <app-footer></app-footer>

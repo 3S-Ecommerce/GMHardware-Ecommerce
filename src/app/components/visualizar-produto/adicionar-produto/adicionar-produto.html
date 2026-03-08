@@ -1,7 +1,7 @@
-<h3>R$ 150,00</h3>
-<p>À vista no PIX com 15% de desconto<br><br>R$ 150,00 em até 10x de R$ 15,00 sem juros ou 1x com 10% de desconto  no cartão</p>
+<h3>R$ {{ priceOriginal() }},00</h3>
+<p>{{ pricePix() }},00<br>À vista no PIX com 15% de desconto: <br><br>R$ {{ priceOriginal() }},00 em até 10x de R$ {{ priceParcela() }},00 sem juros ou 1x com 10% de desconto  no cartão</p>
 <p><b>EM ESTOQUE</b></p>
 <div class="buttons">
-    <button><i class="fa-solid fa-cart-arrow-down"></i>Carrinho</button>
+    <button (click)="teste()"><i class="fa-solid fa-cart-arrow-down"></i>Carrinho</button>
     <button routerLink="/finalizar-compra" class="primary"><i></i>Comprar</button>
 </div>

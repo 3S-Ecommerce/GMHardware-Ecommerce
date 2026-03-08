@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-imagem-produto',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './imagem-produto.scss',
 })
 export class ImagemProduto {
-
+  @Input('url') image: string = ''
 }
