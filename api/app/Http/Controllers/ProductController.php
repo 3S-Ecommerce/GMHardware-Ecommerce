@@ -31,13 +31,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'id_category' => 'required|exists:categories,id',
+            'stock' => 'required|integer'
+        ]);
+
         $data = $request->all();
+        
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('product', 'public');
             $data['image'] = $path;
         }
         $product = Product::create($data);
-        return response()->json($product, 200);
+        return response()->json($product, 201);
     }
 
     /**

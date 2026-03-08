@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Product } from '../../core/services/product';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -12,6 +11,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 export class CadastroProduto {
   private api = inject(Product);
   private formbuilder = inject(FormBuilder);
+  enviando = signal(false)
 
   productForm = this.formbuilder.group({
     name: ['', Validators.required],
@@ -32,6 +32,7 @@ export class CadastroProduto {
   }
 
   onSubmit(){
+    this.enviando.set(true)
     const formData = new FormData
     Object.entries(this.productForm.value).forEach(([key, value]) =>{
       if (value !== null){
@@ -40,8 +41,15 @@ export class CadastroProduto {
     });
 
     this.api.createProduct(formData).subscribe({
-      next: (res) => alert("Produto cadastrado com sucesso!"),
-      error: (err) => console.error("Error: ", err  )
+      next: (res) => {
+        this.enviando.set(false);
+        this.productForm.reset();
+        alert("Produto cadastrado com sucesso!")
+      },
+      error: (err) => {
+        this.enviando.set(false)
+        console.error("Error: ", err  )
+      }
     })
   }
 }
