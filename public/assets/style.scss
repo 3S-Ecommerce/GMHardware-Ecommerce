@@ -18,3 +18,12 @@ $gradient: "linear-gradient(to right, #1F2743, #2A2A4A, #5A3327)";
     font-size: $size;
     font-weight: $weight;
 }
+@mixin sectionPattern(){
+    @include displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    background-color: $secundary-bg;
+    padding: 62px 148px;
+    h2{
+        @include fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+}

@@ -17,6 +17,7 @@ import { RealizarPagamento } from './components/finalizar-pedido/realizar-pagame
 import { Pix } from './components/finalizar-pedido/realizar-pagamento/pix/pix';
 import { Cartao } from './components/finalizar-pedido/realizar-pagamento/cartao/cartao';
 import { CadastroProduto } from './components/cadastro-produto/cadastro-produto';
+import { TestRead } from './components/test-read/test-read';
 
 export const routes: Routes = [
     {
@@ -141,6 +142,11 @@ export const routes: Routes = [
     {
         path: 'cadastro',
         component: CadastroProduto,
+        pathMatch: 'full'
+    },
+    {
+        path: 'testeread',
+        component: TestRead,
         pathMatch: 'full'
     }
 ];

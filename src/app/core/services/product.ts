@@ -8,8 +8,8 @@ export class Product {
   private http = inject(HttpClient);
   private readonly apiUrl = 'http://127.0.0.1:8000/api/product';
 
-  getProduct(item: string) {
-    const url = item !== "" ? `${this.apiUrl}/${item}` : `${this.apiUrl}`
+  getProduct(id: string) {
+    const url = id !== "" ? `${this.apiUrl}/${id}` : `${this.apiUrl}`
 
     return this.http.get<any>(url)
     // if (item == "")

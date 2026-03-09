@@ -11,7 +11,7 @@ import { Footer } from '../footer/footer';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Header, Footer, /*Apresentacao, MaisVendidos,*/ RouterOutlet],
+  imports: [ Header, Footer, /*Apresentacao, MaisVendidos,*/ RouterOutlet ],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

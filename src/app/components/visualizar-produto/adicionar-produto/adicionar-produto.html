@@ -3,5 +3,5 @@
 <p><b>EM ESTOQUE</b></p>
 <div class="buttons">
     <button (click)="teste()"><i class="fa-solid fa-cart-arrow-down"></i>Carrinho</button>
-    <button routerLink="/finalizar-compra" class="primary"><i></i>Comprar</button>
+<button [routerLink]="['/finalizar-compra', { id: produtoID }]" class="primary"><i></i>Comprar</button>
 </div>

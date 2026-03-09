@@ -1,0 +1,27 @@
+<app-header></app-header>
+<section>
+    <h2>Teste Reads</h2>
+    <form [formGroup]="formId" (ngSubmit)="onSubmit()">
+        <select formControlName="opcao" id="">
+            <option value="product">Product</option>
+            <option value="category">Category</option>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+        </select>
+        <input formControlName="id" type="number" step="1">
+        <button type="submit" [disabled]="formId.invalid">Buscar</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                
+            </tr>
+        </tbody>
+    </table>
+</section>
+<app-footer></app-footer>
