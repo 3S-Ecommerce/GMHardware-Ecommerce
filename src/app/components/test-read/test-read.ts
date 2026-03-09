@@ -1,9 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 import { Product } from '../../core/services/product';
 import { Category } from '../../core/services/category';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { User } from '../../core/services/user';
+import { Order } from '../../core/services/order';
+import { Orderitem } from '../../core/services/orderitem';
 
 @Component({
   selector: 'app-test-read',
@@ -14,7 +17,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 })
 export class TestRead {
   apiProduct = inject(Product);
-  apiCategory = inject(Category);
+  apiCategory = inject(Category); 
+  apiUser = inject(User);
+  apiOrder = inject(Order);
+  apiOrderItem = inject(Orderitem);
+
+  dados = signal<any>(null);
+  uniq = signal<boolean>(false)
   private formBuilder = inject(FormBuilder);
 
   formId = this.formBuilder.group({
@@ -35,7 +44,15 @@ export class TestRead {
       case ('category'):
         this.apiCategory.getCategory(`${id}`).subscribe({
           next: (data) => {
-            console.log(data)
+            console.log(data);
+            this.dados.set(data);
+            if(id){
+              this.uniq.set(true)
+              console.log('teste')
+            }
+            else{
+              this.uniq.set(false)
+            }
           },
           error: (err) => {
             console.error("error: ", err)
@@ -43,18 +60,81 @@ export class TestRead {
         })
         break
       case ('product'):
-
         this.apiProduct.getProduct(`${id}`).subscribe({
           next: (data) => {
-            console.log(data)
+            console.log(data);
+            this.dados.set(data);
+            if(id){
+              this.uniq.set(true)
+              console.log('teste')
+            }
+            else{
+              this.uniq.set(false)
+            }
           },
           error: (err) => {
             console.error("error: ", err)
           }
         })
+        break
+        case ('user'):
+        this.apiUser.getUser(`${id}`).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.dados.set(data);
+            if(id){
+              this.uniq.set(true)
+              console.log('teste')
+            }
+            else{
+              this.uniq.set(false)
+            }
+          },
+          error: (err) => {
+            console.error("error: ", err)
+          }
+        })
+        break
+        case ('order'):
+        this.apiOrder.getOrder(`${id}`).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.dados.set(data);
+            if(id){
+              this.uniq.set(true)
+              console.log('teste')
+            }
+            else{
+              this.uniq.set(false)
+            }
+          },
+          error: (err) => {
+            console.error("error: ", err)
+          }
+        })
+        break
+        case ('orderitem'):
+        this.apiOrderItem.getOrderItem(`${id}`).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.dados.set(data);
+            if(id){
+              this.uniq.set(true)
+              console.log('teste')
+            }
+            else{
+              this.uniq.set(false)
+            }
+          },
+          error: (err) => {
+            console.error("error: ", err)
+          }
+        })
+        break
     }
 
   }
+
 
 
 }

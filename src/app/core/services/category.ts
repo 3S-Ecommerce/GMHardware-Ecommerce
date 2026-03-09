@@ -9,15 +9,15 @@ export class Category {
   private readonly apiUrl = "http://127.0.0.1:8000/api/category";
 
   getCategory(id:string){
-    const url = id !== '' ? `${this.apiUrl}/${id}` : `${this.apiUrl}`;
+    const url = id !== '' && id !== 'null' ? `${this.apiUrl}/${id}` : `${this.apiUrl}`;
     return this.http.get<any>(url)
   }
 
-  createCategory(){
-
+  createCategory(formdata: FormData){
+    return this.http.post(this.apiUrl, formdata)
   }
 
-  updateCategory(){
-
+  updateCategory(formdata: FormData, id:string){
+    return this.http.put(`${this.apiUrl}/${id}`, formdata)
   }
 }

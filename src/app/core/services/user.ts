@@ -4,11 +4,11 @@ import { inject, Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class Product {
+export class User {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://127.0.0.1:8000/api/product';
+  private readonly apiUrl = 'http://127.0.0.1:8000/api/user';
 
-  getProduct(id: string) {
+  getUser(id: string) {
     const url = id !== "" && id !== 'null' ? `${this.apiUrl}/${id}` : `${this.apiUrl}`
 
     return this.http.get<any>(url)
@@ -19,11 +19,11 @@ export class Product {
     // }
   }
 
-  createProduct(formdata: FormData) {
+  createUser(formdata: FormData) {
     return this.http.post(this.apiUrl, formdata);
   }
 
-  updateProduct(formdata: FormData, id: string){
+  updateUser(formdata: FormData, id: string){
     return this.http.put(`${this.apiUrl}/${id}`, formdata)
   }
   

@@ -14,7 +14,7 @@ class OrderItemsController extends Controller
     {
         $orderItems = Order_Items::all();
         if ($orderItems->isEmpty()) 
-            return response()->json(['message' => 'Nenhuma Order Item encontrada'], 204);
+            return response()->json(['message' => 'Nenhuma Order Item encontrada'], 200);
         return response()->json($orderItems, 200);
     }
 
@@ -43,7 +43,7 @@ class OrderItemsController extends Controller
     {
         $data = Order_Items::find($id);
         if (empty($data))
-            return response()->json(['message' => 'Order Item encontrada'], 404);
+            return response()->json(['message' => 'Order Item não encontrada'], 404);
         return response()->json($data, 200);
     }
 
