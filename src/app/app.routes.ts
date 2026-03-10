@@ -1,23 +1,27 @@
 import { Routes } from '@angular/router';
-import { Home } from './components/home/home';
-import { Apresentacao } from './components/home/apresentacao/apresentacao';
-import { Categorias } from './components/categorias/categorias';
-import { Login } from './components/baselogin/login/login';
-import { Baselogin } from './components/baselogin/baselogin';
-import { Cadastro } from './components/baselogin/cadastro/cadastro';
-import { Recuperacao } from './components/baselogin/recuperacao/recuperacao';
-import { VisualizarProduto } from './components/visualizar-produto/visualizar-produto';
-import { FinalizarPedido } from './components/finalizar-pedido/finalizar-pedido';
-import { Entrega } from './components/finalizar-pedido/entrega/entrega';
-import { Pagamento } from './components/finalizar-pedido/pagamento/pagamento';
-import { Endereco } from './components/finalizar-pedido/entrega/endereco/endereco';
-import { Escolher } from './components/finalizar-pedido/entrega/escolher/escolher';
-import { Revisar } from './components/finalizar-pedido/revisar/revisar';
-import { RealizarPagamento } from './components/finalizar-pedido/realizar-pagamento/realizar-pagamento';
-import { Pix } from './components/finalizar-pedido/realizar-pagamento/pix/pix';
-import { Cartao } from './components/finalizar-pedido/realizar-pagamento/cartao/cartao';
-import { CadastroProduto } from './components/cadastro-produto/cadastro-produto';
-import { TestRead } from './components/test-read/test-read';
+import { Home } from './components/customer/home/home';
+import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
+import { Categorias } from './components/customer/categorias/categorias';
+import { Login } from './components/customer/baselogin/login/login';
+import { Baselogin } from './components/customer/baselogin/baselogin';
+import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
+import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
+import { VisualizarProduto } from './components/customer/visualizar-produto/visualizar-produto';
+import { FinalizarPedido } from './components/customer/finalizar-pedido/finalizar-pedido';
+import { Entrega } from './components/customer/finalizar-pedido/entrega/entrega';
+import { Pagamento } from './components/customer/finalizar-pedido/pagamento/pagamento';
+import { Endereco } from './components/customer/finalizar-pedido/entrega/endereco/endereco';
+import { Escolher } from './components/customer/finalizar-pedido/entrega/escolher/escolher';
+import { Revisar } from './components/customer/finalizar-pedido/revisar/revisar';
+import { RealizarPagamento } from './components/customer/finalizar-pedido/realizar-pagamento/realizar-pagamento';
+import { Pix } from './components/customer/finalizar-pedido/realizar-pagamento/pix/pix';
+import { Cartao } from './components/customer/finalizar-pedido/realizar-pagamento/cartao/cartao';
+import { CadastroProduto } from './components/customer/cadastro-produto/cadastro-produto';
+import { TestRead } from './components/customer/test-read/test-read';
+import { Admin } from './components/admin/admin';
+import { Produtos } from './components/admin/produtos/produtos';
+import { Administradores } from './components/admin/administradores/administradores';
+import { Dashboard } from './components/admin/dashboard/dashboard';
 
 export const routes: Routes = [
     {
@@ -147,6 +151,26 @@ export const routes: Routes = [
     {
         path: 'testeread',
         component: TestRead,
-        pathMatch: 'full'
+    },
+    {
+        path: 'admin',
+        component: Admin,
+        children: [{
+            path: '',
+            component: Produtos,
+        },
+        {
+            path: 'produtos',
+            component: Produtos
+        },
+        {
+            path: 'administradores',
+            component: Administradores
+        },
+        {
+            path: 'dashboard',
+            component: Dashboard
+        }
+    ]
     }
 ];

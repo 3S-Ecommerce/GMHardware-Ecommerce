@@ -1,0 +1,52 @@
+@use "../../../../../../public/assets/style.scss";
+
+.pagamento {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 24px);
+    max-width: 70%;
+    min-width: 700px;
+    padding: 24px;
+    background-color: style.$primary-bg;
+    border-radius: 10px;
+
+    h2 {
+        @include style.fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+
+    hr {
+        width: 100%;
+    }
+
+    .pagamento-forma {
+        @include style.displayFlex($justify: space-between);
+
+        div {
+            @include style.displayFlex($direction: column, $aligh: start, $gap: 16px);
+
+            p {
+                color: style.$white-color;
+                @include style.fontSize($size: 16px, $weight: 400);
+            }
+        }
+
+        button {
+            @include style.displayFlex($width: auto);
+            color: style.$success-color;
+            border: none;
+            background: none;
+            height: 100%;
+            @include style.fontSize($size: 16px, $weight: 600);
+            cursor: pointer;
+        }
+    }
+}
+
+.avancar {
+    background-color: style.$primary-bg;
+    margin-top: 48px;
+    padding: 10px;
+    border: 1px solid style.$white-color;
+    border-radius: 5px;
+    color: style.$success-color;
+    @include style.fontSize($size: 16px, $weight: 600);
+}

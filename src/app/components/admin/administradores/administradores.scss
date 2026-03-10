@@ -1,0 +1,11 @@
+@use "../../../../../public/assets/style.scss";
+section{
+    @include style.sectionPattern();
+    div{
+        @include style.displayFlex($justify: space-between);
+        button{
+            @include style.fontSize($size: 32px, $weight: 600);
+            color: white;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+@use "../../../../../public/assets/style.scss";
+
+.footer {
+    padding: 56px 40px;
+    background-color: style.$primary-bg;
+}
+
+.direitos{
+    width: 100%;
+    padding-top: 16px;
+    border-top: 1px solid gray;
+    color: style.$white-color;
+}

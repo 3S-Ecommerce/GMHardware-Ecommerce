@@ -1,0 +1,8 @@
+@use "../../../../../public/assets/style.scss";
+.mais-vendidos{
+    @include style.sectionPattern();
+    h2{
+        @include style.fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+}

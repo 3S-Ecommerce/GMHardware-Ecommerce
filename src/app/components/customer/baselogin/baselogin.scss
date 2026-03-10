@@ -1,0 +1,30 @@
+@use '../../../../../public/assets/style.scss';
+
+main {
+    @include style.displayFlex();
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+
+    .main-div {
+        @include style.displayFlex($direction: column, $justify: center, $gap: 8px, $aligh: center, $width: auto);
+        background-color: style.$secundary-bg;
+        padding: 40px;
+        min-width: 500px;
+        div {
+            @include style.displayFlex($direction: column, $aligh: center, $justify: center);
+            min-height: 160px;
+
+            h1 {
+                text-align: center;
+                color: style.$primary-text;
+                @include style.fontSize($size: 40px, $weight: 600);
+            }
+            p{
+                text-align: center;
+                color: style.$white-color;
+                @include style.fontSize($size: 25px, $weight: 600);
+            }
+        }
+    }
+}
