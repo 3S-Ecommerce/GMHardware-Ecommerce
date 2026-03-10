@@ -161,50 +161,52 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: Admin,
-        children: [{
-            path: '',
-            component: Produtos,
-        },
-        {
-            path: 'produtos',
-            component: Produtos,
-            children: [
-                {
-                    path: '',
-                    component: Geralp
-                },
-                {
-                    path: 'editar',
-                    component: Editarp
-                },
-                {
-                    path: 'novo',
-                    component: Novop
-                }
-            ]
-        },
-        {
-            path: 'administradores',
-            component: Administradores,
-            children: [
-                {
-                    path: '',
-                    component: Geral
-                },
-                {
-                    path: 'editar',
-                    component: Editar
-                },
-                {
-                    path: 'novo',
-                    component: Novo
-                }
-            ]
-        },
-        {
-            path: 'dashboard',
-            component: Dashboard
-        }
+        children: [
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'produtos'
+            },
+            {
+                path: 'produtos',
+                component: Produtos,
+                children: [
+                    {
+                        path: '',
+                        component: Geralp
+                    },
+                    {
+                        path: 'editar',
+                        component: Editarp
+                    },
+                    {
+                        path: 'novo',
+                        component: Novop
+                    }
+                ]
+            },
+            {
+                path: 'administradores',
+                component: Administradores,
+                children: [
+                    {
+                        path: '',
+                        component: Geral
+                    },
+                    {
+                        path: 'editar',
+                        component: Editar
+                    },
+                    {
+                        path: 'novo',
+                        component: Novo
+                    }
+                ]
+            },
+            {
+                path: 'dashboard',
+                component: Dashboard
+            }
         ]
     }
 ];

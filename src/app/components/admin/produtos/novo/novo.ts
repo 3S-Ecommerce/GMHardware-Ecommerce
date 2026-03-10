@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-novo',
+  selector: 'app-novop',
   imports: [],
   templateUrl: './novo.html',
   styleUrl: './novo.scss',

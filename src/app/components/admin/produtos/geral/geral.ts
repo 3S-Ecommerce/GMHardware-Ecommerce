@@ -4,7 +4,7 @@ import { Product } from '../../../../core/services/product';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-geral',
+  selector: 'app-geralp',
   imports: [ NgOptimizedImage, DatePipe, RouterLink],
   templateUrl: './geral.html',
   styleUrl: './geral.scss',

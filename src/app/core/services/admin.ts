@@ -24,6 +24,6 @@ export class Admin {
   }
 
   updateAdmin(formdata: FormData, id: string) {
-    return this.http.put(`${this.apiUrl}/${id}`, formdata)
+    return this.http.post(`${this.apiUrl}/${id}`, formdata)
   }
 }

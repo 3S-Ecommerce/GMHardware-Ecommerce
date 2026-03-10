@@ -1,1 +1,44 @@
-<p>editar works!</p>
+<section>
+    <h2>Cadastrar Administrador</h2>
+    <div class="form-admin">
+        @if(dados()){
+        <form [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
+            <div class="div-input w100">
+                <label for="name">Nome:</label>
+                <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
+            </div>
+            <div class="div-input w100">
+                <label for="email">Email:</label>
+                <input type="text" formControlName="email" id="email" class="w70" placeholder="pedro@email.com" required>
+            </div>
+            <div class="div-input w50">
+                <label for="password">Senha:</label>
+                <p><input type="password" formControlName="password" id="password" class="w30" placeholder="password"></p>
+            </div>
+            <div class="div-input w50">
+                <label for="passwordsd">Confirme a senha:</label>
+                <p><input type="password" formControlName="passwordsd" id="passwordsd" placeholder="password"></p>
+            </div>
+            <div class="div-input w100">
+                <label for="phone_number">Telefone:</label>
+                <input type="number" formControlName="phone_number" id="phone_number" class="w100" placeholder="11912341234">
+            </div>
+            <div class="div-input w70">
+                <label for="document">Documento:</label>
+                <input type="text" formControlName="document" id="document" placeholder="31029081787">
+            </div>
+            <div class="div-input w30">
+                <label for="active">ativo:</label>
+                <select formControlName="active" id="active">
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
+                </select>
+            </div>
+            <div class="button">
+                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
+                <button [disabled]="formAdmin.invalid" type="submit">Salvar</button>
+            </div>
+        </form>
+    }
+    </div>
+</section>

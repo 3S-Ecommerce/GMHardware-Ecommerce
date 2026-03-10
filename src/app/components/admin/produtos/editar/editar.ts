@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-editar',
+  selector: 'app-editarp',
   imports: [],
   templateUrl: './editar.html',
   styleUrl: './editar.scss',
