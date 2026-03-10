@@ -22,6 +22,12 @@ import { Admin } from './components/admin/admin';
 import { Produtos } from './components/admin/produtos/produtos';
 import { Administradores } from './components/admin/administradores/administradores';
 import { Dashboard } from './components/admin/dashboard/dashboard';
+import { Editar } from './components/admin/administradores/editar/editar';
+import { Novo } from './components/admin/administradores/novo/novo';
+import { Geral } from './components/admin/administradores/geral/geral';
+import { Geralp } from './components/admin/produtos/geral/geral';
+import { Editarp } from './components/admin/produtos/editar/editar';
+import { Novop } from './components/admin/produtos/novo/novo';
 
 export const routes: Routes = [
     {
@@ -161,16 +167,44 @@ export const routes: Routes = [
         },
         {
             path: 'produtos',
-            component: Produtos
+            component: Produtos,
+            children: [
+                {
+                    path: '',
+                    component: Geralp
+                },
+                {
+                    path: 'editar',
+                    component: Editarp
+                },
+                {
+                    path: 'novo',
+                    component: Novop
+                }
+            ]
         },
         {
             path: 'administradores',
-            component: Administradores
+            component: Administradores,
+            children: [
+                {
+                    path: '',
+                    component: Geral
+                },
+                {
+                    path: 'editar',
+                    component: Editar
+                },
+                {
+                    path: 'novo',
+                    component: Novo
+                }
+            ]
         },
         {
             path: 'dashboard',
             component: Dashboard
         }
-    ]
+        ]
     }
 ];

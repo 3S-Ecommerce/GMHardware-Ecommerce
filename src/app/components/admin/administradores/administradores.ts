@@ -1,25 +1,13 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Admin } from '../../../core/services/admin';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-administradores',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './administradores.html',
   styleUrl: './administradores.scss',
 })
-export class Administradores implements OnInit{
+export class Administradores{
 
-  private apiAdmin = inject(Admin);
-  admins = signal<any>(null);
-
-  ngOnInit(): void {
-    this.apiAdmin.getAdmin('').subscribe({
-      next: (data) => {
-        this.admins.set(data);
-      },
-      error: (err) => {
-        console.error("Error: ", err);
-      }
-    })
-  }
 }
