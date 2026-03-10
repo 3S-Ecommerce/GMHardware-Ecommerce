@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 import { Home } from './components/customer/home/home';
 import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
 import { Categorias } from './components/customer/categorias/categorias';
-import { Login } from './components/customer/baselogin/login/login';
-import { Baselogin } from './components/customer/baselogin/baselogin';
-import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
-import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
+// import { Login } from './components/customer/baselogin/login/login';
+// import { Baselogin } from './components/customer/baselogin/baselogin';
+// import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
+// import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
 import { VisualizarProduto } from './components/customer/visualizar-produto/visualizar-produto';
 import { FinalizarPedido } from './components/customer/finalizar-pedido/finalizar-pedido';
 import { Entrega } from './components/customer/finalizar-pedido/entrega/entrega';
@@ -78,23 +78,23 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path: 'login',
-        component: Baselogin, children: [
-            {
-                path: '',
-                component: Login
-            },
-            {
-                path: 'cadastro',
-                component: Cadastro
-            },
-            {
-                path: 'recuperacao',
-                component: Recuperacao
-            }
-        ]
-    },
+    // {
+    //     path: 'login',
+    //     component: Baselogin, children: [
+    //         {
+    //             path: '',
+    //             component: Login
+    //         },
+    //         {
+    //             path: 'cadastro',
+    //             component: Cadastro
+    //         },
+    //         {
+    //             path: 'recuperacao',
+    //             component: Recuperacao
+    //         }
+    //     ]
+    // },
     {
         path: 'produto',
         component: VisualizarProduto

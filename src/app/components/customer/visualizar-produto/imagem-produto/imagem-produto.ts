@@ -9,4 +9,9 @@ import { Component, input, Input } from '@angular/core';
 })
 export class ImagemProduto {
   @Input('url') image: string = ''
+  trocarImg(){
+    const image = document.getElementById('principal');
+    console.log("clicou")
+    image?.setAttribute('src', 'assets/main.jpg')
+  }
 }
