@@ -39,6 +39,7 @@ export class Editar implements OnInit {
             // document: this.dados().document, É um dado privado na API
             active: this.dados().active
           })
+          console.log(this.dados())
         }
       },
       error: (err) => {
