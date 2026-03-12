@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../../../core/services/category';
 import { Product } from '../../../../core/services/product';
 
@@ -14,23 +14,33 @@ export class Novop implements OnInit{
   private readonly apiCategory = inject(Category);
   private readonly apiProduct = inject(Product);
   categorias = signal<any>(null);
-  dados = signal<any>(null);
+  formProduct = this.formBuilder.group({
+    name: ['', Validators.required],
+    category: ['', Validators.required],
+    price: ['', Validators.required],
+    stock: ['', Validators.required],
+    description: ['', Validators.required],
+    image: [File]
+  })
 
   ngOnInit(): void {
     this.apiCategory.getCategory('').subscribe({
       next: (data) => {
-        this.dados.set(data);
+        this.categorias.set(data);
         console.log(this.categorias());
       },
       error: (err) => {
-
+        console.error("Error: ", err)
       }
     });
   }
 
-  formProduct = this.formBuilder.group({
-
-  })
+  onFileChange(event: any){
+    const file = event.target.files[0];
+    if (file){
+      this.formProduct.patchValue({ image: file })
+    }
+  }
   onSubmit(){
 
   }
