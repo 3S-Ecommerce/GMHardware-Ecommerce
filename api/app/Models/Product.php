@@ -16,6 +16,8 @@ class Product extends Model
     
     protected $fillable = ['id_category', 'id_admin', 'name', 'price', 'description', 'details', 'stock', 'last_price', 'image'];
 
+    //protected $casts = ['details' => 'array'];
+
     public function getImageUrlAttribute()
     {
         return $this->image ? asset('storage/' . $this->image) : asset('storage/products/default.png');
