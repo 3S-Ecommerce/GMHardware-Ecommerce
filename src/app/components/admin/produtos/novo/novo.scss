@@ -1,4 +1,5 @@
 @use "../../../../../../public/assets/style.scss";
+
 .w100 {
     width: 100%;
 }
@@ -7,14 +8,23 @@
     width: 68%;
 }
 
+.w60 {
+    width: 58%;
+}
+
 .w50 {
     width: 48%;
+}
+
+.w40 {
+    width: 38%;
 }
 
 .w30 {
     width: 28%;
 }
-section{
+
+section {
     @include style.sectionPattern();
     min-height: 80vh;
     justify-content: flex-start;
@@ -48,12 +58,16 @@ section{
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
-                    &[type='file']{
+
+                    &[type='file'] {
+                        border: 1px solid style.$white-color;
+                        border-right: 2px solid gray;
+                        border-bottom: 2px solid gray;
                         background: none;
                     }
                 }
 
-                textarea{
+                textarea {
                     padding: 12px 24px;
                     background: none;
                     color: white;
@@ -61,24 +75,46 @@ section{
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
                 }
-                select{
+
+                select {
                     padding: 12px 24px;
                     background: none;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
-                    option{
+
+                    option {
                         color: black;
                     }
                 }
-                #file{
+
+                #file {
                     padding: 12px 24px;
                     background: none;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
+                }
+
+                &.button {
+                    align-items: center;
+                }
+
+                .p {
+                    border: none;
+                    border-radius: 10px;
+                    padding: 4px 10px;
+                    min-width: 120px;
+                    justify-self: center;
+                    align-self: center;
+                    height: 40px;
+                    margin-left: 8px;
+                    cursor: pointer;
+                    background-color: style.$primary-text;
+                    color: white;
+                    @include style.fontSize($size: 22px, $weight: 600);
                 }
             }
 
@@ -100,15 +136,17 @@ section{
                     background-color: style.$primary-text;
                     color: white;
                     @include style.fontSize($size: 22px, $weight: 600);
-                &[disabled]{
-                    opacity: .5;
+
+                    &[disabled] {
+                        opacity: .5;
+                    }
                 }
-                }
-                .voltar{
+
+                .voltar {
                     @include style.fontSize($size: 22px, $weight: 600);
                     color: white;
                 }
             }
         }
     }
-}   
+}

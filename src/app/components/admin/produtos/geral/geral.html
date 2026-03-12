@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ product.id }}</td>
                 <td>
-                @if(product.image_url){
+                @if(product.image_url != 'http://127.0.0.1:8000/storage/products/default.png'){
                     <img ngSrc="{{ product.image_url }}" alt="imagem do produto" width="40" height="40">
                 }@else {
                     Image

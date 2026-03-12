@@ -5,13 +5,15 @@
     <div class="conteudo">
         <h1 (click)="teste()">{{ produto().name }}</h1>
         <ul>
-                <li style="white-space: pre-line;">{{ especificacoes() }}</li>
+            @for (especificacao of especificacoes(); track $index){
+            <li style="white-space: pre-line;">{{ especificacao }}</li>
+            }
         </ul>
         <app-adicionar-produto [produtoID]="produto().id" [price]="produto().price"></app-adicionar-produto>
     </div>
-}
-@else{
+    }
+    @else{
     <p>Carregando Produto</p>
-}
+    }
 </main>
 <app-footer></app-footer>
