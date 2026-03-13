@@ -4,8 +4,7 @@
         <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
             <div class="div-input w60">
                 <label for="name">Nome do produto:</label>
-                <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" value="Exemplo Produto"
-                    required>
+                <input type="text" formControlName="name" id="name" placeholder="Exemplo produto" required>
             </div>
             <div class="div-input w40">
                 <label for="category">Categoria:</label>
@@ -35,10 +34,15 @@
                     rows="3"></textarea>
             </div>
             <div id="div-details" class="div-input w100" formArrayName="details">
-                <label for="details">Detalhe:</label>
+                <label for="details">Detalhe:</label>   
                 @for (detalhe of detalhesFormArray.controls; track $index){
-                <input class="details" type="text" [formControlName]="$index" placeholder="especificacoes">
+                <input class="details" type="text" [formControlName]="$index
+                " placeholder="especificacoes">
                 }
+               <!-- @for (detalhe of dados().details.split(','); track $index){
+                    <input class="details" type="text" [formControlName]="$index
+                " placeholder="especificacoes">
+            } -->
             </div>
             <div class="div-input w100 button">
                 <p class="p" (click)="novoDetalhe()">Novo detalhe</p> 
