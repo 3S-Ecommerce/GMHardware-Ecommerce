@@ -1,13 +1,33 @@
 import { Routes } from '@angular/router';
-import { Home } from './components/home/home';
-import { Apresentacao } from './components/apresentacao/apresentacao';
-import { Categorias } from './components/categorias/categorias';
-import { Login } from './components/login/login';
-import { Baselogin } from './components/baselogin/baselogin';
-import { Cadastro } from './components/cadastro/cadastro';
-import { Recuperacao } from './components/recuperacao/recuperacao';
-import { CardCarrinho } from './components/card-carrinho/card-carrinho';
-import { HomeCarrinho } from './components/home-carrinho/home-carrinho';
+import { Home } from './components/customer/home/home';
+import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
+import { Categorias } from './components/customer/categorias/categorias';
+// import { Login } from './components/customer/baselogin/login/login';
+// import { Baselogin } from './components/customer/baselogin/baselogin';
+// import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
+// import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
+import { VisualizarProduto } from './components/customer/visualizar-produto/visualizar-produto';
+import { FinalizarPedido } from './components/customer/finalizar-pedido/finalizar-pedido';
+import { Entrega } from './components/customer/finalizar-pedido/entrega/entrega';
+import { Pagamento } from './components/customer/finalizar-pedido/pagamento/pagamento';
+import { Endereco } from './components/customer/finalizar-pedido/entrega/endereco/endereco';
+import { Escolher } from './components/customer/finalizar-pedido/entrega/escolher/escolher';
+import { Revisar } from './components/customer/finalizar-pedido/revisar/revisar';
+import { RealizarPagamento } from './components/customer/finalizar-pedido/realizar-pagamento/realizar-pagamento';
+import { Pix } from './components/customer/finalizar-pedido/realizar-pagamento/pix/pix';
+import { Cartao } from './components/customer/finalizar-pedido/realizar-pagamento/cartao/cartao';
+import { CadastroProduto } from './components/customer/cadastro-produto/cadastro-produto';
+import { TestRead } from './components/customer/test-read/test-read';
+import { Admin } from './components/admin/admin';
+import { Produtos } from './components/admin/produtos/produtos';
+import { Administradores } from './components/admin/administradores/administradores';
+import { Dashboard } from './components/admin/dashboard/dashboard';
+import { Editar } from './components/admin/administradores/editar/editar';
+import { Novo } from './components/admin/administradores/novo/novo';
+import { Geral } from './components/admin/administradores/geral/geral';
+import { Geralp } from './components/admin/produtos/geral/geral';
+import { Editarp } from './components/admin/produtos/editar/editar';
+import { Novop } from './components/admin/produtos/novo/novo';
 
 export const routes: Routes = [
     {
@@ -25,73 +45,169 @@ export const routes: Routes = [
             {
                 path: 'placas-de-video',
                 component: Categorias,
-                data: { categoria: 'Placas de Vídeo' }
+                data: { categoria: 'Placa de Vídeo' }
             },
             {
                 path: 'processadores',
                 component: Categorias,
-                data: { categoria: 'Processadores' }
+                data: { categoria: 'Processador' }
             },
             {
                 path: 'memorias-ram',
                 component: Categorias,
-                data: { categoria: 'Memórias RAM' }
+                data: { categoria: 'Memória RAM' }
             },
             {
                 path: 'ssds',
                 component: Categorias,
-                data: { categoria: 'SSDs' }
+                data: { categoria: 'Armazenamento' }
             },
             {
                 path: 'gabinetes',
                 component: Categorias,
-                data: { categoria: 'Gabinetes' }
+                data: { categoria: 'Gabinete' }
             },
             {
                 path: 'coolers',
                 component: Categorias,
-                data: { categoria: 'Coolers' }
+                data: { categoria: 'Cooler' }
             },
             {
                 path: 'fontes',
                 component: Categorias,
-                data: { categoria: 'Fontes' }
+                data: { categoria: 'Fonte' }
             },
             {
                 path: 'perifericos',
                 component: Categorias,
-                data: { categoria: 'Periféricos' }
+                data: { categoria: 'Periférico' }
             }
         ]
     },
+    // {
+    //     path: 'login',
+    //     component: Baselogin, children: [
+    //         {
+    //             path: '',
+    //             component: Login
+    //         },
+    //         {
+    //             path: 'cadastro',
+    //             component: Cadastro
+    //         },
+    //         {
+    //             path: 'recuperacao',
+    //             component: Recuperacao
+    //         }
+    //     ]
+    // },
     {
-        path: 'login',
-        component: Baselogin, children: [
+        path: 'produto',
+        component: VisualizarProduto
+    },
+    {
+        path: 'finalizar-compra',
+        component: FinalizarPedido,
+        children: [{
+            path: '',
+            component: Entrega,
+            children: [{
+                path: '',
+                component: Escolher,
+            },
+            {
+                path: 'endereco',
+                component: Endereco
+            }]
+        },
+        {
+            path: 'forma-de-pagamento',
+            component: Pagamento
+        },
+        {
+            path: 'revisar',
+            component: Revisar
+        },
+        {
+            path: 'pagamento',
+            component: RealizarPagamento,
+            children: [
+                {
+                    path: '',
+                    component: Revisar,
+                    pathMatch: 'full'
+                },
+                {
+                    path: 'pix',
+                    component: Pix
+                },
+                {
+                    path: 'cartao',
+                    component: Cartao
+                }
+            ]
+        }
+        ]
+    },
+    {
+        path: 'cadastro',
+        component: CadastroProduto,
+        pathMatch: 'full'
+    },
+    {
+        path: 'testeread',
+        component: TestRead,
+    },
+    {
+        path: 'admin',
+        component: Admin,
+        children: [
             {
                 path: '',
-                component: Login    
+                pathMatch: 'full',
+                redirectTo: 'produtos'
             },
             {
-                path: 'cadastro',
-                component: Cadastro
+                path: 'produtos',
+                component: Produtos,
+                children: [
+                    {
+                        path: '',
+                        component: Geralp
+                    },
+                    {
+                        path: 'editar',
+                        component: Editarp
+                    },
+                    {
+                        path: 'novo',
+                        component: Novop
+                    }
+                ]
             },
             {
-                path: 'recuperacao',
-                component: Recuperacao
+                path: 'administradores',
+                component: Administradores,
+                children: [
+                    {
+                        path: '',
+                        component: Geral
+                    },
+                    {
+                        path: 'editar',
+                        component: Editar
+                    },
+                    {
+                        path: 'novo',
+                        component: Novo
+                    }
+                ]
+            },
+            {
+                path: 'dashboard',
+                component: Dashboard
             }
         
         ]
-    },
-
-    {
-        path:'',
-        redirectTo:'home-carrinho',
-        pathMatch:'full'
-
-    },
-    {
-        path:'home-carrinho',
-        component: HomeCarrinho
-    },
-
+    }
 ];

@@ -1,0 +1,4 @@
+@use "../../../../../public/assets/style.scss";
+section{
+    @include style.sectionPattern()
+}

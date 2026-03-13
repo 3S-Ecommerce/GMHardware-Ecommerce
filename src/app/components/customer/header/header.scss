@@ -1,0 +1,62 @@
+@use "../../../../../public/assets/style.scss";
+header{
+    background-color: style.$primary-bg;
+}
+.header-search {
+    @include style.displayFlex();
+    padding: 15px;
+    h1{
+        text-align: end;
+        color: style.$primary-text;
+        @include style.fontSize($size: 40px, $weight: 600);
+        flex: 1;
+        margin-right: 32px;
+        cursor: pointer;
+    }
+    .search-bar {
+        @include style.displayFlex($width: 70%, $justify: center);
+        flex: 1;
+        
+        i{
+            position: relative;
+            color: style.$white-color;
+            right: 24px;
+        }
+
+        input {
+            height: 35px;
+            background: none;
+            border: 1px solid style.$white-color;
+            color: white;
+            border-radius: 5px;
+            width: 100%;
+            padding-right: 30px;
+            padding-left: 5px;
+        }
+
+    }
+
+    nav {
+        @include style.displayFlex($justify: flex-start);
+        flex: 1;
+
+        a {
+            margin-left: 32px;
+            i {
+                color: style.$white-color;
+            }
+        }
+
+    }
+}
+.header-nav{
+    @include style.displayFlex($gap: 32px);
+    flex-wrap: wrap;
+    a{
+        @include style.fontSize($size: 20px);
+        margin-left: 16px;
+        margin-right: 16px;
+        color: style.$white-color;
+    }
+    padding-bottom: 16px;
+}

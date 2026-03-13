@@ -1,0 +1,12 @@
+@use "../../../../../public/assets/style.scss";
+.finalizar-pedido{
+    @include style.sectionPattern();
+    .avancar{
+        background-color: style.$primary-bg;
+        padding: 10px;
+        border: 1px solid style.$white-color;
+        border-radius: 5px;
+        color: style.$success-color;
+        @include style.fontSize($size: 16px, $weight: 600);
+    }
+}

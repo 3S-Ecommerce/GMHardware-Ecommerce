@@ -4,6 +4,7 @@ $primary-text: #2563EB;
 $descont-color: #FF6B00;
 $success-color: #22C55E;
 $white-color: #FFFFFF88;
+$gradient: "linear-gradient(to right, #1F2743, #2A2A4A, #5A3327)";
 @mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%, $direction: row, $wrap: unset){
     display: flex;
     flex-direction: $direction;
@@ -16,4 +17,13 @@ $white-color: #FFFFFF88;
 @mixin fontSize($size: 24px, $weight: 400){
     font-size: $size;
     font-weight: $weight;
+}
+@mixin sectionPattern(){
+    @include displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    background-color: $secundary-bg;
+    padding: 62px 148px;
+    h2{
+        @include fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
 }

@@ -1,0 +1,42 @@
+<app-header></app-header>
+<section>
+    <h2>Teste Reads</h2>
+    <form [formGroup]="formId" (ngSubmit)="onSubmit()">
+        <select formControlName="opcao" id="">
+            <option value="product">Product</option>
+            <option value="category">Category</option>
+            <option value="user">User</option>
+            <option value="order">Order</option>
+            <option value="orderitem">Order Item</option>
+        </select>
+        <input formControlName="id" type="number" step="1" value="">
+        <button type="submit" [disabled]="formId.invalid">Buscar</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if(dados()){
+            @if(uniq()){
+            <tr>
+                <p style="color:white"></p>
+                <p style="color:white"><span>ID: {{ dados().id }} || </span>NAME:{{ dados().name }}</p>
+            </tr>
+            }@else {
+
+            @for (items of dados(); track items.id){
+            <tr>
+                <p style="color:white"></p>
+                <p style="color:white"><span>ID: {{ items.id }} || </span>NAME:{{ items.name }}</p>
+            </tr>
+            }
+            }
+            }
+
+        </tbody>
+    </table>
+</section>
+<app-footer></app-footer>
