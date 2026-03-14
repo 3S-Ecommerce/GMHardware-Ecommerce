@@ -1,4 +1,3 @@
-import { Routes } from '@angular/router';
 import { Home } from './components/customer/home/home';
 import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
 import { Categorias } from './components/customer/categorias/categorias';
@@ -28,6 +27,9 @@ import { Geral } from './components/admin/administradores/geral/geral';
 import { Geralp } from './components/admin/produtos/geral/geral';
 import { Editarp } from './components/admin/produtos/editar/editar';
 import { Novop } from './components/admin/produtos/novo/novo';
+import { Routes } from '@angular/router';
+import { Carrinho } from './components/customer/carrinho/carrinho';
+
 
 export const routes: Routes = [
     {
@@ -81,7 +83,14 @@ export const routes: Routes = [
                 path: 'perifericos',
                 component: Categorias,
                 data: { categoria: 'Periférico' }
-            }
+            },
+            {
+                path: 'carrinho',
+                component: Carrinho,
+                
+            },
+
+            
         ]
     },
     // {
