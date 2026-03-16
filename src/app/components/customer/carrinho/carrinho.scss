@@ -5,9 +5,19 @@ background-color: rgba(24, 28, 35, 1);
 }
 
 
+
+.listaCarrinho{
+
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+
+
+}
+
 .itemCarrinho{
 width: 1171px;
-height: 108px;
+height: auto;
 display: flex;
 flex-direction: row;
 background-color: rgba(24, 28, 35, 1);
