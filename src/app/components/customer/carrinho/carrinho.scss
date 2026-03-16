@@ -1,8 +1,132 @@
+:host {
+background-color: rgba(24, 28, 35, 1);
+
+
+}
+
+
+.itemCarrinho{
+width: 1171px;
+height: 108px;
+display: flex;
+flex-direction: row;
+background-color: rgba(24, 28, 35, 1);
+justify-content: space-between;
+align-items: center;
+
+
+
+}
+
+.descricaoProduto{
+    
+display: flex;
+align-items: center;
+gap: 15px;
+
+}
+
+
+img{ 
+    
+    display: flex;
+    align-self: center;
+    width: 99px ;
+    height: 100px;
+    margin: 0px 5px 0px 5px;
+
+
+
+
+}
 .seletorQuantidade{
 
     display: flex;
-    background-color: black;
+    background-color: rgb(47, 47, 47);
     color: white;
+    width: 50px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin: 5px;
+    gap: 5px;
+    border-radius: 10px;
+}
+
+
+.textosItem{
+
+    display: flex;
+    flex-direction: column;
+    color: white;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+
+
+
+}
+
+
+.grupoBotoes{
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-right: 100px;
+    
+   
+    
+}
+
+
+
+
+
+.btnExcluir{
+    background-color: rgba(255, 107, 0, 1);
+    color: white;
+    text-align: center;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+
+}
+
+
+.btnExcluir:hover{
+    background-color: rgb(131, 41, 2); 
+    cursor: pointer;
+
+
+}
+
+
+
+
+.btnComprar{
+    background-color: rgba(37, 99, 235, 1);
+    color: white;
+    text-align: center;
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    
+}
+.btnComprar:hover{
+    background-color: rgb(3, 7, 88); 
+    cursor: pointer;
+    
+    
+}
+
+
+.btnComprar, .btnExcluir {
+
+    transition: 0.3s;
 
 
 }
