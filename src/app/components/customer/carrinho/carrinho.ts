@@ -1,5 +1,11 @@
-import { Component } from '@angular/core';
 import { ItemCarrinho } from './item-carrinho/item-carrinho';
+import { Component, inject, signal, OnInit, Input, computed } from '@angular/core';
+import { NgOptimizedImage } from "@angular/common";
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router'; 
+import { Product } from '../../../core/services/product';
+import { Loading } from '../loading/loading';
+import { Category } from '../../../core/services/category';
+
 
 @Component({
   selector: 'app-carrinho',
@@ -10,6 +16,10 @@ import { ItemCarrinho } from './item-carrinho/item-carrinho';
 export class Carrinho {
 
 
+  
+
 
 
 }
+
+
