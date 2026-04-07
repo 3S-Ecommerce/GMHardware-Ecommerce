@@ -28,6 +28,7 @@ import { Geral } from './components/admin/administradores/geral/geral';
 import { Geralp } from './components/admin/produtos/geral/geral';
 import { Editarp } from './components/admin/produtos/editar/editar';
 import { Novop } from './components/admin/produtos/novo/novo';
+import { Carrinho } from './testes/carrinho/carrinho';
 
 export const routes: Routes = [
     {
@@ -208,5 +209,9 @@ export const routes: Routes = [
                 component: Dashboard
             }
         ]
+    },
+    {
+        path: 'teste/carrinho',
+        component: Carrinho
     }
 ];
