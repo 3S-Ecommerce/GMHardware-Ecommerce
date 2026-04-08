@@ -30,6 +30,7 @@ import { Novop } from './components/admin/produtos/novo/novo';
 import { Routes } from '@angular/router';
 import { Carrinho } from './components/customer/carrinho/carrinho';
 
+import { CarrinhoTeste } from './testes/carrinho/carrinho';
 
 export const routes: Routes = [
     {
@@ -218,5 +219,9 @@ export const routes: Routes = [
             }
         
         ]
+    },
+    {
+        path: 'teste/carrinho',
+        component: CarrinhoTeste
     }
 ];

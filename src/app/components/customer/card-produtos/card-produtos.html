@@ -28,7 +28,7 @@
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>
         <div class="card-buttons">
-            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+            <button class="carrinho" (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: item.quantity})"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
                 Carrinho</button>
             <button class="comprar">Comprar</button>
         </div>
@@ -43,7 +43,7 @@
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>
         <div class="card-buttons">
-            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+            <button class="carrinho" (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: item.quantity})"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
                 Carrinho</button>
             <button class="comprar">Comprar</button>
         </div>
