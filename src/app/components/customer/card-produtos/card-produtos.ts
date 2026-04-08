@@ -1,26 +1,35 @@
 import { Component, inject, signal, OnInit, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router'; 
+import { RouterLink } from '@angular/router';
 import { Product } from '../../../core/services/product';
-import { Loading } from '../loading/loading';
 import { Category } from '../../../core/services/category';
+import { Cart } from '../../../core/services/cart';
+
+export interface item {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+  quantity: number
+}
 
 @Component({
   selector: 'app-card-produtos',
-  imports: [ NgOptimizedImage, RouterLink, /*Loading*/ ],
+  imports: [NgOptimizedImage, RouterLink, /*Loading*/],
   templateUrl: './card-produtos.html',
   styleUrl: './card-produtos.scss',
 })
+
 export class CardProdutos implements OnInit {
   @Input('categoria') categoria: string = 'todos';
-  api = inject(Product)
-  apiCat = inject(Category)
+  api = inject(Product);
+  apiCat = inject(Category);
+  cart = inject(Cart);
   //isLoading = Loading.isLoading
   static isLoading = signal(true);
   isLoading = CardProdutos.isLoading;
   todosProdutos = signal<any[]>([]);
-  oie = signal<any[]>([]);
-  qlfoi = signal<any>(null);
+
   ngOnInit(): void {
     //Loading.isLoading.set(true)
     this.api.getProduct('').subscribe({
@@ -37,11 +46,19 @@ export class CardProdutos implements OnInit {
   produtos = computed(() => {
     const categoria = this.categoria;
     const lista = this.todosProdutos();
-    
-    if (categoria === 'todos' || !categoria){
-      
+
+    if (categoria === 'todos' || !categoria) {
+
       return lista;
     }
     return lista.filter(p => p.category?.name === categoria);
   })
+
+  adicionarCarrinho(item: item) {
+    item.id = Number(item.id)
+    item.price = Number(item.price)
+    item.quantity = Number(item.quantity)
+    this.cart.adicionarCarrinho(item)
+    console.log(item)
+  }
 } 

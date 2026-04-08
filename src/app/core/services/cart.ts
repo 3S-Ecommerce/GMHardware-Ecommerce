@@ -1,4 +1,4 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, Injectable, OnInit, signal } from '@angular/core';
 
 export interface cartItem {
   id: number;
@@ -12,13 +12,13 @@ export interface cartItem {
   providedIn: 'root',
 })
 
-export class Cart {
+export class Cart implements OnInit{
 
-  private cartItems = signal<cartItem[]>([
-    {id: 1, name: 'Teste', price: 15.90, image: '../..', quantity: 2},
-    {id: 2, name: 'Teste2', price: 14.90, image: '../../', quantity: 5},
-    {id: 3, name: 'Teste2', price: 14.90, image: '../../', quantity: 5}
-  ]);
+  ngOnInit(): void {
+    const itens = localStorage.getItem('carrinho')
+    console.log(itens)
+  }
+  private cartItems = signal<cartItem[]>([]);
   teste = []
   items = computed(() => this.cartItems());
 
@@ -26,10 +26,15 @@ export class Cart {
     return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
   })
 
-  adicionarCarrinho(item: any){
+  adicionarCarrinho(item: cartItem){
     this.cartItems.update((lista) => [...lista, item])
+    localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
   }
 
+  apagarCarrinho(){
+    this.cartItems.set([])
+    localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
+  }
   testar(){
     console.log(this.cartItems())
   }
