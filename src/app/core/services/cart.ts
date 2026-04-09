@@ -1,4 +1,5 @@
 import { computed, Injectable, OnInit, signal } from '@angular/core';
+import { QueueAction } from 'rxjs/internal/scheduler/QueueAction';
 
 export interface cartItem {
   id: number;
@@ -28,7 +29,13 @@ export class Cart implements OnInit {
   })
 
   adicionarCarrinho(item: cartItem) {
-    this.cartItems.update((lista) => [...lista, item])
+    const existe = this.cartItems().find(i => i.id === item.id)
+    if(existe){
+      const updateItem = this.cartItems().map(i => i.id === item.id ? {...item, quantity: item.quantity + 1} : item)
+      this.cartItems.set(updateItem);
+    }else{
+      this.cartItems.set([...this.cartItems(), {...item, quantity: 1}])
+    }
     localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
   }
 
