@@ -12,12 +12,13 @@ export interface cartItem {
   providedIn: 'root',
 })
 
-export class Cart implements OnInit{
+export class Cart implements OnInit {
 
   ngOnInit(): void {
     const itens = localStorage.getItem('carrinho')
     console.log(itens)
   }
+
   private cartItems = signal<cartItem[]>([]);
   teste = []
   items = computed(() => this.cartItems());
@@ -26,16 +27,17 @@ export class Cart implements OnInit{
     return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
   })
 
-  adicionarCarrinho(item: cartItem){
+  adicionarCarrinho(item: cartItem) {
     this.cartItems.update((lista) => [...lista, item])
     localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
   }
 
-  apagarCarrinho(){
+  apagarCarrinho() {
     this.cartItems.set([])
     localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
   }
-  testar(){
+
+  testar() {
     console.log(this.cartItems())
   }
 }
