@@ -1,5 +1,4 @@
-import { computed, Injectable, OnInit, signal } from '@angular/core';
-import { QueueAction } from 'rxjs/internal/scheduler/QueueAction';
+import { computed, Injectable, signal } from '@angular/core';
 
 export interface cartItem {
   id: number;
@@ -13,14 +12,8 @@ export interface cartItem {
   providedIn: 'root',
 })
 
-export class Cart implements OnInit {
-
-  ngOnInit(): void {
-    const itens = localStorage.getItem('carrinho')
-    console.log(itens)
-  }
-
-  private cartItems = signal<cartItem[]>([]);
+export class Cart {
+  cartItems = signal<cartItem[]>([]);
   teste = []
   items = computed(() => this.cartItems());
 
@@ -29,14 +22,52 @@ export class Cart implements OnInit {
   })
 
   adicionarCarrinho(item: cartItem) {
-    const existe = this.cartItems().find(i => i.id === item.id)
-    if(existe){
-      const updateItem = this.cartItems().map(i => i.id === item.id ? {...item, quantity: item.quantity + 1} : item)
-      this.cartItems.set(updateItem);
-    }else{
-      this.cartItems.set([...this.cartItems(), {...item, quantity: 1}])
+    try {
+      const localSalvo = localStorage.getItem('carrinho')
+      this.cartItems.set(JSON.parse(`${localSalvo}`) || [])
+      const existe = (this.cartItems().find(i => i.id === item.id) || false)
+      const listaAtual = this.cartItems()
+      if (existe) {
+        const updateItem = listaAtual.map(i => i.id === item.id ? { ...item, quantity: (i.quantity || 0) + 1 } : i)
+        this.cartItems.set(updateItem);
+      } else {
+        this.cartItems.set([...this.cartItems(), { ...item, quantity: 1 }])
+      }
+      localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
+      return true
+    } catch (e) {
+      console.error("Erro ao adicionar ao carrinho! ERRO: ", e)
+      return false;
     }
-    localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
+  }
+
+  removerCarrinho(itemId: Number) {
+    try {
+      itemId = Number(itemId)
+      const localSalvo = localStorage.getItem('carrinho');
+      this.cartItems.set(JSON.parse(`${localSalvo}`) || []);
+      const existe = (this.cartItems().find(i => i.id === itemId) || false)
+      const listaAtual = this.cartItems()
+      if (existe) {
+        const updateItem = listaAtual.map(i => i.id === itemId ? { ...i, quantity: (i.quantity - 1 || 0) } : i)
+        const deletar = updateItem.find(i => i.id === itemId && i.quantity <= 0);
+        if (deletar) {
+          const deleteItem = updateItem.filter(i => i.id !== itemId)
+          this.cartItems.set(deleteItem)
+          localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
+          return true
+        } else {
+          localStorage.setItem('carrinho', JSON.stringify(updateItem));
+          return true
+        }
+      }else{
+        return false
+      }
+    }
+    catch (e){
+    console.error('Erro ao remover item do carrinho. Erro: ', e);
+    return false
+  }
   }
 
   apagarCarrinho() {

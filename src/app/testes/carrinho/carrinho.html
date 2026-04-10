@@ -1,14 +1,11 @@
 <app-header></app-header>
 <section>
     <h2>carrinho works!</h2>
-    <app-mais-vendidos></app-mais-vendidos>
-    <ul>
-        @for(produto of produtos(); track $index){
-        <li style="color: wheat;">{{ produto.name }}</li>
-        }
-    </ul>
     <span style="color: wheat;">Itens totais do carrinho: {{ totais() }}</span>
     <br>
+    <div class="itens-carrinho">
+        <app-item-carrinho></app-item-carrinho>
+    </div>
     <button (click)="apagar()">Apagar carrinho local</button>
     <button (click)="total()">Chamar itens totais</button>
     <button (click)="adicionar()">Adicionar item carrinho</button>

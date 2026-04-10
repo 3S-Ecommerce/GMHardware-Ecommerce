@@ -58,7 +58,10 @@ export class CardProdutos implements OnInit {
     item.id = Number(item.id)
     item.price = Number(item.price)
     item.quantity = Number(item.quantity)
-    this.cart.adicionarCarrinho(item)
     console.log(item)
+    if(this.cart.adicionarCarrinho(item))
+      alert("Item adicionado ao carrinho!")
+    else
+      alert("Erro ao adicionar ao carrinho!")
   }
 } 

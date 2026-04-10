@@ -2,4 +2,7 @@
 
 section{
     @include style.sectionPattern();
+    .itens-carrinho{
+        width: 100%;
+    }
 }

@@ -2,26 +2,26 @@ import { Component, computed, inject, signal, OnInit } from '@angular/core';
 import { Cart } from '../../core/services/cart';
 import { Header } from '../../components/customer/header/header';
 import { Footer } from '../../components/customer/footer/footer';
-import { MaisVendidos } from '../../components/customer/mais-vendidos/mais-vendidos';
+import { ItemCarrinho } from './item-carrinho/item-carrinho';
+
 
 @Component({
   selector: 'app-carrinho',
-  imports: [ Header, Footer, MaisVendidos ],
+  imports: [ Header, Footer, ItemCarrinho ],
   templateUrl: './carrinho.html',
   styleUrl: './carrinho.scss',
 })
-export class Carrinho implements OnInit {
+export class Carrinho implements OnInit{
   private cart = inject(Cart);
-  produtos = computed(() =>{
-    return this.cart.items()
-  })
-
-  ngOnInit(): void {
-  }
+  produtos = signal<any[]>([])
 
   totais = computed(() => {
     return this.cart.totalItems()
   })
+
+  ngOnInit(): void {
+    this.produtos.set(this.cart.items())
+  }
   total(){
     this.cart.testar()
   }
