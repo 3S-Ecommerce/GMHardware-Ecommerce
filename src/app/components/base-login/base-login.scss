@@ -1,8 +1,20 @@
-body{
+.fundo {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+}
 
-  .fundo-form{
-    background: #181C23
-  }
+.fundo-form {
+  background: #181C23;
+  padding: 30px;
+  width: 320px;
+  color: white;
+}
+
+.fundo-form h1{
+  text-align: center;
+  color: #2563EB
 }
 
