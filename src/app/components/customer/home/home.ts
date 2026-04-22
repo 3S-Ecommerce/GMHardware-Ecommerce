@@ -6,6 +6,7 @@ import { Header } from '../header/header';
 //import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
 import { RouterOutlet } from "@angular/router";
 import { Footer } from '../footer/footer';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -31,4 +32,10 @@ export class Home {
   //     error: (err) => console.error('erro: ', err)
   //   });
   // }
+
+  title = '3SProjetoIntegrador'
+
+  constructor(private titleService: Title){
+    this.titleService.setTitle($localize `${this.title}`);
+  }
 }

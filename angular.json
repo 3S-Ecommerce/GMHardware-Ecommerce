@@ -8,6 +8,12 @@
   "newProjectRoot": "projects",
   "projects": {
     "3S-projeto-integrador": {
+       "i18n":{
+      "sourceLocale": "pt-BR",
+      "locales": {
+        "en-US": "src/locale/messages.en.xlf"
+      }
+    },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,6 +27,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "localize":["en-US"],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -37,7 +44,10 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {

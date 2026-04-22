@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="pt-BR" datatype="plaintext" original="ng2.template" target-language="en">
+    <body>
+      <trans-unit id="2653271547427914546" datatype="html">
+        <source>Imagem do produto</source>
+        <target>product image</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8655592519253306447" datatype="html">
+        <source>Avaliações: 4.8(243)</source>
+        <target>Ratings: 4.8(243)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">42,43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="187187500641108332" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ item.name }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7717963989468147648" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;fa-solid fa-cart-arrow-down&quot; aria-label=&quot;icone de carrinho&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Carrinho</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4518880334344198425" datatype="html">
+        <source>Comprar</source>
+        <target>Buy</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">48,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1999844939138179584" datatype="html">
+        <source>Nenhum hardware encontrado nessa categoria</source>
+         <target>No hardware found in this category.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7096879299392992860" datatype="html">
+        <source>Teclado RGB </source>
+        <target>RGB Keyboard</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/card-produtos/card-produtos.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3264839903994061923" datatype="html">
+        <source>A melhor loja de componentes de computador do Brasil. Qualidade, preço justo e entrega rápida.</source>
+        <target>The best computer component store in Brazil. Quality, fair prices, and fast delivery.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7952414033169039386" datatype="html">
+        <source>Suporte</source>
+        <target>Support</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">8,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1236061678414703716" datatype="html">
+        <source>Contato</source>
+          <target>Contact</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1163616484112727149" datatype="html">
+        <source>Garantia</source>
+          <target>Warranty</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2905184594020724175" datatype="html">
+        <source>Devolução</source>
+          <target>Devolution</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8728432456922347896" datatype="html">
+        <source>© 2026 HardwareHub. Todos os direitos reservados.</source>
+        <target>© 2026 HardwareHub. All rights reserved.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/footer/footer.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2349075884277242476" datatype="html">
+        <source>Placa de vídeo</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8042623197815576368" datatype="html">
+        <source>Processadores</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6913917524118917543" datatype="html">
+        <source>Memórias RAM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6683657441709611238" datatype="html">
+        <source>SSDs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7554687524834450728" datatype="html">
+        <source>Gabinetes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8049736154763121235" datatype="html">
+        <source>Coolers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1903727246288801963" datatype="html">
+        <source>Fontes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2489125900690122294" datatype="html">
+        <source>Periféricos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/header/header.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="138019182593577282" datatype="html">
+        <source>Componentes de Computador de Qualidade</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/home/apresentacao/apresentacao.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2336295027292420741" datatype="html">
+        <source>Encontre as melhores placas de vídeo, processadores, memória RAM e muito mais para montar seu PC dos sonhos.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/home/apresentacao/apresentacao.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3893379886083173548" datatype="html">
+        <source>Imagem de apresentação</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/home/apresentacao/apresentacao.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1737753151350322492" datatype="html">
+        <source><x id="PH" equiv-text="this.title"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/home/home.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8605546097735106419" datatype="html">
+        <source>Mais Vendidos</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/customer/mais-vendidos/mais-vendidos.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
