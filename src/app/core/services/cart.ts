@@ -16,7 +16,15 @@ export class Cart {
   cartItems = signal<cartItem[]>([]);
   teste = []
   items = computed(() => this.cartItems());
-
+  iniciar() {
+    try{
+    const localSalvo = localStorage.getItem('carrinho')
+    this.cartItems.set(JSON.parse(`${localSalvo}`) || [])
+    }
+    catch(e){
+      console.error('Error: ', e )
+    }
+  }
   totalItems = computed(() => {
     return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
   })
@@ -51,6 +59,7 @@ export class Cart {
       if (existe) {
         const updateItem = listaAtual.map(i => i.id === itemId ? { ...i, quantity: (i.quantity + 1 || 0) } : i);
         localStorage.setItem('carrinho', JSON.stringify(updateItem));
+        this.cartItems.set(updateItem)
         return true;
       }
       else {
@@ -80,6 +89,7 @@ export class Cart {
           return true
         } else {
           localStorage.setItem('carrinho', JSON.stringify(updateItem));
+          this.cartItems.set(updateItem)
           return true
         }
       } else {

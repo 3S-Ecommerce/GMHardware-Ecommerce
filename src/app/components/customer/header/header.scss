@@ -1,11 +1,14 @@
 @use "../../../../../public/assets/style.scss";
-header{
+
+header {
     background-color: style.$primary-bg;
 }
+
 .header-search {
     @include style.displayFlex();
     padding: 15px;
-    h1{
+
+    h1 {
         text-align: end;
         color: style.$primary-text;
         @include style.fontSize($size: 40px, $weight: 600);
@@ -13,11 +16,12 @@ header{
         margin-right: 32px;
         cursor: pointer;
     }
+
     .search-bar {
         @include style.displayFlex($width: 70%, $justify: center);
         flex: 1;
-        
-        i{
+
+        i {
             position: relative;
             color: style.$white-color;
             right: 24px;
@@ -41,22 +45,41 @@ header{
         flex: 1;
 
         a {
+            position: relative;
             margin-left: 32px;
+
             i {
                 color: style.$white-color;
+            }
+
+            &#cart {
+                display: flex;
+                span {
+                    color: white;
+                    @include style.displayFlex();
+                    font-size: 15px;
+                    width: 15px;
+                    height: 15px;
+                    font-weight: 700;
+                    background-color: #ffffff33;
+                    border-radius: 50%;
+                }
             }
         }
 
     }
 }
-.header-nav{
+
+.header-nav {
     @include style.displayFlex($gap: 32px);
     flex-wrap: wrap;
-    a{
+
+    a {
         @include style.fontSize($size: 20px);
         margin-left: 16px;
         margin-right: 16px;
         color: style.$white-color;
     }
+
     padding-bottom: 16px;
 }
