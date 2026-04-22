@@ -2,7 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, signal, afterNextRender, computed, inject } from '@angular/core';
 import { Cart } from '../../../core/services/cart';
 
-export interface item{
+export interface item {
   id: Number,
   name: string,
   price: Number,
@@ -17,13 +17,13 @@ export interface item{
   styleUrl: './item-carrinho.scss',
 })
 
-export class ItemCarrinho{
+export class ItemCarrinho {
   cart = inject(Cart);
   itens = signal<item[]>([]);
   produtos = computed(() => {
     return this.cart.items()
   })
-  constructor(){
+  constructor() {
     afterNextRender(() => {
       const data = localStorage.getItem('carrinho');
       const array = JSON.parse(`${data}`)
@@ -32,14 +32,19 @@ export class ItemCarrinho{
     })
   }
 
-  menosProduto(itemId: Number){
-    console.log('tentei')
-    if(this.cart.removerCarrinho(Number(itemId)))
+  menosProduto(itemId: number) {
+    if (this.cart.removerCarrinho(Number(itemId)))
       alert('Item removido do carrinho!')
     else
       alert('Erro ao remover item do carrinho!')
   }
-  teste(){
+  maisProduto(itemId: number) {
+    if (this.cart.somarProduto(itemId))
+      alert('Item aumentado do carrinho!')
+    else
+      alert('Erro ao remover item do carrinho!')
+  }
+  teste() {
     console.log('teste')
   }
 }

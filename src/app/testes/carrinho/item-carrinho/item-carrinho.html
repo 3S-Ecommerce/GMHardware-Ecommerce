@@ -4,7 +4,7 @@
         <div class="quantidade">
             <button class="fa-solid fa-arrow-left" (click)="menosProduto(item.id)"></button>
             <span style="color: wheat; margin: 0px 5px 0px 5px;">{{ item.quantity }}</span>
-            <button class="fa-solid fa-arrow-right"></button>
+            <button class="fa-solid fa-arrow-right" (click)="maisProduto(item.id)"></button>
         </div>
         <img ngSrc="{{ item.image }}" alt="" width="100" height="100">
         <div class="dados">

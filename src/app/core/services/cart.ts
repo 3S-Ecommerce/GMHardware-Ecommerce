@@ -41,6 +41,28 @@ export class Cart {
     }
   }
 
+  somarProduto(itemId: number) {
+    try {
+      Number(itemId)
+      const localSalvo = localStorage.getItem('carrinho');
+      this.cartItems.set(JSON.parse(`${localSalvo}`) || []);
+      const existe = (this.cartItems().find(i => i.id = itemId));
+      const listaAtual = this.cartItems();
+      if (existe) {
+        const updateItem = listaAtual.map(i => i.id === itemId ? { ...i, quantity: (i.quantity + 1 || 0) } : i);
+        localStorage.setItem('carrinho', JSON.stringify(updateItem));
+        return true;
+      }
+      else {
+        return false
+      }
+    }
+    catch (e) {
+      console.error('Erro ao adicionar item ao carrinho!')
+      return false
+    }
+  }
+
   removerCarrinho(itemId: Number) {
     try {
       itemId = Number(itemId)
@@ -60,14 +82,14 @@ export class Cart {
           localStorage.setItem('carrinho', JSON.stringify(updateItem));
           return true
         }
-      }else{
+      } else {
         return false
       }
     }
-    catch (e){
-    console.error('Erro ao remover item do carrinho. Erro: ', e);
-    return false
-  }
+    catch (e) {
+      console.error('Erro ao remover item do carrinho. Erro: ', e);
+      return false
+    }
   }
 
   apagarCarrinho() {
