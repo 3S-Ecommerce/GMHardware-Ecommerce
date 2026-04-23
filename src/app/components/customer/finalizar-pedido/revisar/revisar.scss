@@ -14,6 +14,11 @@
         padding: 24px;
         background-color: style.$primary-bg;
         border-radius: 10px;
+        .quantidade {
+            @include style.displayFlex($aligh: center);
+            width: auto;
+            font-size: 20px;
+        }
 
         h3 {
             @include style.fontSize($size: 32px, $weight: 600);
@@ -40,7 +45,7 @@
         }
 
         .div-img {
-            @include style.displayFlex($justify: flex-start, $gap: 16px);
+            @include style.displayFlex($justify: space-between, $gap: 16px);
             align-self: flex-start;
 
             img {

@@ -28,7 +28,9 @@ export class Cart {
   totalItems = computed(() => {
     return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
   })
-
+  valorTotal = computed(() => {
+    return this.cartItems().reduce((acc, value) => acc + (value.price*value.quantity), 0)
+  })
   adicionarCarrinho(item: cartItem) {
     try {
       const localSalvo = localStorage.getItem('carrinho')
