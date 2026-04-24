@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Admin } from '../../../../core/services/admin';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-editar',
@@ -13,6 +13,7 @@ export class Editar implements OnInit {
   private readonly apiAdmin = inject(Admin);
   private route = inject(ActivatedRoute);
   private formBuilder = inject(FormBuilder);
+  private router = inject(Router)
   dados = signal<any>(null);
 
   formAdmin = this.formBuilder.group({
@@ -67,6 +68,7 @@ export class Editar implements OnInit {
     this.apiAdmin.updateAdmin(formData, id).subscribe({
       next: (res) => {
         alert("Administrador atualizado com sucesso!");
+        this.router.navigate(['/admin/administradores'])
       },
       error: (err) => {
         console.error('Error: ', err);

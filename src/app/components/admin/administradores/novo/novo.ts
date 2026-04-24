@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Validators, ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { Admin } from '../../../../core/services/admin';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-novo',
@@ -11,6 +12,7 @@ import { Admin } from '../../../../core/services/admin';
 export class Novo {
   private readonly apiAdmin = inject(Admin);
   private formBuilder = inject(FormBuilder);
+  private router = inject(Router)
 
   formAdmin = this.formBuilder.group({
     name: ['', Validators.required],
@@ -38,6 +40,7 @@ export class Novo {
       next: (res) => {
         alert("Administrador cadastrado com sucesso!");
         this.formAdmin.reset();
+        this.router.navigate(['/admin/administradores'])
       },
       error: (err) => {
         console.error('Error: ', err);

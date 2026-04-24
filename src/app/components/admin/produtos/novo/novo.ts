@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } 
 import { Category } from '../../../../core/services/category';
 import { Product } from '../../../../core/services/product';
 import { text } from 'node:stream/consumers';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-novop',
@@ -14,6 +15,8 @@ export class Novop implements OnInit{
   private formBuilder = inject(FormBuilder);
   private readonly apiCategory = inject(Category);
   private readonly apiProduct = inject(Product);
+  private router = inject(Router);
+
   increment = signal<number>(1);
   categorias = signal<any>(null);
   formProduct = this.formBuilder.group({
@@ -66,6 +69,7 @@ export class Novop implements OnInit{
       next: (res) => {
         console.log (JSON.stringify(form.details))
         alert('Produto castrado com sucesso!')
+        this.router.navigate(['/admin'])
       },
       error: (err) => {
         console.error('Error: ', err)

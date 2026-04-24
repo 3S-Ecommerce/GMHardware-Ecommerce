@@ -3,7 +3,6 @@ import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } 
 import { Category } from '../../../../core/services/category';
 import { Product } from '../../../../core/services/product';
 import { ActivatedRoute, Router } from '@angular/router';
-import { empty } from 'rxjs';
 
 @Component({
   selector: 'app-editarp',
@@ -16,6 +15,7 @@ export class Editarp {
   private route = inject(ActivatedRoute);
   private readonly apiCategory = inject(Category);
   private readonly apiProduct = inject(Product);
+  private router = inject(Router)
 
   id = signal<string>('')
   increment = signal<number>(1);
@@ -68,8 +68,9 @@ export class Editarp {
           details: this.dados().details.split(',')
         })
         
-    console.log(this.dados());
-    console.log(this.detalhesCadastrados);
+    // console.log(this.dados());
+    // console.log(this.dados().image)
+    // console.log(this.detalhesCadastrados);
   },
   error: (err) => {
         console.error('Error: ', err)
@@ -88,6 +89,7 @@ onSubmit(){
   const form = this.formProduct.value;
   const id = String(this.id())
   const formData = new FormData;
+  form.image = this.dados().image;
   Object.entries(form).forEach(([key, value]) => {
     if (key === 'details') {
       formData.append('details', JSON.stringify(value))
@@ -96,13 +98,14 @@ onSubmit(){
       formData.append(key, value as any);
     }
     if (key === 'File' && value == ''){
-      delete form.image
+      formData.append(key, this.dados().image as any)
     }
     formData.append('_method', 'PUT' as string);
   })
   this.apiProduct.updateProduct(formData, id).subscribe({
     next: (res) => {
       alert('Produto atualizado com sucesso!')
+      this.router.navigate(['/admin'])
     },
     error: (err) => {
       console.error('Error: ', err)
