@@ -3,7 +3,10 @@ import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } 
 import { Category } from '../../../../core/services/category';
 import { Product } from '../../../../core/services/product';
 import { text } from 'node:stream/consumers';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
+=======
+>>>>>>> feature-Arthur
 
 @Component({
   selector: 'app-novop',

@@ -1,0 +1,51 @@
+.conteudo-login{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.500);
+  gap: 5px;
+}
+
+form input{
+  background-color: transparent;
+  border: 1px solid;
+  border-color: rgba(255, 255, 255, 0.500);
+  height: 30px;
+  border-radius: 5px;
+}
+
+.esqueceu-sua-senha{
+  text-align: center;
+  color: rgba(255, 255, 255, 0.500);
+  font-size: 14px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cadastrar{
+  color: white;
+  background-color: transparent;
+  border: none;
+}
+
+.login{
+  background-color: #2563EB;
+  color: white;
+  padding: 3px 5px 3px 5px;
+  border-radius: 5px;
+  border: none;
+}
+
+.alinhar{
+  display: flex;
+  flex-direction: column;
+}
