@@ -1,4 +1,3 @@
-<!-- <app-loading></app-loading> -->
 <div class="cards-produtos">
     @if (isLoading()){
     <div id="loading" class="loading loadind-overlay">
@@ -22,18 +21,17 @@
     @for(item of produtos(); track item.id){
     @if(item.category.name == categoria){
     <div class="card-produto">
-        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto"
-            width="360" height="360">
+        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto" width="360" height="360">
         <span>Avaliações: 4.8(243)</span>
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>
         <div class="card-buttons">
-            <button class="carrinho" (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: item.quantity})"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
-                Carrinho</button>
-            <button class="comprar">Comprar</button>
+            <button class="carrinho"
+                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})"><i
+                    class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
+            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar">Comprar</button>
         </div>
     </div>
-    <!-- Método lento, faz o angular calcular duas vezes a lista de itens -->
     }
     @else if (categoria === 'todos') {
     <div class="card-produto">
@@ -43,25 +41,25 @@
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>
         <div class="card-buttons">
-            <button class="carrinho" (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: item.quantity})"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
-                Carrinho</button>
-            <button class="comprar">Comprar</button>
+            <button class="carrinho"
+                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})"><i
+                    class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
+            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar">Comprar</button>
         </div>
     </div>
     }
     }@empty {
-    <p>Nenhum hardware encontrado nessa categoria</p>
+    <h1 style="color: white">Nenhum hardware encontrado nessa categoria</h1>
     }
-    <div class="card-produto">
+    <!-- <div class="card-produto">
         <img routerLink="/produto" ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
-        <span >Avaliações: 4.8(243)</span>
+        <span>Avaliações: 4.8(243)</span>
         <h4>Teclado RGB </h4>
-        <p><span >R$</span>100,00</p>
+        <p><span>R$</span>100,00</p>
         <div class="card-buttons">
-            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
-                Carrinho</button>
+            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
             <button class="comprar">Comprar</button>
         </div>
-    </div>
+    </div> -->
     }
 </div>

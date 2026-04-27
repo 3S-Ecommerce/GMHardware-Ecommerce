@@ -14,15 +14,22 @@
     </div>
     <div class="div-layout">
         <h3>Produtos</h3>
+        @for(produto of produtos(); track $index){
         <div class="div-img">
-            <img src="assets/main.jpg" alt="">
-            <p>Teclado mecanico RGB</p>
+            <img src="{{ produto.image }}" alt="">
+            <p>{{ produto.name }}</p>
+            <div class="quantidade">
+                <button class="fa-solid fa-arrow-left" (click)="menosProduto(produto.id)"></button>
+                <span style="color: wheat; margin: 0px 5px 0px 5px;">{{ produto.quantity }}</span>
+                <button class="fa-solid fa-arrow-right" (click)="maisProduto(produto.id)"></button>
+            </div>
         </div>
+        }
     </div>
     <div class="div-layout">
         <h3>Detalhe do pagamento</h3>
         <p>PIX</p>
-        <p>R$ 9999,99</p>
+        <p>R$ {{ valorTotal() }}</p>
         <hr>
         <button routerLink="../forma-de-pagamento">Alterar forma de pagamento</button>
     </div>

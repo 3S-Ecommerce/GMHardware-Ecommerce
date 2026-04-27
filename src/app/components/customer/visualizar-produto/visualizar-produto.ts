@@ -38,7 +38,7 @@ export class VisualizarProduto implements OnInit {
   }
   especificacoes = computed(() => {
     const lista = this.produto();
-    return lista?.details ? lista.details.split(',') : [];
+    return lista?.details ? Object.values(lista.details.split(',')) : [];
   }
   )
   teste(){

@@ -28,10 +28,12 @@ import { Geralp } from './components/admin/produtos/geral/geral';
 import { Editarp } from './components/admin/produtos/editar/editar';
 import { Novop } from './components/admin/produtos/novo/novo';
 import { Routes } from '@angular/router';
-import { Carrinho } from './components/customer/carrinho/carrinho';
-
-import { CarrinhoTeste } from './testes/carrinho/carrinho';
-
+import { Carrinho } from './testes/carrinho/carrinho';
+import { BaseLogin } from './components/base-login/base-login';
+import { Login } from './components/base-login/login/login';
+import { Cadastro } from './components/base-login/cadastro/cadastro';
+import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
+//import { Carrinho } from './components/customer/carrinho/carrinho';
 export const routes: Routes = [
     {
         path: '',
@@ -94,23 +96,23 @@ export const routes: Routes = [
             
         ]
     },
-    // {
-    //     path: 'login',
-    //     component: Baselogin, children: [
-    //         {
-    //             path: '',
-    //             component: Login
-    //         },
-    //         {
-    //             path: 'cadastro',
-    //             component: Cadastro
-    //         },
-    //         {
-    //             path: 'recuperacao',
-    //             component: Recuperacao
-    //         }
-    //     ]
-    // },
+    {
+         path: '',
+         component: BaseLogin, children: [
+             {
+                 path: 'login',
+                 component: Login
+             },
+             {
+                 path: 'cadastro',
+                 component: Cadastro
+              },
+             {
+                 path: 'nova-senha',
+                 component: NovaSenha
+             }
+         ]
+    },
     {
         path: 'produto',
         component: VisualizarProduto
@@ -219,9 +221,5 @@ export const routes: Routes = [
             }
         
         ]
-    },
-    {
-        path: 'teste/carrinho',
-        component: CarrinhoTeste
     }
 ];
