@@ -1,55 +1,179 @@
 @use "../../../../../public/assets/style.scss";
+@media(min-width:1200px){
+  .footer {
+      padding: 56px 40px;
+      background-color: style.$primary-bg;
+  }
 
-.footer {
-    padding: 56px 40px;
-    background-color: style.$primary-bg;
+  .footer-div {
+      @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 200px, $wrap: wrap);
+      margin-bottom: 24px;
+
+      .footer-contato {
+          width: 400px;
+          flex: 1;
+
+          h4 {
+              text-align: start;
+              color: style.$primary-text;
+              @include style.fontSize($size: 25px, $weight: 600);
+
+          }
+
+          p {
+              @include style.fontSize($size: 15px, $weight: 400);
+              color: style.$white-color;
+          }
+      }
+
+      ul {
+          flex: 1;
+          height: 100%;
+          list-style: none;
+
+          h4 {
+              text-align: start;
+              color: white;
+              @include style.fontSize($size: 25px, $weight: 600);
+              flex: 1;
+          }
+
+          li {
+              a {
+                  color: style.$white-color;
+                  @include style.fontSize($size: 15px, $weight: 400);
+              }
+          }
+      }
+  }
+
+  .direitos{
+      width: 100%;
+      padding-top: 16px;
+      border-top: 1px solid gray;
+      color: style.$white-color;
+  }
 }
 
-.footer-div {
-    @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 200px, $wrap: wrap);
+
+//tablete
+@media (min-width: 736px) and (max-width: 1199px) {
+    .footer {
+      padding: 56px 40px;
+      background-color: style.$primary-bg;
+  }
+
+  .footer-div {
+      @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 200px, $wrap: wrap);
+      margin-bottom: 24px;
+
+      .footer-contato {
+          width: 400px;
+          flex: 1;
+
+          h4 {
+              text-align: start;
+              color: style.$primary-text;
+              @include style.fontSize($size: 25px, $weight: 600);
+
+          }
+
+          p {
+              @include style.fontSize($size: 15px, $weight: 400);
+              color: style.$white-color;
+          }
+      }
+
+      ul {
+          flex: 1;
+          height: 100%;
+          list-style: none;
+
+          h4 {
+              text-align: start;
+              color: white;
+              @include style.fontSize($size: 25px, $weight: 600);
+              flex: 1;
+          }
+
+          li {
+              a {
+                  color: style.$white-color;
+                  @include style.fontSize($size: 15px, $weight: 400);
+              }
+          }
+      }
+  }
+
+  .direitos{
+      width: 100%;
+      padding-top: 16px;
+      border-top: 1px solid gray;
+      color: style.$white-color;
+  }
+}
+
+//mobile
+@media(max-width: 736px){
+    .footer {
+      padding: 56px 40px;
+      background-color: style.$primary-bg;
+  }
+
+  .footer-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 24px;
 
-    .footer-contato {
-        width: 400px;
-        flex: 1;
+      .footer-contato {
+          width: 300px;
+          flex: 1;
 
-        h4 {
-            text-align: start;
-            color: style.$primary-text;
-            @include style.fontSize($size: 35px, $weight: 600);
+          h4 {
+              text-align: start;
+              color: style.$primary-text;
+              font-size: 20px;
+              font-weight: 600;
 
-        }
+          }
 
-        p {
-            @include style.fontSize($size: 25px, $weight: 400);
-            color: style.$white-color;
-        }
-    }
+          p {
+              font-size: 15px;
+              font-weight: 400;
+              color: style.$white-color;
+          }
+      }
 
-    ul {
-        flex: 1;
-        height: 100%;
-        list-style: none;
+      ul {
+          flex: 1;
+          height: 100%;
+          list-style: none;
 
-        h4 {
-            text-align: start;
-            color: white;
-            @include style.fontSize($size: 35px, $weight: 600);
-            flex: 1;
-        }
+          h4 {
+              text-align: start;
+              color: white;
+              font-size: 15px;
+              font-weight: 400;
+              flex: 1;
+          }
 
-        li {
-            a {
-                color: style.$white-color;
-                @include style.fontSize($size: 25px, $weight: 400);
-            }
-        }
-    }
-}
+          li {
+              a {
+                  color: style.$white-color;
+                  font-size: 15px;
+                  font-weight: 400;
+              }
+          }
+      }
+  }
 
-.direitos{
-    width: 100%;
-    padding-top: 16px;
-    border-top: 1px solid gray;
-    color: style.$white-color;
+  .direitos{
+      width: 100%;
+      padding-top: 16px;
+      border-top: 1px solid gray;
+      color: style.$white-color;
+  }
 }
