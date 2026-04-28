@@ -28,7 +28,7 @@ import { Geral } from './components/admin/administradores/geral/geral';
 import { Geralp } from './components/admin/produtos/geral/geral';
 import { Editarp } from './components/admin/produtos/editar/editar';
 import { Novop } from './components/admin/produtos/novo/novo';
-import { Carrinho } from './testes/carrinho/carrinho';
+import { Carrinho } from './components/customer/carrinho/carrinho';
 import { BaseLogin } from './components/base-login/base-login';
 import { Login } from './components/base-login/login/login';
 import { Cadastro } from './components/base-login/cadastro/cadastro';
@@ -215,7 +215,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'teste/carrinho',
+        path: 'carrinho',
         component: Carrinho
     }
 ];

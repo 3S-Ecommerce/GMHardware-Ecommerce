@@ -1,11 +1,8 @@
-import { Component, inject, signal, OnInit } from '@angular/core';
-// import { Product } from '../../core/services/product';
-// import { Cart } from '../../core/services/cart';
+import { Component, OnInit } from '@angular/core';
 import { Header } from '../header/header';
-//import { Apresentacao } from '../apresentacao/apresentacao';
-//import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
 import { RouterOutlet } from "@angular/router";
 import { Footer } from '../footer/footer';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,20 +12,9 @@ import { Footer } from '../footer/footer';
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
-export class Home {
-  // private produtoService = inject(Product);
-  // cart = inject(Cart);
-  // adicionarItem(item: any){
-  //   this.cart.adicionarItem(item)
-  // }
-  // produtos = signal<any[]>([]);
-  // ngOnInit(): 
-  // void{
-  //   this.produtoService.getProdutos().subscribe({
-  //     next: (dados) =>{
-  //       this.produtos.set(dados);
-  //     },
-  //     error: (err) => console.error('erro: ', err)
-  //   });
-  // }
+export class Home implements OnInit{
+  constructor(private title: Title){}
+  ngOnInit(): void {
+    this.title.setTitle('GMHardware')
+  }
 }

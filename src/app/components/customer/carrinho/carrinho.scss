@@ -1,0 +1,15 @@
+@use "../../../../../public/assets/style.scss";
+
+section{
+    @include style.sectionPattern();
+    .itens-carrinho{
+        width: 100%;
+    }
+    .comprar{
+        background-color: style.$primary-text;
+        border: none;
+        padding: 10px 5px;
+        border-radius: 5px;
+        color: white;
+    }
+}

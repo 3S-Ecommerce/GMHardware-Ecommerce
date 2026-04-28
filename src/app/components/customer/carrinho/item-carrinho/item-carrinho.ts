@@ -1,6 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, signal, afterNextRender, computed, inject } from '@angular/core';
-import { Cart } from '../../../core/services/cart';
+import { Cart } from '../../../../core/services/cart';
 
 export interface item {
   id: Number,
@@ -28,7 +28,7 @@ export class ItemCarrinho {
       const data = localStorage.getItem('carrinho');
       const array = JSON.parse(`${data}`)
       this.cart.cartItems.set(array)
-      console.log(this.produtos())
+      //console.log(this.produtos())
     })
   }
 

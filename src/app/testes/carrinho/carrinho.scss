@@ -1,8 +1,0 @@
-@use "../../../../public/assets/style.scss";
-
-section{
-    @include style.sectionPattern();
-    .itens-carrinho{
-        width: 100%;
-    }
-}

@@ -56,7 +56,7 @@ export class Cart {
       Number(itemId)
       const localSalvo = localStorage.getItem('carrinho');
       this.cartItems.set(JSON.parse(`${localSalvo}`) || []);
-      const existe = (this.cartItems().find(i => i.id = itemId));
+      const existe = (this.cartItems().find(i => i.id === itemId));
       const listaAtual = this.cartItems();
       if (existe) {
         const updateItem = listaAtual.map(i => i.id === itemId ? { ...i, quantity: (i.quantity + 1 || 0) } : i);
@@ -85,7 +85,7 @@ export class Cart {
         const updateItem = listaAtual.map(i => i.id === itemId ? { ...i, quantity: (i.quantity - 1 || 0) } : i)
         const deletar = updateItem.find(i => i.id === itemId && i.quantity <= 0);
         if (deletar) {
-          const deleteItem = updateItem.filter(i => i.id !== itemId)
+          const deleteItem = this.cartItems().filter(i => i.id !== itemId)
           this.cartItems.set(deleteItem)
           localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
           return true
