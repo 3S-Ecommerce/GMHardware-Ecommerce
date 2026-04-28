@@ -14,6 +14,18 @@
             @include style.displayFlex($aligh: center);
             width: auto;
             font-size: 20px;
+
+            button {
+
+                background: none;
+                border: none;
+                cursor: pointer;
+                @include style.displayFlex($justify: flex-start, $width: auto);
+                color: style.$descont-color;
+                @include style.fontSize($size: 16px, $weight: 600);
+
+
+            }
         }
 
         img {
@@ -41,7 +53,8 @@
             height: 35px;
             border: none;
             color: white;
-            &.comprar{
+
+            &.comprar {
                 margin-top: 15px;
                 background-color: style.$primary-text;
             }

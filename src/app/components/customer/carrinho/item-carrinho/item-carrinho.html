@@ -6,19 +6,21 @@
             <span style="color: wheat; margin: 0px 5px 0px 5px;">{{ item.quantity }}</span>
             <button class="fa-solid fa-arrow-right" (click)="maisProduto(item.id)"></button>
         </div>
-        <img ngSrc="{{ item.image }}" alt="" width="100" height="100">
+        <div style="position: relative; width: 100px; height: 100px;">
+            <img ngSrc="{{ item.image }}" alt="" fill style="object-fit: cover;">
+        </div>
         <div class="dados">
             <h3>{{ item.name }}</h3>
             <p>{{ item.price }}</p>
         </div>
     </div>
     <div class="buttons">
-        <button>Excluir</button>
-        <button class="comprar">Comprar</button>
+        <button (click)="apagarItem(item.id)">Excluir</button>
+        <button class="comprar" [routerLink]="['/finalizar-compra', { id: item.id}]">Comprar</button>
     </div>
-    
+
 </div>
 <hr>
 }@empty {
-    <h1 style="color: white">Nenhum item adicionado no carrinho</h1>
+<h1 style="color: white">Nenhum item adicionado no carrinho</h1>
 }

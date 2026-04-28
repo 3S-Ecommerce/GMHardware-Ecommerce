@@ -1,10 +1,11 @@
 import { afterNextRender, Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Cart } from '../../../../core/services/cart';
+import { NgOptimizedImage } from "@angular/common";
 
 @Component({
   selector: 'app-revisar',
-  imports: [RouterLink],
+  imports: [RouterLink, NgOptimizedImage],
   templateUrl: './revisar.html',
   styleUrl: './revisar.scss',
 })

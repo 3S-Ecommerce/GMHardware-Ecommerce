@@ -104,6 +104,22 @@ export class Cart {
     }
   }
 
+  apagarItem(itemId: number){
+    const localSalvo = localStorage.getItem('carrinho');
+    this.cartItems.set(JSON.parse(`${localSalvo}`) || []);
+    const existe = (this.cartItems().find(i => i.id === itemId) || false);
+    const listaAtual = this.cartItems()
+    if(existe){
+      const updateItem = listaAtual.filter(i => i.id !== itemId);
+      this.cartItems.set(updateItem)
+      localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
+      return true
+    }
+    else{
+      return false
+    }
+  }
+
   apagarCarrinho() {
     this.cartItems.set([])
     localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))

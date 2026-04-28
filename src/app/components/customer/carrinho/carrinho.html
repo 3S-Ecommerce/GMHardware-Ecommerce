@@ -7,6 +7,6 @@
     <!-- <button (click)="apagar()">Apagar carrinho local</button>
     <button (click)="total()">Chamar itens totais</button>
     <button (click)="adicionar()">Adicionar item carrinho</button> -->
-    <button class="comprar" routerLink="/finalizar-compra" >Comprar</button>
+    <button class="comprar" routerLink="/finalizar-compra" [disabled]="totais() == 0 || null">Comprar</button>
 </section>
 <app-footer></app-footer>

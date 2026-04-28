@@ -31,17 +31,22 @@
 
 .cards-produtos {
     @include style.displayFlex($direction: row, $aligh: flex-start,$wrap: wrap, $justify: flex-start, $gap: 48px);
+    width: 100%;
 
     .card-produto {
         @include style.displayFlex($direction: column, $width: 360px, $aligh: flex-start, $justify: flex-start, $gap: 8px);
         border-radius: 10px;
-        max-width: 29%;
+        //max-width: 25%;
         height: 700px;
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
-
-        img {
+        .div-img{
+            position: relative;
             width: 100%;
+            min-height: 360px;
+        }
+        img {
+            object-fit: cover;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             overflow-wrap: normal;

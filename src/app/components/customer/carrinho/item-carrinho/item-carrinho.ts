@@ -1,6 +1,7 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, signal, afterNextRender, computed, inject } from '@angular/core';
 import { Cart } from '../../../../core/services/cart';
+import { RouterLink } from "@angular/router";
 
 export interface item {
   id: Number,
@@ -12,7 +13,7 @@ export interface item {
 
 @Component({
   selector: 'app-item-carrinho',
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, RouterLink],
   templateUrl: './item-carrinho.html',
   styleUrl: './item-carrinho.scss',
 })
@@ -43,6 +44,15 @@ export class ItemCarrinho {
       alert('Item aumentado do carrinho!')
     else
       alert('Erro ao remover item do carrinho!')
+  }
+  apagarItem(itemId: number) {
+    if (confirm('Deseja remover esse item?')) {
+      if (this.cart.apagarItem(itemId)) {
+        alert('Item removido!')
+      } else {
+        console.error('Falha ao remover esse item')
+      }
+    }
   }
   teste() {
     console.log('teste')

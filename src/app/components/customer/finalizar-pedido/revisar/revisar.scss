@@ -14,6 +14,7 @@
         padding: 24px;
         background-color: style.$primary-bg;
         border-radius: 10px;
+
         .quantidade {
             @include style.displayFlex($aligh: center);
             width: auto;
@@ -48,39 +49,48 @@
             @include style.displayFlex($justify: space-between, $gap: 16px);
             align-self: flex-start;
 
-            img {
-                border-radius: 100px;
+            .img {
+                position: relative;
+                border-radius: 50%;
+                border: 2px solid white;
                 width: 150px;
-                border: 2px solid gray;
+                height: 150px;
+            }
+
+            img {
+                border-radius: 50%;
+                object-fit: cover;
             }
         }
     }
 
     .button {
-                width: 70%;
-                justify-content: flex-end;
-                align-items: center;
-                gap: 16px;
-                display: flex;
+        width: 70%;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
+        display: flex;
 
-                button {
-                    border: none;
-                    border-radius: 10px;
-                    padding: 4px 10px;
-                    min-width: 120px;
-                    height: 40px;
-                    margin-left: 8px;
-                    cursor: pointer;
-                    color: white;
-                    @include style.fontSize($size: 22px, $weight: 600);
-                    &.confirmar{
-                        background-color: style.$primary-text;
-                    }
-                    &.cancelar{
-                        @include style.fontSize($size: 22px, $weight: 600);
-                        background: none;
-                        color: white;
-                    }
-                }
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 4px 10px;
+            min-width: 120px;
+            height: 40px;
+            margin-left: 8px;
+            cursor: pointer;
+            color: white;
+            @include style.fontSize($size: 22px, $weight: 600);
+
+            &.confirmar {
+                background-color: style.$primary-text;
             }
+
+            &.cancelar {
+                @include style.fontSize($size: 22px, $weight: 600);
+                background: none;
+                color: white;
+            }
+        }
+    }
 }

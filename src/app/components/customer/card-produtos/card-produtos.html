@@ -21,7 +21,10 @@
     @for(item of produtos(); track item.id){
     @if(item.category.name == categoria){
     <div class="card-produto">
-        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto" width="360" height="360">
+        <div class="div-img">
+            <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto"
+                fill>
+        </div>
         <span>Avaliações: 4.8(243)</span>
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>
@@ -35,8 +38,9 @@
     }
     @else if (categoria === 'todos') {
     <div class="card-produto">
-        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto"
-            width="360" height="360">
+        <div class="div-img">
+            <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto" fill>
+        </div>
         <span>Avaliações: 4.8(243)</span>
         <h4>{{ item.name }}</h4>
         <p><span>R$</span>{{ item.price }}</p>

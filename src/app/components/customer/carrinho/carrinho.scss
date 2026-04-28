@@ -11,5 +11,8 @@ section{
         padding: 10px 5px;
         border-radius: 5px;
         color: white;
+        &[disabled]{
+            background-color: #2563EB77;
+        }
     }
 }

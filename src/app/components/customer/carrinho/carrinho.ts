@@ -26,9 +26,6 @@ export class Carrinho implements OnInit{
     this.produtos.set(this.cart.items())
     this.title.setTitle('Carrinho')
   }
-  total(){
-    this.cart.testar()
-  }
 
   apagar(){
     this.cart.apagarCarrinho()

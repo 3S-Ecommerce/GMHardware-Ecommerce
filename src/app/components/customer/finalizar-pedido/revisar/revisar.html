@@ -16,7 +16,9 @@
         <h3>Produtos</h3>
         @for(produto of produtos(); track $index){
         <div class="div-img">
-            <img src="{{ produto.image }}" alt="">
+            <div class="img">
+                <img ngSrc="{{ produto.image }}" alt="" fill>
+            </div>
             <p>{{ produto.name }}</p>
             <div class="quantidade">
                 <button class="fa-solid fa-arrow-left" (click)="menosProduto(produto.id)"></button>
