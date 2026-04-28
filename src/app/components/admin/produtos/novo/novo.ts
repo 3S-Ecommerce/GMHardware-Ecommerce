@@ -65,6 +65,7 @@ export class Novop implements OnInit{
         formData.append(key, value as any);
       }
     })
+    console.log(formData)
     this.apiProduct.createProduct(formData).subscribe({
       next: (res) => {
         console.log (JSON.stringify(form.details))

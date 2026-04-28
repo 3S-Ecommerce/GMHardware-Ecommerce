@@ -83,22 +83,27 @@ onFileChange(event: any){
   if (file) {
     this.formProduct.patchValue({ image: file })
   }
+  console.log(file)
 }
 
 onSubmit(){
   const form = this.formProduct.value;
   const id = String(this.id())
   const formData = new FormData;
-  form.image = this.dados().image;
   Object.entries(form).forEach(([key, value]) => {
     if (key === 'details') {
       formData.append('details', JSON.stringify(value))
     }
-    if (value !== null && value !== undefined && value !== '') {
+    if (key === 'image'){
+      if(value == File){
+        formData.append(key, this.dados().image as any)
+        // console.log('vazio')
+      }else{
+        formData.append(key, value as any)
+        // console.log('tanao')
+      }
+    }else if (value !== null && value !== undefined && value !== '') {
       formData.append(key, value as any);
-    }
-    if (key === 'File' && value == ''){
-      formData.append(key, this.dados().image as any)
     }
     formData.append('_method', 'PUT' as string);
   })
