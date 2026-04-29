@@ -19,27 +19,26 @@ export class Cadastro {
     confirmPassword: ['', Validators.required]
   });
 
-  onSubmit() {
+onSubmit() {
+  const form = this.formRegister.value;
 
-    const form = this.formRegister.value;
+  console.log('FORM:', form); // 👈 ADICIONA ISSO
 
-    if (form.password !== form.confirmPassword) {
-      alert('Senhas não coincidem');
-      return;
-    }
-
-    this.authService.register({
-      name: 'Arthur',
-      email: form.email,
-      password: form.password
-    }).subscribe({
-      next: (res: any) => {
-        console.log('SUCESSO', res);
-        alert('Cadastrado com sucesso!');
-      },
-      error: (err) => {
-        console.error('ERRO', err);
-      }
-    });
+  if (form.password !== form.confirmPassword) {
+    alert('Senhas não coincidem');
+    return;
   }
+
+  this.authService.register({
+    name: 'Arthur',
+    email: form.email,
+    password: form.password
+  }).subscribe({
+    next: (res: any) => {
+      console.log('SUCESSO', res);
+    },
+    error: (err: any) => {
+      console.log('ERRO BACK:', err.error);
+    }
+  });
 }

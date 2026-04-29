@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
+public function register(Request $request)
+{
+    try {
+
+        dd($request->all());
 
         $user = User::create([
             'name' => $request->name,
@@ -22,11 +20,12 @@ class AuthController extends Controller
             'password' => $request->password,
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        return response()->json($user);
 
-        return response()->json(compact('user', 'token'));
+    } catch (\Throwable $e) {
+        dd($e->getMessage());
     }
-
+}
     public function login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
