@@ -33,6 +33,7 @@ import { BaseLogin } from './components/base-login/base-login';
 import { Login } from './components/base-login/login/login';
 import { Cadastro } from './components/base-login/cadastro/cadastro';
 import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
+import { Devolucao } from './components/customer/devolucao/devolucao';
 
 export const routes: Routes = [
     {
@@ -217,5 +218,9 @@ export const routes: Routes = [
     {
         path: 'carrinho',
         component: Carrinho
+    },
+    {
+        path: 'devolucao',
+        component: Devolucao
     }
 ];

@@ -34,7 +34,8 @@
     width: 100%;
 
     .card-produto {
-        @include style.displayFlex($direction: column, $width: 360px, $aligh: flex-start, $justify: flex-start, $gap: 8px);
+        @include style.displayFlex($direction: column, $aligh: flex-start, $justify: space-between, $gap: 8px);
+        width: 360px;
         border-radius: 10px;
         //max-width: 25%;
         height: 700px;

@@ -30,6 +30,7 @@ export class CardProdutos implements OnInit {
   isLoading = CardProdutos.isLoading;
   todosProdutos = signal<any[]>([]);
 
+
   ngOnInit(): void {
     //Loading.isLoading.set(true)
     this.api.getProduct('').subscribe({
@@ -43,6 +44,7 @@ export class CardProdutos implements OnInit {
       }
     })
   }
+
   produtos = computed(() => {
     const categoria = this.categoria;
     const lista = this.todosProdutos();
