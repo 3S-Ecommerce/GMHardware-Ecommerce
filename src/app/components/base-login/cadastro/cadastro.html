@@ -5,8 +5,8 @@
 
     <div class="campo-email alinhar">
       <label for="email">Email:</label>
-      <input 
-        type="email" 
+      <input
+        type="email"
         id="email"
         formControlName="email"
         placeholder="Digite seu email">
@@ -14,8 +14,8 @@
 
     <div class="campo-senha alinhar">
       <label for="senha">Senha:</label>
-      <input 
-        type="password" 
+      <input
+        type="password"
         id="senha"
         formControlName="password"
         placeholder="Digite sua senha">
@@ -23,24 +23,24 @@
 
     <div class="campo-comfirmar-senha alinhar">
       <label for="confirmSenha">Confirmar Senha:</label>
-      <input 
-        type="password" 
+      <input
+        type="password"
         id="confirmSenha"
-        formControlName="confirmPassword"
+        formControlName="password_confirmation"
         placeholder="Confirme sua senha">
 
       <div class="termos">
-        <input 
-          type="checkbox" 
-          id="termos" 
+        <input
+          type="checkbox"
+          id="termos"
           class="caixa-termo">
         <label for="termos">Li e concordo com os termos</label>
       </div>
     </div>
 
     <div class="button">
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         class="cadastrar"
         [disabled]="formRegister.invalid">
         Cadastrar
