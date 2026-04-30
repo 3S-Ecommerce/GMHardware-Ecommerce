@@ -17,19 +17,22 @@ export class Cart {
   teste = []
   items = computed(() => this.cartItems());
   iniciar() {
-    try{
-    const localSalvo = localStorage.getItem('carrinho')
-    this.cartItems.set(JSON.parse(`${localSalvo}`) || [])
+    try {
+      const localSalvo = localStorage.getItem('carrinho')
+      this.cartItems.set(JSON.parse(`${localSalvo}`) || [])
     }
-    catch(e){
-      console.error('Error: ', e )
+    catch (e) {
+      console.error('Error: ', e)
     }
   }
   totalItems = computed(() => {
-    return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
+    if (this.cartItems())
+      return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
+    else 
+      return 0
   })
   valorTotal = computed(() => {
-    return this.cartItems().reduce((acc, value) => acc + (value.price*value.quantity), 0)
+    return this.cartItems().reduce((acc, value) => acc + (value.price * value.quantity), 0)
   })
   adicionarCarrinho(item: cartItem) {
     try {
@@ -104,18 +107,18 @@ export class Cart {
     }
   }
 
-  apagarItem(itemId: number){
+  apagarItem(itemId: number) {
     const localSalvo = localStorage.getItem('carrinho');
     this.cartItems.set(JSON.parse(`${localSalvo}`) || []);
     const existe = (this.cartItems().find(i => i.id === itemId) || false);
     const listaAtual = this.cartItems()
-    if(existe){
+    if (existe) {
       const updateItem = listaAtual.filter(i => i.id !== itemId);
       this.cartItems.set(updateItem)
       localStorage.setItem('carrinho', JSON.stringify(this.cartItems()))
       return true
     }
-    else{
+    else {
       return false
     }
   }

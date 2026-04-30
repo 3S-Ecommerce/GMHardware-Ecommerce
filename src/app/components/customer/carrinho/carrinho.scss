@@ -2,6 +2,7 @@
 
 section{
     @include style.sectionPattern();
+    min-height: 80vh;
     .itens-carrinho{
         width: 100%;
     }
