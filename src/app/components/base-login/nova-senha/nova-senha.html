@@ -1,20 +1,29 @@
 <div class="conteudo-login">
   <p>Seja bem vindo ao GMHardware</p>
-  <form action="" method="post">
+
+  <form [formGroup]="formReset" (ngSubmit)="onReset()">
     <div class="campo-email alinhar">
       <label for="email">Email:</label>
-      <input type="email">
+      <input type="email" formControlName="email" placeholder="Digite seu email">
     </div>
+
     <div class="campo-senha alinhar">
-      <label for="senha">Senha:</label>
-      <input type="password">
+      <label for="old_password">Senha Antiga:</label>
+      <input type="password" formControlName="old_password" placeholder="Digite a senha atual">
     </div>
+
+    <div class="campo-senha alinhar">
+      <label for="password">Nova Senha:</label>
+      <input type="password" formControlName="password" placeholder="Digite a nova senha">
+    </div>
+
     <div class="campo-comfirmar-senha alinhar">
-      <label for="senha">Confirmar Nova Senha:</label>
-      <input type="password">
+      <label for="password_confirmation">Confirmar Nova Senha:</label>
+      <input type="password" formControlName="password_confirmation" placeholder="Confirme a nova senha">
+    </div>
+
+    <div class="button">
+      <button type="submit" class="nova-senha" [disabled]="formReset.invalid">Alterar Senha</button>
     </div>
   </form>
-  <div class="button">
-    <button type="button" class="nova-senha">Nova Senha</button>
-  </div>
 </div>
