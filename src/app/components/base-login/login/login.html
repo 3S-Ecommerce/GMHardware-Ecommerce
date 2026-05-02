@@ -1,18 +1,29 @@
 <div class="conteudo-login">
   <p>Seja bem vindo ao GMHardware</p>
-  <form action="" method="post">
+
+  <!-- Adicionamos o [formGroup] aqui -->
+  <form [formGroup]="formLogin" (ngSubmit)="onLogin()">
+
     <div class="campo-email alinhar">
       <label for="email">Email:</label>
-      <input type="email">
+      <!-- Adicionamos o formControlName -->
+      <input type="email" id="email" formControlName="email" placeholder="Digite seu email">
     </div>
+
     <div class="campo-senha alinhar">
       <label for="senha">Senha:</label>
-        <input type="password">
-        <a href="" class="esqueceu-sua-senha">Esqueceu sua Senha?</a>
+      <!-- Adicionamos o formControlName -->
+      <input type="password" id="senha" formControlName="password" placeholder="Digite sua senha">
+      <a href="" class="esqueceu-sua-senha">Esqueceu sua Senha?</a>
     </div>
+
+    <div class="buttons">
+      <!-- Botão de cadastro redireciona usando routerLink -->
+      <button type="button" routerLink="/cadastro" class="cadastrar">Cadastrar</button>
+
+      <!-- O botão de Login agora dispara o formulário e fica desabilitado se estiver inválido -->
+      <button type="submit" class="login" [disabled]="formLogin.invalid">Login</button>
+    </div>
+
   </form>
-  <div class="buttons">
-    <button routerLink="/cadastro" class="cadastrar">Cadastrar</button>
-    <button type="button" class="login">Login</button>
-  </div>
 </div>

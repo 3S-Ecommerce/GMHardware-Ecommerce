@@ -17,4 +17,9 @@ export class Auth {
   login(data: any) {
     return this.http.post(`${this.apiUrl}/login`, data);
   }
+
+updatePassword(data: any) {
+  return this.http.post(`${this.apiUrl}/update-password`, data );
+}
+
 }

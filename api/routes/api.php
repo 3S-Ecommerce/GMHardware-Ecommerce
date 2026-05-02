@@ -29,3 +29,5 @@ Route::apiResource('order-items', OrderItemsController::class);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/update-password', [AuthController::class, 'updatePassword']);
