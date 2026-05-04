@@ -21,10 +21,10 @@ class ProductSeeder extends Seeder
             'price' => 2500.00,
             'description' => 'Placa de vídeo gamer intermediária',
             'details' => '{
-            "1": "Top 10 melhores custo beneficio",
-            "2": "Placa de vídeo tamanho médio",
-            "3": "8GB RAM dedicada",
-            "4": "2.5GHz"}',
+            Top 10 melhores custo beneficio,
+            Placa de vídeo tamanho médio,
+            8GB RAM dedicada,
+            2.5GHz}',
             'stock'=> '5',
             'image'=> 'product/Video_gbranco.png',
         ]);
@@ -35,10 +35,10 @@ class ProductSeeder extends Seeder
             'price' => 2000.00,
             'description' => 'Placa de vídeo gamer intermediária',
             'details' => '{
-            "1": "Top 15 melhores custo beneficio",
-            "2": "Placa de vídeo tamanho médio",
-            "3": "6GB RAM dedicada",
-            "4": "2.0GHz"}',
+            Top 15 melhores custo beneficio,
+            Placa de vídeo tamanho médio,
+            6GB RAM dedicada,
+            2.0GHz}',
             'stock'=> '5',
             'image'=> 'product/Video_gcinza.png',
         ]);
@@ -49,10 +49,10 @@ class ProductSeeder extends Seeder
             'price' => 3000.00,
             'description' => 'Placa de vídeo gamer intermediária',
             'details' => '{
-            "1": "Top 10 melhores custo beneficio",
-            "2": "Placa de vídeo tamanho médio",
-            "3": "8GB RAM dedicada",
-            "4": "3.0GHz"}',
+            Top 10 melhores custo beneficio,
+            Placa de vídeo tamanho médio,
+            8GB RAM dedicada,
+            3.0GHz}',
             'stock'=> '3',
             'image'=> 'product/Video_gpreto.png',
         ]);

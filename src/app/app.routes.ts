@@ -34,6 +34,8 @@ import { Login } from './components/base-login/login/login';
 import { Cadastro } from './components/base-login/cadastro/cadastro';
 import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
 import { Devolucao } from './components/customer/devolucao/devolucao';
+import { Garantia } from './components/customer/garantia/garantia';
+import { Contato } from './components/customer/contato/contato';
 
 export const routes: Routes = [
     {
@@ -222,5 +224,13 @@ export const routes: Routes = [
     {
         path: 'devolucao',
         component: Devolucao
+    },
+    {
+        path: 'garantia',
+        component: Garantia
+    },
+    {
+        path: 'contato',
+        component: Contato
     }
 ];
