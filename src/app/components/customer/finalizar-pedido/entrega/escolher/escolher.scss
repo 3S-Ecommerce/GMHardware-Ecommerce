@@ -1,4 +1,5 @@
 @use "../../../../../../../public/assets/style.scss";
+@media(min-width:1200px){
 .entrega{
     @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
     h2{
@@ -14,4 +15,41 @@
         cursor: pointer;
         @include style.fontSize($size: 16px, $weight: 600);
     }
+}
+}
+@media (min-width: 736px) and (max-width: 1199px) {
+  .entrega{
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    h2{
+        @include style.fontSize($size: 30px, $weight: 600);
+        color: white;
+    }
+    .avancar{
+        background-color: style.$primary-bg;
+        padding: 10px;
+        border: 1px solid style.$white-color;
+        border-radius: 5px;
+        color: style.$success-color;
+        cursor: pointer;
+        @include style.fontSize($size: 16px, $weight: 600);
+    }
+}
+}
+@media(max-width: 736px){
+    .entrega{
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    h2{
+        @include style.fontSize($size: 25px, $weight: 600);
+        color: white;
+    }
+    .avancar{
+        background-color: style.$primary-bg;
+        padding: 10px;
+        border: 1px solid style.$white-color;
+        border-radius: 5px;
+        color: style.$success-color;
+        cursor: pointer;
+        @include style.fontSize($size: 16px, $weight: 600);
+    }
+}
 }
