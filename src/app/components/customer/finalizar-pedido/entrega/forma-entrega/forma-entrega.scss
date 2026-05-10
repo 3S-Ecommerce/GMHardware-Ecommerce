@@ -148,7 +148,7 @@
 
     h2 {
         color: white;
-        @include style.fontSize($size: 15px, $weight: 600);
+        @include style.fontSize($size: 25px, $weight: 600);
     }
 
     p {
