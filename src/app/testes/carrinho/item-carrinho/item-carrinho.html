@@ -1,23 +1,31 @@
 @for(item of produtos(); track $index){
 <div class="item">
     <div class="infos">
+
         <div class="quantidade">
             <button class="fa-solid fa-arrow-left" (click)="menosProduto(item.id)"></button>
             <span style="color: wheat; margin: 0px 5px 0px 5px;">{{ item.quantity }}</span>
             <button class="fa-solid fa-arrow-right" (click)="maisProduto(item.id)"></button>
         </div>
+
         <img ngSrc="{{ item.image }}" alt="" width="100" height="100">
+
         <div class="dados">
             <h3>{{ item.name }}</h3>
             <p>{{ item.price }}</p>
         </div>
+
     </div>
+
     <div class="buttons">
-        <button>Excluir</button>
+        <button i18n>Excluir</button>
     </div>
-    
+
 </div>
+
 <hr>
-}@empty {
-    <h1 style="color: white">Nenhum item adicionado no carrinho</h1>
+}
+
+@empty {
+    <h1 i18n>Nenhum item adicionado no carrinho</h1>
 }
