@@ -1,5 +1,4 @@
-<p>card-carrinho works!</p>
-<div class="cards-produtos">
+
     <!-- @for(item of produtos(); track item.id){ -->
     <!-- @if(item.categoria == categoria){ -->
     <!-- <div class="card-produto">
@@ -31,15 +30,27 @@
     <!-- }@empty {
         <p>Nenhum hardware encontrado nessa categoria</p>
     } -->
+ <p i18n>card-carrinho works!</p>
+
+<div class="cards-produtos">
+
     <div class="card-produto">
         <img ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
-        <span>Avaliações: 4.8(243)</span>
-        <h4>Teclado RGB </h4>
+
+        <span i18n>Avaliações: 4.8(243)</span>
+
+        <h4>Teclado RGB</h4>
+
         <p><span>R$</span>100,00</p>
+
         <div class="card-buttons">
-            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
-                Carrinho</button>
-            <button class="comprar">Comprar</button>
+            <button class="carrinho">
+                <i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                <span i18n>Carrinho</span>
+            </button>
+
+            <button class="comprar" i18n>Comprar</button>
         </div>
     </div>
-</div>  
+
+</div>
