@@ -1,12 +1,12 @@
 @if(variante == "receber"){
 
 <div class="div-entrega">
-    <h2>Enviar no meu endereço</h2>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
+    <h2 i18n>Enviar no meu endereço</h2>
+    <p i18n>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
     <hr>
     <div class="{{ variante }} div-button">
-        <button routerLink="endereco" class="escolher-endereco">Escolher outro endereço</button>
-        <button routerLink="forma-de-pagamento" class="selecionar">Selecionar</button>
+        <button routerLink="endereco" class="escolher-endereco" i18n>Escolher outro endereço</button>
+        <button routerLink="forma-de-pagamento" class="selecionar" i18n>Selecionar</button>
     </div>
 </div>
 
@@ -15,11 +15,11 @@
 @else if ( variante == "retirar" ) {
 
 <div class="div-entrega">
-    <h2>Retirar na Agência GMHardware</h2>
-    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
+    <h2 i18n>Retirar na Agência GMHardware</h2>
+    <p i18n>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
     <hr>
     <div class="{{ variante }} div-button">
-        <button routerLink="forma-de-pagamento" class="selecionar">Selecionar</button>
+        <button routerLink="forma-de-pagamento" class="selecionar" i18n>Selecionar</button>
     </div>
 </div>
 
