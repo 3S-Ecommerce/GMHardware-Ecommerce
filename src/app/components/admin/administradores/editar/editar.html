@@ -1,42 +1,42 @@
 <section>
-    <h2>Cadastrar Administrador</h2>
+    <h2 i18n>Cadastrar Administrador</h2>
     <div class="form-admin">
         @if(dados()){
         <form [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
             <div class="div-input w100">
-                <label for="name">Nome:</label>
-                <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
+                <label for="name" i18n>Nome:</label>
+                <input type="text" formControlName="name" id="name" i18n-placeholder placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
             </div>
             <div class="div-input w100">
-                <label for="email">Email:</label>
-                <input type="text" formControlName="email" id="email" class="w70" placeholder="pedro@email.com" required>
+                <label for="email" i18n>Email:</label>
+                <input type="text" formControlName="email" id="email" class="w70" i18n-placeholder placeholder="pedro@email.com" required>
             </div>
             <div class="div-input w50">
-                <label for="password">Senha:</label>
-                <p><input type="password" formControlName="password" id="password" class="w30" placeholder="password"></p>
+                <label for="password" i18n>Senha:</label>
+                <p><input type="password" formControlName="password" id="password" class="w30" i18n-placeholder placeholder="password"></p>
             </div>
             <div class="div-input w50">
-                <label for="passwordsd">Confirme a senha:</label>
-                <p><input type="password" formControlName="passwordsd" id="passwordsd" placeholder="password"></p>
+                <label for="passwordsd" i18n>Confirme a senha:</label>
+                <p><input type="password" formControlName="passwordsd" id="passwordsd" i18n-placeholder placeholder="password"></p>
             </div>
             <div class="div-input w100">
-                <label for="phone_number">Telefone:</label>
-                <input type="number" formControlName="phone_number" id="phone_number" class="w100" placeholder="11912341234">
+                <label for="phone_number" i18n>Telefone:</label>
+                <input type="number" formControlName="phone_number" id="phone_number" class="w100" i18n-placeholder placeholder="11912341234">
             </div>
             <div class="div-input w70">
-                <label for="document">Documento:</label>
-                <input type="text" formControlName="document" id="document" placeholder="31029081787">
+                <label for="document" i18n>Documento:</label>
+                <input type="text" formControlName="document" id="document" i18n-placeholder placeholder="31029081787">
             </div>
             <div class="div-input w30">
-                <label for="active">ativo:</label>
+                <label for="active" i18n>Ativo:</label>
                 <select formControlName="active" id="active">
-                    <option value="1">Sim</option>
-                    <option value="2">Não</option>
+                    <option value="1" i18n>Sim</option>
+                    <option value="2" i18n>Não</option>
                 </select>
             </div>
             <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
-                <button [disabled]="formAdmin.invalid" type="submit">Salvar</button>
+                <a routerLink="/finalizar-compra" class="voltar" i18n>Voltar</a>
+                <button [disabled]="formAdmin.invalid" type="submit" i18n>Salvar</button>
             </div>
         </form>
     }
