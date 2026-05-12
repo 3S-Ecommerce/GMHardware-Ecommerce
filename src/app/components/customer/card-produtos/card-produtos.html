@@ -1,65 +1,82 @@
 <div class="cards-produtos">
+
     @if (isLoading()){
-    <div id="loading" class="loading loadind-overlay">
+    <div class="loading loadind-overlay" aria-label="Carregando">
         <div class="spinner"></div>
     </div>
-    <div id="loading" class="loading loadind-overlay">
+    <div class="loading loadind-overlay" aria-label="Carregando">
         <div class="spinner"></div>
     </div>
-    <div id="loading" class="loading loadind-overlay">
+    <div class="loading loadind-overlay" aria-label="Carregando">
         <div class="spinner"></div>
     </div>
-    <div id="loading" class="loading loadind-overlay">
+    <div class="loading loadind-overlay" aria-label="Carregando">
         <div class="spinner"></div>
     </div>
-    <div id="loading" class="loading loadind-overlay">
+    <div class="loading loadind-overlay" aria-label="Carregando">
         <div class="spinner"></div>
     </div>
     }
     @else {
 
     @for(item of produtos(); track item.id){
+
     @if(item.category.name == categoria){
+
     <div class="card-produto">
+
         <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto" width="360" height="360">
-        <span>Avaliações: 4.8(243)</span>
+
+        <span i18n>Avaliações: 4.8(243)</span>
+
         <h4>{{ item.name }}</h4>
+
         <p><span>R$</span>{{ item.price }}</p>
+
         <div class="card-buttons">
             <button class="carrinho"
-                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})"><i
-                    class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
-            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar">Comprar</button>
+                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})">
+
+                <i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                <span i18n>Carrinho</span>
+            </button>
+
+            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar" i18n>Comprar</button>
         </div>
     </div>
+
     }
     @else if (categoria === 'todos') {
+
     <div class="card-produto">
-        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto"
-            width="360" height="360">
-        <span>Avaliações: 4.8(243)</span>
+
+        <img [routerLink]="['/produto',{ id: item.id }]" ngSrc="{{ item.image_url }}" alt="Imagem do produto" width="360" height="360">
+
+        <span i18n>Avaliações: 4.8(243)</span>
+
         <h4>{{ item.name }}</h4>
+
         <p><span>R$</span>{{ item.price }}</p>
+
         <div class="card-buttons">
             <button class="carrinho"
-                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})"><i
-                    class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
-            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar">Comprar</button>
+                (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})">
+
+                <i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+                <span i18n>Carrinho</span>
+            </button>
+
+            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar" i18n>Comprar</button>
         </div>
     </div>
+
     }
     }@empty {
-    <h1 style="color: white">Nenhum hardware encontrado nessa categoria</h1>
+
+    <h1 i18n>Nenhum hardware encontrado nessa categoria</h1>
+
     }
-    <!-- <div class="card-produto">
-        <img routerLink="/produto" ngSrc="/assets/main.jpg" alt="Imagem do produto" width="360" height="360">
-        <span>Avaliações: 4.8(243)</span>
-        <h4>Teclado RGB </h4>
-        <p><span>R$</span>100,00</p>
-        <div class="card-buttons">
-            <button class="carrinho"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>Carrinho</button>
-            <button class="comprar">Comprar</button>
-        </div>
-    </div> -->
+
     }
+
 </div>
