@@ -22,4 +22,8 @@ updatePassword(data: any) {
   return this.http.post(`${this.apiUrl}/update-password`, data );
 }
 
+isAuthenticated(): boolean {
+  const token = localStorage.getItem('token');
+  return !!token;
+}
 }
