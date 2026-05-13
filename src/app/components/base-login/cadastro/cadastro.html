@@ -1,24 +1,52 @@
 <div class="conteudo-login">
   <p>Seja bem vindo ao GMHardware</p>
-  <form action="" method="post">
+
+  <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+
     <div class="campo-email alinhar">
       <label for="email">Email:</label>
-      <input type="email">
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        placeholder="Digite seu email">
     </div>
+
     <div class="campo-senha alinhar">
       <label for="senha">Senha:</label>
-      <input type="password">
+      <input
+        type="password"
+        id="senha"
+        formControlName="password"
+        placeholder="Digite sua senha">
     </div>
+
     <div class="campo-comfirmar-senha alinhar">
-      <label for="senha">Confirmar Senha:</label>
-      <input type="password">
+      <label for="confirmSenha">Confirmar Senha:</label>
+      <input
+        type="password"
+        id="confirmSenha"
+        formControlName="password_confirmation"
+        placeholder="Confirme sua senha">
+
+
       <div class="termos">
-          <input type="checkbox" name="termos" id="termos" class="caixa-termo">
-          <label for="termos">Li e concordo com os termos</label>
+        <input
+          type="checkbox"
+          id="termos"
+          class="caixa-termo">
+        <label for="termos">Li e concordo com os termos</label>
       </div>
     </div>
+
+    <div class="button">
+      <button
+        type="submit"
+        class="cadastrar"
+        [disabled]="formRegister.invalid">
+        Cadastrar
+      </button>
+    </div>
+
   </form>
-  <div class="button">
-    <button type="button" class="cadastrar">Cadastrar</button>
-  </div>
 </div>

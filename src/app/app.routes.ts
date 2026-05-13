@@ -36,6 +36,7 @@ import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
 import { Devolucao } from './components/customer/devolucao/devolucao';
 import { Garantia } from './components/customer/garantia/garantia';
 import { Contato } from './components/customer/contato/contato';
+import { authGuard } from './core/services/auth.guard';
 
 export const routes: Routes = [
     {
@@ -48,7 +49,7 @@ export const routes: Routes = [
             },
             {
                 path: 'inicio',
-                component: Apresentacao
+                component: Apresentacao,
             },
             {
                 path: 'placas-de-video',
@@ -88,7 +89,7 @@ export const routes: Routes = [
             {
                 path: 'perifericos',
                 component: Categorias,
-                data: { categoria: 'Periférico' }
+                data: { categoria: 'Periférico' },
             }
         ]
     },
@@ -130,11 +131,13 @@ export const routes: Routes = [
         },
         {
             path: 'forma-de-pagamento',
-            component: Pagamento
+            component: Pagamento,
+            canActivate: [authGuard]
         },
         {
             path: 'revisar',
-            component: Revisar
+            component: Revisar,
+            canActivate: [authGuard]
         },
         {
             path: 'pagamento',
@@ -213,13 +216,15 @@ export const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                component: Dashboard
+                component: Dashboard,
+                canActivate: [authGuard]
             }
         ]
     },
     {
         path: 'carrinho',
-        component: Carrinho
+        component: Carrinho,
+        canActivate: [authGuard]
     },
     {
         path: 'devolucao',

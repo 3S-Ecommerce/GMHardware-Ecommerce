@@ -1,5 +1,5 @@
 @use "../../../../../../public/assets/style.scss";
-
+@media(min-width:1200px){
 .revisar {
     @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
 
@@ -93,4 +93,197 @@
             }
         }
     }
+}
+}
+@media (min-width: 736px) and (max-width: 1199px) {
+  .revisar {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+
+    h2 {
+        @include style.fontSize($size: 30px, $weight: 600);
+        color: white;
+    }
+
+    .div-layout {
+    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
+    max-width: 100%;
+    padding: 20px;
+    background-color: style.$primary-bg;
+    border-radius: 10px;
+
+        .quantidade {
+            @include style.displayFlex($aligh: center);
+            width: auto;
+            font-size: 20px;
+        }
+
+        h3 {
+            @include style.fontSize($size: 19px, $weight: 600);
+            color: white;
+        }
+
+        p {
+            @include style.fontSize($size: 14px, $weight: 400);
+            color: style.$white-color;
+        }
+
+        hr {
+            width: 100%;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            @include style.displayFlex($justify: flex-start, $width: auto);
+            color: style.$descont-color;
+            @include style.fontSize($size: 13px, $weight: 600);
+
+        }
+
+        .div-img {
+            @include style.displayFlex($justify: space-between, $gap: 16px);
+            align-self: flex-start;
+
+            .img {
+                position: relative;
+                border-radius: 50%;
+                border: 2px solid white;
+                width: 150px;
+                height: 150px;
+            }
+
+            img {
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .button {
+        width: 70%;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
+        display: flex;
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 4px 10px;
+            min-width: 80px;
+            height: 30px;
+            margin-left: 8px;
+            cursor: pointer;
+            color: white;
+            @include style.fontSize($size: 14px, $weight: 600);
+
+            &.confirmar {
+                background-color: style.$primary-text;
+            }
+
+            &.cancelar {
+                @include style.fontSize($size: 14px, $weight: 600);
+                background: none;
+                color: white;
+            }
+        }
+    }
+}
+}
+@media(max-width: 736px){
+    .revisar {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+
+    h2 {
+        @include style.fontSize($size: 25px, $weight: 600);
+        color: white;
+    }
+
+    .div-layout {
+    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
+    max-width: 100%;
+    padding: 20px;
+    background-color: style.$primary-bg;
+    border-radius: 10px;
+
+        .quantidade {
+            @include style.displayFlex($aligh: center);
+            width: auto;
+            font-size: 20px;
+        }
+
+        h3 {
+            @include style.fontSize($size: 15px, $weight: 600);
+            color: white;
+        }
+
+        p {
+            @include style.fontSize($size: 12px, $weight: 400);
+            color: style.$white-color;
+        }
+
+        hr {
+            width: 100%;
+        }
+
+        button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            @include style.displayFlex($justify: flex-start, $width: auto);
+            color: style.$descont-color;
+            @include style.fontSize($size: 11px, $weight: 600);
+
+        }
+
+        .div-img {
+            @include style.displayFlex($justify: space-between, $gap: 16px);
+            align-self: flex-start;
+
+            .img {
+                position: relative;
+                border-radius: 50%;
+                border: 2px solid white;
+                width: 150px;
+                height: 150px;
+            }
+
+            img {
+                border-radius: 50%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .button {
+        width: 70%;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 16px;
+        display: flex;
+
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 5px;
+            min-width: 70px;
+            height: 30px;
+            margin-left: 8px;
+            cursor: pointer;
+            color: white;
+            @include style.fontSize($size: 12px, $weight: 600);
+
+            &.confirmar {
+                background-color: style.$primary-text;
+            }
+
+            &.cancelar {
+                @include style.fontSize($size: 12px, $weight: 600);
+                background: none;
+                color: white;
+            }
+        }
+    }
+}
 }

@@ -1,4 +1,5 @@
 @use "../../../../../../public/assets/style.scss";
+@media(min-width:1200px){
 main{
     @include style.displayFlex($gap: 120px);
     background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
@@ -21,4 +22,55 @@ main{
     .main-image{
         flex: .4
     }
+}
+}
+@media (min-width: 736px) and (max-width: 1199px) {
+  main{
+    @include style.displayFlex($gap: 120px);
+    background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+    width: 100%;
+    min-height: 680px;
+    padding: 48px 64px;
+    .main-apresentacao{
+        @include style.displayFlex($direction: column, $gap: 24px);
+        height: 80%;
+        flex: 1;
+        h1{
+            @include style.fontSize($size: 42px, $weight: 700);
+            color: white;
+        }
+        p{
+            @include style.fontSize($size: 32px, $weight: 400);
+            color: style.$white-color;
+        }
+    }
+    .main-image img{
+        display: none;
+    }
+}
+}
+@media(max-width: 736px){
+  main{
+    @include style.displayFlex($gap: 120px);
+    background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+    width: 100%;
+    min-height: 580px;
+    padding: 32px 20px;
+    .main-apresentacao{
+        @include style.displayFlex($direction: column, $gap: 24px);
+        height: 80%;
+        flex: 1;
+        h1{
+            @include style.fontSize($size: 35px, $weight: 700);
+            color: white;
+        }
+        p{
+            @include style.fontSize($size: 22px, $weight: 400);
+            color: style.$white-color;
+        }
+    }
+    .main-image img{
+        display: none;
+    }
+}
 }

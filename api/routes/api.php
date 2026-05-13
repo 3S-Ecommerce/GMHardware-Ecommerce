@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 // Route::get('/user/{id}', function (Request $request) {
 //     return $request->user();
@@ -24,3 +25,9 @@ Route::apiResource('category', CategoryController::class);
 Route::apiResource('product', ProductController::class);
 
 Route::apiResource('order-items', OrderItemsController::class);
+
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/update-password', [AuthController::class, 'updatePassword']);
