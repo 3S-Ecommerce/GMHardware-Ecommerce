@@ -1,25 +1,23 @@
-<p i18n>cadastro-produto works!</p>
-
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
 
-    <input formControlName="name" i18n-placeholder placeholder="Digite o nome do produto">
+    <input formControlName="name" placeholder="Digite o nome do produto">
 
-    <input formControlName="price" type="number" i18n-placeholder placeholder="Preço">
+    <input formControlName="price" type="number" placeholder="Preço">
 
-    <input formControlName="stock" type="number" i18n-placeholder placeholder="Estoque">
+    <input formControlName="stock" type="number" placeholder="Estoque">
 
-    <input formControlName="id_admin" type="number" i18n-placeholder placeholder="1\2">
+    <input formControlName="id_admin" type="number" placeholder="1\2">
 
     <select formControlName="id_category" id="">
-        <option value="1" i18n>Placa de vídeo</option>
-        <option value="2" i18n>Processador</option>
-        <option value="8" i18n>Periférico</option>
+        <option value="1" id="cadastroProdutoOpcaoPlacaVideo">Placa de vídeo</option>
+        <option value="2" id="cadastroProdutoOpcaoProcessador">Processador</option>
+        <option value="8" id="cadastroProdutoOpcaoPeriferico">Periférico</option>
     </select>
 
-    <textarea formControlName="description" i18n-placeholder placeholder="Digite a descrição do produto"></textarea>
+    <textarea formControlName="description" placeholder="Digite a descrição do produto"></textarea>
     
     <input type="file">
 
-    <button type="submit" [disabled]="productForm.invalid" i18n>Cadastrar Produto</button>
+    <button type="submit" [disabled]="productForm.invalid" id="cadastroProdutoBtnCadastrar">Cadastrar Produto</button>
 
 </form>

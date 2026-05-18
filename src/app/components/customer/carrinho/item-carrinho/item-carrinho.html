@@ -3,26 +3,26 @@
     <div class="descricaoProduto">
 
         <div class="seletorQuantidade">
-            <button (click)="decrease()" aria-label="Diminuir quantidade" i18n> < </button>
+            <button (click)="decrease()" aria-label="Diminuir quantidade"> < </button>
 
             <span>{{quantidade}}</span>
 
-            <button (click)="increase()" aria-label="Aumentar quantidade" i18n>></button>
+            <button (click)="increase()" aria-label="Aumentar quantidade">></button>
         </div>
 
         <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/1/0/100-100000926wof.jpg"
             alt="Processador">
 
         <div class="textosItem">
-            <h3>Processador AMD Ryzen 7</h3>
+            <h3 id="itemCarrinhoNomeProduto">Processador AMD Ryzen 7</h3>
             <h4>R$ {{preco}}</h4>
         </div>
 
     </div>
 
     <div class="grupoBotoes">
-        <button class="btnExcluir" i18n>Excluir</button>
-        <button class="btnComprar" i18n>Comprar</button>
+        <button class="btnExcluir" id="itemCarrinhoBtnExcluir">Excluir</button>
+        <button class="btnComprar" id="itemCarrinhoBtnComprar">Comprar</button>
     </div>
 
 </div>

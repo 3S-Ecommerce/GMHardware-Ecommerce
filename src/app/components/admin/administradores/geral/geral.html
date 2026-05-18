@@ -1,16 +1,16 @@
 <section class="section-administradores">
     <div>
-        <h2 i18n>Administradores</h2>
-        <button routerLink="novo" i18n>Novo Administrador</button>
+        <h2 i18n id="tituloGeralAdm">Administradores</h2>
+        <button routerLink="novo" i18n id="btnNovoAdm">Novo Administrador</button>
     </div>
     <table>
         <thead>
             <tr>
-                <th i18n>ID</th>
-                <th i18n>Administrador</th>
-                <th i18n>Cadastrado</th>
-                <th i18n>Ativo</th>
-                <th i18n>Ações</th>
+                <th i18n id="geralIdAdm">ID</th>
+                <th i18n id="geralAdministrador">Administrador</th>
+                <th i18n id="geralAdmCadastrado">Cadastrado</th>
+                <th i18n id="geralAtivoAdm">Ativo</th>
+                <th i18n id="geralAcoesAdm">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -23,8 +23,8 @@
                 <td>{{ admin.name }}</td>
                 <td>{{ admin.created_at | date: 'dd/MM/yyyy'}}</td>
                 <td>
-                    @if(admin.active == 1){<span i18n>Ativo</span>}
-                    @else {<span i18n>Inativo</span>}
+                    @if(admin.active == 1){<span i18n id="respostaAtivo">Ativo</span>}
+                    @else {<span i18n id="respostaInativo">Inativo</span>}
                 </td>
                 <td class="acoes">
                     <a [routerLink]="['editar', {id: admin.id}]"><i class="fa-solid fa-pen"></i></a>

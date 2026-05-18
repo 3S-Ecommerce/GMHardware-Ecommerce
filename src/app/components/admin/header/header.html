@@ -1,9 +1,8 @@
 <header>
-    <!-- <img src="" alt=""> -->
     <div class="header-search">
-        <h1 routerLink="/inicio" aria-label="Nome da loja" i18n>GMHardware</h1>
+        <h1 routerLink="/inicio" aria-label="Nome da loja" i18n id="headerNomeLoja">GMHardware</h1>
         <div class="search-bar">
-            <input type="text" i18n-placeholder placeholder="Buscar produtos...">
+            <input type="text" i18n-placeholder="@@headerPlaceholderBuscar" placeholder="Buscar produtos...">
             <i class="fa-solid fa-magnifying-glass" aria-label="icone de pesquisa"></i>
         </div>
         <nav>
@@ -13,8 +12,8 @@
         </nav>
     </div>
     <nav class="header-nav">
-        <a routerLink="./produtos" i18n>Produtos</a>
-        <a routerLink="./administradores" i18n>Administradores</a>
-        <a routerLink="./dashboard" i18n>Dashboard</a>
+        <a routerLink="./produtos" i18n id="headerLinkProdutos">Produtos</a>
+        <a routerLink="./administradores" i18n id="headerLinkAdministradores">Administradores</a>
+        <a routerLink="./dashboard" i18n id="headerLinkDashboard">Dashboard</a>
     </nav>
 </header>

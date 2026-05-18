@@ -31,11 +31,16 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
+            {
+              "glob": "**/*",
+               "input": "public"
+            },
+             {
+              "glob": "**/*",
+              "input": "src/assets",
+              "output": "assets"
               }
-            ],
+              ],
             "styles": [
               "src/styles.scss"
             ],
@@ -70,6 +75,13 @@
               "sourceMap": true
             }
           },
+            "en": {
+              "localize": ["en"]
+            },
+
+          "pt-BR": {
+              "localize": ["pt-BR"]
+        },
           "defaultConfiguration": "production"
         },
         "serve": {

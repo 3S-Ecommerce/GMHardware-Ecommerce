@@ -1,20 +1,20 @@
 <app-header></app-header>
 
 <section>
-    <h2 i18n>Teste Reads</h2>
+    <h2 id="testeReadsTitulo">Teste Reads</h2>
 
     <form [formGroup]="formId" (ngSubmit)="onSubmit()">
         <select formControlName="opcao" id="">
-            <option value="product" i18n>Product</option>
-            <option value="category" i18n>Category</option>
-            <option value="user" i18n>User</option>
-            <option value="order" i18n>Order</option>
-            <option value="orderitem" i18n>Order Item</option>
+            <option value="product" id="testeReadsOpcaoProduct">Product</option>
+            <option value="category" id="testeReadsOpcaoCategory">Category</option>
+            <option value="user" id="testeReadsOpcaoUser">User</option>
+            <option value="order" id="testeReadsOpcaoOrder">Order</option>
+            <option value="orderitem" id="testeReadsOpcaoOrderItem">Order Item</option>
         </select>
 
         <input formControlName="id" type="number" step="1" value="">
 
-        <button type="submit" [disabled]="formId.invalid" i18n>Buscar</button>
+        <button type="submit" [disabled]="formId.invalid" id="testeReadsBtnBuscar">Buscar</button>
     </form>
 
     <table>
@@ -30,8 +30,8 @@
             <tr>
                 <p style="color:white"></p>
                 <p style="color:white">
-                    <span>ID: {{ dados().id }} || </span>
-                    NAME: {{ dados().name }}
+                    <span id="testeReadsLabelIdUniq">ID: </span>{{ dados().id }} || 
+                    <span id="testeReadsLabelNameUniq">NAME: </span>{{ dados().name }}
                 </p>
             </tr>
             }
@@ -42,8 +42,8 @@
             <tr>
                 <p style="color:white"></p>
                 <p style="color:white">
-                    <span>ID: {{ items.id }} || </span>
-                    NAME: {{ items.name }}
+                    <span id="testeReadsLabelIdLoop-{{ items.id }}">ID: </span>{{ items.id }} || 
+                    <span id="testeReadsLabelNameLoop-{{ items.id }}">NAME: </span>{{ items.name }}
                 </p>
             </tr>
             }
