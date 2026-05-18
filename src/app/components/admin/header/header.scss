@@ -1,6 +1,7 @@
 @use "../../../../../public/assets/style.scss";
+@media(min-width:1200px){
 header{
-    
+
     background-color: style.$primary-bg;
 }
 .header-search {
@@ -17,7 +18,7 @@ header{
     .search-bar {
         @include style.displayFlex($width: 70%, $justify: center);
         flex: 1;
-        
+
         i{
             position: relative;
             color: style.$white-color;
@@ -60,4 +61,5 @@ header{
         color: style.$white-color;
     }
     padding-bottom: 16px;
+}
 }
