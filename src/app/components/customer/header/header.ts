@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, afterNextRender } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink, NavigationEnd } from "@angular/router";
 import { Cart } from '../../../core/services/cart';
 import { LanguageService } from '../../../core/services/language';
 @Component({
@@ -10,10 +10,13 @@ import { LanguageService } from '../../../core/services/language';
 })
 export class Header{
     language = inject(LanguageService);
+    router = inject(Router);
 
     changeLanguage(lang: string) {
 
   this.language.changeLanguage(lang);
+
+  
 
 }
 
@@ -22,13 +25,33 @@ export class Header{
   quantidadeCarrinho = computed(() => {
       return this.cart.totalItems();
     })
+constructor() {
 
-  constructor(){
-    afterNextRender(() => {
-      this.cart.iniciar()
-    })
-  }
+  afterNextRender(() => {
 
+    this.cart.iniciar();
+
+    this.language.loadSavedLanguage();
+
+  });
+
+  this.router.events.subscribe(event => {
+
+    if (event instanceof NavigationEnd) {
+
+      setTimeout(() => {
+
+        this.language.loadSavedLanguage();
+
+      }, 100);
+
+    }
+
+  });
+
+}
+
+ 
 //   changeLanguage(lang: string) {
 
 //   const currentPath = window.location.pathname;
