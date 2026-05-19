@@ -37,6 +37,8 @@ import { Devolucao } from './components/customer/devolucao/devolucao';
 import { Garantia } from './components/customer/garantia/garantia';
 import { Contato } from './components/customer/contato/contato';
 import { authGuard } from './core/services/auth.guard';
+import { guestGuard } from './core/services/guest.guard';
+import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 
 export const routes: Routes = [
     {
@@ -94,21 +96,29 @@ export const routes: Routes = [
         ]
     },
     {
-         path: '',
-         component: BaseLogin, children: [
-             {
-                 path: 'login',
-                 component: Login
-             },
-             {
-                 path: 'cadastro',
-                 component: Cadastro
-              },
-             {
-                 path: 'nova-senha',
-                 component: NovaSenha
-             }
-         ]
+        path: '',
+        component: BaseLogin, children: [
+            {
+                path: 'login',
+                component: Login,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'cadastro',
+                component: Cadastro,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'nova-senha',
+                component: NovaSenha,
+                canActivate: [guestGuard]
+            }
+        ]
+    },
+    {
+        path: 'perfil',
+        component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
+        canActivate: [authGuard]   // Seu
     },
     {
         path: 'produto',

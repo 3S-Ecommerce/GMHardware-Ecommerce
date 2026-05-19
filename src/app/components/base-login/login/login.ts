@@ -30,9 +30,13 @@ export class Login {
       next: (res: any) => {
         console.log('LOGIN SUCESSO', res);
 
-        // Salvamos o token e os dados do usuário
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
+        // ❌ REMOVA ESTAS LINHAS:
+        // localStorage.setItem('token', res.token);
+        // localStorage.setItem('user', JSON.stringify(res.user));
+
+        //  USE O MÉTODO DO SERVIÇO:
+        // Isso vai salvar no localStorage E atualizar os Signals ao mesmo tempo!
+        this.authService.setSession(res.token, res.user);
 
         alert('Bem-vindo de volta, ' + res.user.name);
 

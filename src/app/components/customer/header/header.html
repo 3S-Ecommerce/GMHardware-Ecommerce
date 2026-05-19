@@ -7,9 +7,14 @@
             <i class="fa-solid fa-magnifying-glass" aria-label="icone de pesquisa"></i>
         </div>
         <nav>
-            <a routerLink="/login"><i class="fa-solid fa-circle-user" aria-label="icone de usuário"></i></a>
+            @if (authService.isAuthenticated()) {
+            <a routerLink="/perfil"><i class="fa-solid fa-circle-user" aria-label="Acessar Perfil"></i></a>
+            } @else {
+            <a routerLink="/login"><i class="fa-solid fa-circle-user" aria-label="Fazer Login"></i></a>
+            }
             <a href=""><i class="fa-regular fa-heart" aria-label="icone de favoritos"></i></a>
-            <a routerLink="/carrinho" id="cart"><i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i><span>{{ quantidadeCarrinho() }}</span></a>
+            <a routerLink="/carrinho" id="cart"><i class="fa-solid fa-cart-arrow-down"
+                    aria-label="icone de carrinho"></i><span>{{ quantidadeCarrinho() }}</span></a>
         </nav>
     </div>
     <nav class="header-nav">

@@ -1,6 +1,7 @@
 import { Component, computed, inject, OnInit, afterNextRender } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Cart } from '../../../core/services/cart';
+import { Auth } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +10,7 @@ import { Cart } from '../../../core/services/cart';
   styleUrl: './header.scss',
 })
 export class Header{
+  authService = inject(Auth)
   cart = inject(Cart);
   quantidadeCarrinho = computed(() => {
       return this.cart.totalItems();
