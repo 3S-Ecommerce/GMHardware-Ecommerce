@@ -77,14 +77,12 @@ export class Editarp {
 }
     });
   }
-
 onFileChange(event: any){
   const file = event.target.files[0];
   if (file) {
     this.formProduct.patchValue({ image: file })
   }
 }
-
 onSubmit(){
   const form = this.formProduct.value;
   const id = String(this.id())
@@ -112,5 +110,4 @@ onSubmit(){
     }
   })
 }
-
 }

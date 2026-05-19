@@ -2,65 +2,40 @@ import { Component, computed, inject, OnInit, afterNextRender } from '@angular/c
 import { Router, RouterLink, NavigationEnd } from "@angular/router";
 import { Cart } from '../../../core/services/cart';
 import { LanguageService } from '../../../core/services/language';
+import { SearchBarComponent } from '../../search-bar/search-bar'; 
+
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  standalone: true, 
+  imports: [RouterLink, SearchBarComponent], 
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header{
-    language = inject(LanguageService);
-    router = inject(Router);
-
-    changeLanguage(lang: string) {
-
-  this.language.changeLanguage(lang);
-
-  
-
-}
-
-
+export class Header {
+  language = inject(LanguageService);
+  router = inject(Router);
   cart = inject(Cart);
+
   quantidadeCarrinho = computed(() => {
-      return this.cart.totalItems();
-    })
-constructor() {
-
-  afterNextRender(() => {
-
-    this.cart.iniciar();
-
-    this.language.loadSavedLanguage();
-
+    return this.cart.totalItems();
   });
 
-  this.router.events.subscribe(event => {
+  constructor() {
+    afterNextRender(() => {
+      this.cart.iniciar();
+      this.language.loadSavedLanguage();
+    });
 
-    if (event instanceof NavigationEnd) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          this.language.loadSavedLanguage();
+        }, 100);
+      }
+    });
+  }
 
-      setTimeout(() => {
-
-        this.language.loadSavedLanguage();
-
-      }, 100);
-
-    }
-
-  });
-
-}
-
- 
-//   changeLanguage(lang: string) {
-
-//   const currentPath = window.location.pathname;
-
-//   const cleanPath = currentPath
-//     .replace('/en', '')
-//     .replace('/pt-BR', '');
-
-//   window.location.href = `/${lang}${cleanPath}`;
-
-// }
+  changeLanguage(lang: string) {
+    this.language.changeLanguage(lang);
+  }
 }

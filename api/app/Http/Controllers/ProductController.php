@@ -7,8 +7,11 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class ProductController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
@@ -96,4 +99,24 @@ class ProductController extends Controller
             return response()->json(null, 404);
         return response()->json(['message' => 'destroy product'], 200);
     }
+    /**
+     * Search for products.
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+
+        if (empty($query)) {
+            return response()->json([]);
+        }
+
+        // Buscamos apenas pelos campos que confirmamos que existem na sua Model
+        $products = Product::where('name', 'LIKE', "%{$query}%")
+            ->select('id', 'name', 'price', 'image') // Incluímos 'image' para o image_url funcionar
+            ->take(5)
+            ->get();
+
+        return response()->json($products);
+    }
+
 }
