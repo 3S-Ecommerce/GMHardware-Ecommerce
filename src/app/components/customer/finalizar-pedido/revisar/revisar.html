@@ -30,13 +30,13 @@
     </div>
     <div class="div-layout">
         <h3>Detalhe do pagamento</h3>
-        <p>PIX</p>
+        <p>{{ metodoPagamento() }}</p>
         <p>R$ {{ valorTotal() }}</p>
         <hr>
         <button routerLink="../forma-de-pagamento">Alterar forma de pagamento</button>
     </div>
     <div class="button">
         <button routerLink="../forma-de-pagamento" class="cancelar">Cancelar</button>
-        <button routerLink="../pagamento/cartao" class="confirmar">Confirmar</button>
+        <button (click)="confirmarPedido()">Confirmar e realizar pagamento</button>
     </div>
 </section>

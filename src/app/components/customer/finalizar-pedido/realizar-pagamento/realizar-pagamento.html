@@ -1,1 +1,17 @@
-<router-outlet></router-outlet>
+<div class="container-pagamento">
+    <!-- Se o método for pix, mostra o componente do pix -->
+    @if (metodo() === 'pix') {
+        <app-pix></app-pix>
+    }
+    <!-- Se o método for cartao, mostra o componente do cartao -->
+    @else if (metodo() === 'cartao') {
+        <app-cartao></app-cartao>
+    }
+    <!-- Caso algo dê errado ou o usuário chegue aqui sem escolher -->
+    @else {
+        <div class="aviso">
+            <p>Nenhum método de pagamento selecionado.</p>
+            <button routerLink="/finalizar-pedido/pagamento">Voltar para seleção</button>
+        </div>
+    }
+</div>
