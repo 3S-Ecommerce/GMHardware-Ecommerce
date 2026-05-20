@@ -48,17 +48,21 @@ section{
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
+                    border: 1px solid rgba(255, 255, 255, 0.5); // Garante borda visível igual à da sua tela de login
+                    box-sizing: border-box;
                 }
                 #active{
                     padding: 12px 24px;
-                    background: none;
+                    background: transparent;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
+                    border: 1px solid rgba(255, 255, 255, 0.5);
+                    box-sizing: border-box;
                     option{
                         color: black;
-                        background-color: none;
+                        background-color: white;
                     }
                 }
             }
@@ -88,6 +92,81 @@ section{
                 .voltar{
                     @include style.fontSize($size: 22px, $weight: 600);
                     color: white;
+                }
+            }
+        }
+    }
+}
+
+// ==========================================================================
+// RESPONSIVIDADE ADICIONADA (MANTÉM O CÓDIGO ACIMA INTEGRALMENTE)
+// ==========================================================================
+
+// TABLET (Telas até 1024px)
+@media (max-width: 1024px) {
+    section {
+        gap: 32px;
+        padding: 20px;
+
+        .form-admin {
+            max-width: 90%; // Ocupa mais espaço na tela do tablet
+            width: 100%;
+        }
+    }
+}
+
+// MOBILE (Telas até 768px - Otimizado com foco total em 375px)
+@media (max-width: 768px) {
+    section {
+        gap: 20px;
+        padding: 10px;
+        align-items: center;
+
+        h2 {
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .form-admin {
+            max-width: 100%; // Card ocupa a largura total da tela no mobile
+            width: 100%;
+            padding: 16px;
+
+            form {
+                row-gap: 16px;
+
+                // Força todas as larguras parciais (.w50, .w70, .w30) a virarem 100%
+                .w70, .w50, .w30 {
+                    width: 100% !important;
+                }
+
+                .div-input {
+                    label {
+                        @include style.fontSize($size: 16px, $weight: 600); // Fonte enxuta para 375px
+                    }
+
+                    input, #active {
+                        padding: 8px 16px; // Padding menor para não estourar o espaço vertical
+                        @include style.fontSize($size: 16px, $weight: 500);
+                        height: 40px;
+                    }
+                }
+
+                .button {
+                    justify-content: space-between; // No mobile, joga o voltar para a esquerda e salvar para a direita
+                    width: 100%;
+                    margin-top: 8px;
+
+                    .voltar {
+                        @include style.fontSize($size: 18px, $weight: 600);
+                    }
+
+                    button {
+                        @include style.fontSize($size: 18px, $weight: 600);
+                        min-width: 100px;
+                        height: 38px;
+                        margin-left: 0;
+                    }
                 }
             }
         }

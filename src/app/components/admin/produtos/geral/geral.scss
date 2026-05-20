@@ -91,14 +91,13 @@ section {
     }
 }
 
-// MOBILE ULTRA COMPACTO (Telas até 768px - Otimizado para 375px)
 @media (max-width: 768px) {
     section {
         gap: 16px;
-        padding: 8px; // Padding menor nas laterais para ganhar espaço útil
+        padding: 8px;
 
         div {
-            h2 { font-size: 18px; } // Título menor para não apertar o topo
+            h2 { font-size: 18px; }
             button { 
                 @include style.fontSize($size: 13px, $weight: 600); 
                 padding: 4px 8px;
@@ -107,46 +106,40 @@ section {
         }
         
         table {
-            min-width: 100% !important; // Remove qualquer min-width em px para obrigar a table a encolher
+            min-width: 100% !important;
             width: 100%;
-            table-layout: fixed; // 💡 Força o navegador a respeitar o tamanho exato de 375px do container
+            table-layout: fixed;
 
             thead th {
-                @include style.fontSize($size: 12px, $weight: 600); // Fonte super enxuta
+                @include style.fontSize($size: 12px, $weight: 600);
                 padding: 8px 2px;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.3);
             }
 
             tbody td {
-                @include style.fontSize($size: 12px, $weight: 500); // Fonte super enxuta
+                @include style.fontSize($size: 12px, $weight: 500);
                 padding: 8px 2px;
-                word-break: break-word; // Se o nome do produto for gigante, ele quebra linha e não empurra a tabela
+                word-break: break-word;
                 
                 &.acoes a {
                     margin-right: 4px;
                     margin-left: 4px;
-                    font-size: 14px; // Ícones de caneta/lixo em um tamanho bom para clicar com o dedo
+                    font-size: 14px;
                 }
             }
 
-            // 💡 CONTROLE DE LARGURA DAS COLUNAS QUE SOBRARAM
-            thead th:nth-child(1) { width: 15%; } // ID ganha um espaço pequeno
-            thead th:nth-child(3) { width: 60%; } // Produto ganha a maior parte do espaço
-            thead th:nth-child(6) { width: 25%; } // Ações ganha o espaço restante
+            thead th:nth-child(1) { width: 15%; }
+            thead th:nth-child(3) { width: 60%; }
+            thead th:nth-child(6) { width: 25%; }
 
-            // ❌ OCULTANDO AS COLUNAS SOLICITADAS:
-            
-            // Oculta a 2ª coluna (Imagem)
-            thead th:nth-child(2), tbody td:nth-child(2) {
+            thead th:nth-child(1), tbody td:nth-child(1) {
                 display: none !important;
             }
 
-            // Oculta a 4ª coluna (Data de Cadastro)
             thead th:nth-child(4), tbody td:nth-child(4) {
                 display: none !important;
             }
 
-            // Oculta a 5ª coluna (Estoque)
             thead th:nth-child(5), tbody td:nth-child(5) {
                 display: none !important;
             }
