@@ -1,13 +1,15 @@
 @use "../../../../../../public/assets/style.scss";
-section{
+
+section {
     @include style.sectionPattern();
     min-height: 80vh;
     justify-content: flex-start;
     gap: 48px;
-    
-    div{
-        @include style.displayFlex($justify: space-between,);
-        button{
+
+    div {
+        @include style.displayFlex($justify: space-between, );
+
+        button {
             @include style.fontSize($size: 32px, $weight: 600);
             background-color: style.$primary-text;
             padding: 4px 8px;
@@ -16,23 +18,27 @@ section{
             color: white;
         }
     }
-    table{
+
+    table {
         min-width: 900px;
         background-color: style.$primary-bg;
         border-radius: 10px;
         border-collapse: collapse;
-        thead{
-            th{
+
+        thead {
+            th {
                 color: white;
                 @include style.fontSize($size: 24px, $weight: 600);
                 border-bottom: 1px solid white;
                 max-height: 70px;
                 padding: 16px
             }
+
             padding-bottom: 4px;
         }
-        tbody{
-            td{
+
+        tbody {
+            td {
                 color: style.$white-color;
                 @include style.fontSize($size: 24px, $weight: 600);
                 border-bottom: 1px solid white;
@@ -41,13 +47,108 @@ section{
                 padding: 16px;
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
-                &.acoes{
-                    a{
+
+                &.acoes {
+                    a {
                         color: orange;
                         margin-right: 8px;
                         margin-left: 8px;
                     }
                 }
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    section {
+        gap: 24px;
+        padding: 15px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: auto; 
+        display: flex;
+        flex-direction: column;
+
+        div {
+            width: 100%;
+            h2 { font-size: 26px; }
+            button {
+                @include style.fontSize($size: 18px, $weight: 600); 
+                padding: 6px 12px;
+            }
+        }
+
+        table {
+            min-width: 750px; 
+            width: 100%;
+            
+            thead th, tbody td {
+                @include style.fontSize($size: 16px, $weight: 600); 
+                padding: 10px;
+            }
+        }
+    }
+}
+
+// MOBILE ULTRA COMPACTO (Telas até 768px - Otimizado para 375px)
+@media (max-width: 768px) {
+    section {
+        gap: 16px;
+        padding: 8px; // Padding menor nas laterais para ganhar espaço útil
+
+        div {
+            h2 { font-size: 18px; } // Título menor para não apertar o topo
+            button { 
+                @include style.fontSize($size: 13px, $weight: 600); 
+                padding: 4px 8px;
+                border-radius: 6px;
+            }
+        }
+        
+        table {
+            min-width: 100% !important; // Remove qualquer min-width em px para obrigar a table a encolher
+            width: 100%;
+            table-layout: fixed; // 💡 Força o navegador a respeitar o tamanho exato de 375px do container
+
+            thead th {
+                @include style.fontSize($size: 12px, $weight: 600); // Fonte super enxuta
+                padding: 8px 2px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            tbody td {
+                @include style.fontSize($size: 12px, $weight: 500); // Fonte super enxuta
+                padding: 8px 2px;
+                word-break: break-word; // Se o nome do produto for gigante, ele quebra linha e não empurra a tabela
+                
+                &.acoes a {
+                    margin-right: 4px;
+                    margin-left: 4px;
+                    font-size: 14px; // Ícones de caneta/lixo em um tamanho bom para clicar com o dedo
+                }
+            }
+
+            // 💡 CONTROLE DE LARGURA DAS COLUNAS QUE SOBRARAM
+            thead th:nth-child(1) { width: 15%; } // ID ganha um espaço pequeno
+            thead th:nth-child(3) { width: 60%; } // Produto ganha a maior parte do espaço
+            thead th:nth-child(6) { width: 25%; } // Ações ganha o espaço restante
+
+            // ❌ OCULTANDO AS COLUNAS SOLICITADAS:
+            
+            // Oculta a 2ª coluna (Imagem)
+            thead th:nth-child(2), tbody td:nth-child(2) {
+                display: none !important;
+            }
+
+            // Oculta a 4ª coluna (Data de Cadastro)
+            thead th:nth-child(4), tbody td:nth-child(4) {
+                display: none !important;
+            }
+
+            // Oculta a 5ª coluna (Estoque)
+            thead th:nth-child(5), tbody td:nth-child(5) {
+                display: none !important;
             }
         }
     }

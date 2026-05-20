@@ -35,6 +35,33 @@
                         }
                     </div>
 
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-address-card"></i> CPF ou CNPJ</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="document" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().document || 'Não informado' }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-phone"></i> Telefone / Whatsapp</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="phone_number" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().phone_number || 'Não informado' }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-location-dot"></i> Endereço Completo</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="address" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().address || 'Não informado' }}</span>
+                        }
+                    </div>
+
                     @if (isEditing) {
                     <div class="campo-dado">
                         <label><i class="fa-solid fa-lock"></i> Nova Senha (Opcional)</label>

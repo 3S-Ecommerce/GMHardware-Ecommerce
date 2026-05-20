@@ -3,6 +3,15 @@
 
   <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
 
+    <div class="campo-nome alinhar">
+      <label for="name">Nome Completo:</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Digite seu nome completo">
+    </div>
+
     <div class="campo-email alinhar">
       <label for="email">Email:</label>
       <input
@@ -12,31 +21,61 @@
         placeholder="Digite seu email">
     </div>
 
-    <div class="campo-senha alinhar">
-      <label for="senha">Senha:</label>
-      <input
-        type="password"
-        id="senha"
-        formControlName="password"
-        placeholder="Digite sua senha">
+    <div class="linha-dupla">
+      <div class="campo-documento alinhar">
+        <label for="document">CPF ou CNPJ:</label>
+        <input
+          type="text"
+          id="document"
+          formControlName="document"
+          placeholder="Digite apenas números">
+      </div>
+
+      <div class="campo-telefone alinhar">
+        <label for="phone_number">Telefone:</label>
+        <input
+          type="text"
+          id="phone_number"
+          formControlName="phone_number"
+          placeholder="Digite seu celular com DDD">
+      </div>
     </div>
 
-    <div class="campo-comfirmar-senha alinhar">
-      <label for="confirmSenha">Confirmar Senha:</label>
+    <div class="campo-endereco alinhar">
+      <label for="address">Endereço de Entrega:</label>
       <input
-        type="password"
-        id="confirmSenha"
-        formControlName="password_confirmation"
-        placeholder="Confirme sua senha">
+        type="text"
+        id="address"
+        formControlName="address"
+        placeholder="Rua, Número, Bairro, Cidade - UF">
+    </div>
 
-
-      <div class="termos">
+    <div class="linha-dupla">
+      <div class="campo-senha alinhar">
+        <label for="senha">Senha:</label>
         <input
-          type="checkbox"
-          id="termos"
-          class="caixa-termo">
-        <label for="termos">Li e concordo com os termos</label>
+          type="password"
+          id="senha"
+          formControlName="password"
+          placeholder="Digite sua senha">
       </div>
+
+      <div class="campo-comfirmar-senha alinhar">
+        <label for="confirmSenha">Confirmar Senha:</label>
+        <input
+          type="password"
+          id="confirmSenha"
+          formControlName="password_confirmation"
+          placeholder="Confirme sua senha">
+      </div>
+    </div>
+
+    <div class="termos">
+      <input
+        type="checkbox"
+        id="termos"
+        class="caixa-termo">
+      <label for="termos">Li e concordo com os termos</label>
     </div>
 
     <div class="button">

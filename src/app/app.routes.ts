@@ -39,6 +39,8 @@ import { Contato } from './components/customer/contato/contato';
 import { authGuard } from './core/services/auth.guard';
 import { guestGuard } from './core/services/guest.guard';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+import path from 'path';
+import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
 
 export const routes: Routes = [
     {
@@ -119,6 +121,10 @@ export const routes: Routes = [
         path: 'perfil',
         component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
         canActivate: [authGuard]   // Seu
+    },
+    {
+        path: 'cadastroDados/:id',
+        component: DadosUsuario
     },
     {
         path: 'produto',

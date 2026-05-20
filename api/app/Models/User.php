@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'document',
+        'address'
     ];
 
     /**
@@ -51,7 +52,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class, "id_user");
     }
 }

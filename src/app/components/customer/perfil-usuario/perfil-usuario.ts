@@ -1,12 +1,12 @@
-import { Component, effect, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Auth } from '../../../core/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { FormBuilder, Validators, ReactiveFormsModule, FormGroup, ɵInternalFormsSharedModule } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil-usuario',
-  imports: [DatePipe, ɵInternalFormsSharedModule, ReactiveFormsModule, RouterLink],
+  imports: [DatePipe, ReactiveFormsModule, RouterLink], // Limpo e sem o módulo com ɵ
   templateUrl: './perfil-usuario.html',
   styleUrl: './perfil-usuario.scss',
 })
@@ -15,16 +15,18 @@ export class PerfilUsuario implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
 
-  // Criamos um sinal local para gerenciar o estado da tela de forma segura
   userLocal = signal<any>(null);
   isEditing = false;
   formPerfil!: FormGroup;
 
   ngOnInit(): void {
-    // 1. Inicializa o formulário vazio para evitar quebras no HTML
+    // 1. Inicializa o formulário com todos os campos mapeados na Migration
     this.formPerfil = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
+      document: ['', [Validators.required, Validators.minLength(11)]],
+      phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]],
+      address: ['', [Validators.required, Validators.minLength(10)]],
       password: ['']
     });
 
@@ -36,19 +38,26 @@ export class PerfilUsuario implements OnInit {
       if (storageUser) {
         const parsed = JSON.parse(storageUser);
         this.userLocal.set(parsed);
-        // Garante que o serviço global também fique atualizado
+        
         if (!this.authService.currentUser()) {
           this.authService.currentUser.set(parsed);
         }
 
         // Força o preenchimento inicial dos dados salvos
-        this.formPerfil.patchValue({
-          name: this.userLocal().name,
-          email: this.userLocal().email,
-          password: ''
-        });
+        this.preencherCamposFormulario(parsed);
       }
     }
+  }
+
+  preencherCamposFormulario(dados: any) {
+    this.formPerfil.patchValue({
+      name: dados.name,
+      email: dados.email,
+      document: dados.document || '',
+      phone_number: dados.phone_number || '',
+      address: dados.address || '',
+      password: ''
+    });
   }
 
   alternarEdicao() {
@@ -57,11 +66,7 @@ export class PerfilUsuario implements OnInit {
     // Recarrega os dados antigos ao alternar entre ler e editar
     const dados = this.userLocal();
     if (dados) {
-      this.formPerfil.patchValue({
-        name: dados.name,
-        email: dados.email,
-        password: ''
-      });
+      this.preencherCamposFormulario(dados);
     }
   }
 
@@ -70,27 +75,28 @@ export class PerfilUsuario implements OnInit {
 
     const formValues = this.formPerfil.value;
     
-    // Importante: Para o Laravel aceitar multipart/form-data via PUT, usamos POST com spoofing
+    // Configura o FormData com o spoofing de método PUT para o Laravel Resource
     const formData = new FormData();
     formData.append('_method', 'PUT'); 
     formData.append('name', formValues.name);
     formData.append('email', formValues.email);
+    formData.append('document', formValues.document);
+    formData.append('phone_number', formValues.phone_number);
+    formData.append('address', formValues.address);
     
     if (formValues.password) {
       formData.append('password', formValues.password);
     }
 
     const userId = String(this.userLocal().id);
-
     console.log('Enviando requisição de update para ID:', userId);
 
     this.authService.updateUser(formData, userId).subscribe({
       next: (usuarioAtualizado: any) => {
-        alert('Perfil atualizado com sucesso!');
+        alert('Perfil updated com sucesso!');
         
         if (typeof window !== 'undefined') {
           const tokenAtual = localStorage.getItem('token') || '';
-          // Atualiza localStorage e Signals do sistema
           this.authService.setSession(tokenAtual, usuarioAtualizado);
           this.userLocal.set(usuarioAtualizado);
         }
