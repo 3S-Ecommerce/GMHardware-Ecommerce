@@ -4,15 +4,27 @@
         <h2 id="pagamentoPixTituloQr">Escaneie o código QR para pagar</h2>
         <p id="pagamentoPixPasso1">1. Acesse seu Internet Banking ou app de pagamentos.</p>
         <p id="pagamentoPixPasso2">2. Escolha pagar via Pix.</p>
-        <p id="pagamentoPixPasso3">3. Escaneie o seguinte código:</p>
+        <p id="pagamentoPixPasso3">3. Escaneie o seguinte código:
+            <img [src]="qrCodeBase64">
+
+        </p>
+        <p>Código pix:
+            <textarea readonly>
+            {{ qrCode }}
+            </textarea>
+        </p>
         <br>
-        <!-- <qrcode
-            [qrdata]="pixCode"
-            [width]="250"
-            [errorCorrectionLevel]="'M'">
-            </qrcode> -->
+       
         <br>
         <h2 id="pagamentoPixTituloCopiaCola">Ou copie este código para fazer o pagamento:</h2>
-        <textarea rows="4" cols="" readonly>skdsalkowadma12390dmik3j212904kifdsmfds934o42908</textarea>
+        <img
+            *ngIf="qrCodeBase64"
+            [src]="qrCodeBase64"
+            width="300"
+        >
+
+            <textarea readonly>
+             {{ qrCode }}
+            </textarea>
     </div>
 </section>

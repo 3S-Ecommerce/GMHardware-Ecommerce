@@ -13,7 +13,7 @@ import { Endereco } from './components/customer/finalizar-pedido/entrega/enderec
 import { Escolher } from './components/customer/finalizar-pedido/entrega/escolher/escolher';
 import { Revisar } from './components/customer/finalizar-pedido/revisar/revisar';
 import { RealizarPagamento } from './components/customer/finalizar-pedido/realizar-pagamento/realizar-pagamento';
-import { Pix } from './components/customer/finalizar-pedido/realizar-pagamento/pix/pix';
+import { PixComponent } from './components/customer/finalizar-pedido/realizar-pagamento/pix/pix';
 import { Cartao } from './components/customer/finalizar-pedido/realizar-pagamento/cartao/cartao';
 import { CadastroProduto } from './components/customer/cadastro-produto/cadastro-produto';
 import { TestRead } from './components/customer/test-read/test-read';
@@ -149,10 +149,11 @@ export const routes: Routes = [
                     component: Revisar,
                     pathMatch: 'full'
                 },
-                {
-                    path: 'pix',
-                    component: Pix
-                },
+                  {
+                      path: 'pix',
+                  component: PixComponent
+                 },
+
                 {
                     path: 'cartao',
                     component: Cartao
