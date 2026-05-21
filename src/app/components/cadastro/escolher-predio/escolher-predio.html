@@ -1,0 +1,13 @@
+<div>
+    @if(rota()){
+    @if(rota() == 'equipamento'){
+    <app-prediosgerais rota="../elevador"></app-prediosgerais>
+    }
+    @else if(rota() == 'pendencia'){
+       <app-prediosgerais rota="../pendencias"></app-prediosgerais> 
+    }
+    }
+    @else {
+    <p>Rota Vazia</p>
+    }
+</div>

@@ -1,0 +1,93 @@
+.div-pendencia {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: #F1F1F1;
+    box-shadow: 0px 5px 10px rgb(209, 209, 209);
+    border-radius: 10px;
+    gap: 16px;
+    margin: 24px;
+    min-height: 100px;
+
+    button {
+        width: 26px;
+        border: none;
+        height: 26px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    div {
+        width: 80%;
+
+        select {
+            width: -webkit-fill-available;
+            border: none;
+            border-bottom: 1px solid #000000;
+            font-size: 20px;
+            color: #000000;
+            margin-bottom: 8px;
+
+            &[disabled] {
+                color: #000000AA;
+            }
+            
+        }
+
+        input {
+            width: -webkit-fill-available;
+            border: none;
+            border-bottom: 1px solid #000000;
+            font-size: 20px;
+            color: #000000AA;
+            margin-bottom: 8px;
+
+            ::placeholder {
+                color: #000000AA;
+            }
+        }
+
+        textarea {
+            width: -webkit-fill-available;
+            border: none;
+            border-bottom: 1px solid #000000;
+            font-size: 20px;
+            color: #000000;
+            margin-bottom: 8px;
+            background: none;
+
+            ::placeholder {
+                color: #000000AA;
+            }
+        }
+    }
+
+    .div-button {
+        display: flex;
+        justify-content: space-around;
+        width: -webkit-fill-available;
+
+        button {
+            width: 90px;
+            height: 50px;
+            border-radius: 5px;
+            background: none;
+            border: 1px solid black;
+            background-color: #c5fcb4;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            width: 90px;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid black;
+            background-color: #fcb4b4;
+        }
+    }
+}

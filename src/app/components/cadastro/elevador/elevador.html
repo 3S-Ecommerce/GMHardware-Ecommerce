@@ -1,0 +1,22 @@
+@if(submitLoading()){
+    <app-loading-envio></app-loading-envio>
+}
+    
+<form [formGroup]="formElevador" (ngSubmit)="onSubmit()">
+    <div class="div-predio">
+        <p style="display: flex; gap: 20px;">
+            <img ngSrc="/assets/icons/adicionar.png" (click)="novoElevador()" alt="" width="26" height="26">
+            <img ngSrc="/assets/icons/adicionar.png" (click)="removerElevador()" alt="" width="26" height="26">
+        </p>
+        <h2 routerLink="../elevador">NUMERO DO ELEVADOR:</h2>
+        <div id="numeros" formArrayName="number">
+            @for (elevador of numerosElevadores.controls; track $index){
+            <input type="text" id="predio" [formControlName]="$index" placeholder="NUMERO DO ELEVADOR">
+            }
+        </div>
+    </div>
+    <div class="div-button">
+        <a routerLink="../escolher-predio">Voltar</a>
+        <button type="submit">Avançar</button>
+    </div>
+</form>

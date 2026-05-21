@@ -1,0 +1,75 @@
+@if(loading()){
+    <app-loading></app-loading>
+}@else{
+@if(pendencias()){
+<div routerLink="" class="div-pendencias">
+
+    <h2 (click)="teste()">CASA DE MÁQUINAS</h2>
+    @for(pendencia of listaAberta(); track pendencia.id){
+    @if(pendencia.location == 'CASA DE MAQUINAS'){
+    <div>
+        <p>{{ pendencia.pendencia }}</p>
+        <span>@for(elevador of pendencias().elevadores; track elevador.id){ @if(elevador.id == pendencia.elevador_id){
+            {{ elevador.number }} }}</span>
+    </div>
+    }
+    }@empty {
+    <div>
+        <p>Nenhuma pendencia encontrada</p>
+        <span></span>
+    </div>
+    }
+</div>
+<div routerLink="" class="div-pendencias">
+    <h2>CABINA</h2>
+    @for(pendencia of listaNumero(); track pendencia.id){
+    @if(pendencia.location == 'CABINA'){
+    <div>
+        <p>{{ pendencia.pendencia }}</p>
+        <span>@for(elevador of pendencias().elevadores; track elevador.id){ @if(elevador.id == pendencia.elevador_id){
+            {{ elevador.number }} }}</span>
+    </div>
+    }
+    }@empty {
+    <div>
+        <p>Nenhuma pendencia encontrada</p>
+        <span></span>
+    </div>
+    }
+</div>
+<div routerLink="" class="div-pendencias">
+    <h2>PAVIMENTO</h2>
+    @for(pendencia of listaAberta(); track pendencia.id){
+    @if(pendencia.location == 'PAVIMENTO'){
+    <div>
+        <p>{{ pendencia.pendencia }}</p>
+        <span>@for(elevador of pendencias().elevadores; track elevador.id){ @if(elevador.id == pendencia.elevador_id){
+            {{ elevador.number }} }}</span>
+    </div>
+    }
+    }@empty {
+    <div>
+        <p>Nenhuma pendencia encontrada</p>
+        <span></span>
+    </div>
+    }
+</div>
+<div routerLink="" class="div-pendencias">
+    <h2>POÇO</h2>
+    @for(pendencia of listaAberta(); track pendencia.id){
+    @if(pendencia.location == 'POCO'){
+    <div>
+        <p>{{ pendencia.pendencia }}</p>
+        <span>@for(elevador of pendencias().elevadores; track elevador.id){ @if(elevador.id == pendencia.elevador_id){
+            {{ elevador.number }} }}</span>
+    </div>
+    }
+    }@empty {
+    <div>
+        <p>Nenhuma pendencia encontrada</p>
+        <span></span>
+    </div>
+    }
+</div>
+}
+}

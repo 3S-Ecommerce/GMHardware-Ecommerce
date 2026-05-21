@@ -1,0 +1,4 @@
+*.sqlite*
+ElevadorSeeder.php
+PredioSeeder.php
+PendenciaSeeder.php

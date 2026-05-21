@@ -1,0 +1,60 @@
+@if(loadingSubmit()){
+    <app-loading-envio></app-loading-envio>
+}
+@if(predio()){
+@for(pendencia of listaNumero(); track $index){
+<div class="div-pendencia">
+    <button style="display: flex; gap: 20px;">
+    </button>
+    <h2>PENDENCIA: {{ $index + 1 }}</h2>
+    <div>
+        <p>EQUIPAMENTO:</p>
+        <span>@for(elevador of predio().elevadores; track elevador.id){
+            @if(elevador.id == pendencia.elevador_id){
+            {{ elevador.number }}
+            }
+            }</span>
+    </div>
+    <div>
+        <p>LOCALIZAÇÃO:</p>
+        <span>{{ pendencia.location }}</span>
+    </div>
+    <div>
+        <p>PRIORIDADE:</p>
+        <span>{{ pendencia.priority }}</span>
+    </div>
+    <div>
+        <p>DESCRIÇÃO:</p>
+        <span>{{ pendencia.pendencia }}</span>
+    </div>
+    <div class="div-button">
+        <p (click)="select(pendencia, 'aberta')" class="aberta"
+            [class.ativo]="pendencia.selecionado === 'aberta'">PENDENTE</p>
+        <p (click)="select(pendencia, 'realizada')" class="realizada"
+            [class.ativo]="pendencia.selecionado === 'realizada'">REALIZADA</p>
+    </div>
+</div>
+}
+<div style="width: 100%; margin-bottom: 80px; text-align: center;">
+    <button (click)="onSubmit()" style="background-color: rgb(0, 255, 0); width: 90px; height: 60px;">Enviar</button>
+</div>
+<!-- <div class="div-pendencia" *ngFor="let p of pendencias">
+        <h2 routerLink="../elevador">PENDENCIA :</h2>
+        <div>
+            <p>EQUIPAMENTO: <span>{{ p.equipamento }}</span></p>
+        </div>
+        <div class="div-button">
+            <p (click)="selecionarOpcao(p, 'voltar')" 
+               class="voltar" 
+               [ngClass]="{'ativo': p.selecionado === 'voltar'}">
+               VOLTAR
+            </p>
+
+            <p (click)="selecionarOpcao(p, 'confirmar')" 
+               class="confirmar" 
+               [ngClass]="{'ativo': p.selecionado === 'confirmar'}">
+               CRIAR
+            </p>
+        </div>
+    </div> -->
+}

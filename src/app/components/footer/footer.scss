@@ -1,0 +1,16 @@
+div{
+    position: fixed;
+    bottom: 0;
+    right: 100;
+    background-color: #857f9a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 72px;
+    width: -webkit-fill-available;
+    button {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}

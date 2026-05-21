@@ -1,0 +1,117 @@
+<div id="report-container" class="report-a4">
+    <header class="report-header">
+        <div class="logo">
+            <img src="" alt="">
+        </div>
+        <div class="title-center">
+            <h3>PLANILHA DE GERENCIAMENTO DE PENDÊNCIAS</h3>
+            <!-- Nome do prédio vindo do sinal 'pendencias' -->
+            <p><strong>{{ pendencias()?.name }}</strong></p>
+            <p>{{ pendencias()?.address }}</p>
+        </div>
+        <div class="info-right">
+            <table class="table-header-dados">
+                <tbody>
+                    <tr>
+                        <td class="bg-azul label-tabela">Data:</td>
+                        <td class="valor-tabela">10/11/25</td>
+                        <td class="bg-azul label-tabela">Competência:</td>
+                        <td class="valor-tabela">NOV / 2025</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4" class="bg-cinza label-responsaveis">Responsáveis</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4" class="nome-responsavel">Leandro Prado - eenu&#64;cbre.com</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="nome-responsavel">Felipe Araújo - felipe.araujo&#64;tkelevator.com</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="nome-responsavel">Wesley Azzolini - wesley.azzolini&#64;tkelevator.com
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="nome-responsavel">Michel Grismino - michel.grismino&#64;mgeng.com.br</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </header>
+    <section class="mapa-elevadores-container">
+        <div class="mapa-titulo">MAPA DOS ELEVADORES</div>
+        <div class="mapa-conteudo">
+            <div class="mapa-grupo">
+                <span class="grupo-titulo">SOCIAIS</span>
+                <div class="grupo-itens">
+                    @for (el of pendencias()?.elevadores; track el.id) {
+                    <span>{{ el.number }} ({{ el.id }})</span>
+                    } @empty {
+                    <span class="sem-dados">Nenhum equipamento cadastrado</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="criterios-container">
+        <div class="criterios-titulo">CRITÉRIOS DE PRIORIDADES DAS PENDÊNCIAS:</div>
+
+        <div class="criterio-linha">
+            <div class="prioridade-box bg-baixa-legenda">Baixa</div>
+            <div class="prioridade-texto">Baixo ou nenhum risco ao equipamento / Acompanhamentos de desgastes /
+                Solicitações do cliente de baixa prioridade</div>
+        </div>
+
+        <div class="criterio-linha">
+            <div class="prioridade-box bg-media-legenda">Média</div>
+            <div class="prioridade-texto">Pode interferir no funcionamento / Trabalhos complexos de programação
+                antecipada / Melhorias aos equipamentos ou processos</div>
+        </div>
+
+        <div class="criterio-linha">
+            <div class="prioridade-box bg-alta-legenda">Alta</div>
+            <div class="prioridade-texto">Está interferindo no funcionamento / Segurança / Equipamento parado /
+                Reclamações / Pendências antigas sem evolução satisfatória</div>
+        </div>
+    </section>
+
+    <div class="secao-tabela-titulo">
+        1 - INTERVENÇÕES TÉCNICAS - PATRIMONIAL E OPERACIONAL
+    </div>
+    <table class="main-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">ITEM</th>
+                <th style="width: 15%;">EQUIPAMENTO</th>
+                <th style="width: 15%;">LOCALIZAÇÃO</th>
+                <th style="width: 35%;">PROBLEMA</th> <!-- Coluna maior -->
+                <th style="width: 10%;">SOLICITADO</th>
+                <th style="width: 10%;">PRIORIDADE</th>
+                <th style="width: 10%;">PRAZO</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(p of listaAberta(); track p.id; ){
+            @if(p.status == 'aberta'){
+            <tr>
+                <td>{{ $index + 1 }}</td>
+                <!-- Usamos o número que injetamos no computed -->
+                <td>{{ p.elevador_number }}</td>
+                <td>{{ p.location }}</td>
+                <td class="text-left">{{ p.pendencia }}</td>
+                <td>{{ p.created_at | date:'dd/MM/yyyy' }}</td>
+                <td [class]="'bg-' + p.priority.toLowerCase()">{{ p.priority }}</td>
+                <td class="status-pendente">{{ p.status }}</td>
+            </tr>
+            }
+            } @empty {
+            <tr>
+                <td colspan="7">Nenhuma pendência encontrada para este prédio.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<button (click)="gerarPDF()">Baixar Relatório</button>

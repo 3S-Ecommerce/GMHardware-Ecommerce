@@ -1,0 +1,13 @@
+div{
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    h1{
+        font-weight: 500;
+    }
+    button{
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+}

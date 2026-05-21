@@ -1,0 +1,23 @@
+<section>
+    <div routerLink="predio" class="div-cadastro">
+        <h2>CADASTRAR PRÉDIO</h2>
+        <div>
+            <p>CADASTRAR NOVO PRÉDIO</p>
+            <span>CADASTRO DE NOVO CONDOMÍNIO</span>
+        </div>
+    </div>
+    <div [routerLink]="['escolher-predio', {data : 'equipamento'}]" class="div-cadastro">
+        <h2>CADASTRAR EQUIPAMENTO</h2>
+        <div>
+            <p>CADASTRAR NOVO EQUIPAMENTO</p>
+            <span>CADASTRO DE NOVO EQUIPAMENTO</span>
+        </div>
+    </div>
+    <div [routerLink]="['escolher-predio', {data : 'pendencia'}]" class="div-cadastro">
+        <h2>CADASTRAR PENDENCIAS</h2>
+        <div>
+            <p>CADASTRAR NOVAS PENDENCIAS</p>
+            <span>CADASTRO DE NOVAS PENDENCIAS</span>
+        </div>
+    </div>
+</section>

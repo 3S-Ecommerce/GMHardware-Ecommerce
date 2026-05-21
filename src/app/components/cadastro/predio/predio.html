@@ -1,0 +1,27 @@
+@if(submitLoading()){
+    <app-loading-envio></app-loading-envio>
+}
+<form [formGroup]="formPredio" (ngSubmit)="onSubmit()">
+    <div class="div-predio">
+        <h2>NOME:</h2>
+        <div>
+            <input type="text" formControlName="name" id="predio" placeholder="NOME DO PRÉDIO" >
+        </div>
+    </div>
+    <div class="div-predio">
+        <h2 for="predio">CONTRATO</h2>
+        <div>
+            <input type="text" formControlName="contrato" id="predio" placeholder="NÚMERO DO CONTRATO">
+        </div>
+    </div>
+    <div class="div-predio">
+        <h2 for="predio">ENDEREÇO:</h2>
+        <div>
+            <input type="text" formControlName="endereco" id="predio" placeholder="NOME DO ENDEREÇO" >
+        </div>
+    </div>
+    <div class="div-button">
+        <a routerLink="../">Voltar</a>
+        <button type="submit">Avançar</button>
+    </div>
+</form>

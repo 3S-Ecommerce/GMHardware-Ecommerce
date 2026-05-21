@@ -1,0 +1,37 @@
+@if (loading()) {
+    <app-loading></app-loading>
+}@else{
+<form [formGroup]="formPendencia" (ngSubmit)="onSubmit()">
+    <div class="div-pendencia">
+        <button style="display: flex; gap: 20px;">
+        </button>
+        <h2 routerLink="../elevador">PENDENCIA  :</h2>
+        <div>
+            <select formControlName="elevador_id" name="number" id="number" placeholder="EQUIPAMENTO">
+                <option value="" disabled selected>EQUIPAMENTO</option>
+                @for(elevador of elevadores(); track elevador.id){
+                    <option value="{{ elevador.id }}">{{ elevador.number }}</option>
+                }
+            </select>
+            <select formControlName="location" name="localizacao" id="localizacao">
+                <option value="" disabled selected>LOCALIZAÇÃO</option>
+                <option value="CASA DE MAQUINAS">CASA DE MAQUINAS</option>
+                <option value="PAVIMENTO">PAVIMENTO</option>
+                <option value="CABINA">CABINA</option>
+                <option value="POCO">POÇO</option>
+            </select>
+            <select formControlName="priority" name="priority" id="priority">
+                <option value="" disabled selected>PRIORIDADE</option>
+                <option value="BAIXA">BAIXA</option>
+                <option value="MÉDIA">MEDIA</option>
+                <option value="ALTA">ALTA</option>
+            </select>
+            <textarea formControlName="pendencia" type="text" id="predio" placeholder="PENDENCIA DO ELEVADOR"></textarea>
+        </div>
+        <div class="div-button">
+            <a routerLink="../">Voltar</a>
+            <button type="submit">Avançar</button>
+        </div>
+    </div>
+</form>
+}

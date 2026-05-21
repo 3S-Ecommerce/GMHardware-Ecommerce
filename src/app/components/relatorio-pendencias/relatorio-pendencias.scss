@@ -1,0 +1,335 @@
+.report-a4 {
+  width: 210mm;
+  /* Largura A4 */
+  min-height: 297mm;
+  display: flex;
+  flex-direction: column;
+  gap: 5mm;
+  padding: 10mm;
+  margin: auto;
+  background: white;
+  font-family: 'Arial', sans-serif;
+  color: #000;
+
+  .report-header {
+    display: flex;
+    border: 1px solid black;
+    height: 30mm;
+
+    .logo {
+      img {
+        width: 35mm;
+        height: 100%;
+      }
+    }
+
+    .title-center {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      h3 {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        height: 20mm;
+        font-size: 3mm;
+        padding: 5mm 0px;
+      }
+
+      p {
+        display: flex;
+        justify-content: center;
+        align-self: center;
+        padding: 2mm 0px;
+        font-size: 3mm;
+        height: 7mm;
+      }
+
+      width: 110mm;
+    }
+  }
+
+  .info-right {
+    width: 65mm;
+    /* Largura total exigida */
+    height: 30mm;
+    /* Altura total exigida */
+    box-sizing: border-box;
+
+    .table-header-dados {
+      width: 65mm;
+      height: 30mm;
+      table-layout: fixed;
+      /* Força o navegador a respeitar os 65mm x 30mm */
+      border-collapse: collapse;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+
+      tr {
+        height: 5mm;
+        /* 6 linhas de 5mm completam exatamente os 30mm de altura */
+      }
+
+      .valor-tabela,
+      .label-tabela {
+        border-top: none;
+
+      }
+
+      th,
+      td {
+        border-collapse: collapse;
+        border: 1px solid #000000;
+        font-size: 2mm;
+        /* Tamanho calculado para não estourar os 5mm de altura da linha */
+        padding: 0px 1mm;
+        /* Padding vertical zerado para manter o alinhamento na altura restrita */
+        vertical-align: middle;
+        box-sizing: border-box;
+        white-space: nowrap;
+        /* Impede que o e-mail quebre em duas linhas */
+        overflow: hidden;
+        /* Garante que nada saia da caixinha */
+        text-overflow: ellipsis;
+      }
+
+      // Proporções das colunas (Total: 100% dos 65mm)
+      .label-tabela {
+        text-align: center;
+        width: 18%;
+        /* Aproximadamente 11.7mm */
+      }
+
+      .valor-tabela {
+        text-align: center;
+        width: 32%;
+        /* Aproximadamente 20.8mm */
+      }
+
+      // Estilização de Cores
+      .bg-azul {
+        background-color: #b4c6e7 !important;
+        font-weight: bold;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .bg-cinza {
+        background-color: #d9d9d9 !important;
+        font-weight: bold;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .label-responsaveis {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 2mm;
+      }
+
+      .nome-responsavel {
+        text-align: left;
+        padding-left: 1mm;
+        color: #222222;
+      }
+    }
+  }
+}
+
+.mapa-elevadores-container {
+  width: 100%;
+  border: 1px solid #000000;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+
+  .mapa-titulo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 4mm 0;
+    background-color: #ffffff;
+  }
+
+  .mapa-conteudo {
+    display: flex;
+    justify-content: center;
+    /* Centraliza o bloco na folha */
+    padding: 4mm 0;
+    background-color: #ffffff;
+  }
+
+  .mapa-grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .grupo-titulo {
+      font-size: 2mm;
+      font-weight: bold;
+      color: #555555;
+      margin-bottom: 2mm;
+      text-transform: uppercase;
+    }
+
+    .grupo-itens {
+      display: flex;
+      flex-wrap: wrap;
+      /* Se tiver muitos elevadores, eles quebram a linha sem esmagar o layout */
+      justify-content: center;
+      gap: 10mm;
+      /* Distância horizontal entre um elevador e outro */
+      font-size: 2.2mm;
+      font-weight: bold;
+      padding: 0 4mm;
+    }
+  }
+
+  .sem-dados {
+    color: #999999;
+    font-weight: normal;
+    font-size: 2.2mm;
+  }
+}
+
+.criterios-container {
+  width: 100%;
+  margin-left: 10mm;
+  font-family: Arial, sans-serif;
+
+  .criterios-titulo {
+    font-size: 2.2mm;
+    font-weight: bold;
+    margin-bottom: 2mm;
+    text-transform: uppercase;
+  }
+
+  .criterio-linha {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1mm;
+  }
+
+  .prioridade-box {
+    width: 30mm;
+    /* Bate exatamente com a largura da caixinha de dados do header */
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 2.5mm;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+  }
+
+  .prioridade-texto {
+    font-size: 2.2mm;
+    padding-left: 4mm;
+    color: #000000;
+  }
+
+  // Cores oficiais da legenda
+  .bg-baixa-legenda {
+    background-color: #00aeff !important;
+    color: #ffffff;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .bg-media-legenda {
+    background-color: #fff200 !important;
+    color: #000000;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .bg-alta-legenda {
+    background-color: #ff0000 !important;
+    color: #ffffff;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+// TÍTULO DA PRÓXIMA TABELA
+.secao-tabela-titulo {
+  width: 100%;
+  background-color: #bfbfbf !important;
+  /* Cinza médio da planilha */
+  border: 1px solid #000000;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 2.5mm;
+  text-align: center;
+  padding: 2mm 0;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  -webkit-print-color-adjust: exact;
+  transform: translate(0, 4mm);
+}
+
+/* Estilo das Tabelas */
+.main-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 5mm;
+}
+
+.main-table th {
+  background-color: #a6a6a6;
+  /* Cinza escuro da imagem */
+  border: 1px solid #000;
+  font-size: 2.5mm;
+  padding: 2mm;
+}
+
+.main-table td {
+  border: 1px solid #000;
+  font-size: 2.5mm;
+  padding: 2mm;
+  text-align: center;
+}
+
+/* Cores das Prioridades */
+.bg-baixa {
+  background-color: #00AEEF !important;
+  color: white;
+}
+
+.bg-média {
+  background-color: #FFF200 !important;
+}
+
+.bg-alta {
+  background-color: #FF0000 !important;
+  color: white;
+}
+
+.status-pendente {
+  color: red;
+  font-weight: bold;
+}
+
+.report-a4 {
+  width: 210mm;
+  /* Largura padrão A4 */
+  margin: 0 auto;
+  padding: 10mm;
+  /* Margem interna para o conteúdo não colar na borda */
+  box-sizing: border-box;
+  background-color: white;
+
+  /* Evita que o navegador quebre a tabela no meio de uma linha */
+  table {
+    page-break-inside: auto;
+    width: 100%;
+    table-layout: fixed;
+    /* Força as colunas a respeitarem a largura */
+    word-wrap: break-word;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
+
+/* Configuração para o PDF entender as cores de fundo */
