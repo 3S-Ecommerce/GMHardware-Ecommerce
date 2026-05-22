@@ -1,11 +1,32 @@
+.example-container {
+  width: auto;
+  height: 100%;
+  position: fixed;
+
+  left: 0;
+  top: 0;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.example-sidenav {
+    background-color: rgba(128, 128, 128, 0.350);
+  backdrop-filter: blur(10px);
+    padding: 20px;
+}
+
 // 1. Ajuste do Fundo Geral (Garante rolagem se o conteúdo for maior que a tela do celular)
 .fundo {
   min-height: 100vh; // Usa min-height em vez de height fixo
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
-  padding: 1rem; // Margem de segurança para o card não colar nas bordas do celular
+  background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327); // Margem de segurança para o card não colar nas bordas do celular
   box-sizing: border-box;
 }
 
@@ -291,4 +312,27 @@
       flex: 1; // Faz os 3 botões dividirem o espaço do card por igual
     }
   }
+}
+@media(max-width: 500px){
+  .example-container {
+  height: 100%;
+  position:fixed;
+  left: 0;
+  top: 0;
+}
+
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.mat-drawer{
+  width: 300px;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
 }

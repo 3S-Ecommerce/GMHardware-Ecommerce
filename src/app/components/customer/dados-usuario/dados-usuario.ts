@@ -5,7 +5,7 @@ import { Auth } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-dados-usuario',
-  imports: [ ReactiveFormsModule ],
+  imports: [ReactiveFormsModule],
   templateUrl: './dados-usuario.html',
   styleUrl: './dados-usuario.scss',
 })
@@ -48,13 +48,13 @@ export class DadosUsuario implements OnInit {
 
     const formValues = this.formComplementar.value;
     const formData = new FormData();
-    
+
     // Spoofing para o Laravel apiResource entender como PUT
-    formData.append('_method', 'PUT'); 
-    
+    formData.append('_method', 'PUT');
+
     // Mantém o e-mail que veio do passo anterior (obrigatório no banco)
     formData.append('email', this.userLocal().email);
-    
+
     // Envia o nome (atualizado ou mantido) junto com os novos dados
     formData.append('name', formValues.name);
     formData.append('document', formValues.document);
@@ -66,12 +66,12 @@ export class DadosUsuario implements OnInit {
     this.authService.updateUser(formData, userId).subscribe({
       next: (usuarioAtualizado: any) => {
         alert('Cadastro finalizado com sucesso! Bem-vindo à GMHardware.');
-        
+
         if (typeof window !== 'undefined') {
           const tokenAtual = localStorage.getItem('token') || '';
           this.authService.setSession(tokenAtual, usuarioAtualizado);
         }
-        
+
         this.router.navigate(['/']);
       },
       error: (err) => {
