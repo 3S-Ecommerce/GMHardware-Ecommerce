@@ -37,30 +37,46 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
-    {
-        try {
-            $request->validate([
-                'email' => 'required|string|email',
-                'password' => 'required|string',
-            ]);
+public function login(Request $request)
+{
+    try {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
 
-            $user = User::where('email', $request->email)->first();
+        // 1. Tenta encontrar na tabela 'users'
+        $user = \App\Models\User::where('email', $request->email)->first();
+        $tipo = 'comum';
 
-            if (!$user || !Hash::check($request->password, $user->password)) {
-                return response()->json(['error' => 'Credenciais inválidas'], 401);
-            }
-
-            $token = $user->createToken('auth_token')->plainTextToken;
-
-            return response()->json(compact('user', 'token'));
-
-        } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
-        } catch (\Throwable $e) {
-            return response()->json(['error' => 'Erro interno do servidor', 'message' => $e->getMessage()], 500);
+        // 2. Se não achou no 'users', tenta na tabela 'admins'
+        if (!$user) {
+            $user = \App\Models\Admin::where('email', $request->email)->first();
+            $tipo = 'admin';
         }
+
+        // 3. Verifica se o usuário existe e se a senha está correta
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Credenciais inválidas'], 401);
+        }
+
+        // 4. Gera o token (Sanctum funciona para ambos se os Models usarem HasApiTokens)
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // 5. Retorna o usuário, o token e o TIPO (importante para o Angular)
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+            'tipo_usuario' => $tipo // 👈 O Angular vai ler isso aqui
+        ]);
+
+    } catch (ValidationException $e) {
+        return response()->json(['errors' => $e->errors()], 422);
+    } catch (\Throwable $e) {
+        return response()->json(['error' => 'Erro interno', 'message' => $e->getMessage()], 500);
     }
+}
+
 
     // NOVO MÉTODO: updatePassword
     public function updatePassword(Request $request)

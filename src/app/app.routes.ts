@@ -227,5 +227,9 @@ export const routes: Routes = [
     {
         path: 'devolucao',
         component: Devolucao
+    },
+    {
+      path: 'admin-dashboard',
+      component: Admin
     }
 ];
