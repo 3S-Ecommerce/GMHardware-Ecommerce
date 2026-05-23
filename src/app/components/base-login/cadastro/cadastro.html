@@ -2,8 +2,7 @@
   <p>Seja bem vindo ao GMHardware</p>
 
   <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
-
-    <div class="campo-email alinhar">
+     <div class="campo-email alinhar">
       <label for="email">Email:</label>
       <input
         type="email"
@@ -11,7 +10,6 @@
         formControlName="email"
         placeholder="Digite seu email">
     </div>
-
     <div class="campo-senha alinhar">
       <label for="senha">Senha:</label>
       <input
@@ -20,7 +18,6 @@
         formControlName="password"
         placeholder="Digite sua senha">
     </div>
-
     <div class="campo-comfirmar-senha alinhar">
       <label for="confirmSenha">Confirmar Senha:</label>
       <input
@@ -28,17 +25,18 @@
         id="confirmSenha"
         formControlName="password_confirmation"
         placeholder="Confirme sua senha">
-
-
       <div class="termos">
         <input
           type="checkbox"
           id="termos"
-          class="caixa-termo">
-        <label for="termos">Li e concordo com os termos</label>
+          class="caixa-termo"
+          formControlName="aceiteTermos">
+        <label for="termos">
+          Li e concordo com os
+          <a href="javascript:void(0)" (click)="toggleModal()" class="link-termos">termos</a>
+        </label>
       </div>
     </div>
-
     <div class="button">
       <button
         type="submit"
@@ -47,6 +45,26 @@
         Cadastrar
       </button>
     </div>
-
   </form>
+</div>
+<!-- ESTRUTURA DO MODAL (Adicione no final do arquivo) -->
+<div class="modal-overlay" *ngIf="showModal" (click)="toggleModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Termos de Uso - GMHardware</h2>
+      <span class="btn-fechar" (click)="toggleModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <p>Ao se cadastrar na GMHardware, você concorda com:</p>
+      <ul>
+        <li><strong>Privacidade:</strong> Seus dados estão protegidos conosco.</li>
+        <li><strong>Uso:</strong> O site deve ser usado apenas para fins de compra legal.</li>
+        <li><strong>Conta:</strong> Você é responsável pela segurança da sua senha.</li>
+      </ul>
+      <p>Estes termos visam garantir a melhor experiência para todos os nossos clientes.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="toggleModal()">Fechar</button>
+    </div>
+  </div>
 </div>
