@@ -1,0 +1,245 @@
+// =======================
+// VARIÁVEIS
+// =======================
+$bg-dark: #181C23;
+$bg-card: #0F1115;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$border-color: #2a2a2a;
+$hover-bg: #1a1f27;
+$accent-color: #2563EB;
+
+// =======================
+// CONTAINER
+// =======================
+.minhas-compras-container {
+  background-color: $bg-dark;
+  min-height: calc(100vh - 200px);
+  padding: 40px 20px;
+  color: $text-primary;
+}
+
+.compras-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+// =======================
+// BOTÃO VOLTAR
+// =======================
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding: 10px 18px;
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  border-radius: 6px;
+  color: $accent-color;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(37, 99, 235, 0.12);
+    transform: translateX(-4px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// =======================
+// LISTA
+// =======================
+.compras-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+// =======================
+// CARD
+// =======================
+.compra-card {
+  background: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $hover-bg;
+    transform: translateY(-3px);
+    border-color: #3a3a3a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+// =======================
+// HEADER
+// =======================
+.compra-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid $border-color;
+  font-size: 14px;
+  color: $text-secondary;
+}
+
+// =======================
+// CONTEÚDO
+// =======================
+.compra-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+}
+
+// =======================
+// IMAGEM
+// =======================
+.produto-imagem {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+
+// =======================
+// INFO PRODUTO
+// =======================
+.produto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  p {
+    margin: 0;
+    color: $text-secondary;
+    font-size: 14px;
+  }
+
+  strong {
+    font-size: 20px;
+    color: $text-primary;
+  }
+}
+
+// =======================
+// STATUS
+// =======================
+.status {
+  font-size: 13px;
+  font-weight: 600;
+  width: fit-content;
+  padding: 6px 14px;
+  border-radius: 999px;
+
+  &.entregue {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+  }
+
+  &.caminho {
+    background: rgba(249, 115, 22, 0.15);
+    color: #f97316;
+  }
+
+  &.cancelado {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+  }
+}
+
+// =======================
+// BOTÃO COMPRAR
+// =======================
+.btn-comprar {
+  width: 233px;
+  height: 35px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+
+  background-color: #2563EB !important;
+  border: none;
+  border-radius: 6px;
+
+  color: #ffffff !important;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #1d4ed8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// =======================
+// RESPONSIVO
+// =======================
+@media (max-width: 768px) {
+  .compras-title {
+    font-size: 26px;
+  }
+
+  .compra-conteudo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .produto-imagem {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+
+  .btn-comprar {
+    width: 100%;
+    max-width: 233px;
+    margin-right: 0;
+    margin-bottom: 0;
+    align-self: flex-start;
+  }
+
+  .btn-voltar {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}

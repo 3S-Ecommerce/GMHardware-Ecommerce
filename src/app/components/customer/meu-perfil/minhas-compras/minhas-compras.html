@@ -1,0 +1,48 @@
+<div class="minhas-compras-container">
+  <h1 class="compras-title">Minhas Compras</h1>
+
+  <a routerLink="/meu-perfil" class="btn-voltar">
+    ← Voltar para Meu Perfil
+  </a>
+
+  <div class="compras-lista">
+
+    <div class="compra-card" *ngFor="let compra of compras">
+
+      <div class="compra-header">
+        <span>{{ compra.data }}</span>
+      </div>
+
+      <div class="compra-conteudo">
+
+        <div class="produto-imagem">
+          <img [src]="compra.imagem" alt="Produto">
+        </div>
+
+        <div class="produto-info">
+          <p
+            class="status"
+            [ngClass]="{
+              'entregue': compra.status === 'Entregue',
+              'caminho': compra.status === 'A caminho',
+              'cancelado': compra.status === 'Compra cancelada'
+            }"
+          >
+            {{ compra.status }}
+          </p>
+
+          <h3>{{ compra.produto }}</h3>
+          <p>{{ compra.quantidade }}</p>
+          <strong>R$ {{ compra.total }}</strong>
+        </div>
+
+        <button class="btn-comprar">
+          Comprar Novamente
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

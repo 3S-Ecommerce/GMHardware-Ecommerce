@@ -2,10 +2,10 @@ import { Component, inject, signal, OnInit } from '@angular/core';
 // import { Product } from '../../core/services/product';
 // import { Cart } from '../../core/services/cart';
 import { Header } from '../header/header';
+import { Footer } from '../footer/footer';
 //import { Apresentacao } from '../apresentacao/apresentacao';
 //import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
 import { RouterOutlet } from "@angular/router";
-import { Footer } from '../footer/footer';
 
 
 @Component({

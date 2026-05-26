@@ -1,10 +1,6 @@
 import { Home } from './components/customer/home/home';
 import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
 import { Categorias } from './components/customer/categorias/categorias';
-// import { Login } from './components/customer/baselogin/login/login';
-// import { Baselogin } from './components/customer/baselogin/baselogin';
-// import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
-// import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
 import { VisualizarProduto } from './components/customer/visualizar-produto/visualizar-produto';
 import { FinalizarPedido } from './components/customer/finalizar-pedido/finalizar-pedido';
 import { Entrega } from './components/customer/finalizar-pedido/entrega/entrega';
@@ -33,11 +29,16 @@ import { BaseLogin } from './components/base-login/base-login';
 import { Login } from './components/base-login/login/login';
 import { Cadastro } from './components/base-login/cadastro/cadastro';
 import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
-//import { Carrinho } from './components/customer/carrinho/carrinho';
+import { MeuPerfil } from './components/customer/meu-perfil/meu-perfil';
+import { MeusCartoes } from './components/customer/meu-perfil/meus-cartoes/meus-cartoes';
+import { MeusEnderecos } from './components/customer/meu-perfil/meus-enderecos/meus-enderecos';
+import { MinhasCompras } from './components/customer/meu-perfil/minhas-compras/minhas-compras';
+
 export const routes: Routes = [
     {
         path: '',
-        component: Home, children: [
+        component: Home, 
+        children: [
             {
                 path: '',
                 redirectTo: 'inicio',
@@ -89,16 +90,35 @@ export const routes: Routes = [
             },
             {
                 path: 'carrinho',
-                component: Carrinho,
-                
+                component: Carrinho
+            },
+            {
+                path: 'meu-perfil',
+                component: MeuPerfil
+            },
+            {
+                path: 'meus-cartoes',
+                component: MeusCartoes
+            },
+            {
+                path: 'meus-enderecos',
+                component: MeusEnderecos
             },
 
-            
+            {
+                path: 'compras',
+                component: MinhasCompras
+            }
+
+
+
+
         ]
     },
     {
          path: '',
-         component: BaseLogin, children: [
+         component: BaseLogin, 
+         children: [
              {
                  path: 'login',
                  component: Login
@@ -120,46 +140,48 @@ export const routes: Routes = [
     {
         path: 'finalizar-compra',
         component: FinalizarPedido,
-        children: [{
-            path: '',
-            component: Entrega,
-            children: [{
+        children: [
+            {
                 path: '',
-                component: Escolher,
+                component: Entrega,
+                children: [
+                    {
+                        path: '',
+                        component: Escolher
+                    },
+                    {
+                        path: 'endereco',
+                        component: Endereco
+                    }
+                ]
             },
             {
-                path: 'endereco',
-                component: Endereco
-            }]
-        },
-        {
-            path: 'forma-de-pagamento',
-            component: Pagamento
-        },
-        {
-            path: 'revisar',
-            component: Revisar
-        },
-        {
-            path: 'pagamento',
-            component: RealizarPagamento,
-            children: [
-                {
-                    path: '',
-                    component: Revisar,
-                    pathMatch: 'full'
-                },
-                  {
-                      path: 'pix',
-                  component: PixComponent
-                 },
-
-                {
-                    path: 'cartao',
-                    component: Cartao
-                }
-            ]
-        }
+                path: 'forma-de-pagamento',
+                component: Pagamento
+            },
+            {
+                path: 'revisar',
+                component: Revisar
+            },
+            {
+                path: 'pagamento',
+                component: RealizarPagamento,
+                children: [
+                    {
+                        path: '',
+                        component: Revisar,
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'pix',
+                        component: PixComponent
+                    },
+                    {
+                        path: 'cartao',
+                        component: Cartao
+                    }
+                ]
+            }
         ]
     },
     {
@@ -169,7 +191,7 @@ export const routes: Routes = [
     },
     {
         path: 'testeread',
-        component: TestRead,
+        component: TestRead
     },
     {
         path: 'admin',
@@ -220,7 +242,6 @@ export const routes: Routes = [
                 path: 'dashboard',
                 component: Dashboard
             }
-        
         ]
     }
 ];
