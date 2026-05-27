@@ -67,4 +67,10 @@ export class Auth {
   
   return this.http.post(`${this.apiUrl}/user/${id}`, formdata);
 }
+saveCard(data: any) {
+  // Como a rota tem middleware auth:sanctum, precisamos enviar o token
+  const token = localStorage.getItem('token');
+  const headers = { 'Authorization': `Bearer ${token}` };
+  return this.http.post(`${this.apiUrl}/salvar-cartao`, data, { headers } );
+}
 }

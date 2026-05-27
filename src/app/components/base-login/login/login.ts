@@ -43,7 +43,7 @@ export class Login {
         // Verificamos o 'tipo_usuario' que definimos no AuthController.php
         if (res.tipo_usuario === 'admin') {
           console.log('Redirecionando para área Admin...');
-          this.router.navigate(['/admin-dashboard']); // 👈 Coloque o nome da sua rota de admin aqui
+          this.router.navigate(['/admin/dashboard']); // 👈 Coloque o nome da sua rota de admin aqui
         } else {
           console.log('Redirecionando para Home...');
           this.router.navigate(['/inicio']); // 👈 Rota do usuário normal
