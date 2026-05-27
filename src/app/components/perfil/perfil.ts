@@ -1,9 +1,11 @@
-export class PerfilComponent {
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
-  aba: string = 'perfil';
-
-  trocarAba(nome: string) {
-    this.aba = nome;
-  }
-
-}
+@Component({
+  selector: 'app-perfil',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './perfil.html',
+  styleUrl: './perfil.scss'
+})
+export class PerfilComponent {}

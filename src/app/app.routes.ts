@@ -32,6 +32,9 @@ import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
 import { Devolucao } from './components/customer/devolucao/devolucao';
 import { authGuard } from './core/services/auth.guard';
 import { PerfilComponent } from './components/perfil/perfil';
+import { Cartoes } from './components/perfil/cartoes/cartoes';
+import { Enderecos } from './components/perfil/enderecos/enderecos';
+import { Compras } from './components/perfil/compras/compras';
 
 export const routes: Routes = [
     {
@@ -230,7 +233,21 @@ export const routes: Routes = [
       component: Admin
     },
     {
-    path: 'perfil',
-    component: PerfilComponent
-  }
+         path: 'perfil',
+         component: PerfilComponent,
+         children: [
+             {
+                 path: 'compras',
+                 component: Compras
+             },
+             {
+                 path: 'enderecos',
+                 component: Enderecos
+              },
+             {
+                 path: 'cartoes',
+                 component: Cartoes
+             }
+         ]
+    },
 ];

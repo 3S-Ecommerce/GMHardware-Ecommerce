@@ -1,43 +1,49 @@
-<div class="perfil-container">
+<section class="perfil-dashboard">
+  <h1>Meu Perfil</h1>
 
-  <div class="menu-lateral">
+  <div class="container-cards">
+    <!-- Card Endereço -->
+    <div class="card-item" routerLink="/meus-enderecos">
+      <div class="icon-box">
+        <img src="assets/icons/location.svg" alt="Ícone Endereço">
+      </div>
+      <div class="content">
+        <h2>Endereço</h2>
+        <p>Endereços salvos na conta</p>
+      </div>
+    </div>
 
-    <button (click)="trocarAba('perfil')">
-      Meu Perfil
-    </button>
+    <!-- Card Compras -->
+    <div class="card-item" routerLink="/minhas-compras">
+      <div class="icon-box">
+        <img src="assets/icons/cart.svg" alt="Ícone Compras">
+      </div>
+      <div class="content">
+        <h2>Compras</h2>
+        <p>Suas compras</p>
+      </div>
+    </div>
+<router-outlet></router-outlet>
+    <!-- Card Cartão -->
+    <div class="card-item" routerLink="/meus-cartoes">
+      <div class="icon-box">
+        <img src="assets/icons/card.svg" alt="Ícone Cartão">
+      </div>
+      <div class="content">
+        <h2>Cartão de Crédito</h2>
+        <p>Cartões salvos na conta</p>
+      </div>
+    </div>
 
-    <button (click)="trocarAba('cartoes')">
-      Cartões
-    </button>
-
-    <button (click)="trocarAba('enderecos')">
-      Endereços
-    </button>
-
-    <button (click)="trocarAba('compras')">
-      Compras
-    </button>
-
+    <!-- Card Sair -->
+    <div class="card-item">
+      <div class="icon-box">
+        <img src="assets/icons/logout.svg" alt="Ícone Sair">
+      </div>
+      <div class="content">
+        <h2>Sair</h2>
+        <p>Sair da sua conta</p>
+      </div>
+    </div>
   </div>
-
-  <div class="conteudo">
-
-    <app-meus-dados
-      *ngIf="aba === 'perfil'">
-    </app-meus-dados>
-
-    <app-cartoes
-      *ngIf="aba === 'cartoes'">
-    </app-cartoes>
-
-    <app-enderecos
-      *ngIf="aba === 'enderecos'">
-    </app-enderecos>
-
-    <app-compras
-      *ngIf="aba === 'compras'">
-    </app-compras>
-
-  </div>
-
-</div>
+</section>
