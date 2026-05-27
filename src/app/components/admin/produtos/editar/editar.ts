@@ -77,7 +77,6 @@ export class Editarp {
 }
     });
   }
-
 onFileChange(event: any){
   const file = event.target.files[0];
   if (file) {
@@ -85,7 +84,6 @@ onFileChange(event: any){
   }
   console.log(file)
 }
-
 onSubmit(){
   const form = this.formProduct.value;
   const id = String(this.id())
@@ -117,5 +115,4 @@ onSubmit(){
     }
   })
 }
-
 }

@@ -1,0 +1,31 @@
+<div class="meus-cartoes-container">
+  <h1 class="cartoes-title">Meus Cartões</h1>
+
+  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
+
+  <div class="cartoes-list">
+
+    <div class="cartao-item" *ngFor="let cartao of cartoes">
+      <div class="cartao-icon">
+        <img src="/src/assets/icones-meuperfil/cartao.png" alt="Ícone Cartão">
+      </div>
+
+      <div class="cartao-info">
+        <h2 class="cartao-numero">{{ cartao.numero }}</h2>
+        <p class="cartao-vencimento">{{ cartao.vencimento }}</p>
+      </div>
+
+      <button class="cartao-excluir" (click)="excluirCartao(cartao.id)">
+        Excluir
+      </button>
+    </div>
+
+  </div>
+
+  <div class="cartoes-actions">
+    <button class="btn-adicionar" (click)="adicionarCartao()">
+      <span class="btn-icon">+</span>
+      Adicionar Novo Cartão
+    </button>
+  </div>
+</div>

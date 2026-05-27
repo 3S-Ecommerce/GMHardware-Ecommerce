@@ -3,6 +3,8 @@ import { Header } from '../header/header';
 import { RouterOutlet } from "@angular/router";
 import { Footer } from '../footer/footer';
 import { Title } from '@angular/platform-browser';
+//import { Apresentacao } from '../apresentacao/apresentacao';
+//import { MaisVendidos } from "../mais-vendidos/mais-vendidos";
 
 
 @Component({

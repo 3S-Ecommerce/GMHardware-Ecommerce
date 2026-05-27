@@ -1,38 +1,38 @@
 <section class="preencha-endereco">
-    <h2>Preencha seu endereço</h2>
+    <h2 id="entregaEnderecoTitulo">Preencha seu endereço</h2>
     <div class="form-endereco">
         <form [formGroup]="formEndereco">
             <div class="div-input w100">
-                <label for="cep">CEP:</label>
+                <label for="cep" id="entregaEnderecoCep">CEP:</label>
                 <input type="text" name="" id="cep" placeholder="ex: 04124-012" required>
             </div>
             <div class="div-input w70">
-                <label for="rua">Rua/Avenida</label>
+                <label for="rua" id="entregaEnderecoRua">Rua/Avenida</label>
                 <input type="text" name="" id="rua" class="w70" placeholder="ex: Rua Marlene Dietrich" required>
             </div>
             <div class="div-input w30">
-                <label for="numero">Numero:</label>
+                <label for="numero" id="entregaEnderecoNumero">Número:</label>
                 <input type="text" name="" id="numero" class="w30" placeholder="ex: 81" required>
             </div>
             <div class="div-input w100">
-                <label for="complemento">Complemento:</label>
+                <label for="complemento" id="entregaEnderecoComplemento">Complemento:</label>
                 <input type="text" name="" id="complemento" placeholder="ex: Casa amarela com botão branco" required>
             </div>
             <div class="div-input w100">
-                <label for="info">Informações adicionais:</label>
+                <label for="info" id="entregaEnderecoInfo">Informações adicionais:</label>
                 <input type="text" name="" id="info" class="w100" placeholder="Chamar na casa ao lado">
             </div>
             <div class="div-input w70">
-                <label for="nome">Nome do recebedor:</label>
+                <label for="nome" id="entregaEnderecoNome">Nome do recebedor:</label>
                 <input type="text" name="" id="nome" placeholder="Pedro Gregorio" required>
             </div>
             <div class="div-input w30">
-                <label for="cpf">CPF:</label>
+                <label for="cpf" id="entregaEnderecoCpf">CPF:</label>
                 <input type="text" name="" id="cpf" placeholder="ex: 9999999999" required>
             </div>
             <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
-                <button type="submit">Salvar</button>
+                <a routerLink="/finalizar-compra" class="voltar" id="entregaEnderecoVoltar">Voltar</a>
+                <button type="submit" id="entregaEnderecoSalvar">Salvar</button>
             </div>
         </form>
     </div>

@@ -1,15 +1,15 @@
 <section>
-    <h2>Editar Produto</h2>
+    <h2 id="editarProdutosTitulo">Cadastrar Administrador</h2>
     <div class="form-admin">
         <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
             
             <div class="div-input w60">
-                <label for="name">Nome do produto:</label>
+                <label for="name" id="editarProdutosNome">Nome do produto:</label>
                 <input type="text" formControlName="name" id="name" placeholder="Exemplo produto" required>
             </div>
             
             <div class="div-input w40">
-                <label for="category">Categoria:</label>
+                <label for="category" id="editarProdutosCategoria">Categoria:</label>
                 <select formControlName="id_category" id="category">
                     @if(categorias()){
                         @for(categoria of categorias(); track categoria.id){
@@ -20,39 +20,39 @@
             </div>
             
             <div class="div-input w30">
-                <label for="price">Preço:</label>
-                <input type="number" formControlName="price" id="price" placeholder="Preço">
+                <label for="price" id="editarProdutosPreco">Preço:</label>
+                <p><input type="number" formControlName="price" id="price" class="w30" placeholder="Preço"></p>
             </div>
             
             <div class="div-input w30">
-                <label for="stock">Itens em estoque:</label>
-                <input type="number" formControlName="stock" id="stock" placeholder="ex. 10">
+                <label for="stock" id="editarProdutosEstoque">Itens em estoque:</label>
+                <p><input type="number" formControlName="stock" id="stock" placeholder="ex. 10"></p>
             </div>
             
             <div class="div-input w30">
-                <label for="image">Imagem do produto:</label>
+                <label for="image" id="editarProdutosImagem">Imagem do produtos:</label>
                 <input type="file" id="image" (change)="onFileChange($event)">
             </div>
             
             <div class="div-input w100">
-                <label for="description">Descrição:</label>
+                <label for="description" id="editarProdutosDescricao">Descrição:</label>
                 <textarea formControlName="description" id="description" placeholder="Descrição do produto" rows="3"></textarea>
             </div>
             
             <div id="div-details" class="div-input w100" formArrayName="details">
-                <label for="details">Detalhes:</label>   
+                <label for="details" id="editarProdutosDetalhe">Detalhe:</label>   
                 @for (detalhe of detalhesFormArray.controls; track $index){
-                    <input class="details" type="text" [formControlName]="$index" placeholder="Especificações" style="margin-bottom: 8px;">
+                <input class="details" type="text" [formControlName]="$index" placeholder="especificacoes" style="margin-bottom: 8px;">
                 }
             </div>
             
             <div class="div-input w100 button">
-                <p class="p" (click)="novoDetalhe()">Novo detalhe</p> 
+                <p class="p" (click)="novoDetalhe()" id="editarProdutosBtnNovoDetalhe">Novo detalhe</p> 
             </div>
             
             <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
-                <button [disabled]="formProduct.invalid" type="submit">Salvar</button>
+                <a routerLink="/finalizar-compra" class="voltar" id="editarProdutosVoltar">Voltar</a>
+                <button [disabled]="formProduct.invalid" type="submit" id="editarProdutosSalvar">Salvar</button>
             </div>
         </form>
     </div>

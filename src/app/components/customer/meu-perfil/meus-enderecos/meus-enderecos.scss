@@ -1,0 +1,261 @@
+$bg-dark: #181C23;
+$bg-card: #0F1115;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$border-color: #2a2a2a;
+$hover-bg: #1a1f27;
+$accent-color: #2563EB; 
+$accent-orange: #ff8c42; 
+
+.meus-enderecos-container {
+  background-color: $bg-dark;
+  min-height: calc(100vh - 200px);
+  padding: 40px 20px;
+  color: $text-primary;
+
+  @media (max-width: 768px) {
+    padding: 30px 15px;
+  }
+}
+
+.enderecos-title {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  color: $text-primary;
+  text-align: left;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+}
+
+.enderecos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+.endereco-item {
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $hover-bg;
+    border-color: #3a3a3a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    padding: 16px 24px;
+    gap: 16px;
+  }
+}
+
+.endereco-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.endereco-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  flex: 1;
+  gap: 2px;
+}
+
+.endereco-titulo {
+  font-size: 18px;
+  font-weight: 600;
+  color: $text-primary;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.endereco-cep {
+  font-size: 14px;
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.endereco-tipo {
+  font-size: 14px;
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.endereco-contato {
+  font-size: 14px;
+  color: $text-secondary;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.endereco-excluir {
+  background: none;
+  border: none;
+  color: $accent-orange;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 0;
+
+  &:hover {
+    background-color: rgba(255, 140, 66, 0.1);
+    color: lighten($accent-orange, 10%);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+}
+
+.enderecos-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.btn-adicionar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: $accent-color;
+  color: $text-primary;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  .btn-icon {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  &:hover {
+    background-color: darken($accent-color, 10%);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    font-size: 14px;
+
+    .btn-icon {
+      font-size: 18px;
+    }
+  }
+}
+
+// Responsividade adicional para telas menores
+@media (max-width: 640px) {
+  .endereco-item {
+    padding: 16px 24px;
+    gap: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .endereco-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .endereco-titulo {
+    font-size: 16px;
+  }
+
+  .endereco-cep,
+  .endereco-tipo,
+  .endereco-contato {
+    font-size: 13px;
+  }
+
+  .endereco-excluir {
+    font-size: 12px;
+    padding: 6px 8px;
+    align-self: flex-end;
+    margin-top: -32px;
+  }
+
+  .btn-adicionar {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}
+
+
+.btn-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+  padding: 10px 18px;
+  background-color: transparent;
+  border: 1px solid $accent-color;
+  border-radius: 6px;
+  color: $accent-color;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(37, 99, 235, 0.12);
+    transform: translateX(-4px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
