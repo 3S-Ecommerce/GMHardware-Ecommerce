@@ -3,10 +3,11 @@ import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { Cart } from '../../../core/services/cart';
 import { Auth } from '../../../core/services/auth';
 import { Language } from '../../../core/services/language';
+import { SearchBarComponent } from '../search-bar/search-bar';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink],
+  imports: [RouterLink, SearchBarComponent],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
