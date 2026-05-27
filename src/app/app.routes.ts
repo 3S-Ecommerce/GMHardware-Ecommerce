@@ -253,5 +253,9 @@ export const routes: Routes = [
     {
         path: 'contato',
         component: Contato
+    },
+    {
+      path: 'admin-dashboard',
+      component: Admin
     }
 ];

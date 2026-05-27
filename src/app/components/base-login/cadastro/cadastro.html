@@ -77,7 +77,6 @@
         class="caixa-termo">
       <label for="termos">Li e concordo com os termos</label>
     </div>
-
     <div class="button">
       <button
         type="submit"
@@ -86,6 +85,30 @@
         Cadastrar
       </button>
     </div>
-
   </form>
+<<<<<<< HEAD
 </div>
+=======
+</div>
+<!-- ESTRUTURA DO MODAL (Adicione no final do arquivo) -->
+<div class="modal-overlay" *ngIf="showModal" (click)="toggleModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Termos de Uso - GMHardware</h2>
+      <span class="btn-fechar" (click)="toggleModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <p>Ao se cadastrar na GMHardware, você concorda com:</p>
+      <ul>
+        <li><strong>Privacidade:</strong> Seus dados estão protegidos conosco.</li>
+        <li><strong>Uso:</strong> O site deve ser usado apenas para fins de compra legal.</li>
+        <li><strong>Conta:</strong> Você é responsável pela segurança da sua senha.</li>
+      </ul>
+      <p>Estes termos visam garantir a melhor experiência para todos os nossos clientes.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="toggleModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+>>>>>>> feature-Arthur

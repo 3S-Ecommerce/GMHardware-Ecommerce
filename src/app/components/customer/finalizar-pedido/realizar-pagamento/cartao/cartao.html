@@ -1,28 +1,37 @@
 <section class="cadastrar-cartao">
     <h2>Dados do cartão</h2>
     <div class="form-cartao">
-        <form action="">
+        <!-- 1. Adicionamos o [formGroup] e o (ngSubmit) -->
+        <form [formGroup]="formCartao" (ngSubmit)="onSubmit()">
+
             <div class="div-input w100">
                 <label for="nome">Nome do titular:</label>
-                <input type="text" name="" id="nome" placeholder="ex: Pedro Gregorio" required>
+                <!-- 2. Trocamos o 'name' por 'formControlName' -->
+                <input type="text" formControlName="nome_titular" id="nome" placeholder="ex: Pedro Gregorio">
             </div>
+
             <div class="div-input w100">
                 <label for="numero">Numero do cartão:</label>
-                <input type="number" name="" id="numero" placeholder="ex: 0123 4567 8901 2345" required>
+                <input type="text" formControlName="numero_cartao" id="numero" placeholder="ex: 0123 4567 8901 2345">
             </div>
+
             <div class="div-input w25">
                 <label for="vencimento">Vencimento:</label>
-                <input type="text" name="" id="complemento" placeholder="ex: 00/00" required>
+                <input type="text" formControlName="vencimento" id="complemento" placeholder="ex: 00/00">
             </div>
+
             <div class="div-input w25">
                 <label for="cvv">CVV:</label>
-                <input type="number" name="" id="cvv" placeholder="ex: 123" required>
+                <input type="text" formControlName="cvv" id="cvv" placeholder="ex: 123">
             </div>
+
             <div class="div-input w40">
                 <label for="cpf">CPF:</label>
-                <input type="number" name="" id="cpf" placeholder="ex: 123 321 123 10" required>
+                <input type="text" formControlName="cpf" id="cpf" placeholder="ex: 123 321 123 10">
             </div>
+
             <div class="button">
+                <!-- 3. O botão chamará o onSubmit automaticamente -->
                 <button type="submit">Finalizar Compra</button>
             </div>
         </form>

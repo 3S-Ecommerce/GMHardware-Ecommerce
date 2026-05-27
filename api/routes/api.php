@@ -31,3 +31,6 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/update-password', [AuthController::class, 'updatePassword']);
+
+Route::post('/salvar-cartao', [AuthController::class, 'storeCard'])->middleware('auth:sanctum');
+

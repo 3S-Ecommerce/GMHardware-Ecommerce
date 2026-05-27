@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Auth } from '../../../core/services/auth';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.scss',
 })
@@ -15,6 +16,7 @@ export class Cadastro {
   private fb = inject(FormBuilder);
   private authService = inject(Auth);
   private router = inject(Router);
+  showModal = false
   dados = signal<any>([]);
 
   // Configuração do formulário expandido
@@ -27,6 +29,11 @@ export class Cadastro {
     password: ['', [Validators.required, Validators.minLength(8)]],
     password_confirmation: ['', Validators.required]
   });
+
+  // 2. ADICIONE ESTE MÉTODO AQUI
+  toggleModal() {
+    this.showModal = !this.showModal;
+  }
 
   onSubmit() {
     if (this.formRegister.invalid) {

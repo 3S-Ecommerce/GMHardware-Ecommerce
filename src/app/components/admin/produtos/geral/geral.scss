@@ -1,15 +1,15 @@
 @use "../../../../../../public/assets/style.scss";
 
-section {
+@media(min-width:1200px){
+section{
     @include style.sectionPattern();
     min-height: 80vh;
     justify-content: flex-start;
     gap: 48px;
 
-    div {
-        @include style.displayFlex($justify: space-between, );
-
-        button {
+    div{
+        @include style.displayFlex($justify: space-between,);
+        button{
             @include style.fontSize($size: 32px, $weight: 600);
             background-color: style.$primary-text;
             padding: 4px 8px;
@@ -59,90 +59,109 @@ section {
         }
     }
 }
+}
+@media (min-width: 736px) and (max-width: 1199px) {
+section{
+    @include style.sectionPattern();
+    max-width: 100%;
+    gap: 24px;
 
-@media (max-width: 1024px) {
-    section {
-        gap: 24px;
-        padding: 15px;
-        box-sizing: border-box;
-        width: 100%;
-        overflow-x: auto; 
-        display: flex;
-        flex-direction: column;
-
-        div {
-            width: 100%;
-            h2 { font-size: 26px; }
-            button {
-                @include style.fontSize($size: 18px, $weight: 600); 
-                padding: 6px 12px;
-            }
+    div{
+        @include style.displayFlex($justify: space-between,);
+        button{
+            @include style.fontSize($size: 32px, $weight: 600);
+            background-color: style.$primary-text;
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: none;
+            color: white;
         }
-
-        table {
-            min-width: 750px; 
-            width: 100%;
-            
-            thead th, tbody td {
-                @include style.fontSize($size: 16px, $weight: 600); 
-                padding: 10px;
+    }
+    table{
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+        border-collapse: collapse;
+        thead{
+            th{
+                color: white;
+                @include style.fontSize($size: 16px, $weight: 600);
+                border-bottom: 1px solid white;
+                max-height: 70px;
+                padding: 16px
+            }
+            padding-bottom: 4px;
+        }
+        tbody{
+            td{
+                color: style.$white-color;
+                @include style.fontSize($size: 16px, $weight: 600);
+                border-bottom: 1px solid white;
+                text-align: center;
+                max-height: 70px;
+                padding: 16px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                &.acoes{
+                    a{
+                        color: orange;
+                        margin-right: 8px;
+                        margin-left: 8px;
+                    }
+                }
             }
         }
     }
 }
+}
+@media(max-width: 736px){
+  section{
+    @include style.sectionPattern();
 
-@media (max-width: 768px) {
-    section {
-        gap: 16px;
-        padding: 8px;
+    gap: 14px;
 
-        div {
-            h2 { font-size: 18px; }
-            button { 
-                @include style.fontSize($size: 13px, $weight: 600); 
-                padding: 4px 8px;
-                border-radius: 6px;
-            }
+    div{
+        @include style.displayFlex($justify: space-between,);
+        button{
+            @include style.fontSize($size: 14px, $weight: 600);
+            background-color: style.$primary-text;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            color: white;
         }
-        
-        table {
-            min-width: 100% !important;
-            width: 100%;
-            table-layout: fixed;
-
-            thead th {
+    }
+    table{
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+        border-collapse: collapse;
+        thead{
+            th{
+                color: white;
                 @include style.fontSize($size: 12px, $weight: 600);
-                padding: 8px 2px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+                border-bottom: 1px solid white;
+                max-height: 70px;
+                padding: 16px
             }
-
-            tbody td {
-                @include style.fontSize($size: 12px, $weight: 500);
-                padding: 8px 2px;
-                word-break: break-word;
-                
-                &.acoes a {
-                    margin-right: 4px;
-                    margin-left: 4px;
-                    font-size: 14px;
+            padding-bottom: 4px;
+        }
+        tbody{
+            td{
+                color: style.$white-color;
+                @include style.fontSize($size: 12px, $weight: 600);
+                border-bottom: 1px solid white;
+                text-align: center;
+                padding: 10px;
+                border-bottom-left-radius:5px;
+                border-bottom-right-radius: 5px;
+                &.acoes{
+                    a{
+                        color: orange;
+                        margin-right: 4px;
+                        margin-left: 4px;
+                    }
                 }
-            }
-
-            thead th:nth-child(1) { width: 15%; }
-            thead th:nth-child(3) { width: 60%; }
-            thead th:nth-child(6) { width: 25%; }
-
-            thead th:nth-child(1), tbody td:nth-child(1) {
-                display: none !important;
-            }
-
-            thead th:nth-child(4), tbody td:nth-child(4) {
-                display: none !important;
-            }
-
-            thead th:nth-child(5), tbody td:nth-child(5) {
-                display: none !important;
             }
         }
     }
+}
 }
