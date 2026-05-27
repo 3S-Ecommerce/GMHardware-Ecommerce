@@ -5,7 +5,7 @@ import { CheckoutService, PaymentMethod } from '../../../../core/services/checko
 @Component({
   selector: 'app-pagamento',
   standalone: true,
-  imports: [ RouterLink ],
+  imports: [  ],
   templateUrl: './pagamento.html',
   styleUrl: './pagamento.scss',
 })
