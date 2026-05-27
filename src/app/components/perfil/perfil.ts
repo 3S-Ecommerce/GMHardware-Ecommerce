@@ -8,4 +8,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './perfil.html',
   styleUrl: './perfil.scss'
 })
-export class PerfilComponent {}
+export class PerfilComponent {
+
+}

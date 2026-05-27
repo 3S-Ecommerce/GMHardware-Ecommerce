@@ -233,21 +233,19 @@ export const routes: Routes = [
       component: Admin
     },
     {
-         path: 'perfil',
-         component: PerfilComponent,
-         children: [
-             {
-                 path: 'compras',
-                 component: Compras
-             },
-             {
-                 path: 'enderecos',
-                 component: Enderecos
-              },
-             {
-                 path: 'cartoes',
-                 component: Cartoes
-             }
-         ]
+      path: 'perfil',
+      component: PerfilComponent,
     },
-];
+    {
+      path: 'compras',
+      component: Compras
+    },
+    {
+      path: 'enderecos',
+      component: Enderecos
+    },
+    {
+      path: 'cartoes',
+      component: Cartoes
+    }
+  ]
