@@ -1,0 +1,36 @@
+.perfil-container {
+  display: flex;
+  min-height: 100vh;
+  background: #0f1724;
+  color: white;
+}
+
+.menu-lateral {
+  width: 250px;
+  background: #0b1120;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.menu-lateral button {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.menu-lateral button:hover {
+  background: #2563eb;
+}
+
+.conteudo {
+  flex: 1;
+  padding: 40px;
+}

@@ -1,0 +1,43 @@
+<div class="perfil-container">
+
+  <div class="menu-lateral">
+
+    <button (click)="trocarAba('perfil')">
+      Meu Perfil
+    </button>
+
+    <button (click)="trocarAba('cartoes')">
+      Cartões
+    </button>
+
+    <button (click)="trocarAba('enderecos')">
+      Endereços
+    </button>
+
+    <button (click)="trocarAba('compras')">
+      Compras
+    </button>
+
+  </div>
+
+  <div class="conteudo">
+
+    <app-meus-dados
+      *ngIf="aba === 'perfil'">
+    </app-meus-dados>
+
+    <app-cartoes
+      *ngIf="aba === 'cartoes'">
+    </app-cartoes>
+
+    <app-enderecos
+      *ngIf="aba === 'enderecos'">
+    </app-enderecos>
+
+    <app-compras
+      *ngIf="aba === 'compras'">
+    </app-compras>
+
+  </div>
+
+</div>

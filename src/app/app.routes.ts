@@ -2,10 +2,6 @@ import { Routes } from '@angular/router';
 import { Home } from './components/customer/home/home';
 import { Apresentacao } from './components/customer/home/apresentacao/apresentacao';
 import { Categorias } from './components/customer/categorias/categorias';
-// import { Login } from './components/customer/baselogin/login/login';
-// import { Baselogin } from './components/customer/baselogin/baselogin';
-// import { Cadastro } from './components/customer/baselogin/cadastro/cadastro';
-// import { Recuperacao } from './components/customer/baselogin/recuperacao/recuperacao';
 import { VisualizarProduto } from './components/customer/visualizar-produto/visualizar-produto';
 import { FinalizarPedido } from './components/customer/finalizar-pedido/finalizar-pedido';
 import { Entrega } from './components/customer/finalizar-pedido/entrega/entrega';
@@ -35,6 +31,7 @@ import { Cadastro } from './components/base-login/cadastro/cadastro';
 import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
 import { Devolucao } from './components/customer/devolucao/devolucao';
 import { authGuard } from './core/services/auth.guard';
+import { PerfilComponent } from './components/perfil/perfil';
 
 export const routes: Routes = [
     {
@@ -231,5 +228,9 @@ export const routes: Routes = [
     {
       path: 'admin-dashboard',
       component: Admin
-    }
+    },
+    {
+    path: 'perfil',
+    component: PerfilComponent
+  }
 ];
