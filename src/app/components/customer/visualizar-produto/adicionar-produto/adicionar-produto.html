@@ -1,25 +1,8 @@
 <h3>R$ {{ pricePix() }},00</h3>
-
-<p>
-    {{ priceOriginal() }},00.<br>
-    <span id="adicionarProdutoTextoPix">À vista no PIX com 15% de desconto:</span> <br><br>
-    <span>R$ {{ priceOriginal() }},00 </span>
-    <span id="adicionarProdutoTextoParcelado">em até 10x de</span> 
-    <span>R$ {{ priceParcela() }},00 </span>
-    <span id="adicionarProdutoTextoCartao">sem juros ou 1x com 10% de desconto no cartão</span>
-</p>
-
-<p><b id="adicionarProdutoEstoque">EM ESTOQUE</b></p>
-
+<p>{{ priceOriginal() }},00.<br> À vista no PIX com 15% de desconto: <br><br>R$ {{ priceOriginal() }},00 em até 10x de R$ {{ priceParcela() }},00 sem juros ou 1x com 10% de desconto  no cartão</p>
+<p><b>EM ESTOQUE</b></p>
 <div class="buttons">
-    <button (click)="teste()">
-        <i class="fa-solid fa-cart-arrow-down"></i>
-        <span id="adicionarProdutoBtnCarrinho">Carrinho</span>
-    </button>
-
-    <button [routerLink]="['/finalizar-compra']" class="primary" id="adicionarProdutoBtnComprar">
-        Comprar
-    </button>
+    <button (click)="teste()"><i class="fa-solid fa-cart-arrow-down"></i>Carrinho</button>
+<button [routerLink]="['/finalizar-compra']" class="primary"><i></i>Comprar</button>
 </div>
-
 <!--{ id: produtoID }-->

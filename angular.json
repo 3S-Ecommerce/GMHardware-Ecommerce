@@ -20,27 +20,16 @@
       "architect": {
         "build": {
           "builder": "@angular/build:application",
-          "i18n": {
-             "sourceLocale": "pt-BR",
-             "locales": {
-              "en": "src/locale/messages.en.xlf"
-              }
-              },
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-            {
-              "glob": "**/*",
-               "input": "public"
-            },
-             {
-              "glob": "**/*",
-              "input": "src/assets",
-              "output": "assets"
+              {
+                "glob": "**/*",
+                "input": "public"
               }
-              ],
+            ],
             "styles": [
               "src/styles.scss"
             ],
@@ -53,10 +42,7 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            },
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            }
           },
           "configurations": {
             "production": {
@@ -80,13 +66,6 @@
               "sourceMap": true
             }
           },
-            "en": {
-              "localize": ["en"]
-            },
-
-          "pt-BR": {
-              "localize": ["pt-BR"]
-        },
           "defaultConfiguration": "production"
         },
         "serve": {

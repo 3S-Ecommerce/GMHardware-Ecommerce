@@ -35,8 +35,4 @@ return [
         ],
     ],
 
-    'mercadopago' => [
-    'token' => env('MERCADO_PAGO_ACCESS_TOKEN'),
-],
-
 ];

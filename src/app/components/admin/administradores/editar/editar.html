@@ -1,50 +1,50 @@
 <section>
-    <h2 i18n id="tituloCadastroAdm">Cadastrar Administrador</h2>
+    <h2>Editar Administrador</h2>
     <div class="form-admin">
         @if(dados()){
         <form [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
             
             <div class="div-input w100">
-                <label for="name" i18n id="labelNomeAdm">Nome:</label>
-                <input type="text" formControlName="name" id="name" i18n-placeholder placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
+                <label for="name">Nome:</label>
+                <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
             </div>
             
             <div class="div-input w100">
-                <label for="email" i18n id="labelEmailAdm">Email:</label>
-                <input type="text" formControlName="email" id="email" class="w70" i18n-placeholder placeholder="pedro@email.com" required>
+                <label for="email">Email:</label>
+                <input type="text" formControlName="email" id="email" placeholder="pedro@email.com" required>
             </div>
             
             <div class="div-input w50">
-                <label for="password" i18n id="labelSenhaAdm">Senha:</label>
-                <p><input type="password" formControlName="password" id="password" class="w30" i18n-placeholder placeholder="password"></p>
+                <label for="password">Senha:</label>
+                <input type="password" formControlName="password" id="password" placeholder="Deixe em branco para não alterar">
             </div>
             
             <div class="div-input w50">
-                <label for="passwordsd" i18n id="labelConfirmaAdm">Confirme a senha:</label>
-                <p><input type="password" formControlName="password_confirmation" id="passwordsd" i18n-placeholder placeholder="password"></p>
+                <label for="password_confirmation">Confirme a senha:</label>
+                <input type="password" formControlName="password_confirmation" id="password_confirmation" placeholder="Confirme a nova senha">
             </div>
             
             <div class="div-input w100">
-                <label for="phone_number" i18n id="labelTelefoneAdm">Telefone:</label>
-                <input type="number" formControlName="phone_number" id="phone_number" class="w100" i18n-placeholder placeholder="11912341234">
+                <label for="phone_number">Telefone:</label>
+                <input type="text" formControlName="phone_number" id="phone_number" placeholder="11912341234">
             </div>
             
             <div class="div-input w70">
-                <label for="document" i18n id="labelDocumentoAdm">Documento:</label>
-                <input type="text" formControlName="document" id="document" i18n-placeholder placeholder="31029081787">
+                <label for="document">Documento:</label>
+                <input type="text" formControlName="document" id="document" placeholder="31029081787">
             </div>
             
             <div class="div-input w30">
-                <label for="active" i18n id="labelAtivoAdm">Ativo:</label>
+                <label for="active">Ativo:</label>
                 <select formControlName="active" id="active">
-                    <option value="1" i18n id="labelSimAtivoAdm">Sim</option>
-                    <option value="2" i18n id="labelNaoAtivoAdm">Não</option>
+                    <option value="1">Sim</option>
+                    <option value="2">Não</option>
                 </select>
             </div>
             
             <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar" i18n id="labelVoltarAdm">Voltar</a>
-                <button [disabled]="formAdmin.invalid" type="submit" i18n id="labelSalvarAdm">Salvar</button>
+                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
+                <button [disabled]="formAdmin.invalid" type="submit">Salvar</button>
             </div>
         </form>
         }

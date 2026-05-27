@@ -1,58 +1,42 @@
 <app-header></app-header>
-
 <section>
-    <h2 id="testeReadsTitulo">Teste Reads</h2>
-
+    <h2>Teste Reads</h2>
     <form [formGroup]="formId" (ngSubmit)="onSubmit()">
         <select formControlName="opcao" id="">
-            <option value="product" id="testeReadsOpcaoProduct">Product</option>
-            <option value="category" id="testeReadsOpcaoCategory">Category</option>
-            <option value="user" id="testeReadsOpcaoUser">User</option>
-            <option value="order" id="testeReadsOpcaoOrder">Order</option>
-            <option value="orderitem" id="testeReadsOpcaoOrderItem">Order Item</option>
+            <option value="product">Product</option>
+            <option value="category">Category</option>
+            <option value="user">User</option>
+            <option value="order">Order</option>
+            <option value="orderitem">Order Item</option>
         </select>
-
         <input formControlName="id" type="number" step="1" value="">
-
-        <button type="submit" [disabled]="formId.invalid" id="testeReadsBtnBuscar">Buscar</button>
+        <button type="submit" [disabled]="formId.invalid">Buscar</button>
     </form>
-
     <table>
         <thead>
             <tr>
+
             </tr>
         </thead>
-
         <tbody>
             @if(dados()){
-
             @if(uniq()){
             <tr>
                 <p style="color:white"></p>
-                <p style="color:white">
-                    <span id="testeReadsLabelIdUniq">ID: </span>{{ dados().id }} || 
-                    <span id="testeReadsLabelNameUniq">NAME: </span>{{ dados().name }}
-                </p>
+                <p style="color:white"><span>ID: {{ dados().id }} || </span>NAME:{{ dados().name }}</p>
             </tr>
-            }
-
-            @else {
+            }@else {
 
             @for (items of dados(); track items.id){
             <tr>
                 <p style="color:white"></p>
-                <p style="color:white">
-                    <span id="testeReadsLabelIdLoop-{{ items.id }}">ID: </span>{{ items.id }} || 
-                    <span id="testeReadsLabelNameLoop-{{ items.id }}">NAME: </span>{{ items.name }}
-                </p>
+                <p style="color:white"><span>ID: {{ items.id }} || </span>NAME:{{ items.name }}</p>
             </tr>
             }
-
+            }
             }
 
-            }
         </tbody>
     </table>
 </section>
-
 <app-footer></app-footer>

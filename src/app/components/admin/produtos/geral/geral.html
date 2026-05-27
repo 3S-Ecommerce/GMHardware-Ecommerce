@@ -1,17 +1,18 @@
 <section>
     <div>
-        <h2 id="geralProdutosTitulo">Produtos</h2>
-        <button routerLink="novo" id="geralProdutosBtnNovo">Novo Produto</button>    
+        <h2>Produtos</h2>
+        <button routerLink="novo">Novo Produto</button>    
     </div>
     <table>
         <thead>
             <tr>
-                <th id="geralProdutosTabelaId">ID</th>
-                <th id="geralProdutosTabelaImagem">Imagem</th>
-                <th id="geralProdutosTabelaProduto">Produto</th>
-                <th id="geralProdutosTabelaCadastrado">Cadastrado</th>
-                <th id="geralProdutosTabelaEstoque">Estoque</th>
-                <th id="geralProdutosTabelaAcoes">Ações</th>
+                <th>ID</th>
+             
+                <th>Imagem</th>
+                <th>Produto</th>
+                <th>Cadastrado</th>
+                <th>Estoque</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -23,17 +24,17 @@
                 @if(product.image_url != 'http://127.0.0.1:8000/storage/products/default.png'){
                     <img ngSrc="{{ product.image_url }}" alt="imagem do produto" width="40" height="40">
                 }@else {
-                    <span id="geralProdutosSemImagem">Image</span>
+                    Image
                 }
                 </td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.created_at | date:'dd/MM/yyyy' }}</td>
-                <td>@if(product.stock > 0){ {{ product.stock }} }@else { <span id="geralProdutosEsgotado">Produto sem estoque</span> }</td>
+                <td>@if(product.stock > 0){ {{ product.stock }} }@else { Produto sem estoque }</td>
                 <td class="acoes"><a [routerLink]="['editar', { id: product.id }]"><i class="fa-solid fa-pen"></i></a><a routerLink="deletar"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
             }
             @empty {
-                <td colspan="6" id="geralProdutosTabelaVazia">
+                <td colspan="6">
                     Nenhum produto cadastrado
                 </td>
             }
