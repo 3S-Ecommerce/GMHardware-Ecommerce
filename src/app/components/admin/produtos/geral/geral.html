@@ -1,18 +1,18 @@
 <section>
     <div>
-        <h2>Produtos</h2>
-        <button routerLink="novo">Novo Produto</button>    
+        <h2 id="geralProdutosTitulo">Produtos</h2>
+        <button routerLink="novo" id="geralProdutosBtnNovo">Novo Produto</button>    
     </div>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
              
-                <th>Imagem</th>
-                <th>Produto</th>
-                <th>Cadastrado</th>
-                <th>Estoque</th>
-                <th>Ações</th>
+                <th id="geralProdutosTabelaImagem">Imagem</th>
+                <th id="geralProdutosTabelaProduto">Produto</th>
+                <th id="geralProdutosTabelaCadastrado">Cadastrado</th>
+                <th id="geralProdutosTabelaEstoque">Estoque</th>
+                <th id="geralProdutosTabelaAcoes">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -34,7 +34,7 @@
             </tr>
             }
             @empty {
-                <td colspan="6">
+                <td colspan="6" id="geralProdutosTabelaVazia">
                     Nenhum produto cadastrado
                 </td>
             }

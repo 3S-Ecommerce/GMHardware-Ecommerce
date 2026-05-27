@@ -1,49 +1,49 @@
 <section>
-    <h2>Cadastrar Administrador</h2>
+    <h2 id="novoCadastrarAdministrador">Cadastrar Administrador</h2>
     <div class="form-admin">
         <form [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
             
             <div class="div-input w100">
-                <label for="name">Nome:</label>
+                <label for="name" id="novoNome">Nome:</label>
                 <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" required>
             </div>
             
             <div class="div-input w100">
-                <label for="email">Email:</label>
+                <label for="email" id="novoEmail">Email:</label>
                 <input type="text" formControlName="email" id="email" placeholder="pedro@email.com" required>
             </div>
             
             <div class="div-input w50">
-                <label for="password">Senha:</label>
+                <label for="password" id="novoSenha">Senha:</label>
                 <input type="password" formControlName="password" id="password" placeholder="password" required>
             </div>
             
             <div class="div-input w50">
-                <label for="password_confirmation">Confirme a senha:</label>
+                <label for="password_confirmation" id="novoConfirmeSenha">Confirme a senha:</label>
                 <input type="password" formControlName="password_confirmation" id="password_confirmation" placeholder="password" required>
             </div>
             
             <div class="div-input w100">
-                <label for="phone_number">Telefone:</label>
+                <label for="phone_number" id="novoTelefone">Telefone:</label>
                 <input type="text" formControlName="phone_number" id="phone_number" placeholder="11912341234">
             </div>
             
             <div class="div-input w70">
-                <label for="document">Documento:</label>
+                <label for="document" id="novoDocumento">Documento:</label>
                 <input type="text" formControlName="document" id="document" placeholder="31029081787" required>
             </div>
             
             <div class="div-input w30">
-                <label for="active">Ativo:</label>
+                <label for="active" id="novoAtivo">Ativo:</label>
                 <select formControlName="active" id="active">
-                    <option value="1">Sim</option>
-                    <option value="2">Não</option>
+                    <option value="1" id="novoOpcaoSim">Sim</option>
+                    <option value="2" id="novoOpcaoNao">Não</option>
                 </select>
             </div>
             
             <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar">Voltar</a>
-                <button [disabled]="formAdmin.invalid" type="submit">Salvar</button>
+                <a routerLink="/finalizar-compra" class="voltar" id="novoVoltar">Voltar</a>
+                <button [disabled]="formAdmin.invalid" type="submit" id="novoSalvar">Salvar</button>
             </div>
         </form>
     </div>

@@ -1,7 +1,8 @@
 import { Component, computed, inject, OnInit, afterNextRender } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { NavigationEnd, Router, RouterLink } from "@angular/router";
 import { Cart } from '../../../core/services/cart';
 import { Auth } from '../../../core/services/auth';
+import { Language } from '../../../core/services/language';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +10,30 @@ import { Auth } from '../../../core/services/auth';
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header{
+export class Header {
+  language = inject(Language);
   authService = inject(Auth)
+  router = inject(Router);
   cart = inject(Cart);
   quantidadeCarrinho = computed(() => {
-      return this.cart.totalItems();
-    })
+    return this.cart.totalItems();
+  })
 
-  constructor(){
+  constructor() {
     afterNextRender(() => {
-      this.cart.iniciar()
+      this.cart.iniciar();
+      this.language.loadSavedLanguage();
+
+       this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        setTimeout(() => {
+          this.language.loadSavedLanguage();
+        }, 100);
+      }
+    });
     })
+  }
+    changeLanguage(lang: string) {
+    this.language.changeLanguage(lang);
   }
 }
