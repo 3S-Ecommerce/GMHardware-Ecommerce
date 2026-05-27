@@ -94,7 +94,19 @@ export const routes: Routes = [
                 path: 'perifericos',
                 component: Categorias,
                 data: { categoria: 'Periférico' },
-            }
+
+                
+            },
+             {
+                path: 'meu-perfil',
+                loadComponent: () => import('./components/customer/perfil-usuario/meu-perfil/meu-perfil')
+                  .then(m => m.MeuPerfil)
+             },
+             {
+              path: 'meus-cartoes',
+             loadComponent: () => import('./components/customer/perfil-usuario/meus-cartoes/meus-cartoes')
+                  .then(m => m.MeusCartoesComponent)
+             },
         ]
     },
     {

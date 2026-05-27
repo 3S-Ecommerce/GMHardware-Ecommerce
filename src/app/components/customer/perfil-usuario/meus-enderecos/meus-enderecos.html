@@ -1,0 +1,38 @@
+<div class="meus-enderecos-container">
+  <h1 class="enderecos-title">Meus Endereços</h1>
+  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
+  
+  <div class="enderecos-list" *ngIf="!mostrarFormulario">
+    <div class="endereco-item" *ngFor="let e of enderecos">
+      <div class="endereco-icon"><img src="/assets/icones-perfil/endereco.png"></div>
+      <div class="endereco-info">
+        <h2 class="endereco-titulo">{{ e.street }}, {{ e.number }}</h2>
+        <p class="endereco-cep">CEP {{ e.zip_code }} - {{ e.city }} - {{ e.state }}</p>
+        <p class="endereco-tipo">{{ e.type }}</p>
+        <p class="endereco-contato">{{ e.contact_name }} - {{ e.contact_phone }}</p>
+      </div>
+      <button class="endereco-excluir" (click)="excluirEndereco(e.id)">Excluir</button>
+    </div>
+  </div>
+
+  <div class="enderecos-list" *ngIf="mostrarFormulario">
+    <div class="endereco-item" style="flex-direction: column; align-items: stretch; gap: 10px;">
+      <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.neighborhood" placeholder="Bairro" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.state" placeholder="UF" maxlength="2" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.contact_name" placeholder="Nome Contato" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <input type="text" [(ngModel)]="novoEndereco.contact_phone" placeholder="Telefone Contato" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
+      <div style="display:flex;gap:10px">
+        <button class="btn-adicionar" (click)="salvarEndereco()" style="flex:1;justify-content:center">Salvar</button>
+        <button class="endereco-excluir" (click)="cancelarAdicao()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="enderecos-actions" *ngIf="!mostrarFormulario">
+    <button class="btn-adicionar" (click)="adicionarEndereco()"><span class="btn-icon">+</span> Adicionar Novo Endereço</button>
+  </div>
+</div>
