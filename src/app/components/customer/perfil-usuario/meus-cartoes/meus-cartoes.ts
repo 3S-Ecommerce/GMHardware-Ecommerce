@@ -97,6 +97,8 @@ export class MeusCartoesComponent implements OnInit {
         localStorage.setItem('cartoes_usuario', JSON.stringify(this.cartoes));
       },
       error: () => {
+        // Em caso de erro na exclusão, você pode querer manter o cartão na lista ou tratar de outra forma.
+        // Por enquanto, o comportamento é o mesmo do sucesso (remove da lista localmente).
         this.cartoes = this.cartoes.filter(c => c.id !== id);
         localStorage.setItem('cartoes_usuario', JSON.stringify(this.cartoes));
       }

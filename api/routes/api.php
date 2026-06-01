@@ -55,3 +55,6 @@ Route::post('/salvar-cartao', [AuthController::class, 'storeCard'])->middleware(
 
 Route::apiResource('addresses', AddressController::class)->middleware('auth:sanctum');
 
+Route::post('/orders/checkout', [OrderController::class, 'checkout'])->middleware('auth:sanctum');
+
+

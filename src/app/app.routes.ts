@@ -38,9 +38,10 @@ import { Garantia } from './components/customer/garantia/garantia';
 import { Contato } from './components/customer/contato/contato';
 import { authGuard } from './core/services/auth.guard';
 import { guestGuard } from './core/services/guest.guard';
-import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+// import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 import path from 'path';
 import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
+import { CheckoutComponent } from './components/customer/checkout/checkout';
 
 export const routes: Routes = [
     {
@@ -107,6 +108,13 @@ export const routes: Routes = [
              loadComponent: () => import('./components/customer/perfil-usuario/meus-cartoes/meus-cartoes')
                   .then(m => m.MeusCartoesComponent)
              },
+
+             {
+                path: 'checkout',
+                loadComponent: () => import('./components/customer/checkout/checkout')
+                .then(m => m.CheckoutComponent)
+            },
+
         ]
     },
     {
@@ -129,11 +137,11 @@ export const routes: Routes = [
             }
         ]
     },
-    {
-        path: 'perfil',
-        component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
-        canActivate: [authGuard]   // Seu
-    },
+    // {
+    //     path: 'perfil',
+    //     component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
+    //     canActivate: [authGuard]   // Seu
+    // },
     {
         path: 'cadastroDados/:id',
         component: DadosUsuario
