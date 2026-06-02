@@ -6,6 +6,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+
 class ProductController extends Controller
 {
     /**
@@ -38,11 +39,11 @@ class ProductController extends Controller
         ]);
 
         $data = $request->all();
-        
+
         // 💡 Loop para varrer e salvar os 5 campos de imagem dinamicamente
         for ($i = 1; $i <= 5; $i++) {
             $inputName = $i === 1 ? 'image' : "image_$i";
-            
+
             if ($request->hasFile($inputName)) {
                 $path = $request->file($inputName)->store('product', 's3');
                 $data[$inputName] = $path;
@@ -76,29 +77,40 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+
+    public function update(Request $request, $id)
     {
+        // 💡 Buscamos o produto explicitamente pelo ID enviado na URL
+        $product = Product::findOrFail($id);
+
         $data = $request->all();
         if (empty($data)) {
-            return response()->json(["message" => "Error"], 404);
+            return response()->json(["message" => "Error"], 400); // 💡 Ajustado para 400 (Bad Request) se os dados vierem vazios
         }
 
         // 💡 Loop para atualizar as 5 imagens limpando o Storage antigo com segurança
-        for ($i = 1; $i <= 5; $i++) {
-            $inputName = $i === 1 ? 'image' : "image_$i";
-
+        foreach (['image', 'image_2', 'image_3', 'image_4', 'image_5'] as $inputName) {
             if ($request->hasFile($inputName) && $request->file($inputName)->isValid()) {
-                // Se o produto já tinha um arquivo salvo nessa coluna, deleta ele do disco
+
+                // 💡 BLINDAGEM: Tenta deletar a imagem antiga, mas se ela não existir no Cloudflare, não quebra a API
                 if ($product->$inputName) {
-                    Storage::disk('public')->delete($product->$inputName);
+                    try {
+                        // Verifica se o arquivo realmente existe no R2 antes de tentar deletar
+                        if (Storage::disk('s3')->exists($product->$inputName)) {
+                            Storage::disk('s3')->delete($product->$inputName);
+                        }
+                    } catch (\Exception $e) {
+                        // Apenas ignora o erro de exclusão se o arquivo antigo não estiver lá
+                    }
                 }
-                
-                // Salva o novo arquivo
+
+                // Salva a nova imagem diretamente no Cloudflare R2
                 $path = $request->file($inputName)->store('product', 's3');
                 $data[$inputName] = $path;
             }
         }
 
+        // Atualiza os dados do produto encontrado no banco
         $product->update($data);
         return response()->json($product, 200);
     }

@@ -25,11 +25,12 @@ Route::apiResource('user', UserController::class);
 
 Route::apiResource('admin', AdminController::class);
 
-Route::apiResource('order' , OrderController::class);
+Route::apiResource('order', OrderController::class);
 
 Route::apiResource('category', CategoryController::class);
 
 Route::apiResource('product', ProductController::class);
+Route::post('/product/{id}', [ProductController::class, 'update']);
 
 Route::apiResource('order-items', OrderItemsController::class);
 
@@ -47,7 +48,7 @@ Route::get('/meus-cartoes', [AuthController::class, 'getCards'])
 Route::delete('/salvar-cartao/{id}', [AuthController::class, 'deleteCard'])
     ->middleware('auth:sanctum');
 
-    Route::put('/cartoes/{id}/default', [AuthController::class, 'makeDefaultCard'])
+Route::put('/cartoes/{id}/default', [AuthController::class, 'makeDefaultCard'])
     ->middleware('auth:sanctum');
 
 Route::apiResource('addresses', AddressController::class)->middleware('auth:sanctum');
@@ -57,5 +58,5 @@ Route::post('/orders/checkout', [OrderController::class, 'checkout'])->middlewar
 Route::put('/addresses/{id}/default', [AddressController::class, 'makeDefault'])
     ->middleware('auth:sanctum');
 
-    Route::apiResource('addresses', AddressController::class)
+Route::apiResource('addresses', AddressController::class)
     ->middleware('auth:sanctum');
