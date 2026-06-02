@@ -15,8 +15,11 @@ class AdminSeeder extends Seeder
     {
         Admin::factory()->create([
             'name' => 'Test Admin',
-            'email' => 'admin@example.com',
-            'document' => '12312312312'
+            'email' => 'admin@email.com',
+            'document' => '38566478910',
+            'password' => bcrypt('12312312'),
+            'phone_number' => '11984637756',
+            'active' => true
         ]);
     }
 }

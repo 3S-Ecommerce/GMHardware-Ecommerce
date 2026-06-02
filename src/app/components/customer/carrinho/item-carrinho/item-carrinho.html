@@ -15,8 +15,8 @@
         </div>
     </div>
     <div class="buttons">
-        <button (click)="apagarItem(item.id)">Excluir</button>
-        <button class="comprar" [routerLink]="['/finalizar-compra', { id: item.id}]">Comprar</button>
+        <button (click)="apagarItem(item.id)" id="itemCarrinhoBtnExcluir">Excluir</button>
+        <button class="comprar" [routerLink]="['/finalizar-compra', { id: item.id}]" id="itemCarrinhoBtnComprar">Comprar</button>
     </div>
 
 </div>

@@ -1,0 +1,30 @@
+<div class="search-container">
+  <div class="search-input-wrapper">
+    <input
+      type="text"
+      [formControl]="searchControl"
+      placeholder="Buscar hardware (ex: placa de vídeo)..."
+      class="search-input"
+      (blur)="closeDropdown()"
+      (focus)="searchResults.length > 0 ? showDropdown = true : null"
+    >
+    <span *ngIf="isSearching" class="loading-spinner">Buscando...</span>
+  </div>
+
+  <div class="search-dropdown" *ngIf="showDropdown && searchResults.length > 0">
+    <ul class="result-list">
+      @for(product of searchResults; track product.id){
+      <li
+        class="result-item"
+        (mousedown)="onProductSelect(product.id)"
+      >
+        <img [src]="product.image_url" [alt]="product.name" class="product-thumb">
+        <div class="product-info">
+          <span class="product-name">{{ product.name }}</span>
+          <span class="product-price">{{ product.price | currency:'BRL' }}</span>
+        </div>
+      </li>
+    }
+    </ul>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 <div class="pagamento">
     <div class="pagamento-forma">
         <div>
-            <h2>Pix</h2>
-            <p>Aprovação imediata</p>
+            <h2 id="pagamentoPixTitulo">Pix</h2>
+            <p id="pagamentoPixSubtitulo">Aprovação imediata</p>
         </div>
         <!-- Trocamos o routerLink pela nossa função -->
         <button (click)="selecionarPagamento('pix')">Selecionar</button>
@@ -10,8 +10,8 @@
     <hr>
     <div class="pagamento-forma">
         <div>
-            <h2>Cartão de crédito</h2>
-            <p>Aprovação em até 10 minutos</p>
+            <h2 id="pagamentoCreditoTitulo">Cartão de crédito</h2>
+            <p id="pagamentoCreditoSubtitulo">Aprovação em até 10 minutos</p>
         </div>
         <!-- Trocamos o routerLink pela nossa função -->
         <button (click)="selecionarPagamento('cartao')">Selecionar</button>

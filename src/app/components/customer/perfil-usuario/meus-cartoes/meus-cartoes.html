@@ -1,0 +1,103 @@
+<div class="meus-cartoes-container">
+  <h1 class="cartoes-title">Meus Cartões</h1>
+
+  <!-- Botão Voltar (Usando sua classe .btn-voltar) -->
+  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
+
+  <!-- Lista de Cartões (Usando suas classes de lista e item) -->
+  <div class="cartoes-list" *ngIf="!mostrarFormulario">
+    
+    <!-- Mensagem caso não tenha cartões -->
+    <div *ngIf="cartoes.length === 0" style="text-align: center; color: #b0b0b0; padding: 20px;">
+      Nenhum cartão salvo.
+    </div>
+
+    <div class="cartao-item" *ngFor="let cartao of cartoes">
+      <div class="cartao-icon">
+        <!-- Caminho do ícone conforme seu projeto -->
+        <img src="/assets/icones-meuperfil/cartao.png" alt="Ícone Cartão">
+      </div>
+
+      <div class="cartao-info">
+        <!-- Função que criamos no TS para mascarar o número -->
+        <h2 class="cartao-numero">{{ formatarNumeroCartao(cartao.numero_cartao) }}</h2>
+        <p class="cartao-vencimento">Validade: {{ cartao.vencimento }}</p>
+      </div>
+
+     <div style="display:flex; gap:10px;">
+  
+  <button
+    *ngIf="!cartao.is_default"
+    class="btn-adicionar"
+    (click)="definirPadrao(cartao.id)">
+    Tornar padrão
+  </button>
+
+  <span
+    *ngIf="cartao.is_default"
+    style="
+      color:#4CAF50;
+      font-weight:bold;
+      align-self:center;
+    ">
+    ✓ Cartão Padrão
+  </span>
+
+  <button
+    class="cartao-excluir"
+    (click)="excluirCartao(cartao.id)">
+    Excluir
+  </button>
+
+</div>
+    </div>
+  </div>
+
+  <!-- FORMULÁRIO DE ADIÇÃO (Ajustado para seguir o estilo do seu projeto) -->
+  <div class="cartoes-list" *ngIf="mostrarFormulario">
+    <div class="cartao-item" style="flex-direction: column; align-items: stretch; gap: 15px;">
+      <h2 class="cartao-numero" style="margin-bottom: 10px;">Novo Cartão</h2>
+      
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <input type="text" [(ngModel)]="novoCartao.nome_titular" placeholder="Nome do Titular" 
+               style="background: #1a1f27; border: 1px solid #2a2a2a; color: white; padding: 10px; border-radius: 4px;">
+        
+        <input type="text" [(ngModel)]="novoCartao.numero_cartao" placeholder="Número do Cartão" 
+               style="background: #1a1f27; border: 1px solid #2a2a2a; color: white; padding: 10px; border-radius: 4px;">
+        
+        <div style="display: flex; gap: 10px;">
+          <input type="text" [(ngModel)]="novoCartao.vencimento" placeholder="MM/AA" maxlength="5"
+                 style="background: #1a1f27; border: 1px solid #2a2a2a; color: white; padding: 10px; border-radius: 4px; flex: 1;">
+          
+          <input type="text" [(ngModel)]="novoCartao.cvv" placeholder="CVV" maxlength="4"
+                 style="background: #1a1f27; border: 1px solid #2a2a2a; color: white; padding: 10px; border-radius: 4px; flex: 1;">
+        </div>
+
+        <input type="text" [(ngModel)]="novoCartao.cpf" placeholder="CPF do Titular" 
+               style="background: #1a1f27; border: 1px solid #2a2a2a; color: white; padding: 10px; border-radius: 4px;">
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <!-- Botão Salvar (Reaproveitando o estilo do .btn-adicionar) -->
+        <button class="btn-adicionar" (click)="salvarCartao()" [disabled]="carregando" style="flex: 1; justify-content: center;">
+          {{ carregando ? 'Salvando...' : 'Confirmar' }}
+        </button>
+        
+        <!-- Botão Cancelar (Reaproveitando o estilo do .cartao-excluir) -->
+        <button class="cartao-excluir" (click)="cancelarAdicao()" style="background: rgba(255,255,255,0.05);">
+          Cancelar
+        </button>
+      </div>
+      
+      <p *ngIf="erro" style="color: #ff8c42; font-size: 12px; margin-top: 10px;">{{ erro }}</p>
+    </div>
+  </div>
+
+  <!-- Botão Adicionar (Usando sua classe .btn-adicionar) -->
+  <div class="cartoes-actions" *ngIf="!mostrarFormulario">
+    <button class="btn-adicionar" (click)="adicionarCartao()">
+      <span class="btn-icon">+</span>
+      Adicionar Novo Cartão
+    </button>
+  </div>
+</div>

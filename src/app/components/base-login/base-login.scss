@@ -1,21 +1,53 @@
+// .fundo {
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+// }
+
+// .fundo-form {
+//   background: #181C23;
+//   padding: 30px;
+//   border-radius: 10px;
+//   width: 320px;
+//   color: white;
+// }
+
+// .fundo-form h1{
+//   text-align: center;
+//   color: #2563EB
+// }
+
 .fundo {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+  padding: 15px; // Evita que o card cole nas bordas em telas muito pequenas
+  box-sizing: border-box;
 }
 
 .fundo-form {
   background: #181C23;
   padding: 30px;
   border-radius: 10px;
-  width: 320px;
+  width: 320px; // 💡 Largura padrão para o Login (ou outras telas pequenas)
   color: white;
+  transition: width 0.3s ease; // Dá um efeito suave de transição ao mudar de tela
+  box-sizing: border-box;
 }
 
-.fundo-form h1{
+// 💡 O TRUQUE MÁGICO: Se houver o componente de cadastro lá dentro, aumenta a largura!
+.fundo-form:has(app-cadastro) {
+  width: 550px; 
+  max-width: 100%; // Garante que não quebre em celulares
+}
+
+.fundo-form h1 {
   text-align: center;
-  color: #2563EB
+  color: #2563EB;
+  margin-top: 0;
+  margin-bottom: 20px;
 }
-

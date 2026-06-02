@@ -53,3 +53,86 @@ section{
         }
     }
 }
+@media (max-width: 1024px) {
+    section {
+        gap: 24px;
+        padding: 15px;
+        box-sizing: border-box;
+        width: 100%;
+        overflow-x: auto; 
+        display: flex;
+        flex-direction: column;
+
+        div {
+            width: 100%;
+            h2 { font-size: 26px; }
+            button {
+                @include style.fontSize($size: 18px, $weight: 600); 
+                padding: 6px 12px;
+            }
+        }
+
+        table {
+            min-width: 750px; 
+            width: 100%;
+            
+            thead th, tbody td {
+                @include style.fontSize($size: 16px, $weight: 600); 
+                padding: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        gap: 16px;
+        padding: 8px;
+
+        div {
+            h2 { font-size: 18px; }
+            button { 
+                @include style.fontSize($size: 13px, $weight: 600); 
+                padding: 4px 8px;
+                border-radius: 6px;
+            }
+        }
+        
+        table {
+            min-width: 100% !important;
+            width: 100%;
+            table-layout: fixed;
+
+            thead th {
+                @include style.fontSize($size: 12px, $weight: 600);
+                padding: 8px 2px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            }
+
+            tbody td {
+                @include style.fontSize($size: 12px, $weight: 500);
+                padding: 8px 2px;
+                word-break: break-word;
+                
+                &.acoes a {
+                    margin-right: 4px;
+                    margin-left: 4px;
+                    font-size: 14px;
+                }
+            }
+
+            thead th:nth-child(1) { width: 15%; }
+            thead th:nth-child(3) { width: 60%; }
+            thead th:nth-child(6) { width: 25%; }
+
+            thead th:nth-child(1), tbody td:nth-child(1) {
+                display: none !important;
+            }
+
+            thead th:nth-child(3), tbody td:nth-child(3) {
+                display: none !important;
+            }
+
+        }
+    }
+}

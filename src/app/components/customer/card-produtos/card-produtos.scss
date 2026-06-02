@@ -35,16 +35,15 @@
 
     .card-produto {
         @include style.displayFlex($direction: column, $aligh: flex-start, $justify: space-between, $gap: 8px);
-        width: 360px;
+        width: 22rem;
         border-radius: 10px;
-        //max-width: 25%;
-        height: 700px;
+        height: 40rem;
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
         .div-img{
             position: relative;
             width: 100%;
-            min-height: 360px;
+            min-height: 22rem;
         }
         img {
             object-fit: cover;
@@ -58,21 +57,21 @@
             color: style.$white-color;
             margin-left: 8px;
             margin-right: 8px;
-            @include style.fontSize($size: 22px, $weight: 400);
+            @include style.fontSize($size: 16px, $weight: 400);
         }
 
         h4 {
             color: white;
             margin-left: 8px;
             margin-right: 8px;
-            @include style.fontSize($size: 35px, $weight: 600);
+            @include style.fontSize($size: 24px, $weight: 600);
         }
 
         p {
             color: white;
             margin-left: 8px;
             margin-right: 8px;
-            @include style.fontSize($size: 30px, $weight: 600);
+            @include style.fontSize($size: 24px, $weight: 600);
         }
 
         .card-buttons {
@@ -86,7 +85,7 @@
                 border-radius: 10px;
                 padding: 5px;
                 cursor: pointer;
-                @include style.fontSize($size: 20px, $weight: 600);
+                @include style.fontSize($size: 16px, $weight: 600);
 
                 &.carrinho {
                     background-color: style.$primary-text;

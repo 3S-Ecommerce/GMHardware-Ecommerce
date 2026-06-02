@@ -1,18 +1,21 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { Auth } from './auth'; // Certifique-se de que o nome do arquivo de serviço é 'auth.ts'
+import { Auth } from './auth';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(Auth);
   const router = inject(Router);
 
-  // Se o método que criamos no serviço retornar true, ele deixa entrar na página
   if (authService.isAuthenticated()) {
     return true;
   } else {
-    // Se não estiver logado, manda para o login e bloqueia o acesso
-    alert('Você precisa estar logado para acessar esta página!');
-    router.navigate(['/login']);
+    // 1. Checa se já está rodando no navegador do cliente antes de dar o alert
+    if (typeof window !== 'undefined') {
+      alert('Você precisa estar logado para acessar esta página!');
+    }
+
+    // 2. Redireciona normalmente (o Router do Angular funciona tanto no SSR quanto no navegador)
+    router.navigate(['/meu-perfil']);
     return false;
   }
 };

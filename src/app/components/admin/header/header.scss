@@ -3,12 +3,13 @@
 header{
 
     background-color: style.$primary-bg;
+    justify-content: center;
 }
 .header-search {
-    @include style.displayFlex();
+    @include style.displayFlex($justify: center, $aligh: center);
     padding: 15px;
     h1{
-        text-align: end;
+        text-align: center;
         color: style.$primary-text;
         @include style.fontSize($size: 40px, $weight: 600);
         flex: 1;

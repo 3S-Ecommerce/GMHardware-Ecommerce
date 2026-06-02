@@ -1,16 +1,16 @@
 <section class="section-administradores">
     <div>
-        <h2>Administradores</h2>
-        <button routerLink="novo">Novo Administrador</button>
+        <h2 id="tituloGeralAdm">Administradores</h2>
+        <button routerLink="novo" id="btnNovoAdm">Novo Administrador</button>
     </div>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Administrador</th>
-                <th>Cadastrado</th>
-                <th>Ativo</th>
-                <th>Ações</th>
+                <th id="geralIdAdm">ID</th>
+                <th id="geralAdministrador">Administrador</th>
+                <th id="geralAdmCadastrado">Cadastrado</th>
+                <th id="geralAtivoAdm">Ativo</th>
+                <th id="geralAcoesAdm">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,11 @@
                 <td>{{ admin.id }}</td>
                 <td>{{ admin.name }}</td>
                 <td>{{ admin.created_at | date: 'dd/MM/yyyy'}}</td>
-                <td>@if(admin.active == 1){Ativo}@else {Inativo}</td>
-                <td class="acoes"><a [routerLink]="['editar', {id: admin.id}]"><i class="fa-solid fa-pen"></i></a><a routerLink="deletar"><i class="fa-solid fa-trash"></i></a></td>
-            </tr>   
+                <td>@if(admin.active == 1){<span id="respostaAtivo">Ativo</span>}@else {<span id="respostaInativo" >Inativo</span>}</td>
+                <td class="acoes">
+                    <a [routerLink]="['editar', {id: admin.id}]"><i class="fa-solid fa-pen"></i></a>
+                    <a routerLink="deletar"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
 
             }
 

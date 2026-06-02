@@ -1,7 +1,7 @@
 @use "../../../../../../public/assets/style.scss";
 
-
 :host {
+    display: block;
     max-width: 500px;
     background-color: style.$primary-bg;
     padding: 24px;
@@ -11,29 +11,72 @@
 
 h3 {
     color: style.$descont-color;
-    @include style.fontSize($size: 35px, $weight: 600)
+    @include style.fontSize($size: 35px, $weight: 600);
+    margin-bottom: 4px;
+}
+
+.preco-antigo {
+    @include style.fontSize($size: 18px, $weight: 400);
+    color: rgba(style.$white-color, 0.6);
+    text-decoration: line-through; // Dá o efeito visual de preço anterior riscado
+    display: block;
+    margin-bottom: 12px;
+}
+
+.info-precos {
+    p {
+        @include style.fontSize($size: 20px, $weight: 400);
+        color: style.$white-color;
+        line-height: 1.5;
+
+        strong {
+            font-weight: 700;
+            color: white;
+        }
+    }
 }
 
 p {
-    @include style.fontSize($size: 22px, $weight: 400);
-    color: style.$white-color;
-
-    b {
+    b#adicionarProdutoEstoque {
+        display: block;
+        margin-top: 16px;
+        margin-bottom: 16px;
         color: style.$success-color;
+        @include style.fontSize($size: 22px, $weight: 600);
     }
 }
-.buttons{
-    @include style.displayFlex($justify: flex-end, $aligh: center, $gap: 24px);
-    button{
-        @include style.fontSize($size: 20px, $weight: 600);
-        width: 124px;
+
+.buttons {
+    @include style.displayFlex($justify: space-between, $aligh: center, $gap: 16px);
+    margin-top: 8px;
+
+    button {
+        @include style.fontSize($size: 18px, $weight: 600);
+        flex: 1;
+        height: 44px;
         color: white;
         border-radius: 5px;
-        border: none;
-        background: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: transparent;
         cursor: pointer;
-        &.primary{
+        @include style.displayFlex($justify: center, $aligh: center, $gap: 8px);
+        transition: background-color 0.2s;
+
+        i {
+            font-size: 16px;
+        }
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        &.primary {
             background-color: style.$primary-text;
+            border: none;
+
+            &:hover {
+                background-color: darkneen(style.$primary-text, 5%);
+            }
         }
     }
 }

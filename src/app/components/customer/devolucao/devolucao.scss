@@ -1,5 +1,35 @@
-@use "../../../../../public/assets/style.scss";
+@use "style.scss";
 
-#devolucao-section{
+#devolucao-section {
     @include style.sectionPattern();
+    align-items: center;
+
+    .div-condicoes {
+        background-color: style.$primary-bg;
+        padding: 20px;
+        width: 100%;
+        max-width: 1000px;
+        border-left: 5px solid style.$primary-text;
+
+        h3 {
+            @include style.fontSize($size: 24px, $weight: 700);
+            color: white;
+        }
+
+        p {
+            color: white;
+            margin-top: 16px;
+        }
+
+        ul {
+            list-style: disc;
+            color: white;
+            margin-left: 16px;
+            margin-top: 32px;
+
+            li {
+                text-shadow: -2px 2px 5px rgb(0, 3, 49);
+            }
+        }
+    }
 }

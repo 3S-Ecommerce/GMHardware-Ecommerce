@@ -18,7 +18,7 @@ export class Novo {
     name: ['', Validators.required],
     email: ['', Validators.email],
     password: ['', Validators.required],
-    passwordsd: ['', Validators.required],
+    password_confirmation: ['', Validators.required],
     phone_number: [''],
     document: ['', Validators.required],
     active: ['', Validators.required || true]
@@ -27,7 +27,7 @@ export class Novo {
   onSubmit() {
     const formData = new FormData;
     const admin = this.formAdmin.value;
-    if(admin.password !== admin.passwordsd){
+    if(admin.password !== admin.password_confirmation){
       return alert("As senhas não coincidem");
     }
 

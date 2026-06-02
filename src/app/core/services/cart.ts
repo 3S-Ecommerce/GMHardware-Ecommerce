@@ -8,14 +8,18 @@ export interface cartItem {
   quantity: number
 }
 
+// CORREÇÃO: Adicionado 'type' para satisfazer o 'isolatedModules'
+export type { cartItem as item };
+
 @Injectable({
   providedIn: 'root',
 })
-
-export class Cart {
+export class CartService {
+  // ... resto do seu código permanece igual ...
   cartItems = signal<cartItem[]>([]);
   teste = []
   items = computed(() => this.cartItems());
+
   iniciar() {
     try {
       const localSalvo = localStorage.getItem('carrinho')
@@ -25,15 +29,28 @@ export class Cart {
       console.error('Error: ', e)
     }
   }
+
+  obterCarrinho() {
+    const localSalvo = localStorage.getItem('carrinho');
+    return JSON.parse(`${localSalvo}`) || [];
+  }
+
+  limparCarrinho() {
+    this.cartItems.set([]);
+    localStorage.removeItem('carrinho');
+  }
+
   totalItems = computed(() => {
     if (this.cartItems())
       return this.cartItems().reduce((acc, value) => acc + value.quantity, 0)
     else 
       return 0
   })
+
   valorTotal = computed(() => {
     return this.cartItems().reduce((acc, value) => acc + (value.price * value.quantity), 0)
   })
+
   adicionarCarrinho(item: cartItem) {
     try {
       const localSalvo = localStorage.getItem('carrinho')
@@ -132,3 +149,5 @@ export class Cart {
     console.log(this.cartItems())
   }
 }
+
+export { CartService as Cart };
