@@ -33,10 +33,10 @@ import { Devolucao } from './components/customer/devolucao/devolucao';
 import { Garantia } from './components/customer/garantia/garantia';
 import { Contato } from './components/customer/contato/contato';
 import { authGuard } from './core/services/auth.guard';
-import { PerfilComponent } from './components/perfil/perfil';
-import { Cartoes } from './components/perfil/cartoes/cartoes';
-import { Enderecos } from './components/perfil/enderecos/enderecos';
-import { Compras } from './components/perfil/compras/compras';
+// import { PerfilComponent } from './components/perfil/perfil';
+// import { Cartoes } from './components/perfil/cartoes/cartoes';
+// import { Enderecos } from './components/perfil/enderecos/enderecos';
+// import { Compras } from './components/perfil/compras/compras';
 import { guestGuard } from './core/services/guest.guard';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
@@ -275,21 +275,21 @@ export const routes: Routes = [
     {
       path: 'admin-dashboard',
       component: Admin
-    },
-    {
-      path: 'perfil',
-      component: PerfilComponent,
-    },
-    {
-      path: 'compras',
-      component: Compras
-    },
-    {
-      path: 'enderecos',
-      component: Enderecos
-    },
-    {
-      path: 'cartoes',
-      component: Cartoes
     }
+    // {
+    //   path: 'perfil',
+    //   component: PerfilComponent,
+    // },
+    // {
+    //   path: 'compras',
+    //   component: Compras
+    // },
+    // {
+    //   path: 'enderecos',
+    //   component: Enderecos
+    // },
+    // {
+    //   path: 'cartoes',
+    //   component: Cartoes
+    // }
   ]
