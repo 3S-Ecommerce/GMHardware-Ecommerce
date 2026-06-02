@@ -80,41 +80,48 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        // 💡 Buscamos o produto explicitamente pelo ID enviado na URL
+        // 💡 Busca o produto explicitamente pelo ID enviado na URL para evitar falhas de mapeamento
         $product = Product::findOrFail($id);
 
         $data = $request->all();
         if (empty($data)) {
-            return response()->json(["message" => "Error"], 400); // 💡 Ajustado para 400 (Bad Request) se os dados vierem vazios
+            return response()->json(["message" => "Dados vazios enviados"], 400);
         }
 
-        // 💡 Loop para atualizar as 5 imagens limpando o Storage antigo com segurança
+        // 💡 Loop para atualizar as 5 imagens salvando no Cloudflare R2 com segurança
         foreach (['image', 'image_2', 'image_3', 'image_4', 'image_5'] as $inputName) {
             if ($request->hasFile($inputName) && $request->file($inputName)->isValid()) {
 
-                // 💡 BLINDAGEM: Tenta deletar a imagem antiga, mas se ela não existir no Cloudflare, não quebra a API
+                // 💡 Tenta deletar a imagem antiga do Cloudflare, se ela existir, sem quebrar a API
                 if ($product->$inputName) {
                     try {
-                        // Verifica se o arquivo realmente existe no R2 antes de tentar deletar
                         if (Storage::disk('s3')->exists($product->$inputName)) {
                             Storage::disk('s3')->delete($product->$inputName);
                         }
                     } catch (\Exception $e) {
-                        // Apenas ignora o erro de exclusão se o arquivo antigo não estiver lá
+                        // Apenas ignora o erro caso o arquivo antigo não seja encontrado no bucket
                     }
                 }
 
-                // Salva a nova imagem diretamente no Cloudflare R2
-                $path = $request->file($inputName)->store('product', 's3');
-                $data[$inputName] = $path;
+                try {
+                    // 💡 Salva a nova imagem usando 'putFile' (método compatível com as travas do R2)
+                    $path = Storage::disk('s3')->putFile('product', $request->file($inputName));
+                    $data[$inputName] = $path;
+                } catch (\Exception $e) {
+                    // Retorna um erro amigável se o upload falhar por falta do driver ou chaves incorretas
+                    return response()->json([
+                        "message" => "Erro ao fazer upload da imagem ($inputName) para o Cloudflare R2.",
+                        "error" => $e->getMessage()
+                    ], 500);
+                }
             }
         }
 
-        // Atualiza os dados do produto encontrado no banco
+        // Atualiza os dados textuais e os novos caminhos das imagens no banco Supabase
         $product->update($data);
+        
         return response()->json($product, 200);
     }
-
     /**
      * Remove the specified resource from storage.
      */
