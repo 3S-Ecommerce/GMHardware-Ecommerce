@@ -14,7 +14,7 @@ class Product extends Model
     use HasFactory;
 
     protected $appends = ['image_url'];
-    
+
     protected $fillable = ['id_category', 'id_admin', 'name', 'price', 'description', 'details', 'stock', 'last_price', 'image', 'image_2', 'image_3', 'image_4', 'image_5'];
 
     //protected $casts = ['details' => 'array'];
@@ -25,20 +25,29 @@ class Product extends Model
     // }
 
     public function getImageUrlAttribute()
-{
-    if ($this->image) {
-        // Se por algum motivo a imagem já for uma URL completa, apenas retorna ela
+    {
+        // 1. Se não houver imagem cadastrada, retorna o link padrão
+        if (!$this->image) {
+            return rtrim(env('AWS_URL'), '/') . '/products/default.png';
+        }
+
+        // 2. Se a imagem já for uma URL completa (http/https), apenas retorna ela
         if (filter_var($this->image, FILTER_VALIDATE_URL)) {
             return $this->image;
         }
-        
-        // 💡 Retorna a URL pública gerada diretamente pelo Cloudflare R2
-        return Storage::disk('s3')->url($this->image);
+
+        // 3. Monta a URL concatenando o link do Cloudflare com o caminho do banco
+        // Evita o uso do método ->url() que estava quebrando o container
+        $awsUrl = env('AWS_URL');
+
+        // Se a AWS_URL estiver configurada, faz a junção limpa limpando as barras extras
+        if ($awsUrl) {
+            return rtrim($awsUrl, '/') . '/' . ltrim($this->image, '/');
+        }
+
+        // Fallback local caso tudo suma
+        return asset('storage/' . $this->image);
     }
-    
-    // Fallback caso o produto não tenha imagem (coloque uma imagem default no seu bucket se quiser)
-    return env('AWS_URL') . '/products/default.png';
-}
 
     public function category()
     {
