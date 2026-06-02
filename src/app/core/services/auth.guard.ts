@@ -13,9 +13,9 @@ export const authGuard: CanActivateFn = (route, state) => {
     if (typeof window !== 'undefined') {
       alert('Você precisa estar logado para acessar esta página!');
     }
-    
+
     // 2. Redireciona normalmente (o Router do Angular funciona tanto no SSR quanto no navegador)
-    router.navigate(['/login']);
+    router.navigate(['/meu-perfil']);
     return false;
   }
 };

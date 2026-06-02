@@ -44,6 +44,7 @@ import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario'
 import { CheckoutComponent } from './components/customer/checkout/checkout';
 import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+import { adminGuard } from './core/services/admin.guard';
 
 export const routes: Routes = [
     {
@@ -98,7 +99,7 @@ export const routes: Routes = [
                 component: Categorias,
                 data: { categoria: 'Periférico' },
 
-                
+
             },
              {
                 path: 'meu-perfil',
@@ -215,6 +216,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: Admin,
+        canActivate: [adminGuard],
         children: [
             {
                 path: '',
@@ -242,6 +244,7 @@ export const routes: Routes = [
             {
                 path: 'administradores',
                 component: Administradores,
+                canActivate: [adminGuard],
                 children: [
                     {
                         path: '',
