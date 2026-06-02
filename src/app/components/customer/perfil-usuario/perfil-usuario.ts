@@ -3,12 +3,11 @@ import { Auth } from '../../../core/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @Component({
   selector: 'app-perfil-usuario',
-  imports: [DatePipe, ReactiveFormsModule, RouterLink, MatSidenavModule, MatButtonModule], // Limpo e sem o módulo com ɵ
+  imports: [DatePipe, ReactiveFormsModule, RouterLink], // Limpo e sem o módulo com ɵ
   templateUrl: './perfil-usuario.html',
   styleUrl: './perfil-usuario.scss',
 })
