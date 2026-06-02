@@ -14,7 +14,8 @@ class DadosCartao extends Model
         'numero_cartao',
         'vencimento',
         'cvv',
-        'cpf'
+        'cpf',
+        'is_default',
     ];
 }
 

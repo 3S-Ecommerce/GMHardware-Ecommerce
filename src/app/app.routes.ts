@@ -42,6 +42,7 @@ import { guestGuard } from './core/services/guest.guard';
 import path from 'path';
 import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
 import { CheckoutComponent } from './components/customer/checkout/checkout';
+import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 
 export const routes: Routes = [
@@ -114,7 +115,13 @@ export const routes: Routes = [
                 path: 'checkout',
                 loadComponent: () => import('./components/customer/checkout/checkout')
                 .then(m => m.CheckoutComponent)
-            }
+            },
+             {
+                path: 'meus-enderecos',
+                loadComponent: () => import('./components/customer/perfil-usuario/meus-enderecos/meus-enderecos')
+                .then(m => m.MeusEnderecosComponent)
+            },
+
         ]
     },
     {

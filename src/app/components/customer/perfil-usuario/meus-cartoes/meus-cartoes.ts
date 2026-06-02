@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { CartaoService, Cartao, CartaoPayload } from '../../../../core/services/cartao'; 
+import {
+  CartaoService,
+  Cartao,
+  CartaoPayload
+} from '../../../../core/services/cartao';
 
 @Component({
   selector: 'app-meus-cartoes',
@@ -12,10 +16,12 @@ import { CartaoService, Cartao, CartaoPayload } from '../../../../core/services/
   styleUrls: ['./meus-cartoes.scss']
 })
 export class MeusCartoesComponent implements OnInit {
+
   cartoes: Cartao[] = [];
-  mostrarFormulario: boolean = false;
-  carregando: boolean = false;
-  erro: string = '';
+
+  mostrarFormulario = false;
+  carregando = false;
+  erro = '';
 
   novoCartao: CartaoPayload = {
     nome_titular: '',
@@ -27,7 +33,8 @@ export class MeusCartoesComponent implements OnInit {
 
   constructor(
     private cartaoService: CartaoService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -35,25 +42,38 @@ export class MeusCartoesComponent implements OnInit {
   }
 
   carregarCartoes(): void {
+
     this.carregando = true;
+
     const usuarioStr = localStorage.getItem('user');
+
     if (!usuarioStr) {
       this.router.navigate(['/login']);
       return;
     }
 
-    const usuario = JSON.parse(usuarioStr);
-    this.cartaoService.getCartoesByUser(usuario.id).subscribe({
+    this.cartaoService.getCartoesByUser().subscribe({
+
       next: (res) => {
+
         this.cartoes = res;
+
         this.carregando = false;
+
+        this.cdr.detectChanges();
       },
-      error: () => {
-        const salvos = localStorage.getItem('cartoes_usuario');
-        this.cartoes = salvos ? JSON.parse(salvos) : [];
+
+      error: (err) => {
+
+        console.error(err);
+
         this.carregando = false;
+
+        this.cdr.detectChanges();
       }
+
     });
+
   }
 
   adicionarCartao(): void {
@@ -62,55 +82,128 @@ export class MeusCartoesComponent implements OnInit {
   }
 
   cancelarAdicao(): void {
+
     this.mostrarFormulario = false;
+
     this.erro = '';
+
+    this.novoCartao = {
+      nome_titular: '',
+      numero_cartao: '',
+      vencimento: '',
+      cvv: '',
+      cpf: ''
+    };
   }
 
   salvarCartao(): void {
+
     if (!this.formularioValido()) {
+
       this.erro = 'Preencha todos os campos corretamente.';
+
       return;
     }
 
     this.carregando = true;
+
     this.cartaoService.salvarCartao(this.novoCartao).subscribe({
-      next: (res) => {
-        this.cartoes.push(res);
-        localStorage.setItem('cartoes_usuario', JSON.stringify(this.cartoes));
+
+      next: () => {
+
         this.mostrarFormulario = false;
+
         this.carregando = false;
+
+        this.novoCartao = {
+          nome_titular: '',
+          numero_cartao: '',
+          vencimento: '',
+          cvv: '',
+          cpf: ''
+        };
+
+        this.carregarCartoes();
+
         alert('Cartão salvo com sucesso!');
       },
+
       error: (err) => {
-        this.erro = 'Erro ao salvar cartão no servidor.';
+
+        console.error(err);
+
+        this.erro = 'Erro ao salvar cartão.';
+
         this.carregando = false;
       }
+
     });
+
   }
 
   excluirCartao(id: number): void {
-    if (!confirm('Deseja excluir este cartão?')) return;
+
+    if (!confirm('Deseja excluir este cartão?')) {
+      return;
+    }
 
     this.cartaoService.excluirCartao(id).subscribe({
+
       next: () => {
-        this.cartoes = this.cartoes.filter(c => c.id !== id);
-        localStorage.setItem('cartoes_usuario', JSON.stringify(this.cartoes));
+
+        this.carregarCartoes();
+
+        alert('Cartão removido com sucesso!');
       },
-      error: () => {
-        // Em caso de erro na exclusão, você pode querer manter o cartão na lista ou tratar de outra forma.
-        // Por enquanto, o comportamento é o mesmo do sucesso (remove da lista localmente).
-        this.cartoes = this.cartoes.filter(c => c.id !== id);
-        localStorage.setItem('cartoes_usuario', JSON.stringify(this.cartoes));
+
+      error: (err) => {
+
+        console.error(err);
+
+        alert('Erro ao excluir cartão.');
       }
+
     });
+
   }
 
-  formatarNumeroCartao(num: string) {
-    if (!num) return '';
-    return '**** **** **** ' + num.slice(-4);
+  definirPadrao(id: number): void {
+
+    this.cartaoService.definirPadrao(id).subscribe({
+
+      next: () => {
+
+        this.cartoes.forEach(cartao => {
+          cartao.is_default = cartao.id === id;
+        });
+
+        this.cdr.detectChanges();
+
+        alert('Cartão definido como padrão!');
+      },
+
+      error: (err) => {
+
+        console.error(err);
+
+        alert('Erro ao definir cartão padrão.');
+      }
+
+    });
+
+  }
+
+  formatarNumeroCartao(numero: string): string {
+
+    if (!numero) {
+      return '';
+    }
+
+    return '**** **** **** ' + numero.slice(-4);
   }
 
   private formularioValido(): boolean {
+
     return (
       this.novoCartao.nome_titular.length > 0 &&
       this.novoCartao.numero_cartao.length >= 13 &&
@@ -118,5 +211,6 @@ export class MeusCartoesComponent implements OnInit {
       this.novoCartao.cvv.length >= 3 &&
       this.novoCartao.cpf.length >= 11
     );
+
   }
 }
