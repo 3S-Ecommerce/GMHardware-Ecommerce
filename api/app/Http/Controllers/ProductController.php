@@ -44,7 +44,7 @@ class ProductController extends Controller
             $inputName = $i === 1 ? 'image' : "image_$i";
             
             if ($request->hasFile($inputName)) {
-                $path = $request->file($inputName)->store('product', 'public');
+                $path = $request->file($inputName)->store('product', 's3');
                 $data[$inputName] = $path;
             }
         }
@@ -94,7 +94,7 @@ class ProductController extends Controller
                 }
                 
                 // Salva o novo arquivo
-                $path = $request->file($inputName)->store('product', 'public');
+                $path = $request->file($inputName)->store('product', 's3');
                 $data[$inputName] = $path;
             }
         }

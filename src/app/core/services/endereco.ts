@@ -17,7 +17,7 @@ export interface Endereco {
 
 @Injectable({ providedIn: 'root' } )
 export class EnderecoService {
-  private apiUrl = 'http://localhost:8000/api/addresses';
+  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/addresses';
 
   constructor(private http: HttpClient ) { }
 

@@ -18,7 +18,8 @@ class AdminSeeder extends Seeder
             'email' => 'admin@email.com',
             'document' => '38566478910',
             'password' => bcrypt('12312312'),
-            'phone_number' => '11984637756'
+            'phone_number' => '11984637756',
+            'active' => true
         ]);
     }
 }

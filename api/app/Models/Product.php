@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Order_Items;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -18,10 +19,27 @@ class Product extends Model
 
     //protected $casts = ['details' => 'array'];
 
+    // public function getImageUrlAttribute()
+    // {
+    //     return $this->image ? asset('storage/' . $this->image) : asset('storage/products/default.png');
+    // }
+
     public function getImageUrlAttribute()
-    {
-        return $this->image ? asset('storage/' . $this->image) : asset('storage/products/default.png');
+{
+    if ($this->image) {
+        // Se por algum motivo a imagem já for uma URL completa, apenas retorna ela
+        if (filter_var($this->image, FILTER_VALIDATE_URL)) {
+            return $this->image;
+        }
+        
+        // 💡 Retorna a URL pública gerada diretamente pelo Cloudflare R2
+        return Storage::disk('s3')->url($this->image);
     }
+    
+    // Fallback caso o produto não tenha imagem (coloque uma imagem default no seu bucket se quiser)
+    return env('AWS_URL') . '/products/default.png';
+}
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'id_category');

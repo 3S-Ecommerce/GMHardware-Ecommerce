@@ -15,7 +15,7 @@ export interface ProductData {
 })
 export class Product {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://127.0.0.1:8000/api/product';
+  private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/product';
 
   searchProducts(query: string): Observable<ProductData[]> {
     const params = new HttpParams().set('q', query);
