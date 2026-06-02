@@ -46,7 +46,7 @@ RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Garante que o Laravel limpe qualquer cache de configuração antigo que esconde as variáveis do Render
 RUN php artisan config:clear
-RUN php artisan cache:clear
+RUN Cache_DRIVER=file php artisan cache:clear
 
 # Define o dono e o grupo corretos para as pastas cruciais de escrita do Apache/Laravel
 RUN chown -R www-data:www-data /var/www/html/vendor /var/www/html/storage /var/www/html/bootstrap/cache
