@@ -24,10 +24,32 @@
         <p class="cartao-vencimento">Validade: {{ cartao.vencimento }}</p>
       </div>
 
-      <!-- Botão Excluir (Usando sua classe .cartao-excluir) -->
-      <button class="cartao-excluir" (click)="excluirCartao(cartao.id)">
-        Excluir
-      </button>
+     <div style="display:flex; gap:10px;">
+  
+  <button
+    *ngIf="!cartao.is_default"
+    class="btn-adicionar"
+    (click)="definirPadrao(cartao.id)">
+    Tornar padrão
+  </button>
+
+  <span
+    *ngIf="cartao.is_default"
+    style="
+      color:#4CAF50;
+      font-weight:bold;
+      align-self:center;
+    ">
+    ✓ Cartão Padrão
+  </span>
+
+  <button
+    class="cartao-excluir"
+    (click)="excluirCartao(cartao.id)">
+    Excluir
+  </button>
+
+</div>
     </div>
   </div>
 
