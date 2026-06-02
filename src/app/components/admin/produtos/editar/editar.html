@@ -30,8 +30,28 @@
             </div>
             
             <div class="div-input w30">
-                <label for="image" id="editarProdutosImagem">Imagem do produto:</label>
-                <input type="file" id="image" (change)="onFileChange($event)">
+                <label for="image" id="editarProdutosImagem">Imagem Principal:</label>
+                <input type="file" id="image" (change)="onFileChange($event, 'image')">
+            </div>
+
+            <div class="div-input w30">
+                <label for="image_2">Imagem 2:</label>
+                <input type="file" id="image_2" (change)="onFileChange($event, 'image_2')">
+            </div>
+
+            <div class="div-input w30">
+                <label for="image_3">Imagem 3:</label>
+                <input type="file" id="image_3" (change)="onFileChange($event, 'image_3')">
+            </div>
+
+            <div class="div-input w30">
+                <label for="image_4">Imagem 4:</label>
+                <input type="file" id="image_4" (change)="onFileChange($event, 'image_4')">
+            </div>
+
+            <div class="div-input w30">
+                <label for="image_5">Imagem 5:</label>
+                <input type="file" id="image_5" (change)="onFileChange($event, 'image_5')">
             </div>
             
             <div class="div-input w100">
@@ -56,4 +76,4 @@
             </div>
         </form>
     </div>
-</section>  
+</section>

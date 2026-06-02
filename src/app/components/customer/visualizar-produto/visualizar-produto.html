@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main class="produto">
     @if (produto()){
-    <app-imagem-produto [url]="produto().image_url"></app-imagem-produto>
+    <app-imagem-produto [produto]="produto()"></app-imagem-produto>
     <div class="conteudo">
         <h1 (click)="teste()">{{ produto().name }}</h1>
         <ul>

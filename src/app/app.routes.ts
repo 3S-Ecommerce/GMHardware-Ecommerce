@@ -223,7 +223,7 @@ export const routes: Routes = [
                         component: Geralp
                     },
                     {
-                        path: 'editar',
+                        path: 'editar/:id',
                         component: Editarp
                     },
                     {
@@ -241,7 +241,7 @@ export const routes: Routes = [
                         component: Geral
                     },
                     {
-                        path: 'editar',
+                        path: 'editar/:id',
                         component: Editar
                     },
                     {

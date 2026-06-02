@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -40,10 +39,16 @@ class ProductController extends Controller
 
         $data = $request->all();
         
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('product', 'public');
-            $data['image'] = $path;
+        // 💡 Loop para varrer e salvar os 5 campos de imagem dinamicamente
+        for ($i = 1; $i <= 5; $i++) {
+            $inputName = $i === 1 ? 'image' : "image_$i";
+            
+            if ($request->hasFile($inputName)) {
+                $path = $request->file($inputName)->store('product', 'public');
+                $data[$inputName] = $path;
+            }
         }
+
         $product = Product::create($data);
         return response()->json($product, 201);
     }
@@ -54,8 +59,9 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $data = Product::find($product->id);
-        if (empty($data))
-            return response()->json(['message' => 'não exite esse'], 204);
+        if (empty($data)) {
+            return response()->json(['message' => 'não existe esse'], 204);
+        }
         return response()->json($data, 200);
     }
 
@@ -73,15 +79,26 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $data = $request->all();
-        if (empty($data))
+        if (empty($data)) {
             return response()->json(["message" => "Error"], 404);
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if ($product->image) {
-                Storage::disk('public')->delete($product->image);
-            }
-            $path = $request->file('image')->store('product', 'public');
-            $data['image'] = $path;
         }
+
+        // 💡 Loop para atualizar as 5 imagens limpando o Storage antigo com segurança
+        for ($i = 1; $i <= 5; $i++) {
+            $inputName = $i === 1 ? 'image' : "image_$i";
+
+            if ($request->hasFile($inputName) && $request->file($inputName)->isValid()) {
+                // Se o produto já tinha um arquivo salvo nessa coluna, deleta ele do disco
+                if ($product->$inputName) {
+                    Storage::disk('public')->delete($product->$inputName);
+                }
+                
+                // Salva o novo arquivo
+                $path = $request->file($inputName)->store('product', 'public');
+                $data[$inputName] = $path;
+            }
+        }
+
         $product->update($data);
         return response()->json($product, 200);
     }
@@ -92,11 +109,16 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $data = Product::find($product->id);
-        if (empty($data))
+        if (empty($data)) {
             return response()->json(null, 404);
+        }
         return response()->json(['message' => 'destroy product'], 200);
     }
-     public function search(Request $request)
+
+    /**
+     * Search products by name.
+     */
+    public function search(Request $request)
     {
         $query = $request->input('q');
 
@@ -104,9 +126,8 @@ class ProductController extends Controller
             return response()->json([]);
         }
 
-        // Buscamos apenas pelos campos que confirmamos que existem na sua Model
         $products = Product::where('name', 'LIKE', "%{$query}%")
-            ->select('id', 'name', 'price', 'image') // Incluímos 'image' para o image_url funcionar
+            ->select('id', 'name', 'price', 'image')
             ->take(5)
             ->get();
 
