@@ -8,7 +8,7 @@ import { Component, Input, signal } from '@angular/core';
   styleUrl: './imagem-produto.scss',
 })
 export class ImagemProduto {
-  private readonly storageUrl = 'http://127.0.0.1:8000/storage/';
+  private readonly storageUrl = 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/';
   
   // Guardará a lista de todas as fotos válidas que o produto possui
   galeriaImagens = signal<string[]>([]);
@@ -25,7 +25,7 @@ export class ImagemProduto {
     const chavesImagem = ['image', 'image_2', 'image_3', 'image_4', 'image_5'];
     
     chavesImagem.forEach(chave => {
-      if (dados[chave] && dados[chave] !== 'product/default.png') {
+      if (dados[chave] && dados[chave] !== '') {
         fotos.push(`${this.storageUrl}${dados[chave]}`);
       }
     });
