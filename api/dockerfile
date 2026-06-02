@@ -1,4 +1,3 @@
-Dockerfile
 FROM php:8.3-apache
 
 # Instala extensões necessárias para o PostgreSQL e Laravel
