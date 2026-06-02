@@ -28,6 +28,23 @@ import { Geral } from './components/admin/administradores/geral/geral';
 import { Geralp } from './components/admin/produtos/geral/geral';
 import { Editarp } from './components/admin/produtos/editar/editar';
 import { Novop } from './components/admin/produtos/novo/novo';
+import { Carrinho } from './components/customer/carrinho/carrinho';
+import { BaseLogin } from './components/base-login/base-login';
+import { Login } from './components/base-login/login/login';
+import { Cadastro } from './components/base-login/cadastro/cadastro';
+import { NovaSenha } from './components/base-login/nova-senha/nova-senha';
+import { Devolucao } from './components/customer/devolucao/devolucao';
+import { Garantia } from './components/customer/garantia/garantia';
+import { Contato } from './components/customer/contato/contato';
+import { authGuard } from './core/services/auth.guard';
+import { guestGuard } from './core/services/guest.guard';
+// import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+import path from 'path';
+import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
+import { CheckoutComponent } from './components/customer/checkout/checkout';
+import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
+import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+import { adminGuard } from './core/services/admin.guard';
 
 export const routes: Routes = [
     {
@@ -40,7 +57,7 @@ export const routes: Routes = [
             },
             {
                 path: 'inicio',
-                component: Apresentacao
+                component: Apresentacao,
             },
             {
                 path: 'placas-de-video',
@@ -80,27 +97,63 @@ export const routes: Routes = [
             {
                 path: 'perifericos',
                 component: Categorias,
-                data: { categoria: 'Periférico' }
+                data: { categoria: 'Periférico' },
+
+
+            },
+             {
+                path: 'meu-perfil',
+                loadComponent: () => import('./components/customer/perfil-usuario/meu-perfil/meu-perfil')
+                  .then(m => m.MeuPerfil)
+             },
+             {
+              path: 'meus-cartoes',
+             loadComponent: () => import('./components/customer/perfil-usuario/meus-cartoes/meus-cartoes')
+                  .then(m => m.MeusCartoesComponent)
+             },
+
+             {
+                path: 'checkout',
+                loadComponent: () => import('./components/customer/checkout/checkout')
+                .then(m => m.CheckoutComponent)
+            },
+             {
+                path: 'meus-enderecos',
+                loadComponent: () => import('./components/customer/perfil-usuario/meus-enderecos/meus-enderecos')
+                .then(m => m.MeusEnderecosComponent)
+            },
+
+        ]
+    },
+    {
+        path: '',
+        component: BaseLogin, children: [
+            {
+                path: 'login',
+                component: Login,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'cadastro',
+                component: Cadastro,
+                canActivate: [guestGuard]
+            },
+            {
+                path: 'nova-senha',
+                component: NovaSenha,
+                canActivate: [guestGuard]
             }
         ]
     },
-    // {
-    //     path: 'login',
-    //     component: Baselogin, children: [
-    //         {
-    //             path: '',
-    //             component: Login
-    //         },
-    //         {
-    //             path: 'cadastro',
-    //             component: Cadastro
-    //         },
-    //         {
-    //             path: 'recuperacao',
-    //             component: Recuperacao
-    //         }
-    //     ]
-    // },
+    {
+        path: 'perfil',
+        component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
+        canActivate: [authGuard]   // Seu
+    },
+    {
+        path: 'cadastroDados/:id',
+        component: DadosUsuario
+    },
     {
         path: 'produto',
         component: VisualizarProduto
@@ -122,11 +175,13 @@ export const routes: Routes = [
         },
         {
             path: 'forma-de-pagamento',
-            component: Pagamento
+            component: Pagamento,
+            canActivate: [authGuard]
         },
         {
             path: 'revisar',
-            component: Revisar
+            component: Revisar,
+            canActivate: [authGuard]
         },
         {
             path: 'pagamento',
@@ -161,6 +216,7 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: Admin,
+        canActivate: [adminGuard],
         children: [
             {
                 path: '',
@@ -176,7 +232,7 @@ export const routes: Routes = [
                         component: Geralp
                     },
                     {
-                        path: 'editar',
+                        path: 'editar/:id',
                         component: Editarp
                     },
                     {
@@ -188,13 +244,14 @@ export const routes: Routes = [
             {
                 path: 'administradores',
                 component: Administradores,
+                canActivate: [adminGuard],
                 children: [
                     {
                         path: '',
                         component: Geral
                     },
                     {
-                        path: 'editar',
+                        path: 'editar/:id',
                         component: Editar
                     },
                     {
@@ -205,8 +262,26 @@ export const routes: Routes = [
             },
             {
                 path: 'dashboard',
-                component: Dashboard
+                component: Dashboard,
+                canActivate: [authGuard]
             }
         ]
-    }
+    },
+    {
+        path: 'carrinho',
+        component: Carrinho,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'devolucao',
+        component: Devolucao
+    },
+    {
+        path: 'garantia',
+        component: Garantia
+    },
+    {
+        path: 'contato',
+        component: Contato
+    },
 ];

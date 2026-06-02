@@ -1,0 +1,114 @@
+<div class="fundo">
+    <div class="fundo-div">
+        <h1>GMHardware</h1>
+        <div class="perfil-container">
+
+            <form [formGroup]="formPerfil" (ngSubmit)="salvarAlteracoes()" class="perfil-card">
+
+                @if (userLocal()) {
+                <div class="avatar-section">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <h2>Minha Conta</h2>
+                    <p>Bem-vindo de volta, {{ userLocal().name }}!</p>
+                </div>
+
+                <hr class="divisor">
+
+                <div class="dados-section">
+                    <h3>Informações Pessoais</h3>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-user"></i> Nome Completo</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="name" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().name }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-envelope"></i> E-mail</label>
+                        @if (isEditing) {
+                        <input type="email" formControlName="email" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().email }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-address-card"></i> CPF ou CNPJ</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="document" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().document || 'Não informado' }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-phone"></i> Telefone / Whatsapp</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="phone_number" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().phone_number || 'Não informado' }}</span>
+                        }
+                    </div>
+
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-location-dot"></i> Endereço Completo</label>
+                        @if (isEditing) {
+                        <input type="text" formControlName="address" class="input-perfil">
+                        } @else {
+                        <span>{{ userLocal().address || 'Não informado' }}</span>
+                        }
+                    </div>
+
+                    @if (isEditing) {
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-lock"></i> Nova Senha (Opcional)</label>
+                        <input type="password" formControlName="password" class="input-perfil"
+                            placeholder="Deixe em branco para manter">
+                    </div>
+                    }
+
+                    @if (!isEditing) {
+                    <div class="campo-dado">
+                        <label><i class="fa-solid fa-calendar-days"></i> Cliente desde</label>
+                        <span>{{ userLocal().created_at | date: 'dd/MM/yyyy' }}</span>
+                    </div>
+                    }
+                </div>
+
+                <div class="acoes-perfil">
+                    @if (!isEditing) {
+                    <button type="button" routerLink="/meu-perfil" class="btn-home">
+                        <i class="fa-solid fa-house"></i> Voltar ao meu perfil
+                    </button>
+
+                    <button type="button" (click)="alternarEdicao()" class="btn-editar">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar Perfil
+                    </button>
+
+                    <button type="button" (click)="fazerLogout()" class="btn-logout">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair da Conta
+                    </button>
+                    } @else {
+                    <button type="submit" class="btn-salvar" [disabled]="formPerfil.invalid">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvar
+                    </button>
+                    <button type="button" (click)="alternarEdicao()" class="btn-cancelar">
+                        <i class="fa-solid fa-xmark"></i> Cancelar
+                    </button>
+                    }
+                </div>
+
+                } @else {
+                <div class="erro-perfil">
+                    <p>Carregando dados do usuário e sincronizando sessão...</p>
+                </div>
+                }
+
+            </form>
+
+        </div>
+    </div>
+</div>

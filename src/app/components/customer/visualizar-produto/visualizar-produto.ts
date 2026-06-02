@@ -6,6 +6,7 @@ import { Footer } from '../footer/footer';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../core/services/product';
 import { KeyValuePipe } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-visualizar-produto',
@@ -18,11 +19,14 @@ export class VisualizarProduto implements OnInit {
   private api = inject(Product);
   produto = signal<any>(null);
 
+  constructor(private title: Title){}
+  
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
     if (id) {
       this.pullProduct(id);
     }
+    this.title.setTitle('Produto')
   }
   
   pullProduct(id: string) {
@@ -38,7 +42,7 @@ export class VisualizarProduto implements OnInit {
   }
   especificacoes = computed(() => {
     const lista = this.produto();
-    return lista?.details ? lista.details.split(';') : [];
+    return lista?.details ? Object.values(lista.details.split(',')) : [];
   }
   )
   teste(){

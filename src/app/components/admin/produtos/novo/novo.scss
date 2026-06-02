@@ -1,4 +1,5 @@
 @use "../../../../../../public/assets/style.scss";
+
 .w100 {
     width: 100%;
 }
@@ -7,14 +8,23 @@
     width: 68%;
 }
 
+.w60 {
+    width: 58%;
+}
+
 .w50 {
     width: 48%;
+}
+
+.w40 {
+    width: 38%;
 }
 
 .w30 {
     width: 28%;
 }
-section{
+
+section {
     @include style.sectionPattern();
     min-height: 80vh;
     justify-content: flex-start;
@@ -48,37 +58,74 @@ section{
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
-                    &[type='file']{
+                    border: 1px solid rgba(255, 255, 255, 0.5);
+                    box-sizing: border-box;
+
+                    &[type='file'] {
+                        border: 1px solid style.$white-color;
+                        border-right: 2px solid gray;
+                        border-bottom: 2px solid gray;
                         background: none;
+                        padding: 8px 12px;
                     }
                 }
 
-                textarea{
+                textarea {
                     padding: 12px 24px;
                     background: none;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
+                    border: 1px solid rgba(255, 255, 255, 0.5);
+                    box-sizing: border-box;
                 }
-                select{
+
+                select {
                     padding: 12px 24px;
-                    background: none;
+                    background: transparent;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
-                    option{
+                    border: 1px solid rgba(255, 255, 255, 0.5);
+                    box-sizing: border-box;
+
+                    option {
                         color: black;
+                        background-color: white;
                     }
                 }
-                #file{
+
+                #file {
                     padding: 12px 24px;
                     background: none;
                     color: white;
                     border-radius: 10px;
                     @include style.fontSize($size: 24px, $weight: 500);
                     width: 100%;
+                }
+
+                &.button {
+                    align-items: center;
+                }
+
+                .p {
+                    border: none;
+                    border-radius: 10px;
+                    padding: 4px 10px;
+                    min-width: 120px;
+                    justify-self: center;
+                    align-self: center;
+                    height: 40px;
+                    margin-left: 8px;
+                    cursor: pointer;
+                    background-color: style.$primary-text;
+                    color: white;
+                    @include style.fontSize($size: 22px, $weight: 600);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
 
@@ -100,15 +147,101 @@ section{
                     background-color: style.$primary-text;
                     color: white;
                     @include style.fontSize($size: 22px, $weight: 600);
-                &[disabled]{
-                    opacity: .5;
+
+                    &[disabled] {
+                        opacity: .5;
+                    }
                 }
-                }
-                .voltar{
+
+                .voltar {
                     @include style.fontSize($size: 22px, $weight: 600);
                     color: white;
                 }
             }
         }
     }
-}   
+}
+
+// ==========================================================================
+// RESPONSIVIDADE ADICIONADA (MANTÉM O CÓDIGO ACIMA INTEGRALMENTE)
+// ==========================================================================
+
+// TABLET (Telas até 1024px)
+@media (max-width: 1024px) {
+    section {
+        gap: 32px;
+        padding: 20px;
+
+        .form-admin {
+            max-width: 90%;
+            width: 100%;
+        }
+    }
+}
+
+// MOBILE (Telas até 768px - Perfeito para o alvo de 375px)
+@media (max-width: 768px) {
+    section {
+        gap: 20px;
+        padding: 10px;
+        align-items: center;
+
+        h2 {
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .form-admin {
+            max-width: 100%;
+            width: 100%;
+            padding: 16px;
+
+            form {
+                row-gap: 16px;
+
+                .w60, .w40, .w30, .w50, .w70 {
+                    width: 100% !important;
+                }
+
+                .div-input {
+                    label {
+                        @include style.fontSize($size: 16px, $weight: 600);
+                    }
+
+                    input, textarea, select {
+                        padding: 8px 16px;
+                        @include style.fontSize($size: 16px, $weight: 500);
+                    }
+                    
+                    input[type='file'] {
+                        padding: 6px 12px;
+                    }
+
+                    .p {
+                        @include style.fontSize($size: 16px, $weight: 600);
+                        height: 36px;
+                        width: 100%;
+                        margin-left: 0;
+                    }
+                }
+
+                .button {
+                    justify-content: space-between;
+                    width: 100%;
+                    margin-top: 8px;
+
+                    .voltar {
+                        @include style.fontSize($size: 18px, $weight: 600);
+                    }
+
+                    button {
+                        @include style.fontSize($size: 18px, $weight: 600);
+                        min-width: 100px;
+                        height: 38px;
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+}

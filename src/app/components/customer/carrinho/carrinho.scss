@@ -1,0 +1,19 @@
+@use "../../../../../public/assets/style.scss";
+
+section{
+    @include style.sectionPattern();
+    min-height: 80vh;
+    .itens-carrinho{
+        width: 100%;
+    }
+    .comprar{
+        background-color: style.$primary-text;
+        border: none;
+        padding: 10px 5px;
+        border-radius: 5px;
+        color: white;
+        &[disabled]{
+            background-color: #2563EB77;
+        }
+    }
+}

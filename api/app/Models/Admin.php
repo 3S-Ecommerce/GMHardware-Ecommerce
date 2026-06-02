@@ -2,19 +2,32 @@
 
 namespace App\Models;
 
-use App\Models\Product;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Admin extends Model
+// Trocamos 'Model' por 'Authenticatable'
+class Admin extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\AdminFactory> */
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['name','email','password','phone_number','document','active'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'phone_number',
+        'document',
+        'active'
+    ];
 
-    protected $hidden = ['password','remember_token','document'];
-    public function products(){
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    public function products()
+    {
         return $this->hasMany(Product::class, 'id_admin');
     }
 }

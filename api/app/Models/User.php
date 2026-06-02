@@ -7,11 +7,12 @@ use App\Models\Order;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'document',
+        'address'
     ];
 
     /**
@@ -34,7 +36,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'document',
+        // 'document',
     ];
 
     /**
@@ -50,7 +52,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(Order::class, "id_user");
     }
+    public function enderecos()
+{
+    return $this->hasMany(Endereco::class);
+}
 }

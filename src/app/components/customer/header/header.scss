@@ -1,62 +1,167 @@
 @use "../../../../../public/assets/style.scss";
-header{
-    background-color: style.$primary-bg;
+
+@media(min-width:1200px){
+  header{
+      background-color: style.$primary-bg;
+  }
+  .header-search {
+      @include style.displayFlex();
+      padding: 15px;
+      h1{
+          text-align: end;
+          color: style.$primary-text;
+          @include style.fontSize($size: 40px, $weight: 600);
+          flex: 1;
+          margin-right: 32px;
+          cursor: pointer;
+      }
+      .search-bar {
+          @include style.displayFlex($width: 70%, $justify: center);
+          flex: 1;
+
+          i{
+              position: relative;
+              color: style.$white-color;
+              right: 24px;
+          }
+
+          input {
+              height: 35px;
+              background: none;
+              border: 1px solid style.$white-color;
+              color: white;
+              border-radius: 5px;
+              width: 100%;
+              padding-right: 30px;
+              padding-left: 5px;
+          }
+
+      }
+
+      nav {
+          @include style.displayFlex($justify: flex-start);
+          flex: 1;
+
+          a {
+              margin-left: 32px;
+              i {
+                  color: style.$white-color;
+              }
+          }
+
+      }
+  }
+  .header-nav{
+      @include style.displayFlex($gap: 32px);
+      flex-wrap: wrap;
+      a{
+          @include style.fontSize($size: 20px);
+          margin-left: 16px;
+          margin-right: 16px;
+          color: style.$white-color;
+      }
+      padding-bottom: 16px;
+  }
 }
-.header-search {
-    @include style.displayFlex();
+
+
+
+//tablete
+@media (min-width: 736px) and (max-width: 1199px) {
+  header{
+      background-color: style.$primary-bg;
+  }
+  .header-search{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     padding: 15px;
     h1{
-        text-align: end;
-        color: style.$primary-text;
-        @include style.fontSize($size: 40px, $weight: 600);
-        flex: 1;
-        margin-right: 32px;
-        cursor: pointer;
+      color: style.$primary-text;
     }
-    .search-bar {
-        @include style.displayFlex($width: 70%, $justify: center);
-        flex: 1;
-        
-        i{
-            position: relative;
-            color: style.$white-color;
-            right: 24px;
-        }
-
-        input {
-            height: 35px;
-            background: none;
-            border: 1px solid style.$white-color;
-            color: white;
-            border-radius: 5px;
-            width: 100%;
-            padding-right: 30px;
-            padding-left: 5px;
-        }
-
-    }
-
-    nav {
-        @include style.displayFlex($justify: flex-start);
-        flex: 1;
-
-        a {
-            margin-left: 32px;
-            i {
-                color: style.$white-color;
-            }
-        }
-
-    }
-}
-.header-nav{
-    @include style.displayFlex($gap: 32px);
-    flex-wrap: wrap;
-    a{
-        @include style.fontSize($size: 20px);
-        margin-left: 16px;
-        margin-right: 16px;
+    .search-bar{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 10%;
+      flex: 1;
+      i{
+        position: relative;
         color: style.$white-color;
+        right: 30px;
+      }
+      input{
+        height: 35px;
+        background: none;
+        border: 1px solid style.$white-color;
+        color: white;
+        border-radius: 5px;
+        width: 60%;
+        padding-right: 30px;
+        padding-left: 5px;
+      }
     }
-    padding-bottom: 16px;
+    nav{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      a{
+        color: style.$white-color;
+      }
+    }
+  }
+
+  .header-nav{
+    display: none;
+  }
 }
+
+//mobile
+@media(max-width: 736px){
+  header{
+      background-color: style.$primary-bg;
+  }
+  .header-search{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 15px;
+    h1{
+      color: style.$primary-text;
+      font-size: 20px;
+    }
+    .search-bar{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      i{
+        display: none;
+      }
+      input{
+        height: 35px;
+        background: none;
+        border: 1px solid style.$white-color;
+        color: white;
+        border-radius: 5px;
+        width: 75%;
+        padding-right: 5px;
+        padding-left: 5px;
+      }
+    }
+    nav{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      a{
+        color: style.$white-color;
+      }
+    }
+  }
+
+  .header-nav{
+    display: none;
+  }
+}
+

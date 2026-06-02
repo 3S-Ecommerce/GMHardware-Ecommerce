@@ -14,7 +14,9 @@ class Product extends Model
 
     protected $appends = ['image_url'];
     
-    protected $fillable = ['id_category', 'id_admin', 'name', 'price', 'description', 'details', 'stock', 'last_price', 'image'];
+    protected $fillable = ['id_category', 'id_admin', 'name', 'price', 'description', 'details', 'stock', 'last_price', 'image', 'image_2', 'image_3', 'image_4', 'image_5'];
+
+    //protected $casts = ['details' => 'array'];
 
     public function getImageUrlAttribute()
     {

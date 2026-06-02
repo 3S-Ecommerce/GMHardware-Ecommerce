@@ -1,0 +1,29 @@
+<div class="conteudo-login">
+  <p id="baseLoginNovaSenhaBoasVindas">Seja bem vindo ao GMHardware</p>
+
+  <form [formGroup]="formReset" (ngSubmit)="onReset()">
+    <div class="campo-email alinhar">
+      <label for="email" id="baseLoginNovaSenhaEmail">Email:</label>
+      <input type="email" formControlName="email" placeholder="Digite seu email">
+    </div>
+
+    <div class="campo-senha alinhar">
+      <label for="old_password" id="baseLoginNovaSenhaSenha">Senha Antiga:</label>
+      <input type="password" formControlName="old_password" placeholder="Digite a senha atual">
+    </div>
+
+    <div class="campo-senha alinhar">
+      <label for="password" id="baseLoginNovaSenhaSenha">Nova Senha:</label>
+      <input type="password" formControlName="password" placeholder="Digite a nova senha">
+    </div>
+
+    <div class="campo-comfirmar-senha alinhar">
+      <label for="password_confirmation" id="baseLoginNovaSenhaConfirmarSenha">Confirmar Nova Senha:</label>
+      <input type="password" formControlName="password_confirmation" placeholder="Confirme a nova senha">
+    </div>
+
+    <div class="button">
+      <button type="submit" class="nova-senha" [disabled]="formReset.invalid" id="baseLoginNovaSenhaBtnNovaSenha">Alterar Senha</button>
+    </div>
+  </form>
+</div>

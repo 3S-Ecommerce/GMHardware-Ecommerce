@@ -3,77 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Order_Items; // Importante importar o model de itens
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::all();
+        // Busca apenas as ordens do usuário logado e traz os produtos junto
+        $orders = Order::with(['order_items.product'])
+            ->where('id_user', $request->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         if ($orders->isEmpty())
             return response()->json(['message' => 'Nenhuma ordem cadastrada'], 200);
+            
         return response()->json($orders, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function checkout(Request $request)
     {
-        return response()->json(['message' => 'create order'], 200);
+        try {
+            DB::beginTransaction();
+
+            // 1. Cria a Ordem principal
+            $order = Order::create([
+                'id_user' => $request->user()->id,
+                'total_price' => $request->total_price,
+                'status' => 'pending' // Começa como pendente
+            ]);
+
+            // 2. Cria cada item da ordem (os produtos do carrinho)
+            foreach ($request->items as $item) {
+                Order_Items::create([
+                    'id_order' => $order->id,
+                    'id_product' => $item['id_product'],
+                    'quantity' => $item['quantity'],
+                    'price' => $item['price']
+                ]);
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'Pedido finalizado!', 'order' => $order], 201);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Erro ao processar pedido: ' . $e->getMessage()], 500);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function show($id)
     {
-        $data = $request->all();
+        $data = Order::with(['order_items.product'])->find($id);
         if (empty($data))
-            return response()->json(['message' => 'Nenhum dado para cadastro'], 200);
-        $order = Order::create($data);
-        return response()->json($order, 200);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Order $order)
-    {
-        $data = Order::find( $order->id );
-        if (empty($data))
-            return response()->json(['message' => 'Nenhuma ordem encontrada'], 200);
+            return response()->json(['message' => 'Nenhuma ordem encontrada'], 404);
         return response()->json($data, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
+    public function update(Request $request, $id)
     {
-        return response()->json(['message' => 'edit order'], 200);
+        $order = Order::find($id);
+        if (!$order) return response()->json(['message' => 'Ordem não encontrada'], 404);
+        $order->update($request->all());
+        return response()->json(['message' => 'Ordem atualizada'], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
+    public function destroy($id)
     {
-        $data = $request->all();
-        if (empty($data))
-            return response()->json(['message' => 'Nenhum dado para atualizar'], 200);
-        $order->update($data);
-        return response()->json(['message' => 'update order'], 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        return response()->json(['message' => 'destroy order'], 200);
+        $order = Order::find($id);
+        if (!$order) return response()->json(['message' => 'Ordem não encontrada'], 404);
+        $order->delete();
+        return response()->json(['message' => 'Ordem deletada'], 200);
     }
 }

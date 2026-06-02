@@ -1,0 +1,31 @@
+<div class="minhas-compras-container">
+  <h1 class="compras-title">Minhas Compras</h1>
+
+  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
+
+  <div class="compras-lista">
+    <!-- Mensagem caso não existam compras -->
+    <div *ngIf="compras.length === 0" style="text-align: center; color: #b0b0b0; padding: 20px;">
+      Nenhuma compra encontrada.
+    </div>
+
+    <div class="compra-card" *ngFor="let compra of compras">
+      <div class="compra-header">
+        Pedido realizado em: {{ formatarData(compra.created_at) }}
+      </div>
+
+      <!-- O Laravel retorna order_items (com underline) conforme sua migration -->
+      <div class="compra-item" *ngFor="let item of compra.order_items">
+        <!-- Verificamos se existe imagem, senão usamos um placeholder -->
+        <img [src]="item.product.image ? 'http://localhost:8000/storage/' + item.product.image : '/assets/placeholder.png'" class="produto-img">
+        
+        <div class="produto-info">
+          <span class="status-tag">{{ compra.status }}</span>
+          <h3>{{ item.product.name }}</h3>
+          <p>Qtd: {{ item.quantity }}</p>
+          <strong style="color: #2563EB">R$ {{ item.price }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

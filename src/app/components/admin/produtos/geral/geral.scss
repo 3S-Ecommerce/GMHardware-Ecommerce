@@ -1,10 +1,71 @@
 @use "../../../../../../public/assets/style.scss";
+
+@media(min-width:1200px){
 section{
     @include style.sectionPattern();
     min-height: 80vh;
     justify-content: flex-start;
     gap: 48px;
-    
+
+    div{
+        @include style.displayFlex($justify: space-between,);
+        button{
+            @include style.fontSize($size: 32px, $weight: 600);
+            background-color: style.$primary-text;
+            padding: 4px 8px;
+            border-radius: 10px;
+            border: none;
+            color: white;
+        }
+    }
+
+    table {
+        min-width: 900px;
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+        border-collapse: collapse;
+
+        thead {
+            th {
+                color: white;
+                @include style.fontSize($size: 24px, $weight: 600);
+                border-bottom: 1px solid white;
+                max-height: 70px;
+                padding: 16px
+            }
+
+            padding-bottom: 4px;
+        }
+
+        tbody {
+            td {
+                color: style.$white-color;
+                @include style.fontSize($size: 24px, $weight: 600);
+                border-bottom: 1px solid white;
+                text-align: center;
+                max-height: 70px;
+                padding: 16px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+
+                &.acoes {
+                    a {
+                        color: orange;
+                        margin-right: 8px;
+                        margin-left: 8px;
+                    }
+                }
+            }
+        }
+    }
+}
+}
+@media (min-width: 736px) and (max-width: 1199px) {
+section{
+    @include style.sectionPattern();
+    max-width: 100%;
+    gap: 24px;
+
     div{
         @include style.displayFlex($justify: space-between,);
         button{
@@ -17,14 +78,13 @@ section{
         }
     }
     table{
-        min-width: 900px;
         background-color: style.$primary-bg;
         border-radius: 10px;
         border-collapse: collapse;
         thead{
             th{
                 color: white;
-                @include style.fontSize($size: 24px, $weight: 600);
+                @include style.fontSize($size: 16px, $weight: 600);
                 border-bottom: 1px solid white;
                 max-height: 70px;
                 padding: 16px
@@ -34,7 +94,7 @@ section{
         tbody{
             td{
                 color: style.$white-color;
-                @include style.fontSize($size: 24px, $weight: 600);
+                @include style.fontSize($size: 16px, $weight: 600);
                 border-bottom: 1px solid white;
                 text-align: center;
                 max-height: 70px;
@@ -51,4 +111,57 @@ section{
             }
         }
     }
+}
+}
+@media(max-width: 736px){
+  section{
+    @include style.sectionPattern();
+
+    gap: 14px;
+
+    div{
+        @include style.displayFlex($justify: space-between,);
+        button{
+            @include style.fontSize($size: 14px, $weight: 600);
+            background-color: style.$primary-text;
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+        }
+    }
+    table{
+        background-color: style.$primary-bg;
+        border-radius: 10px;
+        border-collapse: collapse;
+        thead{
+            th{
+                color: white;
+                @include style.fontSize($size: 12px, $weight: 600);
+                border-bottom: 1px solid white;
+                max-height: 70px;
+                padding: 16px
+            }
+            padding-bottom: 4px;
+        }
+        tbody{
+            td{
+                color: style.$white-color;
+                @include style.fontSize($size: 12px, $weight: 600);
+                border-bottom: 1px solid white;
+                text-align: center;
+                padding: 10px;
+                border-bottom-left-radius:5px;
+                border-bottom-right-radius: 5px;
+                &.acoes{
+                    a{
+                        color: orange;
+                        margin-right: 4px;
+                        margin-left: 4px;
+                    }
+                }
+            }
+        }
+    }
+}
 }
