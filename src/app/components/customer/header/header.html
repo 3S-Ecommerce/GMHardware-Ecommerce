@@ -5,7 +5,7 @@
         <app-search-bar></app-search-bar>
         <nav>
             @if (authService.isAuthenticated()) {
-            <a routerLink="/perfil"><i class="fa-solid fa-circle-user" aria-label="Acessar Perfil"></i></a>
+            <a routerLink="/meu-perfil"><i class="fa-solid fa-circle-user" aria-label="Acessar Perfil"></i></a>
             } @else {
             <a routerLink="/login"><i class="fa-solid fa-circle-user" aria-label="Fazer Login"></i></a>
             }

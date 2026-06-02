@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AddressController;
 
 
 // Rota de busca de produtos - DEVE VIR ANTES do Route::apiResource("product")
@@ -51,4 +52,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/update-password', [AuthController::class, 'updatePassword']);
 
 Route::post('/salvar-cartao', [AuthController::class, 'storeCard'])->middleware('auth:sanctum');
+
+Route::apiResource('addresses', AddressController::class)->middleware('auth:sanctum');
+
+Route::post('/orders/checkout', [OrderController::class, 'checkout'])->middleware('auth:sanctum');
+
 

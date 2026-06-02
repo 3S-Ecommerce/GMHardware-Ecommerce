@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\DadosCartao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -17,7 +19,7 @@ class AuthController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'phone_number' => 'required|string|min:10|max:11',
-                'document' => 'required|string|min:11', // 💡 Certifique-se de que está aqui!
+                'document' => 'required|string|min:11',
                 'address' => 'required|string|min:10',
             ]);
 
@@ -41,48 +43,41 @@ class AuthController extends Controller
         }
     }
 
-public function login(Request $request)
-{
-    try {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+    public function login(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
 
-        // 1. Tenta encontrar na tabela 'users'
-        $user = \App\Models\User::where('email', $request->email)->first();
-        $tipo = 'comum';
+            $user = User::where('email', $request->email)->first();
+            $tipo = 'comum';
 
-        // 2. Se não achou no 'users', tenta na tabela 'admins'
-        if (!$user) {
-            $user = \App\Models\Admin::where('email', $request->email)->first();
-            $tipo = 'admin';
+            if (!$user) {
+                $user = Admin::where('email', $request->email)->first();
+                $tipo = 'admin';
+            }
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json(['error' => 'Credenciais inválidas'], 401);
+            }
+
+            $token = $user->createToken('auth_token')->plainTextToken;
+
+            return response()->json([
+                'user' => $user,
+                'token' => $token,
+                'tipo_usuario' => $tipo
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Erro interno', 'message' => $e->getMessage()], 500);
         }
-
-        // 3. Verifica se o usuário existe e se a senha está correta
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['error' => 'Credenciais inválidas'], 401);
-        }
-
-        // 4. Gera o token (Sanctum funciona para ambos se os Models usarem HasApiTokens)
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        // 5. Retorna o usuário, o token e o TIPO (importante para o Angular)
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-            'tipo_usuario' => $tipo // 👈 O Angular vai ler isso aqui
-        ]);
-
-    } catch (ValidationException $e) {
-        return response()->json(['errors' => $e->errors()], 422);
-    } catch (\Throwable $e) {
-        return response()->json(['error' => 'Erro interno', 'message' => $e->getMessage()], 500);
     }
-}
 
-
-    // NOVO MÉTODO: updatePassword
     public function updatePassword(Request $request)
     {
         try {
@@ -94,12 +89,10 @@ public function login(Request $request)
 
             $user = User::where('email', $request->email)->first();
 
-            // Verifica se a senha antiga está correta
             if (!Hash::check($request->old_password, $user->password)) {
                 return response()->json(['error' => 'A senha antiga está incorreta.'], 401);
             }
 
-            // Atualiza para a nova senha
             $user->password = Hash::make($request->password);
             $user->save();
 
@@ -109,6 +102,39 @@ public function login(Request $request)
             return response()->json(['errors' => $e->errors()], 422);
         } catch (\Throwable $e) {
             return response()->json(['error' => 'Erro interno', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    /**
+     * Salva os dados do cartão do usuário autenticado.
+     * Rota: POST /api/salvar-cartao
+     */
+    public function storeCard(Request $request)
+    {
+        try {
+            $request->validate([
+                'nome_titular' => 'required|string|max:255',
+                'numero_cartao' => 'required|string',
+                'vencimento' => 'required|string|max:5',
+                'cvv' => 'required|string|max:4',
+                'cpf' => 'required|string|max:14',
+            ]);
+
+            $cartao = DadosCartao::create([
+                'user_id' => $request->user()->id,
+                'nome_titular' => $request->nome_titular,
+                'numero_cartao' => $request->numero_cartao,
+                'vencimento' => $request->vencimento,
+                'cvv' => $request->cvv,
+                'cpf' => $request->cpf,
+            ]);
+
+            return response()->json($cartao, 201);
+
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Erro ao salvar cartão', 'message' => $e->getMessage()], 500);
         }
     }
 }
