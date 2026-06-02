@@ -6,7 +6,7 @@ import { Injectable, signal } from '@angular/core';
 })
 export class Auth {
   private apiUrl = 'http://127.0.0.1:8000/api';
-  
+
   // 1. Blindamos a inicialização checando se estamos no navegador
   isLoggedIn = signal<boolean>(
     typeof window !== 'undefined' ? !!localStorage.getItem('token') : false
@@ -22,7 +22,7 @@ export class Auth {
     if (typeof window === 'undefined') {
       return null;
     }
-    
+
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
@@ -41,6 +41,17 @@ export class Auth {
 
   isAuthenticated(): boolean {
     return this.isLoggedIn();
+  }
+
+  // ADICIONE ESTE MÉTODO AQUI:
+  isAdmin(): boolean {
+    const user = this.currentUser(); // Lê o valor atual do seu Signal
+
+    if (!user) return false;
+
+    // Checa se o campo vindo do seu Laravel é 'role' ou 'is_admin'
+    // Esse IF cobre as três formas mais comuns que o Laravel devolve:
+    return user.role === 'admin' || user.is_admin === 1 || user.is_admin === true;
   }
 
   setSession(token: string, user: any) {
@@ -64,7 +75,7 @@ export class Auth {
   // O Laravel Resource cria a URL no singular: /api/user/{id}
   // Forçamos o método PUT através do spoofing de parâmetro exigido pelo FormData
   formdata.append('_method', 'PUT');
-  
+
   return this.http.post(`${this.apiUrl}/user/${id}`, formdata);
 }
 saveCard(data: any) {
