@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
             8GB RAM dedicada,
             2.5GHz}',
             'stock'=> '5',
-            'image'=> 'product/Video_gbranco.png',
+            'image'=> '',
         ]);
         Product::updateOrCreate([
             'id_category' => 1,
@@ -40,7 +40,7 @@ class ProductSeeder extends Seeder
             6GB RAM dedicada,
             2.0GHz}',
             'stock'=> '5',
-            'image'=> 'product/Video_gcinza.png',
+            'image'=> '',
         ]);
         Product::updateOrCreate([
             'id_category' => 1,
@@ -54,7 +54,7 @@ class ProductSeeder extends Seeder
             8GB RAM dedicada,
             3.0GHz}',
             'stock'=> '3',
-            'image'=> 'product/Video_gpreto.png',
+            'image'=> '',
         ]);
     }
 }
