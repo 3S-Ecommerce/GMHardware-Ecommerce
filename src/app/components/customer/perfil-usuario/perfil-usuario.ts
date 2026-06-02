@@ -99,7 +99,7 @@ export class PerfilUsuario implements OnInit {
         
         if (typeof window !== 'undefined') {
           const tokenAtual = localStorage.getItem('token') || '';
-          this.authService.setSession(tokenAtual, usuarioAtualizado);
+          this.authService.setSession(tokenAtual, usuarioAtualizado, false);
           this.userLocal.set(usuarioAtualizado);
         }
         

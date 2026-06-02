@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { CartaoService } from '../../../../core/services/cartao'; 
+import { CartaoService } from '../../../../core/services/cartao';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -12,16 +12,22 @@ import { CartaoService } from '../../../../core/services/cartao';
   styleUrls: ['./meu-perfil.scss']
 })
 export class MeuPerfil implements OnInit {
-
+  private platformId = inject(PLATFORM_ID);
   constructor(
     private router: Router,
-    private cartaoService: CartaoService 
+    private cartaoService: CartaoService
   ) { }
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['/login']);
+    if (isPlatformBrowser(this.platformId)) {
+
+      // Cole aqui dentro o seu código original que usa o localStorage/sessionStorage. Exemplo:
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.router.navigate(['/login']);
+      }
+      console.log('Rodando no navegador com acesso ao localStorage:', token);
+
     }
   }
 
@@ -33,21 +39,21 @@ export class MeuPerfil implements OnInit {
         },
         error: (err) => {
           console.error('Erro ao deslogar no servidor:', err);
-       
+
           this.limparSessaoERedirecionar();
         }
       });
     }
   }
 
-  
+
   private limparSessaoERedirecionar(): void {
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
 
-  
+
   goToEndereco(): void {
     this.router.navigate(['/meus-enderecos']);
   }
@@ -56,7 +62,7 @@ export class MeuPerfil implements OnInit {
     this.router.navigate(['/compras']);
   }
 
-  
+
   goToCartao(): void {
     this.router.navigate(['/meus-cartoes']);
   }

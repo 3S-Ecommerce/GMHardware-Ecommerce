@@ -56,10 +56,12 @@ class AuthController extends Controller
 
             $user = User::where('email', $request->email)->first();
             $tipo = 'comum';
+            $is_admin = false;
 
             if (!$user) {
                 $user = Admin::where('email', $request->email)->first();
                 $tipo = 'admin';
+                $is_admin = true;
             }
 
             if (!$user || !Hash::check($request->password, $user->password)) {
@@ -71,7 +73,8 @@ class AuthController extends Controller
             return response()->json([
                 'user' => $user,
                 'token' => $token,
-                'tipo_usuario' => $tipo
+                'tipo_usuario' => $tipo,
+                'admin' => $is_admin
             ]);
 
         } catch (ValidationException $e) {

@@ -63,7 +63,7 @@ export class Cadastro {
         this.dados.set(res);
         
         // Sincroniza a sessão local do navegador
-        this.authService.setSession(res.token, res.user);
+        this.authService.setSession(res.token, res.user, false);
         
         // Segue a sua mesma lógica de navegação usando o ID do retorno
         this.router.navigate(['/']);

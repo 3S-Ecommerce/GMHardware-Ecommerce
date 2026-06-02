@@ -29,24 +29,17 @@ export class Login {
       next: (res: any) => {
         console.log('LOGIN SUCESSO', res);
 
-        // ❌ REMOVA ESTAS LINHAS:
-        // localStorage.setItem('token', res.token);
-        // localStorage.setItem('user', JSON.stringify(res.user));
-
-        //  USE O MÉTODO DO SERVIÇO:
-        // Isso vai salvar no localStorage E atualizar os Signals ao mesmo tempo!
-        this.authService.setSession(res.token, res.user);
-
+        // Envia o token, os dados do usuário e o booleano res.admin
+        this.authService.setSession(res.token, res.user, res.admin);
         alert('Bem-vindo de volta, ' + res.user.name);
 
-        // 2. Lógica de Redirecionamento (MUDANÇA AQUI)
-        // Verificamos o 'tipo_usuario' que definimos no AuthController.php
-        if (res.tipo_usuario === 'admin') {
+        // 🔥 CORREÇÃO: res.admin agora vem como booleano puro do Laravel (true / false)
+        if (res.admin === true) {
           console.log('Redirecionando para área Admin...');
-          this.router.navigate(['/admin/dashboard']); // 👈 Coloque o nome da sua rota de admin aqui
+          this.router.navigate(['/admin/dashboard']);
         } else {
           console.log('Redirecionando para Home...');
-          this.router.navigate(['/inicio']); // 👈 Rota do usuário normal
+          this.router.navigate(['/inicio']);
         }
       },
       error: (err: any) => {

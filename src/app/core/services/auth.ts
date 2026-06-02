@@ -14,6 +14,7 @@ export class Auth {
 
   // 2. Blindamos o usuário também
   currentUser = signal<any>(this.getUserFromStorage());
+  admin = signal<string>(this.getUserAdmin())
 
   constructor(private http: HttpClient) {}
 
@@ -22,9 +23,15 @@ export class Auth {
     if (typeof window === 'undefined') {
       return null;
     }
-
+  
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
+  }
+
+  private getUserAdmin(): string {
+    if (typeof window === 'undefined') return 'false';
+    const admin = localStorage.getItem('admin');
+    return admin ? admin : 'false';
   }
 
   register(data: any) {
@@ -45,19 +52,23 @@ export class Auth {
 
   // ADICIONE ESTE MÉTODO AQUI:
   isAdmin(): boolean {
-    const user = this.currentUser(); // Lê o valor atual do seu Signal
-
+    const user = this.admin(); // Lê o valor atual do seu Signal
+    console.log(user)
     if (!user) return false;
-
     // Checa se o campo vindo do seu Laravel é 'role' ou 'is_admin'
     // Esse IF cobre as três formas mais comuns que o Laravel devolve:
-    return user.role === 'admin' || user.is_admin === 1 || user.is_admin === true;
+    return user === 'true';
   }
 
-  setSession(token: string, user: any) {
+  setSession(token: string, user: any, admin:boolean) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+      const adminString = admin ? 'true' : 'false';
+      localStorage.setItem('admin', adminString);
+      
+      // 🔥 CORREÇÃO: Atualiza o Signal para o app reagir instantaneamente
+      this.admin.set(adminString);
     }
     this.isLoggedIn.set(true);
     this.currentUser.set(user);
@@ -67,9 +78,11 @@ export class Auth {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+      localStorage.removeItem('admin');
     }
     this.isLoggedIn.set(false);
     this.currentUser.set(null);
+    this.admin.set('false');
   }
   updateUser(formdata: FormData, id: string) {
   // O Laravel Resource cria a URL no singular: /api/user/{id}
