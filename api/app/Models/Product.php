@@ -26,27 +26,23 @@ class Product extends Model
 
     public function getImageUrlAttribute()
     {
-        // 1. Se não houver imagem cadastrada, retorna o link padrão
+        // O link público do seu Bucket Cloudflare (Subdomínio R2.dev ou domínio customizado)
+        // 💡 Pegamos direto da env, mas deixamos o seu link público real como fallback absoluto!
+        $publicUrl = env('AWS_URL', 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev');
+
+        // 1. Se não houver imagem cadastrada no banco, retorna o placeholder direto da nuvem
         if (!$this->image) {
-            return rtrim(env('AWS_URL'), '/') . '/products/default.png';
+            return rtrim($publicUrl, '/') . '/products/default.png';
         }
 
-        // 2. Se a imagem já for uma URL completa (http/https), apenas retorna ela
+        // 2. Se a imagem gravada já for uma URL completa (http/https), apenas retorna ela
         if (filter_var($this->image, FILTER_VALIDATE_URL)) {
             return $this->image;
         }
 
-        // 3. Monta a URL concatenando o link do Cloudflare com o caminho do banco
-        // Evita o uso do método ->url() que estava quebrando o container
-        $awsUrl = env('AWS_URL');
-
-        // Se a AWS_URL estiver configurada, faz a junção limpa limpando as barras extras
-        if ($awsUrl) {
-            return rtrim($awsUrl, '/') . '/' . ltrim($this->image, '/');
-        }
-
-        // Fallback local caso tudo suma
-        return asset('storage/' . $this->image);
+        // 3. Monta a URL final apontando SEMPRE para o Cloudflare R2
+        // Isso remove o 'storage/' da rota que o Render tentava forçar e quebrava com NS_BINDING_ABORTED
+        return rtrim($publicUrl, '/') . '/' . ltrim($this->image, '/');
     }
 
     public function category()
