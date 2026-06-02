@@ -1,20 +1,65 @@
+# FROM php:8.3-apache
+
+# # Instala extensões necessárias para o PostgreSQL e Laravel
+# RUN apt-get update && apt-get install -y \
+#     libpq-dev \
+#     && docker-php-ext-install pdo pdo_pgsql
+
+# # Ativa o mod_rewrite do Apache (essencial para rotas do Laravel)
+# RUN a2enmod rewrite
+
+# # Define o diretório de trabalho e copia o código
+# COPY . /var/www/html
+# WORKDIR /var/www/html
+
+# # Ajusta as permissões de escrita para o Laravel
+# RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# # Aponta o Apache para a pasta public/ (onde fica o index.php)
+# ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 FROM php:8.3-apache
 
-# Instala extensões necessárias para o PostgreSQL e Laravel
+# Instala dependências do sistema e extensões do PHP (incluindo o pgsql para o Supabase!)
 RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
     libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+    libzip-dev
 
-# Ativa o mod_rewrite do Apache (essencial para rotas do Laravel)
+# Limpa o cache do apt
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instala extensões do PHP obrigatórias para o Laravel e PostgreSQL
+RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip
+
+# Ativa o mod_rewrite do Apache (essencial para as rotas do Laravel funcionarem)
 RUN a2enmod rewrite
 
-# Define o diretório de trabalho e copia o código
-COPY . /var/www/html
-WORKDIR /var/www/html
-
-# Ajusta as permissões de escrita para o Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Aponta o Apache para a pasta public/ (onde fica o index.php)
+# Altera a pasta pública padrão do Apache para a pasta /public do Laravel
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Baixa o Composer mais recente
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Define o diretório de trabalho padrão do Apache
+WORKDIR /var/www/html
+
+# Copia os arquivos do projeto para o container
+COPY . /var/www/html
+
+# Instala as dependências do Laravel
+RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# Garante as permissões corretas para as pastas do Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# O Apache roda automaticamente na porta 80 por padrão, não precisamos de CMD customizado
+EXPOSE 80
