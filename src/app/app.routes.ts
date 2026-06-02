@@ -43,6 +43,7 @@ import path from 'path';
 import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario';
 import { CheckoutComponent } from './components/customer/checkout/checkout';
 import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
+import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 
 export const routes: Routes = [
     {
@@ -143,11 +144,11 @@ export const routes: Routes = [
             }
         ]
     },
-    // {
-    //     path: 'perfil',
-    //     component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
-    //     canActivate: [authGuard]   // Seu
-    // },
+    {
+        path: 'perfil',
+        component: PerfilUsuario, // <-- Crie este componente para mostrar os dados do user!
+        canActivate: [authGuard]   // Seu
+    },
     {
         path: 'cadastroDados/:id',
         component: DadosUsuario
