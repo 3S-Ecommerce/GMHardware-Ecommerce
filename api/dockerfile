@@ -1,26 +1,7 @@
-# FROM php:8.3-apache
+# Usa a imagem oficial do PHP com Apache integrada
+FROM php:8.2-apache
 
-# # Instala extensões necessárias para o PostgreSQL e Laravel
-# RUN apt-get update && apt-get install -y \
-#     libpq-dev \
-#     && docker-php-ext-install pdo pdo_pgsql
-
-# # Ativa o mod_rewrite do Apache (essencial para rotas do Laravel)
-# RUN a2enmod rewrite
-
-# # Define o diretório de trabalho e copia o código
-# COPY . /var/www/html
-# WORKDIR /var/www/html
-
-# # Ajusta as permissões de escrita para o Laravel
-# RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# # Aponta o Apache para a pasta public/ (onde fica o index.php)
-# ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-FROM php:8.3-apache
-
-# Instala dependências do sistema e extensões do PHP (incluindo o pgsql para o Supabase!)
+# Instala dependências do sistema e ferramentas de desenvolvimento
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -32,38 +13,44 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libzip-dev
 
-# Limpa o cache do apt
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Limpa os arquivos temporários do gerenciador de pacotes para diminuir o tamanho da imagem
+RUN apt-get clean && rm -rf /var/am/lists/*
 
-# Instala as extensões do PHP obrigatórias para o Laravel, PostgreSQL e uploads
-RUN docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip fileinfo
+# Instala extensões PHP essenciais para o Laravel, PostgreSQL e processamento de arquivos (fileinfo)
+RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql mbstring exif pcntl bcmath gd zip fileinfo
 
-# Ativa o mod_rewrite do Apache (essencial para as rotas do Laravel funcionarem)
+# Ativa o módulo mod_rewrite do Apache para o Laravel conseguir gerenciar as rotas amigáveis
 RUN a2enmod rewrite
 
-# Altera a pasta pública padrão do Apache para a pasta /public do Laravel
+# Altera a raiz do servidor Apache para apontar para a pasta public do Laravel
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Baixa o Composer mais recente
+# Copia o Composer de sua imagem oficial para dentro do nosso container
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Define o diretório de trabalho padrão do Apache
 WORKDIR /var/www/html
+
+# Copia todos os arquivos do projeto para o container
 COPY . /var/www/html
 
+# Altera para o usuário root para executar tarefas administrativas com segurança
 USER root
 
+# Limpa o cache do Composer e instala as dependências de produção sem travar os scripts
 RUN composer clear-cache
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# 💡 CORREÇÃO CRUCIAL: Limpa e reconstrói o cache do Laravel para atualizar as variáveis de ambiente
+# Garante que o Laravel limpe qualquer cache de configuração antigo que esconde as variáveis do Render
 RUN php artisan config:clear
 RUN php artisan cache:clear
 
-# Garante as permissões corretas para o Apache e o Laravel
+# Define o dono e o grupo corretos para as pastas cruciais de escrita do Apache/Laravel
 RUN chown -R www-data:www-data /var/www/html/vendor /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Expõe a porta padrão do container Apache
 EXPOSE 80
