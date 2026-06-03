@@ -1,26 +1,141 @@
-@if(variante == "receber"){
-
 <div class="div-entrega">
-    <h2 id="formaEntregaReceberTitulo">Enviar no meu endereço</h2>
-    <p id="formaEntregaReceberTexto">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
-    <hr>
-    <div class="{{ variante }} div-button">
-        <button routerLink="endereco" class="escolher-endereco" id="formaEntregaReceberBtnOutroEndereco">Escolher outro endereço</button>
-        <button routerLink="forma-de-pagamento" class="selecionar" id="formaEntregaReceberBtnSelecionar">Selecionar</button>
+  <h2 id="formaEntregaReceberTitulo">Enviar no meu endereço</h2>
+
+  <p *ngIf="carregandoEnderecos" id="formaEntregaReceberTexto">
+    Carregando endereço padrão...
+  </p>
+
+  <p *ngIf="!carregandoEnderecos && enderecoSelecionado" id="formaEntregaReceberTexto">
+    {{ formatarEndereco(enderecoSelecionado) }}
+  </p>
+
+  <p *ngIf="!carregandoEnderecos && !enderecoSelecionado" id="formaEntregaReceberTexto">
+    Nenhum endereço cadastrado. Cadastre ou escolha um endereço para continuar.
+  </p>
+
+  <p *ngIf="erroEndereco" class="erro-endereco">
+    {{ erroEndereco }}
+  </p>
+
+  <hr>
+
+  <div class="receber div-button">
+    <button
+      type="button"
+      class="escolher-endereco"
+      id="formaEntregaReceberBtnOutroEndereco"
+      (click)="abrirEscolhaEndereco()"
+    >
+      {{ mostrarEscolhaEndereco ? 'Fechar endereços' : 'Selecionar/Cadastrar endereço' }}
+    </button>
+
+    <button
+      type="button"
+      class="selecionar"
+      id="formaEntregaReceberBtnSelecionar"
+      (click)="selecionarEntrega()"
+      [disabled]="!enderecoSelecionado"
+    >
+      Selecionar
+    </button>
+  </div>
+
+  <div class="enderecos-area" *ngIf="mostrarEscolhaEndereco">
+    <h3>Endereços cadastrados</h3>
+
+    <p *ngIf="carregandoEnderecos" class="mensagem-vazia">
+      Carregando endereços...
+    </p>
+
+    <p *ngIf="!carregandoEnderecos && enderecos.length === 0" class="mensagem-vazia">
+      Nenhum endereço cadastrado.
+    </p>
+
+    <div class="endereco-card" *ngFor="let endereco of enderecos">
+      <div class="endereco-info">
+        <p class="endereco-texto">
+          {{ formatarEndereco(endereco) }}
+        </p>
+
+        <p *ngIf="endereco.padrao" class="endereco-padrao">
+          ✓ Endereço Padrão
+        </p>
+      </div>
+
+      <div class="endereco-botoes">
+        <button
+          type="button"
+          class="btn-azul"
+          (click)="selecionarEndereco(endereco)"
+        >
+          Usar este endereço
+        </button>
+
+        <button
+          *ngIf="!endereco.padrao"
+          type="button"
+          class="btn-secundario"
+          (click)="definirEnderecoPadrao(endereco.id)"
+        >
+          Tornar padrão
+        </button>
+      </div>
     </div>
-</div>
 
-}
+    <button
+      type="button"
+      class="btn-adicionar-endereco"
+      (click)="abrirFormularioNovoEndereco()"
+    >
+      + Cadastrar novo endereço
+    </button>
 
-@else if ( variante == "retirar" ) {
+    <div class="form-endereco" *ngIf="mostrarFormularioEndereco">
+      <h3>Novo Endereço</h3>
 
-<div class="div-entrega">
-    <h2 id="formaEntregaRetirarTitulo">Retirar na Agência GMHardware</h2>
-    <p id="formaEntregaRetirarTexto">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.</p>
-    <hr>
-    <div class="{{ variante }} div-button">
-        <button routerLink="forma-de-pagamento" class="selecionar" id="formaEntregaRetirarBtnSelecionar">Selecionar</button>
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.zip_code"
+        placeholder="CEP"
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.street"
+        placeholder="Rua"
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.number"
+        placeholder="Número"
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.city"
+        placeholder="Cidade"
+      >
+
+      <div class="form-botoes">
+        <button
+          type="button"
+          class="btn-azul"
+          (click)="salvarNovoEndereco()"
+          [disabled]="salvandoEndereco"
+        >
+          {{ salvandoEndereco ? 'Salvando...' : 'Salvar endereço' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn-cancelar"
+          (click)="cancelarNovoEndereco()"
+          [disabled]="salvandoEndereco"
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
+  </div>
 </div>
-
-}

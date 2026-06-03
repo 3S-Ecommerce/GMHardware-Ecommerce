@@ -1,42 +1,269 @@
 <section class="revisar">
-    <h2 id="revisarTitulo">Revise e confirme</h2>
-    <div class="div-layout">
-        <h3 id="revisarDadosSolicitante">Dados do Solicitante</h3>
-        <p>Arthur Cavalcante de Souza</p>
-        <p>arthurcavalcantedesouza3@gmail.com</p>
-        <p id="revisarCpfLabel">CPF: 999.999.999-99</p>
-    </div>
-    <div class="div-layout">
-        <h3 id="revisarDetalheEntrega">Detalhe da Entrega</h3>
-        <p>Rua Marlene Dietrich 81 - Jardim Guanhembu, São Paulo - CEP 04814555 - Residencial</p>
-        <hr>
-        <button routerLink="../endereco" id="revisarBtnOutroEndereco">Escolher outro Endereco</button>
-    </div>
-    <div class="div-layout">
-        <h3 id="revisarProdutosTitulo">Produtos</h3>
-        @for(produto of produtos(); track $index){
-        <div class="div-img">
-            <div class="img">
-                <img ngSrc="{{ produto.image }}" alt="" fill>
-            </div>
-            <p>{{ produto.name }}</p>
-            <div class="quantidade">
-                <button class="fa-solid fa-arrow-left" (click)="menosProduto(produto.id)"></button>
-                <span style="color: wheat; margin: 0px 5px 0px 5px;">{{ produto.quantity }}</span>
-                <button class="fa-solid fa-arrow-right" (click)="maisProduto(produto.id)"></button>
-            </div>
+  <h2 id="revisarTitulo">Revise e confirme</h2>
+
+  <div class="div-layout">
+    <h3 id="revisarDadosSolicitante">Dados do Solicitante</h3>
+
+    <p>{{ usuarioLogado?.name || 'Nome não encontrado' }}</p>
+    <p>{{ usuarioLogado?.email || 'E-mail não encontrado' }}</p>
+    <p id="revisarCpfLabel">
+      CPF: {{ usuarioLogado?.document || 'CPF não encontrado' }}
+    </p>
+  </div>
+
+  <div class="div-layout">
+    <h3 id="revisarDetalheEntrega">Detalhe da Entrega</h3>
+
+    <p *ngIf="enderecoSelecionado" style="color: #b0b0b0;">
+      {{ formatarEndereco(enderecoSelecionado) }}
+    </p>
+
+    <p *ngIf="!enderecoSelecionado" style="color: #b0b0b0;">
+      Nenhum endereço selecionado.
+    </p>
+
+    <hr>
+
+    <button
+      type="button"
+      id="revisarBtnOutroEndereco"
+      (click)="abrirEscolhaEndereco()"
+    >
+      {{ mostrarEscolhaEndereco ? 'Fechar endereços' : 'Escolher outro Endereço' }}
+    </button>
+
+    <div
+      *ngIf="mostrarEscolhaEndereco"
+      style="
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      "
+    >
+      <h4 style="color: white; margin: 0;">
+        Endereços cadastrados
+      </h4>
+
+      <p
+        *ngIf="enderecos.length === 0"
+        style="color: #b0b0b0; margin: 0;"
+      >
+        Nenhum endereço cadastrado.
+      </p>
+
+      <div
+        *ngFor="let endereco of enderecos"
+        style="
+          border: 1px solid #2a2a2a;
+          border-radius: 8px;
+          padding: 14px;
+          background: #0F1115;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        "
+      >
+        <p style="margin: 0; color: white;">
+          {{ formatarEndereco(endereco) }}
+        </p>
+
+        <p
+          *ngIf="endereco.padrao"
+          style="
+            color: #4CAF50;
+            font-weight: bold;
+            margin: 0;
+          "
+        >
+          ✓ Endereço Padrão
+        </p>
+
+        <div
+          style="
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+          "
+        >
+          <button
+            type="button"
+            (click)="selecionarEndereco(endereco)"
+          >
+            Usar este endereço
+          </button>
+
+          <button
+            *ngIf="!endereco.padrao"
+            type="button"
+            (click)="definirEnderecoPadrao(endereco.id)"
+          >
+            Tornar padrão
+          </button>
         </div>
-        }
+      </div>
+
+      <button
+        type="button"
+        (click)="abrirFormularioNovoEndereco()"
+      >
+        + Cadastrar novo endereço
+      </button>
+
+      <div
+        *ngIf="mostrarFormularioEndereco"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 10px;
+          border: 1px solid #2a2a2a;
+          border-radius: 8px;
+          padding: 14px;
+          background: #0F1115;
+        "
+      >
+        <h4 style="color: white; margin: 0 0 8px 0;">
+          Novo Endereço
+        </h4>
+
+        <input
+          type="text"
+          [(ngModel)]="novoEndereco.zip_code"
+          placeholder="CEP"
+          style="
+            background: #1a1f27;
+            color: white;
+            padding: 10px;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+          "
+        >
+
+        <input
+          type="text"
+          [(ngModel)]="novoEndereco.street"
+          placeholder="Rua"
+          style="
+            background: #1a1f27;
+            color: white;
+            padding: 10px;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+          "
+        >
+
+        <input
+          type="text"
+          [(ngModel)]="novoEndereco.number"
+          placeholder="Número"
+          style="
+            background: #1a1f27;
+            color: white;
+            padding: 10px;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+          "
+        >
+
+        <input
+          type="text"
+          [(ngModel)]="novoEndereco.city"
+          placeholder="Cidade"
+          style="
+            background: #1a1f27;
+            color: white;
+            padding: 10px;
+            border: 1px solid #2a2a2a;
+            border-radius: 4px;
+          "
+        >
+
+        <div style="display: flex; gap: 10px; margin-top: 8px;">
+          <button
+            type="button"
+            (click)="salvarNovoEnderecoNaRevisao()"
+          >
+            Salvar endereço
+          </button>
+
+          <button
+            type="button"
+            (click)="cancelarNovoEndereco()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="div-layout">
-        <h3 id="revisarDetalhePagamento">Detalhe do pagamento</h3>
-        <p>{{ metodoPagamento() }}</p>
-        <p>R$ {{ valorTotal() }}</p>
-        <hr>
-        <button routerLink="../forma-de-pagamento" id="revisarBtnAlterarPagamento">Alterar forma de pagamento</button>
-    </div>
-    <div class="button">
-        <button routerLink="../forma-de-pagamento" class="cancelar" id="revisarBtnCancelar">Cancelar</button>
-        <button (click)="confirmarPedido()" id="revisarBtnConfirmar">Confirmar e realizar pagamento</button>
-    </div>
+  </div>
+
+  <div class="div-layout">
+    <h3 id="revisarProdutosTitulo">Produtos</h3>
+
+    @for(produto of produtos(); track $index) {
+      <div class="div-img">
+        <div class="img">
+          <img ngSrc="{{ produto.image }}" alt="" fill>
+        </div>
+
+        <p>{{ produto.name }}</p>
+
+        <div class="quantidade">
+          <button
+            class="fa-solid fa-arrow-left"
+            (click)="menosProduto(produto.id)"
+          ></button>
+
+          <span style="color: wheat; margin: 0px 5px 0px 5px;">
+            {{ produto.quantity }}
+          </span>
+
+          <button
+            class="fa-solid fa-arrow-right"
+            (click)="maisProduto(produto.id)"
+          ></button>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="div-layout">
+  <h3 id="revisarDetalhePagamento">Detalhe do pagamento</h3>
+
+  <p>{{ detalhePagamento() }}</p>
+
+  <p *ngIf="cartaoSelecionado && metodoPagamento() === 'Cartão de Crédito'">
+    Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
+  </p>
+
+  <p>R$ {{ valorTotal() }}</p>
+
+  <hr>
+
+  <button
+    routerLink="../forma-de-pagamento"
+    id="revisarBtnAlterarPagamento"
+  >
+    Alterar forma de pagamento
+  </button>
+</div>
+
+  <div class="button">
+    <button
+      routerLink="../forma-de-pagamento"
+      class="cancelar"
+      id="revisarBtnCancelar"
+    >
+      Cancelar
+    </button>
+
+    <button
+      (click)="confirmarPedido()"
+      id="revisarBtnConfirmar"
+    >
+      Confirmar e realizar pagamento
+    </button>
+  </div>
 </section>

@@ -10,9 +10,18 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('endereco');
-            $table->tinyInteger('padrao')->default(0);
+
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+
+            $table->string('zip_code');
+            $table->string('street');
+            $table->string('number');
+            $table->string('city');
+
+            $table->boolean('padrao')->default(false);
+
             $table->timestamps();
         });
     }
