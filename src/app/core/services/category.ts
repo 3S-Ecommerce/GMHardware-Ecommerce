@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class Category { 
+export class Category {
   private http = inject(HttpClient);
   private readonly apiUrl = "https://gmhardware-ecommerce.onrender.com/api/category";
 
@@ -20,4 +20,8 @@ export class Category {
   updateCategory(formdata: FormData, id:string){
     return this.http.put(`${this.apiUrl}/${id}`, formdata)
   }
+
+  deleteCategory(id: string) {
+  return this.http.delete(`${this.apiUrl}/${id}`);
+} 
 }

@@ -45,6 +45,8 @@ import { CheckoutComponent } from './components/customer/checkout/checkout';
 import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
 import { adminGuard } from './core/services/admin.guard';
+import { NovoCategoria } from './components/admin/categorias/categorias';
+
 
 export const routes: Routes = [
     {
@@ -264,6 +266,11 @@ export const routes: Routes = [
                 path: 'dashboard',
                 component: Dashboard,
                 canActivate: [authGuard]
+            },
+            {
+              path:'categoria',
+              component: NovoCategoria,
+              canActivate: [authGuard]
             }
         ]
     },
