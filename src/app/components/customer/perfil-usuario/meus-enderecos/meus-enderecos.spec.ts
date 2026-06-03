@@ -1,20 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
-import { MeusEnderecos } from './meus-enderecos';
+import { MeusEnderecosComponent } from './meus-enderecos';
 
-describe('MeusEnderecos', () => {
-  let component: MeusEnderecos;
-  let fixture: ComponentFixture<MeusEnderecos>;
+describe('MeusEnderecosComponent', () => {
+  let component: MeusEnderecosComponent;
+  let fixture: ComponentFixture<MeusEnderecosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MeusEnderecos]
-    })
-    .compileComponents();
+      imports: [
+        MeusEnderecosComponent,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ]
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(MeusEnderecos);
+    fixture = TestBed.createComponent(MeusEnderecosComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

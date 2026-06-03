@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
-import { EnderecoService, Endereco } from '../../../../core/services/endereco';
+import {
+  EnderecoService,
+  Endereco,
+  EnderecoPayload
+} from '../../../../core/services/endereco';
 
 @Component({
   selector: 'app-meus-enderecos',
@@ -13,36 +17,269 @@ import { EnderecoService, Endereco } from '../../../../core/services/endereco';
 })
 export class MeusEnderecosComponent implements OnInit {
   enderecos: Endereco[] = [];
+
   mostrarFormulario = false;
-  novoEndereco = { street: '', number: '', neighborhood: '', city: '', state: '', zip_code: '', type: 'Residencial', contact_name: '', contact_phone: '' };
+  editando = false;
+  enderecoEditandoId: number | null = null;
 
-  constructor(private enderecoService: EnderecoService, private router: Router) {}
+  carregando = false;
+  erro = '';
 
-  ngOnInit() { this.listar(); }
+  novoEndereco: EnderecoPayload = {
+    zip_code: '',
+    street: '',
+    number: '',
+    city: ''
+  };
 
-  listar() {
-    this.enderecoService.listar().subscribe({ next: (res) => this.enderecos = res });
+  constructor(
+    private enderecoService: EnderecoService,
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {}
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    setTimeout(() => {
+      this.listar();
+    }, 0);
   }
 
-  adicionarEndereco() { this.mostrarFormulario = true; }
+  private getLocalStorageItem(chave: string): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
 
-  cancelarAdicao() { this.mostrarFormulario = false; }
+    return localStorage.getItem(chave);
+  }
 
-  salvarEndereco() {
-    this.enderecoService.salvar(this.novoEndereco).subscribe({
+  private limparSessao(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.clear();
+    }
+  }
+
+  listar(): void {
+    const token = this.getLocalStorageItem('token');
+    const usuarioStr = this.getLocalStorageItem('user');
+
+    if (!token || !usuarioStr) {
+      this.carregando = false;
+      this.cdr.detectChanges();
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.carregando = true;
+    this.erro = '';
+    this.cdr.detectChanges();
+
+    this.enderecoService.listar().subscribe({
       next: (res) => {
-        this.enderecos.push(res);
-        this.mostrarFormulario = false;
-        this.novoEndereco = { street: '', number: '', neighborhood: '', city: '', state: '', zip_code: '', type: 'Residencial', contact_name: '', contact_phone: '' };
+        this.enderecos = res;
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err);
+
+        this.carregando = false;
+        this.cdr.detectChanges();
+
+        if (err.status === 401) {
+          this.limparSessao();
+          this.router.navigate(['/login']);
+          return;
+        }
+
+        this.erro = 'Erro ao carregar endereços.';
+        this.cdr.detectChanges();
       }
     });
   }
 
-  excluirEndereco(id: number) {
-    if (confirm('Excluir este endereço?')) {
-      this.enderecoService.excluir(id).subscribe({
-        next: () => this.enderecos = this.enderecos.filter(e => e.id !== id)
-      });
+  adicionarEndereco(): void {
+    this.mostrarFormulario = true;
+    this.editando = false;
+    this.enderecoEditandoId = null;
+    this.erro = '';
+
+    this.novoEndereco = {
+      zip_code: '',
+      street: '',
+      number: '',
+      city: ''
+    };
+
+    this.cdr.detectChanges();
+  }
+
+  editarEndereco(endereco: Endereco): void {
+    this.mostrarFormulario = true;
+    this.editando = true;
+    this.enderecoEditandoId = endereco.id;
+    this.erro = '';
+
+    this.novoEndereco = {
+      zip_code: endereco.zip_code,
+      street: endereco.street,
+      number: endereco.number,
+      city: endereco.city
+    };
+
+    this.cdr.detectChanges();
+  }
+
+  cancelarAdicao(): void {
+    this.mostrarFormulario = false;
+    this.editando = false;
+    this.enderecoEditandoId = null;
+    this.erro = '';
+
+    this.novoEndereco = {
+      zip_code: '',
+      street: '',
+      number: '',
+      city: ''
+    };
+
+    this.cdr.detectChanges();
+  }
+
+  salvarEndereco(): void {
+    if (!this.formularioValido()) {
+      this.erro = 'Preencha CEP, Rua, Número e Cidade.';
+      this.cdr.detectChanges();
+      return;
     }
+
+    this.carregando = true;
+    this.erro = '';
+    this.cdr.detectChanges();
+
+    if (this.editando && this.enderecoEditandoId !== null) {
+      this.enderecoService
+        .atualizar(this.enderecoEditandoId, this.novoEndereco)
+        .subscribe({
+          next: () => {
+            this.carregando = false;
+            this.cancelarAdicao();
+
+            setTimeout(() => {
+              this.listar();
+            }, 0);
+
+            alert('Endereço atualizado com sucesso!');
+          },
+          error: (err) => {
+            console.error(err);
+
+            this.carregando = false;
+
+            if (err.status === 401) {
+              this.limparSessao();
+              this.router.navigate(['/login']);
+              return;
+            }
+
+            this.erro = 'Erro ao atualizar endereço.';
+            this.cdr.detectChanges();
+          }
+        });
+
+      return;
+    }
+
+    this.enderecoService.salvar(this.novoEndereco).subscribe({
+      next: () => {
+        this.carregando = false;
+        this.cancelarAdicao();
+
+        setTimeout(() => {
+          this.listar();
+        }, 0);
+
+        alert('Endereço salvo com sucesso!');
+      },
+      error: (err) => {
+        console.error(err);
+
+        this.carregando = false;
+
+        if (err.status === 401) {
+          this.limparSessao();
+          this.router.navigate(['/login']);
+          return;
+        }
+
+        this.erro = err?.error?.message || 'Erro ao salvar endereço.';
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  excluirEndereco(id: number): void {
+    if (!confirm('Excluir este endereço?')) {
+      return;
+    }
+
+    this.enderecoService.excluir(id).subscribe({
+      next: () => {
+        setTimeout(() => {
+          this.listar();
+        }, 0);
+
+        alert('Endereço excluído com sucesso!');
+      },
+      error: (err) => {
+        console.error(err);
+
+        if (err.status === 401) {
+          this.limparSessao();
+          this.router.navigate(['/login']);
+          return;
+        }
+
+        alert('Erro ao excluir endereço.');
+      }
+    });
+  }
+
+  definirPadrao(id: number): void {
+    this.enderecoService.definirPadrao(id).subscribe({
+      next: () => {
+        this.enderecos.forEach(endereco => {
+          endereco.padrao = endereco.id === id ? 1 : 0;
+        });
+
+        this.cdr.detectChanges();
+
+        alert('Endereço definido como padrão!');
+      },
+      error: (err) => {
+        console.error(err);
+
+        if (err.status === 401) {
+          this.limparSessao();
+          this.router.navigate(['/login']);
+          return;
+        }
+
+        alert('Erro ao definir endereço padrão.');
+      }
+    });
+  }
+
+  private formularioValido(): boolean {
+    return (
+      this.novoEndereco.zip_code.trim().length > 0 &&
+      this.novoEndereco.street.trim().length > 0 &&
+      this.novoEndereco.number.trim().length > 0 &&
+      this.novoEndereco.city.trim().length > 0
+    );
   }
 }
