@@ -6,7 +6,8 @@ import { inject, Injectable } from '@angular/core';
 })
 export class Orderitem {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order-items';
+  private readonly apiUrl = 'http://localhost:8000/api/order-items';
+  // private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order-items';
 
   getOrderItem(id: string) {
     const url = id !== "" && id !== 'null' ? `${this.apiUrl}/${id}` : `${this.apiUrl}`

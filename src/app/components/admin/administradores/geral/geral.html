@@ -24,7 +24,7 @@
                 <td>{{ admin.created_at | date: 'dd/MM/yyyy'}}</td>
                 <td>@if(admin.active == 1){<span id="respostaAtivo">Ativo</span>}@else {<span id="respostaInativo" >Inativo</span>}</td>
                 <td class="acoes">
-                    <a [routerLink]="['editar', {id: admin.id}]"><i class="fa-solid fa-pen"></i></a>
+                    <a [routerLink]="['editar', admin.id]"><i class="fa-solid fa-pen"></i></a>
                     <a routerLink="deletar"><i class="fa-solid fa-trash"></i></a></td>
             </tr>
 

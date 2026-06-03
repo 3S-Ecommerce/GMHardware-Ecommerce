@@ -16,7 +16,7 @@ export class Cadastro {
   private fb = inject(FormBuilder);
   private authService = inject(Auth);
   private router = inject(Router);
-  showModal = false
+  showModal = signal<boolean>(false)
   dados = signal<any>([]);
 
   // Configuração do formulário expandido
@@ -32,7 +32,7 @@ export class Cadastro {
 
   // 2. ADICIONE ESTE MÉTODO AQUI
   toggleModal() {
-    this.showModal = !this.showModal;
+    this.showModal.update(p => !p);
   }
 
   onSubmit() {

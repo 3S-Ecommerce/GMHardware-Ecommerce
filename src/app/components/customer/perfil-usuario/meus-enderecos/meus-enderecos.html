@@ -1,38 +1,221 @@
 <div class="meus-enderecos-container">
   <h1 class="enderecos-title">Meus Endereços</h1>
-  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
-  
+
+  <a routerLink="/meu-perfil" class="btn-voltar">
+    ← Voltar para Meu Perfil
+  </a>
+
+  <p
+    *ngIf="erro && !mostrarFormulario"
+    style="color: #ff8c42; text-align: center; font-weight: 600; margin-bottom: 20px;"
+  >
+    {{ erro }}
+  </p>
+
   <div class="enderecos-list" *ngIf="!mostrarFormulario">
+
+    <div
+      *ngIf="carregando"
+      style="text-align: center; color: #b0b0b0; padding: 20px;"
+    >
+      Carregando endereços...
+    </div>
+
+    <div
+      *ngIf="enderecos.length === 0 && !carregando"
+      style="text-align: center; color: #b0b0b0; padding: 20px;"
+    >
+      Nenhum endereço cadastrado.
+    </div>
+
     <div class="endereco-item" *ngFor="let e of enderecos">
-      <div class="endereco-icon"><img src="/assets/icones-perfil/endereco.png"></div>
-      <div class="endereco-info">
-        <h2 class="endereco-titulo">{{ e.street }}, {{ e.number }}</h2>
-        <p class="endereco-cep">CEP {{ e.zip_code }} - {{ e.city }} - {{ e.state }}</p>
-        <p class="endereco-tipo">{{ e.type }}</p>
-        <p class="endereco-contato">{{ e.contact_name }} - {{ e.contact_phone }}</p>
+
+      <div class="endereco-icon">
+        <img
+          src="/assets/icones-meuperfil/endereco.png"
+          alt="Endereço"
+        >
       </div>
-      <button class="endereco-excluir" (click)="excluirEndereco(e.id)">Excluir</button>
+
+      <div class="endereco-info">
+        <h2 class="endereco-titulo">
+          {{ e.street }}, {{ e.number }}
+        </h2>
+
+        <p class="endereco-cep">
+          CEP {{ e.zip_code }}
+        </p>
+
+        <p class="endereco-tipo">
+          Cidade: {{ e.city }}
+        </p>
+
+        <p
+          *ngIf="e.padrao"
+          class="endereco-contato"
+          style="color: #4CAF50; font-weight: bold;"
+        >
+          ✓ Endereço Padrão
+        </p>
+      </div>
+
+      <div
+        style="
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: flex-end;
+          flex-wrap: wrap;
+        "
+      >
+
+        <button
+          *ngIf="!e.padrao"
+          class="btn-adicionar"
+          type="button"
+          (click)="definirPadrao(e.id)"
+        >
+          Tornar padrão
+        </button>
+
+        <button
+          class="btn-adicionar"
+          type="button"
+          (click)="editarEndereco(e)"
+        >
+          Editar
+        </button>
+
+        <button
+          class="endereco-excluir"
+          type="button"
+          (click)="excluirEndereco(e.id)"
+        >
+          Excluir
+        </button>
+
+      </div>
+
     </div>
   </div>
 
   <div class="enderecos-list" *ngIf="mostrarFormulario">
-    <div class="endereco-item" style="flex-direction: column; align-items: stretch; gap: 10px;">
-      <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.neighborhood" placeholder="Bairro" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.state" placeholder="UF" maxlength="2" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.contact_name" placeholder="Nome Contato" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <input type="text" [(ngModel)]="novoEndereco.contact_phone" placeholder="Telefone Contato" style="background:#1a1f27;color:white;padding:10px;border:1px solid #2a2a2a;border-radius:4px">
-      <div style="display:flex;gap:10px">
-        <button class="btn-adicionar" (click)="salvarEndereco()" style="flex:1;justify-content:center">Salvar</button>
-        <button class="endereco-excluir" (click)="cancelarAdicao()">Cancelar</button>
+
+    <div
+      class="endereco-item"
+      style="
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      "
+    >
+
+      <h2 class="endereco-titulo" style="margin-bottom: 8px;">
+        {{ editando ? 'Editar Endereço' : 'Novo Endereço' }}
+      </h2>
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.zip_code"
+        placeholder="CEP"
+        style="
+          background: #1a1f27;
+          color: white;
+          padding: 12px;
+          border: 1px solid #2a2a2a;
+          border-radius: 4px;
+        "
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.street"
+        placeholder="Rua"
+        style="
+          background: #1a1f27;
+          color: white;
+          padding: 12px;
+          border: 1px solid #2a2a2a;
+          border-radius: 4px;
+        "
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.number"
+        placeholder="Número"
+        style="
+          background: #1a1f27;
+          color: white;
+          padding: 12px;
+          border: 1px solid #2a2a2a;
+          border-radius: 4px;
+        "
+      >
+
+      <input
+        type="text"
+        [(ngModel)]="novoEndereco.city"
+        placeholder="Cidade"
+        style="
+          background: #1a1f27;
+          color: white;
+          padding: 12px;
+          border: 1px solid #2a2a2a;
+          border-radius: 4px;
+        "
+      >
+
+      <p
+        *ngIf="erro"
+        style="
+          color: #ff8c42;
+          font-size: 13px;
+          font-weight: 600;
+          margin: 4px 0;
+        "
+      >
+        {{ erro }}
+      </p>
+
+      <div style="display: flex; gap: 10px; margin-top: 8px;">
+
+        <button
+          class="btn-adicionar"
+          type="button"
+          (click)="salvarEndereco()"
+          [disabled]="carregando"
+          style="flex: 1; justify-content: center;"
+        >
+          {{ carregando ? 'Salvando...' : (editando ? 'Salvar Alterações' : 'Salvar Endereço') }}
+        </button>
+
+        <button
+          class="endereco-excluir"
+          type="button"
+          (click)="cancelarAdicao()"
+          [disabled]="carregando"
+          style="background: rgba(255,255,255,0.05);"
+        >
+          Cancelar
+        </button>
+
       </div>
+
     </div>
+
   </div>
 
   <div class="enderecos-actions" *ngIf="!mostrarFormulario">
-    <button class="btn-adicionar" (click)="adicionarEndereco()"><span class="btn-icon">+</span> Adicionar Novo Endereço</button>
+
+    <button
+      class="btn-adicionar"
+      type="button"
+      (click)="adicionarEndereco()"
+    >
+      <span class="btn-icon">+</span>
+      Adicionar Novo Endereço
+    </button>
+
   </div>
 </div>

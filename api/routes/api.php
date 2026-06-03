@@ -17,6 +17,7 @@ use App\Http\Controllers\AddressController;
 Route::get("/products/search", [ProductController::class, "search"]);
 
 Route::post('/pix', [PaymentController::class, 'createPixPayment']);
+
 // Route::get('/user/{id}', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -25,8 +26,8 @@ Route::apiResource('user', UserController::class);
 
 Route::apiResource('admin', AdminController::class);
 
-Route::apiResource('order', OrderController::class);
-
+Route::apiResource('order' , OrderController::class)
+    ->middleware('auth:sanctum');
 Route::apiResource('category', CategoryController::class);
 
 Route::apiResource('product', ProductController::class);
@@ -40,7 +41,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/update-password', [AuthController::class, 'updatePassword']);
 
-Route::post('/salvar-cartao', [AuthController::class, 'storeCard'])->middleware('auth:sanctum');
+Route::post('/logout', [AuthController::class, 'logout'])
+    ->middleware('auth:sanctum');
+
+Route::post('/salvar-cartao', [AuthController::class, 'storeCard'])
+    ->middleware('auth:sanctum');
 
 Route::get('/meus-cartoes', [AuthController::class, 'getCards'])
     ->middleware('auth:sanctum');
@@ -51,9 +56,11 @@ Route::delete('/salvar-cartao/{id}', [AuthController::class, 'deleteCard'])
 Route::put('/cartoes/{id}/default', [AuthController::class, 'makeDefaultCard'])
     ->middleware('auth:sanctum');
 
-Route::apiResource('addresses', AddressController::class)->middleware('auth:sanctum');
+Route::apiResource('addresses', AddressController::class)
+    ->middleware('auth:sanctum');
 
-Route::post('/orders/checkout', [OrderController::class, 'checkout'])->middleware('auth:sanctum');
+Route::post('/orders/checkout', [OrderController::class, 'checkout'])
+    ->middleware('auth:sanctum');
 
 Route::put('/addresses/{id}/default', [AddressController::class, 'makeDefault'])
     ->middleware('auth:sanctum');

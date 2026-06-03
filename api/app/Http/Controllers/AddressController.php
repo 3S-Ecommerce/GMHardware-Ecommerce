@@ -7,56 +7,80 @@ use Illuminate\Http\Request;
 
 class AddressController extends Controller
 {
-    // Listar endereços do usuário
     public function index(Request $request)
     {
-        return response()->json(
-            Endereco::where('user_id', $request->user()->id)->get(),
-            200
-        );
+        $enderecos = Endereco::where('user_id', $request->user()->id)
+            ->orderByDesc('padrao')
+            ->orderBy('id')
+            ->get();
+
+        return response()->json($enderecos, 200);
     }
 
-    // Cadastrar endereço
+    public function show(Request $request, $id)
+    {
+        $endereco = Endereco::where('id', $id)
+            ->where('user_id', $request->user()->id)
+            ->firstOrFail();
+
+        return response()->json($endereco, 200);
+    }
+
     public function store(Request $request)
     {
-        $data = $request->all();
-        $data['user_id'] = $request->user()->id;
+        $request->validate([
+            'zip_code' => 'required|string|max:20',
+            'street' => 'required|string|max:255',
+            'number' => 'required|string|max:50',
+            'city' => 'required|string|max:255',
+        ]);
 
-        // Verifica se já existe endereço
         $hasAddress = Endereco::where('user_id', $request->user()->id)->exists();
 
-        // Primeiro endereço vira padrão
-        $data['padrao'] = !$hasAddress;
-
-        $address = Endereco::create($data);
+        $address = Endereco::create([
+            'user_id' => $request->user()->id,
+            'zip_code' => $request->zip_code,
+            'street' => $request->street,
+            'number' => $request->number,
+            'city' => $request->city,
+            'padrao' => !$hasAddress
+        ]);
 
         return response()->json($address, 201);
     }
 
-    // Atualizar endereço
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'zip_code' => 'required|string|max:20',
+            'street' => 'required|string|max:255',
+            'number' => 'required|string|max:50',
+            'city' => 'required|string|max:255',
+        ]);
+
         $address = Endereco::where('id', $id)
             ->where('user_id', $request->user()->id)
             ->firstOrFail();
 
-        $address->update($request->all());
+        $address->update([
+            'zip_code' => $request->zip_code,
+            'street' => $request->street,
+            'number' => $request->number,
+            'city' => $request->city,
+        ]);
 
         return response()->json($address, 200);
     }
 
-    // Tornar endereço padrão
     public function makeDefault(Request $request, $id)
     {
         $address = Endereco::where('id', $id)
             ->where('user_id', $request->user()->id)
             ->firstOrFail();
 
-        // Remove padrão dos outros
         Endereco::where('user_id', $request->user()->id)
             ->update(['padrao' => 0]);
 
-        // Define o selecionado
         $address->update(['padrao' => 1]);
 
         return response()->json([
@@ -64,7 +88,6 @@ class AddressController extends Controller
         ], 200);
     }
 
-    // Excluir endereço
     public function destroy(Request $request, $id)
     {
         $address = Endereco::where('id', $id)
@@ -76,12 +99,15 @@ class AddressController extends Controller
 
         $address->delete();
 
-        // Se apagou o padrão, define outro
         if ($wasDefault) {
-            $nextAddress = Endereco::where('user_id', $userId)->first();
+            $nextAddress = Endereco::where('user_id', $userId)
+                ->orderBy('id')
+                ->first();
 
             if ($nextAddress) {
-                $nextAddress->update(['padrao' => 1]);
+                $nextAddress->update([
+                    'padrao' => 1
+                ]);
             }
         }
 
