@@ -1,209 +1,274 @@
 @use "../../../../../../../public/assets/style.scss";
-@media(min-width:1200px){
+
+$bg-card: #0F1115;
+$bg-input: #1a1f27;
+$border-color: #2a2a2a;
+$text-primary: #ffffff;
+$text-secondary: #b0b0b0;
+$accent-blue: #2563EB;
+$accent-orange: #ff8c42;
+$success: #22c55e;
+
 .div-entrega {
-    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
-    max-width: 70%;
-    padding: 24px;
-    background-color: style.$primary-bg;
-    border-radius: 10px;
+  width: 100%;
+  max-width: 900px;
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 24px;
+  background-color: style.$primary-bg;
+  border-radius: 10px;
 
-    h2 {
-        color: white;
-        @include style.fontSize($size: 24px, $weight: 600);
+  h2,
+  h3 {
+    color: $text-primary;
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  p {
+    color: $text-secondary;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid $border-color;
+  }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.25s ease;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .div-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    button {
+      background: transparent;
+      padding: 10px 14px;
+      border-radius: 6px;
     }
 
-    p {
-        color: style.$white-color;
-        @include style.fontSize($size: 16px, $weight: 400);
+    .escolher-endereco {
+      color: $accent-orange;
 
+      &:hover {
+        background-color: rgba(255, 140, 66, 0.12);
+      }
     }
 
-    hr {
-        width: 100%;
+    .selecionar {
+      color: $success;
+
+      &:hover {
+        background-color: rgba(34, 197, 94, 0.12);
+      }
     }
-
-    .div-button {
-        &.receber {
-            @include style.displayFlex($justify: space-between);
-
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-                @include style.displayFlex();
-
-                &.escolher-endereco {
-                    color: style.$descont-color;
-                    @include style.fontSize($size: 16px, $weight: 600);
-
-                }
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 16px, $weight: 600);
-
-                }
-            }
-        }
-
-        &.retirar {
-            @include style.displayFlex($justify: flex-end);
-
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-
-                @include style.displayFlex();
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 16px, $weight: 600);
-
-                }
-            }
-        }
-    }
+  }
 }
+
+.erro-endereco {
+  color: $accent-orange !important;
+  font-weight: 600 !important;
+  margin: 0;
 }
-@media (min-width: 736px) and (max-width: 1199px) {
+
+.enderecos-area {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.mensagem-vazia {
+  color: $text-secondary;
+  margin: 0;
+}
+
+.endereco-card {
+  width: 100%;
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.endereco-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.endereco-texto {
+  color: $text-primary !important;
+  margin: 0;
+}
+
+.endereco-padrao {
+  color: $success !important;
+  font-weight: 700 !important;
+  margin: 0;
+}
+
+.endereco-botoes,
+.form-botoes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-azul,
+.btn-adicionar-endereco {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background-color: $accent-blue;
+  color: $text-primary;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: darken($accent-blue, 10%);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-secundario {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background-color: transparent;
+  border: 1px solid $accent-orange !important;
+  color: $accent-orange;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: rgba(255, 140, 66, 0.12);
+  }
+}
+
+.btn-cancelar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: $accent-orange;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: rgba(255, 140, 66, 0.12);
+  }
+}
+
+.form-endereco {
+  width: 100%;
+  background-color: $bg-card;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input {
+    width: 100%;
+    background-color: $bg-input;
+    color: $text-primary;
+    padding: 12px;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    outline: none;
+
+    &::placeholder {
+      color: $text-secondary;
+    }
+
+    &:focus {
+      border-color: $accent-blue;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+    }
+  }
+}
+
+@media (max-width: 1199px) {
   .div-entrega {
-    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
     max-width: 100%;
+    min-width: 0;
+    width: 100%;
     padding: 20px;
-    background-color: style.$primary-bg;
-    border-radius: 10px;
+    gap: 16px;
 
     h2 {
-        color: white;
-        @include style.fontSize($size: 19px, $weight: 600);
+      font-size: 20px;
     }
 
     p {
-        color: style.$white-color;
-        @include style.fontSize($size: 14px, $weight: 400);
-
+      font-size: 14px;
     }
-
-    hr {
-        width: 100%;
-    }
-
-    .div-button {
-        &.receber {
-            @include style.displayFlex($justify: space-between);
-
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-                @include style.displayFlex();
-
-                &.escolher-endereco {
-                    color: style.$descont-color;
-                    @include style.fontSize($size: 13px, $weight: 600);
-
-                }
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 13px, $weight: 600);
-
-                }
-            }
-        }
-
-        &.retirar {
-            @include style.displayFlex($justify: flex-end);
-
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-
-                @include style.displayFlex();
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 13px, $weight: 600);
-
-                }
-            }
-        }
-    }
-}
+  }
 }
 
-@media(max-width: 736px){
-    .div-entrega {
-    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
-    max-width: 100%;
-    padding: 20px;
-    background-color: style.$primary-bg;
-    border-radius: 10px;
+@media (max-width: 736px) {
+  .div-entrega {
+    padding: 18px;
+    gap: 14px;
 
     h2 {
-        color: white;
-        @include style.fontSize($size: 25px, $weight: 600);
+      font-size: 22px;
     }
 
     p {
-        color: style.$white-color;
-        @include style.fontSize($size: 12px, $weight: 400);
-
-    }
-
-    hr {
-        width: 100%;
+      font-size: 13px;
     }
 
     .div-button {
-        &.receber {
-            @include style.displayFlex($justify: space-between);
+      flex-direction: column;
+      align-items: stretch;
 
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-                @include style.displayFlex();
-
-                &.escolher-endereco {
-                    color: style.$descont-color;
-                    @include style.fontSize($size: 11px, $weight: 600);
-
-                }
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 11px, $weight: 600);
-
-                }
-            }
-        }
-
-        &.retirar {
-            @include style.displayFlex($justify: flex-end);
-
-            button {
-                background: none;
-                border: none;
-                cursor: pointer;
-                max-width: 215px;
-
-                @include style.displayFlex();
-
-                &.selecionar {
-                    color: style.$success-color;
-                    @include style.fontSize($size: 11px, $weight: 600);
-
-                }
-            }
-        }
+      button {
+        width: 100%;
+      }
     }
-}
+  }
+
+  .endereco-botoes,
+  .form-botoes {
+    flex-direction: column;
+
+    button {
+      width: 100%;
+    }
+  }
 }

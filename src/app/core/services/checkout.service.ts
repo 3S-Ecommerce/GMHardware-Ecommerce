@@ -1,28 +1,57 @@
 import { Injectable, signal } from '@angular/core';
 
-// Definimos os tipos de pagamento permitidos
 export type PaymentMethod = 'pix' | 'cartao' | null;
 
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
-  // Usamos um Signal para armazenar o método de forma reativa
-  private _paymentMethod = signal<PaymentMethod>(null);
+  private _paymentMethod = signal<PaymentMethod>(this.getSavedPaymentMethod());
 
-  // Expondo o valor apenas para leitura
   paymentMethod = this._paymentMethod.asReadonly();
 
-  // Função para salvar a escolha do usuário
-  setPaymentMethod(method: PaymentMethod) {
+  setPaymentMethod(method: PaymentMethod): void {
     this._paymentMethod.set(method);
+
+    if (typeof window !== 'undefined') {
+      if (method) {
+        localStorage.setItem('metodoPagamento', method);
+      } else {
+        localStorage.removeItem('metodoPagamento');
+      }
+    }
   }
 
-  // Função auxiliar para retornar o nome formatado na tela de revisão
+  getPaymentMethod(): PaymentMethod {
+    const currentMethod = this._paymentMethod();
+
+    if (currentMethod) {
+      return currentMethod;
+    }
+
+    return this.getSavedPaymentMethod();
+  }
+
   getPaymentMethodName(): string {
-    const method = this._paymentMethod();
+    const method = this.getPaymentMethod();
+
     if (method === 'pix') return 'PIX';
     if (method === 'cartao') return 'Cartão de Crédito';
+
     return 'Não selecionado';
+  }
+
+  private getSavedPaymentMethod(): PaymentMethod {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+
+    const saved = localStorage.getItem('metodoPagamento');
+
+    if (saved === 'pix' || saved === 'cartao') {
+      return saved;
+    }
+
+    return null;
   }
 }

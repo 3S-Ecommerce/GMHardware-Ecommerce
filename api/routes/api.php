@@ -20,8 +20,9 @@ Route::apiResource("user", UserController::class);
 
 Route::apiResource("admin", AdminController::class);
 
-Route::apiResource("order" , OrderController::class);
-
+Route::apiResource('order', OrderController::class)
+    ->middleware('auth:sanctum');
+    
 Route::apiResource("category", CategoryController::class);
 
 Route::apiResource("product", ProductController::class);

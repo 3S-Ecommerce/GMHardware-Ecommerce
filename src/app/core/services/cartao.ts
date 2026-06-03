@@ -7,7 +7,7 @@ export interface Cartao {
   numero_cartao: string;
   vencimento: string;
   nome_titular: string;
-  is_default: boolean;
+  is_default: boolean | number;
 }
 
 export interface CartaoPayload {
@@ -22,18 +22,30 @@ export interface CartaoPayload {
   providedIn: 'root'
 })
 export class CartaoService {
-
   private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) {}
 
-  private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
+  private getToken(): string | null {
+    if (typeof window === 'undefined') {
+      return null;
+    }
 
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+    return localStorage.getItem('token');
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
+
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+
+    return headers;
   }
 
   listar(): Observable<Cartao[]> {
@@ -44,14 +56,11 @@ export class CartaoService {
   }
 
   getCartoesByUser(): Observable<Cartao[]> {
-    return this.http.get<Cartao[]>(
-      `${this.apiUrl}/meus-cartoes`,
-      { headers: this.getAuthHeaders() }
-    );
+    return this.listar();
   }
 
-  salvarCartao(payload: CartaoPayload): Observable<any> {
-    return this.http.post(
+  salvarCartao(payload: CartaoPayload): Observable<Cartao> {
+    return this.http.post<Cartao>(
       `${this.apiUrl}/salvar-cartao`,
       payload,
       { headers: this.getAuthHeaders() }
