@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 } )
 export class ComprasService {
-  private readonly apiUrl = 'http://localhost:8000/api/orders';
-  // private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/orders';
+  // private readonly apiUrl = 'http://localhost:8000/api/orders';
+  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/orders';
 
   constructor(private http: HttpClient ) { }
 

@@ -22,7 +22,9 @@ export interface CartaoPayload {
   providedIn: 'root'
 })
 export class CartaoService {
-  private apiUrl = 'http://localhost:8000/api';
+  // private apiUrl = 'http://localhost:8000/api';
+  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api';
+
 
   constructor(private http: HttpClient) {}
 

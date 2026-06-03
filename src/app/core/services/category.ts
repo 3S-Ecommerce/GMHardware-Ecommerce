@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Category { 
   private http = inject(HttpClient);
-  private readonly apiUrl = 'http://localhost:8000/api/category';
-  // private readonly apiUrl = "https://gmhardware-ecommerce.onrender.com/api/category";
+  // private readonly apiUrl = 'http://localhost:8000/api/category';
+  private readonly apiUrl = "https://gmhardware-ecommerce.onrender.com/api/category";
 
   getCategory(id:string){
     const url = id !== '' && id !== 'null' ? `${this.apiUrl}/${id}` : `${this.apiUrl}`;

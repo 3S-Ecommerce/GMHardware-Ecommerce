@@ -21,10 +21,11 @@ export interface CheckoutPayload {
 })
 export class Order {
   private http = inject(HttpClient);
-  //private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order';
+  private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order';
+  private readonly checkoutUrl = 'https://gmhardware-ecommerce.onrender.com/api/orders/checkout';
 
-  private readonly apiUrl = 'http://127.0.0.1:8000/api/order';
-  private readonly checkoutUrl = 'http://127.0.0.1:8000/api/orders/checkout';
+  // private readonly apiUrl = 'http://127.0.0.1:8000/api/order';
+  // private readonly checkoutUrl = 'http://127.0.0.1:8000/api/orders/checkout';
 
   private getHeaders(): HttpHeaders {
     const token = typeof window !== 'undefined'
