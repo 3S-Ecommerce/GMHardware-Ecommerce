@@ -311,6 +311,11 @@ export class Revisar {
     return;
   }
 
+  if (this.produtos().length === 0) {
+    alert('Seu carrinho está vazio.');
+    return;
+  }
+
   const items = this.produtos().map((produto: any) => {
     return {
       id_product: Number(produto.id),
@@ -318,11 +323,6 @@ export class Revisar {
       price: Number(produto.price || produto.preco || produto.valor || 0)
     };
   });
-
-  if (items.length === 0) {
-    alert('Seu carrinho está vazio.');
-    return;
-  }
 
   const payload: CheckoutPayload = {
     endereco_id: this.enderecoSelecionado.id,
@@ -334,13 +334,15 @@ export class Revisar {
 
   this.orderService.checkout(payload).subscribe({
     next: (res) => {
-      alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
+      this.cart.limparCarrinho();
 
       if (isPlatformBrowser(this.platformId)) {
         localStorage.removeItem('enderecoSelecionado');
         localStorage.removeItem('cartaoSelecionado');
         localStorage.removeItem('metodoPagamento');
       }
+
+      alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
 
       this.router.navigate(['/inicio']);
     },

@@ -44,6 +44,7 @@ import { DadosUsuario } from './components/customer/dados-usuario/dados-usuario'
 import { CheckoutComponent } from './components/customer/checkout/checkout';
 import { MeusEnderecosComponent } from './components/customer/perfil-usuario/meus-enderecos/meus-enderecos';
 import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuario';
+import { MinhasComprasComponent } from './components/customer/perfil-usuario/minhas-compras/minhas-compras';
 
 export const routes: Routes = [
     {
@@ -121,6 +122,12 @@ export const routes: Routes = [
                 loadComponent: () => import('./components/customer/perfil-usuario/meus-enderecos/meus-enderecos')
                 .then(m => m.MeusEnderecosComponent)
             },
+
+            {
+                 path: 'minhas-compras',
+                loadComponent: () => import('./components/customer/perfil-usuario/minhas-compras/minhas-compras')
+                .then(m => m.MinhasComprasComponent)
+            }
 
         ]
     },

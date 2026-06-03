@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, afterNextRender, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Order } from '../../../../core/services/order';
 
@@ -17,12 +17,21 @@ export class MinhasComprasComponent implements OnInit {
 
   constructor(
     private orderService: Order,
-    private router: Router
-  ) {}
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: object
+  ) {
+    afterNextRender(() => {
+      if (!isPlatformBrowser(this.platformId)) {
+        return;
+      }
 
-  ngOnInit(): void {
-    this.carregarCompras();
+      setTimeout(() => {
+        this.carregarCompras();
+      }, 0);
+    });
   }
+
+  ngOnInit(): void {}
 
   carregarCompras(): void {
     this.carregando = true;
@@ -30,26 +39,35 @@ export class MinhasComprasComponent implements OnInit {
 
     this.orderService.listarMinhasCompras().subscribe({
       next: (res) => {
-        this.compras = Array.isArray(res) ? res : [];
-        this.carregando = false;
+        setTimeout(() => {
+          this.compras = Array.isArray(res) ? res : [];
+          this.carregando = false;
+        }, 0);
       },
       error: (err) => {
         console.error('Erro ao carregar compras:', err);
-        this.carregando = false;
 
-        if (err.status === 401) {
-          localStorage.clear();
-          this.router.navigate(['/login']);
-          return;
-        }
+        setTimeout(() => {
+          this.carregando = false;
 
-        this.erro = 'Erro ao carregar suas compras.';
+          if (err.status === 401) {
+            if (isPlatformBrowser(this.platformId)) {
+              localStorage.clear();
+            }
+
+            this.router.navigate(['/login']);
+            return;
+          }
+
+          this.erro = 'Erro ao carregar suas compras.';
+        }, 0);
       }
     });
   }
 
   formatarData(data: string): string {
     if (!data) return '';
+
     return new Date(data).toLocaleDateString('pt-BR');
   }
 
