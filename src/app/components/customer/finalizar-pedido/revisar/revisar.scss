@@ -1,289 +1,345 @@
 @use "../../../../../../public/assets/style.scss";
-@media(min-width:1200px){
-.revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+
+$azul-principal: #2563EB;
+$azul-hover: #1d4ed8;
+$laranja: #ff8c42;
+$bg-card: style.$primary-bg;
+
+@media (min-width: 1200px) {
+  .revisar {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 32px);
+    width: 100%;
+    padding: 40px 0;
 
     h2 {
-        @include style.fontSize($size: 40px, $weight: 600);
-        color: white;
+      @include style.fontSize($size: 40px, $weight: 600);
+      color: white;
     }
 
     .div-layout {
-        @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
-        max-width: 70%;
-        padding: 24px;
-        background-color: style.$primary-bg;
-        border-radius: 10px;
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 20px);
+      width: 70vw;
+      max-width: 900px;
+      min-width: 650px;
+      padding: 28px;
+      background-color: $bg-card;
+      border-radius: 10px;
+      box-sizing: border-box;
 
-        .quantidade {
-            @include style.displayFlex($aligh: center);
-            width: auto;
-            font-size: 20px;
+      .quantidade {
+        @include style.displayFlex($aligh: center);
+        width: auto;
+        font-size: 20px;
+      }
+
+      h3 {
+        @include style.fontSize($size: 28px, $weight: 600);
+        color: white;
+      }
+
+      p {
+        @include style.fontSize($size: 20px, $weight: 400);
+        color: style.$white-color;
+        line-height: 1.4;
+      }
+
+      hr {
+        width: 100%;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        @include style.displayFlex($justify: flex-start, $width: auto);
+        color: $laranja;
+        @include style.fontSize($size: 16px, $weight: 600);
+      }
+
+      .div-img {
+        @include style.displayFlex($justify: space-between, $gap: 18px);
+        align-self: stretch;
+        width: 100%;
+
+        .img {
+          position: relative;
+          border-radius: 50%;
+          border: 2px solid white;
+          width: 110px;
+          height: 110px;
+          flex-shrink: 0;
         }
 
-        h3 {
-            @include style.fontSize($size: 32px, $weight: 600);
-            color: white;
+        img {
+          border-radius: 50%;
+          object-fit: cover;
         }
-
-        p {
-            @include style.fontSize($size: 24px, $weight: 400);
-            color: style.$white-color;
-        }
-
-        hr {
-            width: 100%;
-        }
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            @include style.displayFlex($justify: flex-start, $width: auto);
-            color: style.$descont-color;
-            @include style.fontSize($size: 16px, $weight: 600);
-
-        }
-
-        .div-img {
-            @include style.displayFlex($justify: space-between, $gap: 16px);
-            align-self: flex-start;
-
-            .img {
-                position: relative;
-                border-radius: 50%;
-                border: 2px solid white;
-                width: 150px;
-                height: 150px;
-            }
-
-            img {
-                border-radius: 50%;
-                object-fit: cover;
-            }
-        }
+      }
     }
 
     .button {
-        width: 70%;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 16px;
-        display: flex;
+      width: 70vw;
+      max-width: 900px;
+      min-width: 650px;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      display: flex;
 
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 4px 10px;
-            min-width: 120px;
-            height: 40px;
-            margin-left: 8px;
-            cursor: pointer;
-            color: white;
-            @include style.fontSize($size: 22px, $weight: 600);
+      button {
+        border: none;
+        border-radius: 8px;
+        padding: 8px 18px;
+        min-width: 130px;
+        min-height: 42px;
+        cursor: pointer;
+        color: white;
+        @include style.fontSize($size: 18px, $weight: 600);
+      }
 
-            &.confirmar {
-                background-color: style.$primary-text;
-            }
+      .cancelar {
+        background: transparent;
+        color: white;
+      }
 
-            &.cancelar {
-                @include style.fontSize($size: 22px, $weight: 600);
-                background: none;
-                color: white;
-            }
+      #revisarBtnConfirmar {
+        background-color: $azul-principal;
+
+        &:hover {
+          background-color: $azul-hover;
         }
+
+        &:disabled {
+          background-color: #4b5563;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
     }
+  }
 }
-}
+
 @media (min-width: 736px) and (max-width: 1199px) {
   .revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 28px);
+    width: 100%;
+    padding: 30px 0;
 
     h2 {
-        @include style.fontSize($size: 30px, $weight: 600);
-        color: white;
+      @include style.fontSize($size: 30px, $weight: 600);
+      color: white;
     }
 
     .div-layout {
-    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
-    max-width: 100%;
-    padding: 20px;
-    background-color: style.$primary-bg;
-    border-radius: 10px;
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 16px);
+      width: 85vw;
+      max-width: 760px;
+      min-width: 520px;
+      padding: 24px;
+      background-color: $bg-card;
+      border-radius: 10px;
+      box-sizing: border-box;
 
-        .quantidade {
-            @include style.displayFlex($aligh: center);
-            width: auto;
-            font-size: 20px;
+      .quantidade {
+        @include style.displayFlex($aligh: center);
+        width: auto;
+        font-size: 18px;
+      }
+
+      h3 {
+        @include style.fontSize($size: 22px, $weight: 600);
+        color: white;
+      }
+
+      p {
+        @include style.fontSize($size: 16px, $weight: 400);
+        color: style.$white-color;
+        line-height: 1.4;
+      }
+
+      hr {
+        width: 100%;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        @include style.displayFlex($justify: flex-start, $width: auto);
+        color: $laranja;
+        @include style.fontSize($size: 14px, $weight: 600);
+      }
+
+      .div-img {
+        @include style.displayFlex($justify: space-between, $gap: 16px);
+        align-self: stretch;
+        width: 100%;
+
+        .img {
+          position: relative;
+          border-radius: 50%;
+          border: 2px solid white;
+          width: 90px;
+          height: 90px;
+          flex-shrink: 0;
         }
 
-        h3 {
-            @include style.fontSize($size: 19px, $weight: 600);
-            color: white;
+        img {
+          border-radius: 50%;
+          object-fit: cover;
         }
-
-        p {
-            @include style.fontSize($size: 14px, $weight: 400);
-            color: style.$white-color;
-        }
-
-        hr {
-            width: 100%;
-        }
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            @include style.displayFlex($justify: flex-start, $width: auto);
-            color: style.$descont-color;
-            @include style.fontSize($size: 13px, $weight: 600);
-
-        }
-
-        .div-img {
-            @include style.displayFlex($justify: space-between, $gap: 16px);
-            align-self: flex-start;
-
-            .img {
-                position: relative;
-                border-radius: 50%;
-                border: 2px solid white;
-                width: 150px;
-                height: 150px;
-            }
-
-            img {
-                border-radius: 50%;
-                object-fit: cover;
-            }
-        }
+      }
     }
 
     .button {
-        width: 70%;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 16px;
-        display: flex;
+      width: 85vw;
+      max-width: 760px;
+      min-width: 520px;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+      display: flex;
 
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 4px 10px;
-            min-width: 80px;
-            height: 30px;
-            margin-left: 8px;
-            cursor: pointer;
-            color: white;
-            @include style.fontSize($size: 14px, $weight: 600);
+      button {
+        border: none;
+        border-radius: 8px;
+        padding: 7px 14px;
+        min-width: 110px;
+        min-height: 36px;
+        cursor: pointer;
+        color: white;
+        @include style.fontSize($size: 14px, $weight: 600);
+      }
 
-            &.confirmar {
-                background-color: style.$primary-text;
-            }
+      .cancelar {
+        background: transparent;
+        color: white;
+      }
 
-            &.cancelar {
-                @include style.fontSize($size: 14px, $weight: 600);
-                background: none;
-                color: white;
-            }
+      #revisarBtnConfirmar {
+        background-color: $azul-principal;
+
+        &:hover {
+          background-color: $azul-hover;
         }
+
+        &:disabled {
+          background-color: #4b5563;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
     }
+  }
 }
-}
-@media(max-width: 736px){
-    .revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+
+@media (max-width: 736px) {
+  .revisar {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 24px);
+    width: 100%;
+    padding: 24px 0;
 
     h2 {
-        @include style.fontSize($size: 25px, $weight: 600);
-        color: white;
+      @include style.fontSize($size: 25px, $weight: 600);
+      color: white;
     }
 
     .div-layout {
-    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
-    max-width: 100%;
-    padding: 20px;
-    background-color: style.$primary-bg;
-    border-radius: 10px;
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
+      width: 100%;
+      max-width: 100%;
+      padding: 20px;
+      background-color: $bg-card;
+      border-radius: 10px;
+      box-sizing: border-box;
 
-        .quantidade {
-            @include style.displayFlex($aligh: center);
-            width: auto;
-            font-size: 20px;
+      .quantidade {
+        @include style.displayFlex($aligh: center);
+        width: auto;
+        font-size: 16px;
+      }
+
+      h3 {
+        @include style.fontSize($size: 17px, $weight: 600);
+        color: white;
+      }
+
+      p {
+        @include style.fontSize($size: 13px, $weight: 400);
+        color: style.$white-color;
+        line-height: 1.4;
+      }
+
+      hr {
+        width: 100%;
+      }
+
+      button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        @include style.displayFlex($justify: flex-start, $width: auto);
+        color: $laranja;
+        @include style.fontSize($size: 12px, $weight: 600);
+      }
+
+      .div-img {
+        @include style.displayFlex($justify: space-between, $gap: 12px);
+        align-self: stretch;
+        width: 100%;
+
+        .img {
+          position: relative;
+          border-radius: 50%;
+          border: 2px solid white;
+          width: 70px;
+          height: 70px;
+          flex-shrink: 0;
         }
 
-        h3 {
-            @include style.fontSize($size: 15px, $weight: 600);
-            color: white;
+        img {
+          border-radius: 50%;
+          object-fit: cover;
         }
-
-        p {
-            @include style.fontSize($size: 12px, $weight: 400);
-            color: style.$white-color;
-        }
-
-        hr {
-            width: 100%;
-        }
-
-        button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            @include style.displayFlex($justify: flex-start, $width: auto);
-            color: style.$descont-color;
-            @include style.fontSize($size: 11px, $weight: 600);
-
-        }
-
-        .div-img {
-            @include style.displayFlex($justify: space-between, $gap: 16px);
-            align-self: flex-start;
-
-            .img {
-                position: relative;
-                border-radius: 50%;
-                border: 2px solid white;
-                width: 150px;
-                height: 150px;
-            }
-
-            img {
-                border-radius: 50%;
-                object-fit: cover;
-            }
-        }
+      }
     }
 
     .button {
-        width: 70%;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 16px;
-        display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      display: flex;
 
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 5px;
-            min-width: 70px;
-            height: 30px;
-            margin-left: 8px;
-            cursor: pointer;
-            color: white;
-            @include style.fontSize($size: 12px, $weight: 600);
+      button {
+        border: none;
+        border-radius: 8px;
+        padding: 7px 12px;
+        min-width: 90px;
+        min-height: 34px;
+        cursor: pointer;
+        color: white;
+        @include style.fontSize($size: 12px, $weight: 600);
+      }
 
-            &.confirmar {
-                background-color: style.$primary-text;
-            }
+      .cancelar {
+        background: transparent;
+        color: white;
+      }
 
-            &.cancelar {
-                @include style.fontSize($size: 12px, $weight: 600);
-                background: none;
-                color: white;
-            }
+      #revisarBtnConfirmar {
+        background-color: $azul-principal;
+
+        &:hover {
+          background-color: $azul-hover;
         }
+
+        &:disabled {
+          background-color: #4b5563;
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+      }
     }
-}
+  }
 }
