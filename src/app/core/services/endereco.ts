@@ -22,7 +22,8 @@ export interface EnderecoPayload {
   providedIn: 'root'
 })
 export class EnderecoService {
-  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/addresses';
+  private readonly apiUrl = 'http://localhost:8000/api/addresses';
+  // private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/addresses';
 
   constructor(private http: HttpClient) {}
 

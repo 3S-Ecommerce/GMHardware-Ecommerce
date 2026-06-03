@@ -6,32 +6,23 @@
   </a>
 
   <div class="compras-lista">
-
-    <div
-      *ngIf="carregando"
-      class="mensagem"
-    >
+@if(carregando){
+    <div *ngIf="carregando" class="mensagem">
       Carregando compras...
     </div>
+  }@else if (erro) {
 
-    <div
-      *ngIf="erro"
-      class="mensagem erro"
-    >
+    <div *ngIf="erro" class="mensagem erro">
       {{ erro }}
     </div>
-
-    <div
-      *ngIf="!carregando && !erro && compras.length === 0"
-      class="mensagem"
-    >
+  }
+@else if(!carregando && !erro && compras().length === 0){
+    <div class="mensagem">
       Nenhuma compra encontrada.
     </div>
-
-    <div
-      class="compra-card"
-      *ngFor="let compra of compras"
-    >
+  }
+    @for(compra of compras(); track $index){
+    <div class="compra-card">
       <div class="compra-header">
         <div>
           <strong>Pedido #{{ compra.id }}</strong>
@@ -62,16 +53,9 @@
 
       <div class="produtos-lista">
         <h3>Produtos</h3>
-
-        <div
-          class="compra-item"
-          *ngFor="let item of compra.order_items"
-        >
-          <img
-            [src]="getImagemProduto(item)"
-            class="produto-img"
-            alt="Produto"
-          >
+        @for(item of compra.order_items; track $index){
+        <div class="compra-item">
+          <img [src]="getImagemProduto(item)" class="produto-img" alt="Produto">
 
           <div class="produto-info">
             <h4>{{ getNomeProduto(item) }}</h4>
@@ -84,8 +68,10 @@
             </p>
           </div>
         </div>
+        }
       </div>
     </div>
+    }
 
   </div>
 </div>

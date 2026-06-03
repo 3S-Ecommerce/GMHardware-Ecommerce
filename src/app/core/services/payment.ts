@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class Payment {
 
-  api = 'https://gmhardware-ecommerce.onrender.com/api';
+  // api = 'https://gmhardware-ecommerce.onrender.com/api';
+  private readonly api = 'http://localhost:8000/api/';
 
   constructor(private http: HttpClient) {}
 

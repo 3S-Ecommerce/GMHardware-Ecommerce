@@ -1,4 +1,4 @@
-import { Component, OnInit, afterNextRender, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, afterNextRender, Inject, PLATFORM_ID, inject, signal } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { Order } from '../../../../core/services/order';
@@ -11,13 +11,13 @@ import { Order } from '../../../../core/services/order';
   styleUrls: ['./minhas-compras.scss']
 })
 export class MinhasComprasComponent implements OnInit {
-  compras: any[] = [];
+  compras = signal<any[]>([])
   carregando = false;
   erro = '';
+  private orderService = inject(Order)
+  private router = inject(Router)
 
   constructor(
-    private orderService: Order,
-    private router: Router,
     @Inject(PLATFORM_ID) private platformId: object
   ) {
     afterNextRender(() => {
@@ -40,9 +40,9 @@ export class MinhasComprasComponent implements OnInit {
     this.orderService.listarMinhasCompras().subscribe({
       next: (res) => {
         setTimeout(() => {
-          this.compras = Array.isArray(res) ? res : [];
+          this.compras.set(Array.isArray(res) ? res : []);
           this.carregando = false;
-        }, 0);
+        }, 10);
       },
       error: (err) => {
         console.error('Erro ao carregar compras:', err);
@@ -60,7 +60,7 @@ export class MinhasComprasComponent implements OnInit {
           }
 
           this.erro = 'Erro ao carregar suas compras.';
-        }, 0);
+        }, 10);
       }
     });
   }
