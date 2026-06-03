@@ -1,51 +1,94 @@
 @use "../../../../../public/assets/style.scss";
 
-
 .produto {
+    // Adicionei flex-wrap: wrap para a imagem e o conteúdo quebrarem de linha se faltar espaço
     @include style.displayFlex($gap: 120px);
+    flex-wrap: wrap;
     background-color: style.$secundary-bg;
     padding: 62px 148px;
     min-height: 80vh;
 
+    // Garante que o componente de imagem e o conteúdo dividam o espaço no desktop
+    app-imagem-produto {
+        flex: 1;
+        min-width: 300px; // Evita que a foto esmague demais
+    }
+
     .conteudo {
         @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
         flex: 1;
+        min-width: 300px;
         height: 100%;
+
         h1 {
             @include style.fontSize($size: 40px, $weight: 600);
             color: white;
         }
-        ul{
-            li{
+        ul {
+            list-style: none; // Remove bolinhas padrão se necessário
+            padding: 0;
+            li {
                 @include style.fontSize($size: 25px, $weight: 400);
                 color: style.$white-color;
                 margin-bottom: 8px;
             }
         }
+
+        // Faz o seu componente de preço ocupar a largura total da coluna da direita
+        app-adicionar-produto {
+            width: 100%;
+        }
     }
 }
-@media (max-width: 1400px){
-    .produto {
-    @include style.displayFlex($gap:120px);
-    background-color: style.$secundary-bg;
-    padding: 62px 70px;
-    min-height: 80vh;
 
-    .conteudo {
-        @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
-        flex: 1;
-        height: 100%;
-        h1 {
-            @include style.fontSize($size: 20px, $weight: 600);
-            color: white;
-        }
-        ul{
-            li{
-                @include style.fontSize($size: 20px, $weight: 400);
-                color: style.$white-color;
-                margin-bottom: 8px;
+// --- BREAKPOINTS RESPONSIVOS ---
+
+// Notebooks / Telas Médias
+@media (max-width: 1400px) {
+    .produto {
+        @include style.displayFlex($gap: 60px); // Diminuído o gap que era muito grande
+        flex-wrap: wrap;
+        padding: 40px 70px;
+
+        .conteudo {
+            h1 {
+                @include style.fontSize($size: 32px, $weight: 600); // Ajustado de 20px para não sumir no desktop médio
+            }
+            ul {
+                li {
+                    @include style.fontSize($size: 20px, $weight: 400);
+                }
             }
         }
     }
 }
+
+// Tablets (Garante a quebra perfeita e centralização)
+@media (max-width: 992px) {
+    .produto {
+        @include style.displayFlex($direction: column, $gap: 40px, $justify: center, $aligh: center);
+        padding: 40px 30px;
+
+        app-imagem-produto, .conteudo {
+            width: 100%;
+            flex: none;
+        }
+    }
+}
+
+// Celulares
+@media (max-width: 576px) {
+    .produto {
+        padding: 24px 16px;
+        $gap: 24px;
+
+        .conteudo {
+            h1 {
+                @include style.fontSize($size: 24px, $weight: 600);
+            }
+            ul li {
+                @include style.fontSize($size: 16px, $weight: 400);
+            }
+        }
+    }
 }

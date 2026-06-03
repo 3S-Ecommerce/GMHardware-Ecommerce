@@ -2,7 +2,9 @@
 
 :host {
     display: block;
-    max-width: 500px;
+    width: 100%;       // Ocupa o espaço disponível do elemento pai
+    max-width: 500px;  // Mas não passa de 500px no desktop
+    box-sizing: border-box;
     background-color: style.$primary-bg;
     padding: 24px;
     border-radius: 10px;
@@ -18,14 +20,14 @@ h3 {
 .preco-antigo {
     @include style.fontSize($size: 18px, $weight: 400);
     color: rgba(style.$white-color, 0.6);
-    text-decoration: line-through; // Dá o efeito visual de preço anterior riscado
+    text-decoration: line-through;
     display: block;
     margin-bottom: 12px;
 }
 
 .info-precos {
     p {
-        @include style.fontSize($size: 20px, $weight: 400);
+        @include style.fontSize($size: 18px, $weight: 400); // Reduzido levemente para encaixar melhor em blocos menores
         color: style.$white-color;
         line-height: 1.5;
 
@@ -75,8 +77,27 @@ p {
             border: none;
 
             &:hover {
-                background-color: darkneen(style.$primary-text, 5%);
+                // Correção de digitação aqui: era 'darkneen', o correto do Sass é 'darken'
+                background-color: darken(style.$primary-text, 5%);
             }
+        }
+    }
+}
+
+// --- Ajuste para telas muito pequenas (Celulares verticais) ---
+@media (max-width: 400px) {
+    :host {
+        padding: 16px; // Diminui o recuo interno do card para sobrar espaço para o texto
+    }
+
+    h3 {
+        @include style.fontSize($size: 28px, $weight: 600);
+    }
+
+    .buttons {
+        flex-direction: column; // Se os botões "Carrinho" e "Comprar" espremerem, eles viram duas linhas
+        button {
+            width: 100%;
         }
     }
 }
