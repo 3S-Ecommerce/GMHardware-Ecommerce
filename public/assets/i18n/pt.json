@@ -155,7 +155,7 @@
   "escolherTitulo": "Escolher forma de entrega",
 
   "formaEntregaReceberTitulo": "Enviar no meu endereço",
-  "formaEntregaReceberTexto": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minima, quisquam.",
+  "formaEntregaReceberTexto": "Nenhum endereço cadastrado. Cadastre ou escolha um endereço para continuar.",
   "formaEntregaReceberBtnOutroEndereco": "Escolher outro endereço",
   "formaEntregaReceberBtnSelecionar": "Selecionar",
   "formaEntregaRetirarTitulo": "Retirar na Agência GMHardware",

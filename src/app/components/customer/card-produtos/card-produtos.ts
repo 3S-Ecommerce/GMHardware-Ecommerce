@@ -1,6 +1,6 @@
 import { Component, inject, signal, OnInit, Input, computed } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../../core/services/product';
 import { Category } from '../../../core/services/category';
 import { Cart } from '../../../core/services/cart';
@@ -21,6 +21,7 @@ export interface item {
 })
 
 export class CardProdutos implements OnInit {
+  router = inject(Router);
   @Input('categoria') categoria: string = 'todos';
   api = inject(Product);
   apiCat = inject(Category);
@@ -44,7 +45,14 @@ export class CardProdutos implements OnInit {
       }
     })
   }
-
+  comprarAgora(produtoID: number) {
+    this.router.navigate(['/finalizar-compra'], {
+      queryParams: {
+        produto_id: produtoID,
+        quantidade: 1, // 💡 Passando o valor atual do signal
+      }
+    });
+  }
   produtos = computed(() => {
     const categoria = this.categoria;
     const lista = this.todosProdutos();
@@ -61,7 +69,7 @@ export class CardProdutos implements OnInit {
     item.price = Number(item.price)
     item.quantity = Number(item.quantity)
     console.log(item)
-    if(this.cart.adicionarCarrinho(item))
+    if (this.cart.adicionarCarrinho(item))
       alert("Item adicionado ao carrinho!")
     else
       alert("Erro ao adicionar ao carrinho!")

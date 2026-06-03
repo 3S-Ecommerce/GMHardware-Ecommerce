@@ -114,7 +114,7 @@ export class Pagamento {
         localStorage.removeItem('cartaoSelecionado');
       }
 
-      this.router.navigate(['/finalizar-compra/revisar']);
+      this.router.navigate(['/finalizar-compra/revisar'], { queryParamsHandling: 'merge'});
       return;
     }
 
@@ -255,7 +255,7 @@ export class Pagamento {
       );
     }
 
-    this.router.navigate(['/finalizar-compra/revisar']);
+    this.router.navigate(['/finalizar-compra/revisar'], { queryParamsHandling: 'merge' });
   }
 
   formatarNumeroCartao(numero: string): string {

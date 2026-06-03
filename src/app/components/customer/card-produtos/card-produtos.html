@@ -32,7 +32,7 @@
             <button class="carrinho"
                 (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})"><i
                     class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho" id="cardProdutosBtnCarrinhoTodos-{{ item.id }}"></i>Carrinho</button>
-            <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar" id="cardProdutosBtnComprarTodos-{{ item.id }}">Comprar</button>
+            <button (click)="comprarAgora(item.id)" class="comprar" id="cardProdutosBtnComprarTodos-{{ item.id }}">Comprar</button>
         </div>
     </div>
     }

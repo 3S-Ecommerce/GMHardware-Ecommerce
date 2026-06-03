@@ -57,97 +57,48 @@
       </div>
 
       <div class="cartao-botoes">
-        <button
-          type="button"
-          class="btn-azul"
-          (click)="selecionarCartao(cartao)"
-        >
+        <button type="button" class="btn-azul" (click)="selecionarCartao(cartao)">
           Usar este cartão
         </button>
 
-        <button
-          *ngIf="!cartao.is_default"
-          type="button"
-          class="btn-secundario"
-          (click)="definirCartaoPadrao(cartao.id)"
-        >
+        <button *ngIf="!cartao.is_default" type="button" class="btn-secundario"
+          (click)="definirCartaoPadrao(cartao.id)">
           Tornar padrão
         </button>
       </div>
     </div>
 
-    <button
-      type="button"
-      class="btn-adicionar-cartao"
-      (click)="abrirFormularioCartao()"
-    >
+    <button type="button" class="btn-adicionar-cartao" (click)="abrirFormularioCartao()">
       + Cadastrar novo cartão
     </button>
 
     <div class="form-cartao" *ngIf="mostrarFormularioCartao">
       <h3>Novo Cartão</h3>
 
-      <input
-        type="text"
-        [(ngModel)]="novoCartao.nome_titular"
-        placeholder="Nome do Titular"
-      >
+      <input type="text" [(ngModel)]="novoCartao.nome_titular" placeholder="Nome do Titular">
 
-      <input
-        type="text"
-        [(ngModel)]="novoCartao.numero_cartao"
-        placeholder="Número do Cartão"
-      >
+      <input type="text" [(ngModel)]="novoCartao.numero_cartao" placeholder="Número do Cartão">
 
       <div class="linha-inputs">
-        <input
-          type="text"
-          [(ngModel)]="novoCartao.vencimento"
-          placeholder="MM/AA"
-          maxlength="5"
-        >
+        <input type="text" [(ngModel)]="novoCartao.vencimento" placeholder="MM/AA" maxlength="5">
 
-        <input
-          type="text"
-          [(ngModel)]="novoCartao.cvv"
-          placeholder="CVV"
-          maxlength="4"
-        >
+        <input type="text" [(ngModel)]="novoCartao.cvv" placeholder="CVV" maxlength="4">
       </div>
 
-      <input
-        type="text"
-        [(ngModel)]="novoCartao.cpf"
-        placeholder="CPF do Titular"
-      >
+      <input type="text" [(ngModel)]="novoCartao.cpf" placeholder="CPF do Titular">
 
       <div class="form-botoes">
-        <button
-          type="button"
-          class="btn-azul"
-          (click)="salvarNovoCartao()"
-          [disabled]="salvandoCartao"
-        >
+        <button type="button" class="btn-azul" (click)="salvarNovoCartao()" [disabled]="salvandoCartao">
           {{ salvandoCartao ? 'Salvando...' : 'Salvar cartão' }}
         </button>
 
-        <button
-          type="button"
-          class="btn-cancelar"
-          (click)="cancelarFormularioCartao()"
-          [disabled]="salvandoCartao"
-        >
+        <button type="button" class="btn-cancelar" (click)="cancelarFormularioCartao()" [disabled]="salvandoCartao">
           Cancelar
         </button>
       </div>
     </div>
 
-    <button
-      type="button"
-      class="btn-continuar"
-      (click)="continuarComCartao()"
-      [disabled]="!cartaoSelecionado"
-    >
+    <button type="button" class="btn-continuar" (click)="continuarComCartao()" [disabled]="!cartaoSelecionado">
       Continuar com cartão selecionado
     </button>
   </div>

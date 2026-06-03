@@ -16,11 +16,20 @@
 
 <p><b id="adicionarProdutoEstoque">EM ESTOQUE</b></p>
 
+<div class="controle-quantidade" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+    <span style="color: white; font-weight: bold;">Quantidade:</span>
+    <div style="display: flex; align-items: center; border: 1px solid #2a2a2a; border-radius: 4px; background: #1a1f27;">
+        <button (click)="alterarQuantidade(-1)" type="button" style="background: transparent; border: none; color: white; padding: 8px 14px; cursor: pointer; font-size: 16px;">-</button>
+        <span style="color: wheat; min-width: 30px; text-align: center; font-weight: bold;">{{ quantidade() }}</span>
+        <button (click)="alterarQuantidade(1)" type="button" style="background: transparent; border: none; color: white; padding: 8px 14px; cursor: pointer; font-size: 16px;">+</button>
+    </div>
+</div>
+
 <div class="buttons">
-    <button (click)="teste()" id="adicionarProdutoBtnCarrinho">
+    <button (click)="adicionarAoCarrinhoComQtde()" id="adicionarProdutoBtnCarrinho">
         <i class="fa-solid fa-cart-arrow-down"></i>Carrinho
     </button>
-    <button [routerLink]="['/finalizar-compra']" class="primary" id="adicionarProdutoBtnComprar">
+    <button (click)="comprarAgora()" class="primary" id="adicionarProdutoBtnComprar">
         Comprar
     </button>
 </div>

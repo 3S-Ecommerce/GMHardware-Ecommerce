@@ -3,12 +3,13 @@ import {
   Component,
   computed,
   inject,
-  PLATFORM_ID
+  PLATFORM_ID,
+  signal
 } from '@angular/core';
 import { Order, CheckoutPayload } from '../../../../core/services/order';
 import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { Cart } from '../../../../core/services/cart';
 import { CheckoutService } from '../../../../core/services/checkout.service';
@@ -17,6 +18,7 @@ import {
   Endereco,
   EnderecoPayload
 } from '../../../../core/services/endereco';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-revisar',
@@ -31,12 +33,16 @@ import {
   styleUrl: './revisar.scss',
 })
 export class Revisar {
+  private route = inject(ActivatedRoute);
+  private http = inject(HttpClient);
   private orderService = inject(Order);
   private cart = inject(Cart);
   private checkoutService = inject(CheckoutService);
   private router = inject(Router);
   private enderecoService = inject(EnderecoService);
   private platformId = inject(PLATFORM_ID);
+
+  produtos = signal<any[]>([]);
 
   usuarioLogado: any = null;
 
@@ -65,15 +71,83 @@ export class Revisar {
       this.carregarUsuarioLogado();
       this.carregarEnderecos();
       this.carregarCartaoSelecionado();
+
+      this.inicializarProdutos();
     });
   }
 
-  produtos = computed(() => {
-    return this.cart.items();
-  });
+  // produtos = computed(() => {
+  //   // Captura os parâmetros da URL de forma reativa do snapshot
+  //   const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
+  //   const urlQuantidade = this.route.snapshot.queryParamMap.get('quantidade');
+
+  //   if (urlProdutoId) {
+  //     const idBuscado = Number(urlProdutoId);
+
+  //     // Tenta encontrar o item no carrinho local para reaproveitar Nome, Preço e Imagem
+  //     const itemNoCarrinhoOriginal = this.cart.items().find(i => i.id === idBuscado);
+
+  //     // 💡 SOLUÇÃO: Garante que se a imagem ou dados forem vazios, o app não quebre
+  //     return [{
+  //       id: idBuscado,
+  //       name: itemNoCarrinhoOriginal?.name || 'Produto Selecionado',
+
+  //       // Se não achar o preço no carrinho, você pode colocar 0 ou puxar do estado global se houver
+  //       price: itemNoCarrinhoOriginal?.price || 0,
+
+  //       // 💡 Se itemNoCarrinhoOriginal não existir, enviamos uma imagem padrão para o ngSrc não quebrar
+  //       image: itemNoCarrinhoOriginal?.image || 'assets/images/placeholder.png',
+
+  //       quantity: Number(urlQuantidade) || 1
+  //     }];
+  //   }
+
+  //   // Se não tem nada na URL, segue o fluxo padrão de comprar o carrinho todo
+  //   return this.cart.items();
+  //   //    return this.cart.items();
+
+  // });
+
+  comId = signal<boolean>(false)
+  inicializarProdutos(): void {
+    const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
+    const urlQuantidade = this.route.snapshot.queryParamMap.get('quantidade');
+
+    if (urlProdutoId) {
+      const idBuscado = Number(urlProdutoId);
+      const quantidadeBuscada = Number(urlQuantidade) || 1;
+
+      // 💡 Ajuste para o endpoint real do seu Laravel (ex: /api/products/{id})
+      this.http.get<any>(`https://gmhardware-ecommerce.onrender.com/api/product/${idBuscado}`).subscribe({
+        next: (produtoDoBanco) => {
+          // Monta o array exatamente no formato que o HTML espera usar
+          this.produtos.set([{
+            id: produtoDoBanco.id,
+            name: produtoDoBanco.name,
+            price: Number(produtoDoBanco.price || produtoDoBanco.preco || 0),
+            image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev' + produtoDoBanco.image || 'assets/images/placeholder.png', // Fallback se não houver imagem
+            quantity: quantidadeBuscada
+          }]);
+          console.log(this.produtos())
+          this.comId.update(p => true)
+        },
+        error: (err) => {
+          console.error('Erro ao buscar o produto da API:', err);
+          alert('Não foi possível carregar os dados do produto para a finalização.');
+        }
+      });
+    } else {
+      // Se não veio id na URL, consome o carrinho inteiro do localStorage como antes
+      this.produtos.set(this.cart.items());
+    }
+  }
+
+  // 💡 O valorTotal continua como computed, pois ele vai recalcular automaticamente 
+  // sempre que o signal 'produtos' for atualizado pela API ou pelo localStorage!
 
   valorTotal = computed(() => {
-    return this.cart.valorTotal();
+    // return this.cart.valorTotal();
+    return this.produtos().reduce((acc, value) => acc + (value.price * value.quantity), 0);
   });
 
   metodoPagamento = computed(() => {
@@ -103,6 +177,7 @@ export class Revisar {
     }
 
     this.usuarioLogado = JSON.parse(usuarioStr);
+    console.log(this.usuarioLogado)
   }
 
   carregarCartaoSelecionado(): void {
@@ -296,79 +371,98 @@ export class Revisar {
   }
 
   confirmarPedido(): void {
-  if (!this.enderecoSelecionado) {
-    alert('Selecione um endereço antes de finalizar a compra.');
-    return;
-  }
-
-  if (this.metodoPagamento() === 'Não selecionado') {
-    alert('Selecione uma forma de pagamento antes de finalizar a compra.');
-    return;
-  }
-
-  if (this.metodoPagamento() === 'Cartão de Crédito' && !this.cartaoSelecionado) {
-    alert('Selecione um cartão antes de finalizar a compra.');
-    return;
-  }
-
-  if (this.produtos().length === 0) {
-    alert('Seu carrinho está vazio.');
-    return;
-  }
-
-  const items = this.produtos().map((produto: any) => {
-    return {
-      id_product: Number(produto.id),
-      quantity: Number(produto.quantity),
-      price: Number(produto.price || produto.preco || produto.valor || 0)
-    };
-  });
-
-  const payload: CheckoutPayload = {
-    endereco_id: this.enderecoSelecionado.id,
-    payment_method: this.metodoPagamento(),
-    card_id: this.cartaoSelecionado ? this.cartaoSelecionado.id : null,
-    total_price: Number(this.valorTotal()),
-    items: items
-  };
-
-  this.orderService.checkout(payload).subscribe({
-    next: (res) => {
-      this.cart.limparCarrinho();
-
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.removeItem('enderecoSelecionado');
-        localStorage.removeItem('cartaoSelecionado');
-        localStorage.removeItem('metodoPagamento');
-      }
-
-      alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
-
-      this.router.navigate(['/inicio']);
-    },
-    error: (err) => {
-      console.error(err);
-
-      const mensagem = err?.error?.message || err?.error?.error || 'Erro ao finalizar compra.';
-
-      alert(mensagem);
+    if (!this.enderecoSelecionado) {
+      alert('Selecione um endereço antes de finalizar a compra.');
+      return;
     }
-  });
-}
+
+    if (this.metodoPagamento() === 'Não selecionado') {
+      alert('Selecione uma forma de pagamento antes de finalizar a compra.');
+      return;
+    }
+
+    if (this.metodoPagamento() === 'Cartão de Crédito' && !this.cartaoSelecionado) {
+      alert('Selecione um cartão antes de finalizar a compra.');
+      return;
+    }
+
+    if (this.produtos().length === 0) {
+      alert('Seu carrinho está vazio.');
+      return;
+    }
+
+    const items = this.produtos().map((produto: any) => {
+      return {
+        id_product: Number(produto.id),
+        quantity: Number(produto.quantity),
+        price: Number(produto.price || produto.preco || produto.valor || 0)
+      };
+    });
+
+    const payload: CheckoutPayload = {
+      endereco_id: this.enderecoSelecionado.id,
+      payment_method: this.metodoPagamento(),
+      card_id: this.cartaoSelecionado ? this.cartaoSelecionado.id : null,
+      total_price: Number(this.valorTotal()),
+      items: items
+    };
+
+    this.orderService.checkout(payload).subscribe({
+      next: (res) => {
+        this.cart.limparCarrinho();
+
+        if (isPlatformBrowser(this.platformId)) {
+          localStorage.removeItem('enderecoSelecionado');
+          localStorage.removeItem('cartaoSelecionado');
+          localStorage.removeItem('metodoPagamento');
+        }
+
+        alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
+
+        this.router.navigate(['/inicio']);
+      },
+      error: (err) => {
+        console.error(err);
+
+        const mensagem = err?.error?.message || err?.error?.error || 'Erro ao finalizar compra.';
+
+        alert(mensagem);
+      }
+    });
+  }
 
   menosProduto(itemId: number): void {
+    // if (this.cart.removerCarrinho(Number(itemId))) {
+    //   alert('Item removido do carrinho!');
+    // } else {
+    //   alert('Erro ao remover item do carrinho!');
+    // }
+    const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
+    if (urlProdutoId) {
+      alert('Para itens de compra direta, altere a quantidade na página do produto.');
+      return;
+    }
+
     if (this.cart.removerCarrinho(Number(itemId))) {
       alert('Item removido do carrinho!');
-    } else {
-      alert('Erro ao remover item do carrinho!');
     }
+
   }
 
   maisProduto(itemId: number): void {
+    // if (this.cart.somarProduto(itemId)) {
+    //   alert('Item aumentado do carrinho!');
+    // } else {
+    //   alert('Erro ao aumentar item do carrinho!');
+    // }
+    const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
+    if (urlProdutoId) {
+      alert('Para itens de compra direta, altere a quantidade na página do produto.');
+      return;
+    }
+
     if (this.cart.somarProduto(itemId)) {
       alert('Item aumentado do carrinho!');
-    } else {
-      alert('Erro ao aumentar item do carrinho!');
     }
   }
 }

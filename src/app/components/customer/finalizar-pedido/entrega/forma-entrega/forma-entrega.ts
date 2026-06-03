@@ -254,7 +254,9 @@ export class FormaEntrega {
       );
     }
 
-    this.router.navigate(['/finalizar-compra/forma-de-pagamento']);
+    this.router.navigate(['/finalizar-compra/forma-de-pagamento'], {
+      queryParamsHandling: 'merge'
+    });
   }
 
   private formularioEnderecoValido(): boolean {
