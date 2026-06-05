@@ -1,5 +1,4 @@
-@use "style.scss"; // O atalho que configuramos no angular.json
-
+@use "../../../../..//public/assets/style.scss";
 #garantia-section {
     @include style.sectionPattern();
     display: flex;

@@ -4,7 +4,7 @@ import { MaisVendidos } from "../../mais-vendidos/mais-vendidos";
 
 @Component({
   selector: 'app-apresentacao',
-  imports: [NgOptimizedImage, MaisVendidos],
+  imports: [MaisVendidos],
   templateUrl: './apresentacao.html',
   styleUrl: './apresentacao.scss',
 })

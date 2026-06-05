@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Paleta de cores e Mixins fornecidos
 $primary-bg: #0F1115;
 $secundary-bg: #181C23;
@@ -93,7 +95,7 @@ $gradient: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
 // Grid de informações do pedido
 .order-info {
     @include displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 16px, $width: 100%);
-    background-color: lighten($secundary-bg, 3%);
+    background-color: color.adjust($secundary-bg, $lightness: 3%, $space: hsl);
     padding: 20px;
     border-radius: 12px;
     border: 1px solid rgba($white-color, 0.05);
@@ -185,8 +187,8 @@ $gradient: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
         border: 1px solid $primary-text;
 
         &:hover {
-            background-color: darken($primary-text, 8%);
-            border-color: darken($primary-text, 8%);
+            background-color: color.adjust($primary-text, $lightness: -8%, $space: hsl);
+            border-color: color.adjust($primary-text, $lightness: -8%, $space: hsl);
         }
     }
 

@@ -3,7 +3,10 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": false,
+    "cache": {
+      "enabled": false
+    }
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -40,8 +43,7 @@
               ]
             },
             "outputMode": "static",
-            "ssr": false,
-            "prerender": false
+            "ssr": false
           },
           "configurations": {
             "production": {
@@ -53,8 +55,7 @@
                   "maximumError": "2mb"
                 }
               ],
-              "outputHashing": "all",
-              "prerender": false
+              "outputHashing": "all"
             },
             "development": {
               "optimization": false,

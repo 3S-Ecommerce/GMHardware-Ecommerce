@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $bg-dark: #181C23;
 $bg-card: #0F1115;
 $text-primary: #ffffff;
@@ -182,7 +184,7 @@ $accent-orange: #ff8c42;
     margin-top: 10px;
 
     &:hover {
-      background-color: darken($accent-color, 10%);
+      background-color: color.adjust($accent-color, $lightness: -10%, $space: hsl);
     }
   }
 }
@@ -241,7 +243,7 @@ $accent-orange: #ff8c42;
   transition: all 0.3s ease;
 
   &:hover:not(:disabled) {
-    background-color: darken($accent-color, 10%);
+    background-color: color.adjust($accent-color, $lightness: -10%, $space: hsl);
     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
   }
 

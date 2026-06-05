@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $bg-dark: #181C23;
 $bg-card: #0F1115;
 $text-primary: #ffffff;
@@ -133,7 +135,7 @@ $accent-orange: #ff8c42;
 
   &:hover {
     background-color: rgba(255, 140, 66, 0.1);
-    color: lighten($accent-orange, 10%);
+    color: color.adjust($accent-orange, $lightness: 10%, $space: hsl);
   }
 
   &:active {
@@ -172,7 +174,7 @@ $accent-orange: #ff8c42;
   }
 
   &:hover {
-    background-color: darken($accent-color, 10%);
+    background-color: color.adjust($accent-color, $lightness: -10%, $space: hsl);
     box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
     transform: translateY(-2px);
   }

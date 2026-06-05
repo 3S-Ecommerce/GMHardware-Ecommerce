@@ -1,5 +1,4 @@
-@use "style.scss";
-
+@use "../../../../..//public/assets/style.scss";
 #devolucao-section {
     @include style.sectionPattern();
     align-items: center;
