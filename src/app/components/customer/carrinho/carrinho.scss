@@ -1,19 +1,63 @@
 @use "../../../../../public/assets/style.scss";
+@use "sass:color";
 
-section{
+section {
     @include style.sectionPattern();
     min-height: 80vh;
-    .itens-carrinho{
+    @include style.displayFlex($direction: column, $aligh: stretch, $justify: flex-start, $gap: 32px);
+    box-sizing: border-box;
+    width: 100%;
+
+    .itens-carrinho {
         width: 100%;
     }
-    .comprar{
+
+    .carrinho-actions {
+        @include style.displayFlex($justify: flex-end, $aligh: center, $width: 100%);
+        margin-top: 16px;
+
+        // Centraliza o botão em tablets e layouts médios
+        @media (max-width: 736px) {
+            @include style.displayFlex($justify: center, $aligh: center, $width: 100%);
+        }
+    }
+
+    .comprar {
         background-color: style.$primary-text;
         border: none;
-        padding: 10px 5px;
-        border-radius: 5px;
+        padding: 14px 36px;
+        border-radius: 8px;
         color: white;
-        &[disabled]{
-            background-color: #2563EB77;
+        cursor: pointer;
+        @include style.fontSize($size: 16px, $weight: 600);
+        transition: all 0.3s ease;
+        width: auto;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        // Ocupa toda a largura em smartphones para melhorar a usabilidade touch
+        @media (max-width: 480px) {
+            width: 100%;
+            padding: 16px;
+        }
+
+        &:hover:not([disabled]) {
+            background-color: color.adjust(style.$primary-text, $lightness: -10%);
+            box-shadow: 0 4px 12px rgba(style.$primary-text, 0.3);
+            transform: translateY(-2px);
+        }
+
+        &:active:not([disabled]) {
+            transform: scale(0.98);
+        }
+
+        &[disabled] {
+            background-color: rgba(37, 99, 235, 0.45); // Transparência aplicada sobre a cor principal ativa
+            color: rgba(255, 255, 255, 0.6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
     }
 }

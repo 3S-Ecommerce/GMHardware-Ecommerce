@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../../../../../public/assets/style.scss";
 
 $azul-principal: #2563EB;
@@ -5,341 +6,338 @@ $azul-hover: #1d4ed8;
 $laranja: #ff8c42;
 $bg-card: style.$primary-bg;
 
-@media (min-width: 1200px) {
-  .revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 32px);
+.revisar {
+  @include style.displayFlex($direction: column, $aligh: stretch, $justify: flex-start, $gap: 32px);
+  width: 100%;
+  max-width: 1200px; // Alinhado com a largura da tela de pagamento
+  margin: 0 auto;
+  padding: 40px 16px;
+  box-sizing: border-box;
+  @media (min-width: 1199px){
+    width: 1000px;
+  }
+  @media (max-width: 736px) {
+    gap: 24px;
+    padding: 24px 12px;
+  }
+
+  h2 {
+    @include style.fontSize($size: 40px, $weight: 600);
+    color: white;
+    margin: 0;
+
+    @media (max-width: 1199px) { @include style.fontSize($size: 30px, $weight: 600); }
+    @media (max-width: 736px) { @include style.fontSize($size: 24px, $weight: 600); }
+  }
+
+  // Cards de Seções Estruturais
+  .div-layout {
+    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 20px);
     width: 100%;
-    padding: 40px 0;
+    padding: 28px;
+    background-color: $bg-card;
+    border-radius: 10px;
+    box-sizing: border-box;
 
-    h2 {
-      @include style.fontSize($size: 40px, $weight: 600);
+    @media (max-width: 1199px) { padding: 24px; $gap: 16px; }
+    @media (max-width: 736px) { padding: 16px; $gap: 14px; }
+
+    h3 {
+      @include style.fontSize($size: 26px, $weight: 600);
       color: white;
+      margin: 0;
+      @media (max-width: 1199px) { @include style.fontSize($size: 22px, $weight: 600); }
+      @media (max-width: 736px) { @include style.fontSize($size: 18px, $weight: 600); }
     }
 
-    .div-layout {
-      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 20px);
-      width: 70vw;
-      max-width: 900px;
-      min-width: 650px;
-      padding: 28px;
-      background-color: $bg-card;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      .quantidade {
-        @include style.displayFlex($aligh: center);
-        width: auto;
-        font-size: 20px;
-      }
-
-      h3 {
-        @include style.fontSize($size: 28px, $weight: 600);
-        color: white;
-      }
-
-      p {
-        @include style.fontSize($size: 20px, $weight: 400);
-        color: style.$white-color;
-        line-height: 1.4;
-      }
-
-      hr {
-        width: 100%;
-      }
-
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        @include style.displayFlex($justify: flex-start, $width: auto);
-        color: $laranja;
-        @include style.fontSize($size: 16px, $weight: 600);
-      }
-
-      .div-img {
-        @include style.displayFlex($justify: space-between, $gap: 18px);
-        align-self: stretch;
-        width: 100%;
-
-        .img {
-          position: relative;
-          border-radius: 50%;
-          border: 2px solid white;
-          width: 110px;
-          height: 110px;
-          flex-shrink: 0;
-        }
-
-        img {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-    }
-
-    .button {
-      width: 70vw;
-      max-width: 900px;
-      min-width: 650px;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 16px;
-      display: flex;
-
-      button {
-        border: none;
-        border-radius: 8px;
-        padding: 8px 18px;
-        min-width: 130px;
-        min-height: 42px;
-        cursor: pointer;
-        color: white;
-        @include style.fontSize($size: 18px, $weight: 600);
-      }
-
-      .cancelar {
-        background: transparent;
-        color: white;
-      }
-
-      #revisarBtnConfirmar {
-        background-color: $azul-principal;
-
-        &:hover {
-          background-color: $azul-hover;
-        }
-
-        &:disabled {
-          background-color: #4b5563;
-          cursor: not-allowed;
-          opacity: 0.7;
-        }
-      }
+    p {
+      @include style.fontSize($size: 18px, $weight: 400);
+      color: style.$white-color;
+      line-height: 1.5;
+      margin: 0;
+      @media (max-width: 1199px) { @include style.fontSize($size: 16px, $weight: 400); }
+      @media (max-width: 736px) { @include style.fontSize($size: 14px, $weight: 400); }
     }
   }
 }
 
-@media (min-width: 736px) and (max-width: 1199px) {
-  .revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 28px);
+// Elementos Globais Internos
+.divisor {
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+}
+
+.texto-apoio {
+  color: #b0b0b0 !important;
+}
+
+.cartao-aviso {
+  color: #ff8c42 !important;
+  font-weight: 500;
+}
+
+.preco-total {
+  @include style.fontSize($size: 22px, $weight: 700);
+  color: #22c55e !important;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: $laranja;
+  @include style.fontSize($size: 16px, $weight: 600);
+  transition: opacity 0.2s ease;
+
+  &:hover { opacity: 0.85; }
+  @media (max-width: 736px) { @include style.fontSize($size: 13px, $weight: 600); }
+}
+
+// Gerenciador de Endereços Dinâmico
+.enderecos-gerenciador {
+  @include style.displayFlex($direction: column, $aligh: stretch, $gap: 16px);
+  width: 100%;
+  margin-top: 12px;
+
+  h4 {
+    color: white;
+    margin: 0;
+    @include style.fontSize($size: 18px, $weight: 600);
+  }
+}
+
+.enderecos-lista {
+  @include style.displayFlex($direction: column, $gap: 12px);
+  width: 100%;
+}
+
+.endereco-card {
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 16px;
+  background: #0F1115;
+  @include style.displayFlex($direction: column, $gap: 8px);
+  box-sizing: border-box;
+
+  .endereco-texto {
+    color: #ffffff !important;
+    @include style.fontSize($size: 15px, $weight: 400);
+  }
+
+  .endereco-padrao {
+    color: #22c55e;
+    font-weight: 700;
+    margin: 0;
+    @include style.fontSize($size: 13px, $weight: 400);
+  }
+}
+
+.endereco-acoes, .form-acoes {
+  @include style.displayFlex($direction: row, $justify: flex-start, $gap: 10px, $width: auto);
+  margin-top: 6px;
+
+  @media (max-width: 580px) {
+    @include style.displayFlex($direction: column, $aligh: stretch, $gap: 8px, $width: 100%);
+  }
+}
+
+// Botões Funcionais Pequenos
+%btn-sm-base {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  @include style.fontSize($size: 14px, $weight: 600);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  
+  &:active { transform: scale(0.98); }
+}
+
+.btn-azul-sm {
+  @extend %btn-sm-base;
+  background: $azul-principal;
+  color: white;
+  &:hover { background: $azul-hover; }
+}
+
+.btn-secundario-sm {
+  @extend %btn-sm-base;
+  background: transparent;
+  color: $laranja;
+  border: 1px solid rgba($laranja, 0.4);
+  &:hover { background: rgba($laranja, 0.08); border-color: $laranja; }
+}
+
+.btn-cancelar-sm {
+  @extend %btn-sm-base;
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  &:hover { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+}
+
+.btn-adicionar-endereco {
+  @extend %btn-sm-base;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed #333;
+  color: white;
+  padding: 12px;
+  
+  &:hover {
+    border-color: $azul-principal;
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+// Área do Formulário de Endereço
+.form-endereco {
+  @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px);
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 18px;
+  background: #0F1115;
+  box-sizing: border-box;
+
+  input {
+    background: #1a1f27;
+    color: white;
+    padding: 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    outline: none;
     width: 100%;
-    padding: 30px 0;
+    box-sizing: border-box;
+    @include style.fontSize($size: 14px, $weight: 400);
+    transition: border-color 0.2s;
 
-    h2 {
-      @include style.fontSize($size: 30px, $weight: 600);
+    &:focus { border-color: $azul-principal; }
+  }
+
+  .linha-inputs {
+    @include style.displayFlex($direction: row, $gap: 12px);
+    @media (max-width: 480px) { @include style.displayFlex($direction: column, $gap: 12px); }
+    input { flex: 1; }
+  }
+}
+
+// Alinhamento de Itens/Produtos
+.div-img {
+  @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 18px);
+  align-self: stretch;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 14px;
+
+  &:last-child {
+    border: none;
+    padding-bottom: 0;
+  }
+
+  @media (max-width: 736px) { gap: 12px; }
+
+  .img-wrapper {
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+
+    @media (max-width: 736px) { width: 65px; height: 65px; }
+
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .produto-nome {
+    flex: 1;
+    font-weight: 500 !important;
+  }
+
+  .quantidade {
+    @include style.displayFlex($direction: row, $aligh: center, $justify: center, $gap: 8px, $width: auto);
+    
+    .quantidade-numero {
+      color: wheat;
+      font-weight: 600;
+      min-width: 24px;
+      text-align: center;
+      @include style.fontSize($size: 18px, $weight: 600);
+      @media (max-width: 736px) { @include style.fontSize($size: 15px, $weight: 600); }
+
+      &.fixo { color: #b0b0b0; }
+    }
+
+    .btn-controle {
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
       color: white;
-    }
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      @include style.displayFlex($justify: center, $aligh: center);
+      transition: background 0.2s;
 
-    .div-layout {
-      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 16px);
-      width: 85vw;
-      max-width: 760px;
-      min-width: 520px;
-      padding: 24px;
-      background-color: $bg-card;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      .quantidade {
-        @include style.displayFlex($aligh: center);
-        width: auto;
-        font-size: 18px;
-      }
-
-      h3 {
-        @include style.fontSize($size: 22px, $weight: 600);
-        color: white;
-      }
-
-      p {
-        @include style.fontSize($size: 16px, $weight: 400);
-        color: style.$white-color;
-        line-height: 1.4;
-      }
-
-      hr {
-        width: 100%;
-      }
-
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        @include style.displayFlex($justify: flex-start, $width: auto);
-        color: $laranja;
-        @include style.fontSize($size: 14px, $weight: 600);
-      }
-
-      .div-img {
-        @include style.displayFlex($justify: space-between, $gap: 16px);
-        align-self: stretch;
-        width: 100%;
-
-        .img {
-          position: relative;
-          border-radius: 50%;
-          border: 2px solid white;
-          width: 90px;
-          height: 90px;
-          flex-shrink: 0;
-        }
-
-        img {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-    }
-
-    .button {
-      width: 85vw;
-      max-width: 760px;
-      min-width: 520px;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 14px;
-      display: flex;
-
-      button {
-        border: none;
-        border-radius: 8px;
-        padding: 7px 14px;
-        min-width: 110px;
-        min-height: 36px;
-        cursor: pointer;
-        color: white;
-        @include style.fontSize($size: 14px, $weight: 600);
-      }
-
-      .cancelar {
-        background: transparent;
-        color: white;
-      }
-
-      #revisarBtnConfirmar {
-        background-color: $azul-principal;
-
-        &:hover {
-          background-color: $azul-hover;
-        }
-
-        &:disabled {
-          background-color: #4b5563;
-          cursor: not-allowed;
-          opacity: 0.7;
-        }
-      }
+      &:hover { background: rgba(255, 255, 255, 0.15); }
+      @media (max-width: 736px) { width: 28px; height: 28px; }
     }
   }
 }
 
-@media (max-width: 736px) {
-  .revisar {
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 24px);
-    width: 100%;
-    padding: 24px 0;
+// Botões Principais do Rodapé da Página
+.button-container {
+  width: 100%;
+  @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 16px);
 
-    h2 {
-      @include style.fontSize($size: 25px, $weight: 600);
-      color: white;
+  @media (max-width: 580px) {
+    @include style.displayFlex($direction: column-reverse, $aligh: stretch, $gap: 12px);
+  }
+
+  button {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    min-width: 140px;
+    cursor: pointer;
+    color: white;
+    @include style.fontSize($size: 16px, $weight: 600);
+    transition: all 0.2s ease;
+
+    &:active { transform: scale(0.98); }
+    @media (max-width: 736px) { @include style.fontSize($size: 14px, $weight: 600); padding: 10px 20px; }
+  }
+
+  .btn-cancelar-main {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  .btn-confirmar-main {
+    background-color: $azul-principal;
+
+    &:hover:not([disabled]) {
+      background-color: $azul-hover;
     }
 
-    .div-layout {
-      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
-      width: 100%;
-      max-width: 100%;
-      padding: 20px;
-      background-color: $bg-card;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      .quantidade {
-        @include style.displayFlex($aligh: center);
-        width: auto;
-        font-size: 16px;
-      }
-
-      h3 {
-        @include style.fontSize($size: 17px, $weight: 600);
-        color: white;
-      }
-
-      p {
-        @include style.fontSize($size: 13px, $weight: 400);
-        color: style.$white-color;
-        line-height: 1.4;
-      }
-
-      hr {
-        width: 100%;
-      }
-
-      button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        @include style.displayFlex($justify: flex-start, $width: auto);
-        color: $laranja;
-        @include style.fontSize($size: 12px, $weight: 600);
-      }
-
-      .div-img {
-        @include style.displayFlex($justify: space-between, $gap: 12px);
-        align-self: stretch;
-        width: 100%;
-
-        .img {
-          position: relative;
-          border-radius: 50%;
-          border: 2px solid white;
-          width: 70px;
-          height: 70px;
-          flex-shrink: 0;
-        }
-
-        img {
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-    }
-
-    .button {
-      width: 100%;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      display: flex;
-
-      button {
-        border: none;
-        border-radius: 8px;
-        padding: 7px 12px;
-        min-width: 90px;
-        min-height: 34px;
-        cursor: pointer;
-        color: white;
-        @include style.fontSize($size: 12px, $weight: 600);
-      }
-
-      .cancelar {
-        background: transparent;
-        color: white;
-      }
-
-      #revisarBtnConfirmar {
-        background-color: $azul-principal;
-
-        &:hover {
-          background-color: $azul-hover;
-        }
-
-        &:disabled {
-          background-color: #4b5563;
-          cursor: not-allowed;
-          opacity: 0.7;
-        }
-      }
+    &:disabled {
+      background-color: #4b5563;
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
     }
   }
 }

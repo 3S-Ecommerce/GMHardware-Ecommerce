@@ -1,11 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Admin } from '../../../../core/services/admin';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-editar',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './editar.html',
   styleUrl: './editar.scss',
 })
@@ -20,7 +20,7 @@ export class Editar implements OnInit {
     name: ['', Validators.required],
     email: ['', Validators.email],
     password: [''],
-    passwordsd: [''],
+    password_confirmation: [''],
     phone_number: [''],
     document: [''],
     active: [true]
@@ -37,7 +37,7 @@ export class Editar implements OnInit {
             name: this.dados().name,
             email: this.dados().email,
             phone_number: this.dados().phone_number,
-            // document: this.dados().document, É um dado privado na API
+            document: this.dados().document,
             active: this.dados().active
           })
           console.log(this.dados())
@@ -53,12 +53,12 @@ export class Editar implements OnInit {
     const formData = new FormData;
     const admin = this.formAdmin.value;
     const id = String(this.route.snapshot.params['id']);
-    if (admin.password || admin.passwordsd) {
-      if(admin.password !== admin.passwordsd){
+    if (admin.password || admin.password_confirmation) {
+      if(admin.password !== admin.password_confirmation){
         return alert("As senhas não coincidem");
       }
     }
-    delete admin.passwordsd
+    delete admin.password_confirmation
     Object.entries(admin).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
         formData.append(key, value as any);

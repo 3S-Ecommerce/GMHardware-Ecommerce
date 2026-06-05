@@ -1,13 +1,20 @@
 @use "../../../../../public/assets/style.scss";
 
+// Mixin auxiliar para manter o padrão de tamanho dos cards e loaders unificado
+@mixin card-structure {
+    width: 100%;
+    max-width: 22rem;
+    height: 40rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
 .loading {
+    @include card-structure;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 360px;
-    height: 700px;
     background-color: #ffffff22;
-    border-radius: 10px;
 
     .spinner {
         width: 40px;
@@ -19,32 +26,50 @@
     }
 
     @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 }
 
-.cards-produtos {
-    @include style.displayFlex($direction: row, $aligh: flex-start,$wrap: wrap, $justify: flex-start, $gap: 48px);
+.mensagem-vazia {
+    color: white;
     width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    padding: 0 20px;
+    @include style.fontSize($size: 20px, $weight: 600);
+}
+
+.cards-produtos {
+    // Centraliza em telas pequenas para um visual mais limpo, alinha à esquerda em desktops
+    @include style.displayFlex($direction: row, $aligh: flex-start, $wrap: wrap, $justify: center, $gap: 24px);
+    width: 100%;
+    padding: 0 10px;
+    box-sizing: border-box;
+
+    @media (min-width: 1024px) {
+        @include style.displayFlex($direction: row, $aligh: flex-start, $wrap: wrap, $justify: flex-start, $gap: 48px);
+        padding: 0;
+    }
 
     .card-produto {
+        @include card-structure;
         @include style.displayFlex($direction: column, $aligh: flex-start, $justify: space-between, $gap: 8px);
-        width: 22rem;
-        border-radius: 10px;
-        height: 40rem;
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
-        .div-img{
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 0px 4px 15px rgba(243, 243, 243, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .div-img {
             position: relative;
             width: 100%;
             min-height: 22rem;
         }
+
         img {
             object-fit: cover;
             border-top-left-radius: 10px;
@@ -55,50 +80,85 @@
 
         span {
             color: style.$white-color;
-            margin-left: 8px;
-            margin-right: 8px;
-            @include style.fontSize($size: 16px, $weight: 400);
+            margin: 0 12px;
+            @include style.fontSize($size: 14px, $weight: 400);
         }
 
         h4 {
             color: white;
-            margin-left: 8px;
-            margin-right: 8px;
-            @include style.fontSize($size: 24px, $weight: 600);
+            margin: 0 12px;
+            @include style.fontSize($size: 22px, $weight: 600);
+            
+            @media (max-width: 480px) {
+                @include style.fontSize($size: 18px, $weight: 600);
+            }
         }
 
         p {
             color: white;
-            margin-left: 8px;
-            margin-right: 8px;
-            @include style.fontSize($size: 24px, $weight: 600);
+            margin: 0 12px;
+            @include style.fontSize($size: 22px, $weight: 600);
+
+            span {
+                margin: 0 2px 0 0;
+                color: inherit;
+                font-size: inherit;
+            }
         }
 
         .card-buttons {
-            @include style.displayFlex($justify: flex-end, $gap: 16px, $aligh: flex-end);
+            @include style.displayFlex($justify: flex-end, $gap: 12px, $aligh: flex-end);
             height: 100%;
-            padding-right: 8px;
+            padding: 0 12px;
+            width: 100%;
+            box-sizing: border-box;
+
+            // Empilha os botões verticalmente em dispositivos mobile muito estreitos
+            @media (max-width: 480px) {
+                @include style.displayFlex($direction: column, $justify: flex-end, $gap: 8px, $aligh: stretch);
+            }
 
             button {
                 color: white;
                 border: none;
-                border-radius: 10px;
-                padding: 5px;
+                border-radius: 8px;
+                padding: 8px 14px;
                 cursor: pointer;
-                @include style.fontSize($size: 16px, $weight: 600);
+                @include style.fontSize($size: 15px, $weight: 600);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                transition: background-color 0.2s ease, transform 0.1s ease;
+                width: auto;
+
+                @media (max-width: 480px) {
+                    width: 100%;
+                    padding: 10px;
+                }
+
+                &:active {
+                    transform: scale(0.98);
+                }
 
                 &.carrinho {
                     background-color: style.$primary-text;
+                    
+                    &:hover {
+                        background-color: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), style.$primary-text;
+                    }
                 }
 
                 &.comprar {
                     background: none;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    
+                    &:hover {
+                        background-color: rgba(255, 255, 255, 0.08);
+                        border-color: rgba(255, 255, 255, 0.4);
+                    }
                 }
             }
-        }
-        transition: .5s;
-        &:hover{
-            box-shadow: 0px 2px 10px #f3f3f3;
         }
     }
 }

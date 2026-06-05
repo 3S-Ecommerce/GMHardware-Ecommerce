@@ -1,75 +1,88 @@
+@use "../../../../../public/assets/style.scss"; // Alinhado com o caminho base do seu projeto
+
+$azul-brand: #2563EB;
+$borda-escura: #2a2a2a;
+$bg-dropdown: #181C23;
+
 .search-container {
   position: relative;
-  width: 100%;
-  max-width: 500px; /* Ajuste conforme o espaço no seu header */
-  margin: 0 20px;
+  width: 100%; // Delega o controle de largura máxima para o wrapper do Header
 }
 
 .search-input-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
+  @include style.displayFlex($direction: row, $aligh: center);
+  width: 100%;
 }
 
 .search-input {
   width: 100%;
-  background-color: transparent;
-  border: 1px solid #333; /* Borda sutil */
-  border-radius: 4px;
-  padding: 8px 35px 8px 12px;
-  color: #ccc;
-  font-size: 14px;
+  height: 38px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid $borda-escura;
+  border-radius: 6px;
+  padding: 0 40px 0 14px;
+  color: #ffffff;
+  @include style.fontSize($size: 14px, $weight: 400);
   outline: none;
-  transition: border-color 0.3s ease;
-}
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
 
-.search-input:focus {
-  border-color: #444;
-  background-color: #111;
-}
+  &::placeholder {
+    color: #71717a;
+  }
 
-.search-input::placeholder {
-  color: #666;
+  &:focus {
+    border-color: $azul-brand;
+    background-color: #11141a;
+    box-shadow: 0 0 0 2px rgba($azul-brand, 0.15);
+  }
 }
 
 .search-icon {
   position: absolute;
-  right: 12px;
-  color: #888;
-  display: flex;
-  align-items: center;
+  right: 14px;
+  color: #71717a;
   pointer-events: none;
+  @include style.fontSize($size: 14px);
 }
 
-/* Linha de carregamento discreta abaixo do input */
-.loader-line {
+.loading-spinner {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: #007bff;
-  width: 100%;
-  animation: loading 1.5s infinite;
+  right: 14px;
+  color: $azul-brand;
+  @include style.fontSize($size: 12px, $weight: 500);
+  animation: pulse-search 1.5s infinite ease-in-out;
 }
 
-@keyframes loading {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+@keyframes pulse-search {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
-/* Dropdown Estilo Dark */
+/* Dropdown em Harmonia com o Tema Dark */
 .search-dropdown {
   position: absolute;
-  top: calc(100% + 5px);
+  top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background-color: #1a1a1a;
-  border: 1px solid #333;
-  border-radius: 4px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  background-color: $bg-dropdown;
+  border: 1px solid $borda-escura;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   z-index: 9999;
   max-height: 350px;
   overflow-y: auto;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $borda-escura;
+    border-radius: 10px;
+  }
 }
 
 .result-list {
@@ -79,54 +92,41 @@
 }
 
 .result-item {
-  display: flex;
-  align-items: center;
-  padding: 12px;
+  @include style.displayFlex($direction: row, $aligh: center, $justify: flex-start, $gap: 14px);
+  padding: 12px 16px;
   cursor: pointer;
-  border-bottom: 1px solid #222;
-  transition: background 0.2s;
-}
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background-color 0.15s ease;
 
-.result-item:hover {
-  background-color: #252525;
-}
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+  }
 
-.result-item:last-child {
-  border-bottom: none;
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .product-thumb {
-  width: 45px;
-  height: 45px;
+  width: 44px;
+  height: 44px;
   object-fit: cover;
-  border-radius: 4px;
-  margin-right: 15px;
+  border-radius: 6px;
   background-color: #000;
+  flex-shrink: 0;
 }
 
 .product-info {
-  display: flex;
-  flex-direction: column;
+  @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 2px);
+  flex: 1;
 }
 
 .product-name {
-  color: #eee;
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 2px;
+  color: #ffffff;
+  @include style.fontSize($size: 14px, $weight: 500);
 }
 
 .product-price {
-  color: #007bff; /* Azul combinando com o logo GMHardware */
-  font-size: 13px;
-  font-weight: bold;
-}
-
-/* Scrollbar customizada para o dropdown */
-.search-dropdown::-webkit-scrollbar {
-  width: 6px;
-}
-.search-dropdown::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 10px;
+  color: $azul-brand;
+  @include style.fontSize($size: 13px, $weight: 700);
 }

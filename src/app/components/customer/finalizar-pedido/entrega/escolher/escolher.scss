@@ -1,55 +1,58 @@
 @use "../../../../../../../public/assets/style.scss";
-@media(min-width:1200px){
-.entrega{
+
+.entrega {
+    // Declaração única da estrutura do container
     @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
-    h2{
-        @include style.fontSize($size: 40px, $weight: 600);
-        color: white;
+    width: 100%;
+    box-sizing: border-box;
+
+    // Redução orgânica do espaçamento em telas menores
+    @media (max-width: 736px) {
+        gap: 28px;
     }
-    .avancar{
+
+    h2 {
+        color: white;
+        margin: 0;
+        @include style.fontSize($size: 32px, $weight: 600);
+
+        // Variações de tamanho controladas cirurgicamente
+        @media (max-width: 1199px) {
+            @include style.fontSize($size: 28px, $weight: 600);
+        }
+
+        @media (max-width: 736px) {
+            @include style.fontSize($size: 24px, $weight: 600);
+        }
+    }
+
+    .avancar {
         background-color: style.$primary-bg;
-        padding: 10px;
+        padding: 12px 24px;
         border: 1px solid style.$white-color;
-        border-radius: 5px;
+        border-radius: 6px;
         color: style.$success-color;
         cursor: pointer;
         @include style.fontSize($size: 16px, $weight: 600);
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: style.$success-color;
+            box-shadow: 0 4px 12px rgba(style.$success-color, 0.15);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        // Se o botão for exibido no mobile, ele ganha largura total para facilitar o clique touch
+        @media (max-width: 480px) {
+            width: 100%;
+            padding: 14px;
+        }
     }
-}
-}
-@media (min-width: 736px) and (max-width: 1199px) {
-  .entrega{
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
-    h2{
-        @include style.fontSize($size: 30px, $weight: 600);
-        color: white;
-    }
-    .avancar{
-        background-color: style.$primary-bg;
-        padding: 10px;
-        border: 1px solid style.$white-color;
-        border-radius: 5px;
-        color: style.$success-color;
-        cursor: pointer;
-        @include style.fontSize($size: 16px, $weight: 600);
-    }
-}
-}
-@media(max-width: 736px){
-    .entrega{
-    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
-    h2{
-        @include style.fontSize($size: 25px, $weight: 600);
-        color: white;
-    }
-    .avancar{
-        background-color: style.$primary-bg;
-        padding: 10px;
-        border: 1px solid style.$white-color;
-        border-radius: 5px;
-        color: style.$success-color;
-        cursor: pointer;
-        @include style.fontSize($size: 16px, $weight: 600);
-    }
-}
 }

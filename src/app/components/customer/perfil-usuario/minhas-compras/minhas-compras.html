@@ -6,71 +6,69 @@
   </a>
 
   <div class="compras-lista">
-@if(carregando){
-    <div *ngIf="carregando" class="mensagem">
-      Carregando compras...
-    </div>
-  }@else if (erro) {
-
-    <div *ngIf="erro" class="mensagem erro">
-      {{ erro }}
-    </div>
-  }
-@else if(!carregando && !erro && compras().length === 0){
-    <div class="mensagem">
-      Carregando compras...
-    </div>
-  }
-    @for(compra of compras(); track $index){
-    <div class="compra-card">
-      <div class="compra-header">
-        <div>
-          <strong>Pedido #{{ compra.id }}</strong>
-          <p>Realizado em: {{ formatarData(compra.created_at) }}</p>
-        </div>
-
-        <span class="status-tag">
-          {{ compra.status }}
-        </span>
+    
+    @if (carregando) {
+      <div class="mensagem">
+        Carregando compras...
       </div>
-
-      <div class="compra-detalhes">
-        <p>
-          <strong>Total:</strong>
-          {{ formatarValor(compra.total_price) }}
-        </p>
-
-        <p>
-          <strong>Entrega:</strong>
-          {{ getEndereco(compra) }}
-        </p>
-
-        <p>
-          <strong>Pagamento:</strong>
-          {{ getPagamento(compra) }}
-        </p>
+    } @else if (erro) {
+      <div class="mensagem erro">
+        {{ erro }}
       </div>
+    } @else if (compras().length === 0) {
+      <div class="mensagem">
+        Nenhuma compra encontrada.
+      </div>
+    }
 
-      <div class="produtos-lista">
-        <h3>Produtos</h3>
-        @for(item of compra.order_items; track $index){
-        <div class="compra-item">
-          <img [src]="getImagemProduto(item)" class="produto-img" alt="Produto">
-
-          <div class="produto-info">
-            <h4>{{ getNomeProduto(item) }}</h4>
-
-            <p>Quantidade: {{ item.quantity }}</p>
-
-            <p>
-              Preço unitário:
-              <strong>{{ formatarValor(item.price) }}</strong>
-            </p>
+    @for (compra of compras(); track compra.id) {
+      <div class="compra-card">
+        <div class="compra-header">
+          <div>
+            <strong>Pedido #{{ compra.id }}</strong>
+            <p>Realizado em: {{ formatarData(compra.created_at) }}</p>
           </div>
+
+          <span class="status-tag">
+            {{ compra.status }}
+          </span>
         </div>
-        }
+
+        <div class="compra-detalhes">
+          <p>
+            <strong>Total:</strong>
+            {{ formatarValor(compra.total_price) }}
+          </p>
+
+          <p>
+            <strong>Entrega:</strong>
+            {{ getEndereco(compra) }}
+          </p>
+
+          <p>
+            <strong>Pagamento:</strong>
+            {{ getPagamento(compra) }}
+          </p>
+        </div>
+
+        <div class="produtos-lista">
+          <h3>Produtos</h3>
+          @for (item of compra.order_items; track item.id) {
+            <div class="compra-item">
+              <img [src]="getImagemProduto(item)" class="produto-img" alt="Produto">
+
+              <div class="produto-info">
+                <h4>{{ getNomeProduto(item) }}</h4>
+                <p>Quantidade: {{ item.quantity }}</p>
+                <p>
+                  Preço unitário:
+                  <strong>{{ formatarValor(item.price) }}</strong>
+                </p>
+              </div>
+            </div>
+          }
+        </div>
       </div>
-    </div>
     }
 
   </div>

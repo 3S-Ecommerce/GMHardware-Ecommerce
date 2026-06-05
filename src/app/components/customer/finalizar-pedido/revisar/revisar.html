@@ -1,202 +1,145 @@
 <section class="revisar">
   <h2 id="revisarTitulo">Revise e confirme</h2>
 
+  <!-- Bloco: Dados do Solicitante -->
   <div class="div-layout">
     <h3 id="revisarDadosSolicitante">Dados do Solicitante</h3>
-
     <p>{{ usuarioLogado?.name || 'Nome não encontrado' }}</p>
     <p>{{ usuarioLogado?.email || 'E-mail não encontrado' }}</p>
-    <p>
-      CPF: {{ usuarioLogado?.document || 'CPF não encontrado' }}
-    </p>
+    <p>CPF: {{ usuarioLogado?.document || 'CPF não encontrado' }}</p>
   </div>
 
+  <!-- Bloco: Detalhe da Entrega -->
   <div class="div-layout">
     <h3 id="revisarDetalheEntrega">Detalhe da Entrega</h3>
 
-    <p *ngIf="enderecoSelecionado" style="color: #b0b0b0;">
-      {{ formatarEndereco(enderecoSelecionado) }}
-    </p>
+    @if (enderecoSelecionado) {
+      <p class="texto-apoio">{{ formatarEndereco(enderecoSelecionado) }}</p>
+    } @else {
+      <p class="texto-apoio">Nenhum endereço selecionado.</p>
+    }
 
-    <p *ngIf="!enderecoSelecionado" style="color: #b0b0b0;">
-      Nenhum endereço selecionado.
-    </p>
+    <hr class="divisor">
 
-    <hr>
-
-    <button type="button" id="revisarBtnOutroEndereco" (click)="abrirEscolhaEndereco()">
+    <button type="button" id="revisarBtnOutroEndereco" class="btn-link" (click)="abrirEscolhaEndereco()">
       {{ mostrarEscolhaEndereco ? 'Fechar endereços' : 'Escolher outro Endereço' }}
     </button>
 
-    <div *ngIf="mostrarEscolhaEndereco" style="
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-      ">
-      <h4 style="color: white; margin: 0;">
-        Endereços cadastrados
-      </h4>
+    @if (mostrarEscolhaEndereco) {
+      <div class="enderecos-gerenciador">
+        <h4>Endereços cadastrados</h4>
 
-      <p *ngIf="enderecos.length === 0" style="color: #b0b0b0; margin: 0;">
-        Nenhum endereço cadastrado.
-      </p>
+        @if (enderecos.length === 0) {
+          <p class="texto-apoio">Nenhum endereço cadastrado.</p>
+        }
 
-      <div *ngFor="let endereco of enderecos" style="
-          border: 1px solid #2a2a2a;
-          border-radius: 8px;
-          padding: 14px;
-          background: #0F1115;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-        ">
-        <p style="margin: 0; color: white;">
-          {{ formatarEndereco(endereco) }}
-        </p>
+        <!-- Listagem de Endereços -->
+        <div class="enderecos-lista">
+          @for (endereco of enderecos; track endereco.id) {
+            <div class="endereco-card">
+              <p class="endereco-texto">{{ formatarEndereco(endereco) }}</p>
+              
+              @if (endereco.padrao) {
+                <p class="endereco-padrao">✓ Endereço Padrão</p>
+              }
 
-        <p *ngIf="endereco.padrao" style="
-            color: #4CAF50;
-            font-weight: bold;
-            margin: 0;
-          ">
-          ✓ Endereço Padrão
-        </p>
-
-        <div style="
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 6px;
-          ">
-          <button type="button" (click)="selecionarEndereco(endereco)">
-            Usar este endereço
-          </button>
-
-          <button *ngIf="!endereco.padrao" type="button" (click)="definirEnderecoPadrao(endereco.id)">
-            Tornar padrão
-          </button>
+              <div class="endereco-acoes">
+                <button type="button" class="btn-azul-sm" (click)="selecionarEndereco(endereco)">
+                  Usar este endereço
+                </button>
+                @if (!endereco.padrao) {
+                  <button type="button" class="btn-secundario-sm" (click)="definirEnderecoPadrao(endereco.id)">
+                    Tornar padrão
+                  </button>
+                }
+              </div>
+            </div>
+          }
         </div>
+
+        <button type="button" class="btn-adicionar-endereco" (click)="abrirFormularioNovoEndereco()">
+          + Cadastrar novo endereço
+        </button>
+
+        <!-- Formulário Novo Endereço -->
+        @if (mostrarFormularioEndereco) {
+          <div class="form-endereco">
+            <h4>Novo Endereço</h4>
+
+            <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP">
+            <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua">
+            
+            <div class="linha-inputs">
+              <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número">
+              <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade">
+            </div>
+
+            <div class="form-acoes">
+              <button type="button" class="btn-azul-sm" (click)="salvarNovoEnderecoNaRevisao()">
+                Salvar endereço
+              </button>
+              <button type="button" class="btn-cancelar-sm" (click)="cancelarNovoEndereco()">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        }
       </div>
-
-      <button type="button" (click)="abrirFormularioNovoEndereco()">
-        + Cadastrar novo endereço
-      </button>
-
-      <div *ngIf="mostrarFormularioEndereco" style="
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          margin-top: 10px;
-          border: 1px solid #2a2a2a;
-          border-radius: 8px;
-          padding: 14px;
-          background: #0F1115;
-        ">
-        <h4 style="color: white; margin: 0 0 8px 0;">
-          Novo Endereço
-        </h4>
-
-        <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP" style="
-            background: #1a1f27;
-            color: white;
-            padding: 10px;
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-          ">
-
-        <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua" style="
-            background: #1a1f27;
-            color: white;
-            padding: 10px;
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-          ">
-
-        <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número" style="
-            background: #1a1f27;
-            color: white;
-            padding: 10px;
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-          ">
-
-        <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade" style="
-            background: #1a1f27;
-            color: white;
-            padding: 10px;
-            border: 1px solid #2a2a2a;
-            border-radius: 4px;
-          ">
-
-        <div style="display: flex; gap: 10px; margin-top: 8px;">
-          <button type="button" (click)="salvarNovoEnderecoNaRevisao()">
-            Salvar endereço
-          </button>
-
-          <button type="button" (click)="cancelarNovoEndereco()">
-            Cancelar
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="div-layout">
-    <h3 id="revisarProdutosTitulo">Produtos</h3>
-
-    @for(produto of produtos(); track $index) {
-    <div class="div-img">
-      <div class="img">
-        <img ngSrc="{{ produto.image }}" alt="" fill>
-      </div>
-
-      <p>{{ produto.name }}</p>
-      @if(!comId()){
-      <div class="quantidade">
-        <button class="fa-solid fa-arrow-left" (click)="menosProduto(produto.id)"></button>
-
-        <span style="color: wheat; margin: 0px 5px 0px 5px;">
-          {{ produto.quantity }}
-        </span>
-
-        <button class="fa-solid fa-arrow-right" (click)="maisProduto(produto.id)"></button>
-      </div>
-      }@else {
-        <div class="quantidade">
-        <span style="color: wheat; margin: 0px 5px 0px 5px;" (click)="maisProduto(produto.id)">
-          {{ produto.quantity }}
-        </span>
-      </div>
-      }
-    </div>
     }
   </div>
 
+  <!-- Bloco: Produtos -->
+  <div class="div-layout">
+    <h3 id="revisarProdutosTitulo">Produtos</h3>
+
+    @for (produto of produtos(); track produto.id || $index) {
+      <div class="div-img">
+        <div class="img-wrapper">
+          <img ngSrc="{{ produto.image }}" alt="{{ produto.name }}" fill>
+        </div>
+
+        <p class="produto-nome">{{ produto.name }}</p>
+        
+        <div class="quantidade">
+          @if (!comId()) {
+            <button type="button" class="fa-solid fa-arrow-left btn-controle" (click)="menosProduto(produto.id)"></button>
+            <span class="quantidade-numero">{{ produto.quantity }}</span>
+            <button type="button" class="fa-solid fa-arrow-right btn-controle" (click)="maisProduto(produto.id)"></button>
+          } @else {
+            <span class="quantidade-numero fixo" (click)="maisProduto(produto.id)">{{ produto.quantity }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Bloco: Detalhe do Pagamento -->
   <div class="div-layout">
     <h3 id="revisarDetalhePagamento">Detalhe do pagamento</h3>
 
     <p>{{ detalhePagamento() }}</p>
 
-    <p *ngIf="cartaoSelecionado && metodoPagamento() === 'Cartão de Crédito'">
-      Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
-    </p>
+    @if (cartaoSelecionado && metodoPagamento() === 'Cartão de Crédito') {
+      <p class="cartao-aviso">
+        Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
+      </p>
+    }
 
-    <p>R$ {{ valorTotal() }}</p>
+    <p class="preco-total">R$ {{ valorTotal() }}</p>
 
-    <hr>
+    <hr class="divisor">
 
-    <button routerLink="../forma-de-pagamento" id="revisarBtnAlterarPagamento">
+    <button type="button" routerLink="../forma-de-pagamento" id="revisarBtnAlterarPagamento" class="btn-link">
       Alterar forma de pagamento
     </button>
   </div>
 
-  <div class="button">
-    <button routerLink="../forma-de-pagamento" class="cancelar" id="revisarBtnCancelar">
+  <!-- Ações Finais da Página -->
+  <div class="button-container">
+    <button type="button" routerLink="../forma-de-pagamento" class="btn-cancelar-main" id="revisarBtnCancelar">
       Cancelar
     </button>
-
-    <button (click)="confirmarPedido()" id="revisarBtnConfirmar">
+    <button type="button" (click)="confirmarPedido()" id="revisarBtnConfirmar" class="btn-confirmar-main">
       Confirmar e realizar pagamento
     </button>
   </div>

@@ -1,76 +1,106 @@
 @use "sass:color";
 
-$bg-dark: #181C23;
-$bg-card: #0F1115;
-$text-primary: #ffffff;
-$text-secondary: #b0b0b0;
-$border-color: #2a2a2a;
-$hover-bg: #1a1f27;
-$accent-color: #2563EB; 
-$accent-orange: #ff8c42; 
+$primary-bg: #0F1115;
+$secundary-bg: #181C23;
+$primary-text: #2563EB;
+$descont-color: #FF6B00;
+$success-color: #22C55E;
+$white-color: #FFFFFF88;
+$gradient: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+
+@mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%, $direction: row, $wrap: unset){
+    display: flex;
+    flex-direction: $direction;
+    width: $width;
+    justify-content: $justify;
+    align-items: $aligh;
+    gap: $gap;
+    flex-wrap: $wrap;
+}
+
+@mixin fontSize($size: 24px, $weight: 400){
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin sectionPattern(){
+    @include displayFlex(
+        $direction: column,
+        $aligh: flex-start,
+        $justify: flex-start,
+        $gap: 48px
+    );
+    background-color: $secundary-bg;
+    padding: 62px 148px;
+    min-height: 80vh;
+
+    h2{
+        @include fontSize($size: 18px, $weight: 600);
+        color: white;
+        margin: 0;
+    }
+
+    @media (min-width: 736px) and (max-width: 1199px){
+        padding: 48px 64px;
+        gap: 40px;
+        h2{ @include fontSize($size: 16px, $weight: 600); }
+    }
+
+    @media(max-width: 736px){
+        padding: 32px 20px;
+        gap: 24px;
+        h2{ @include fontSize($size: 14px, $weight: 600); }
+    }
+}
 
 .meus-enderecos-container {
-  background-color: $bg-dark;
-  min-height: calc(100vh - 200px);
-  padding: 40px 20px;
-  color: $text-primary;
-
-  @media (max-width: 768px) {
-    padding: 30px 15px;
-  }
+  @include sectionPattern();
+  width: 100%;
+  box-sizing: border-box;
+  color: #ffffff;
 }
 
 .enderecos-title {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 40px;
-  color: $text-primary;
+  @include fontSize($size: 32px, $weight: 600);
+  color: #ffffff;
+  margin: 0;
   text-align: left;
 
-  @media (max-width: 768px) {
-    font-size: 24px;
-    margin-bottom: 30px;
+  @media (max-width: 736px) {
+    @include fontSize($size: 24px, $weight: 600);
   }
 }
 
 .enderecos-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  @include displayFlex($direction: column, $justify: flex-start, $aligh: center, $gap: 16px);
   max-width: 800px;
-  margin: 0 auto 40px;
+  margin: 0 auto;
 }
 
 .endereco-item {
-  background-color: $bg-card;
-  border: 1px solid $border-color;
+  @include displayFlex($direction: row, $justify: flex-start, $aligh: flex-start, $gap: 20px);
+  background-color: $primary-bg;
+  border: 1px solid #2a2a2a;
   border-radius: 8px;
   padding: 16px 24px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 20px;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 
   &:hover {
-    background-color: $hover-bg;
+    background-color: #1a1f27;
     border-color: #3a3a3a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   }
 
-  @media (max-width: 768px) {
-    padding: 16px 24px;
-    gap: 16px;
+  @media (max-width: 736px) {
+    @include displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
   }
 }
 
 .endereco-icon {
-  width: 48px;
+  @include displayFlex($justify: center, $aligh: center, $width: 48px);
   height: 48px;
   min-width: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-shrink: 0;
 
   img {
@@ -78,104 +108,121 @@ $accent-orange: #ff8c42;
     height: 100%;
     object-fit: contain;
   }
+
+  @media (max-width: 640px) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
 }
 
 .endereco-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  @include displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 2px, $width: 100%);
   text-align: left;
   flex: 1;
-  gap: 2px;
 }
 
 .endereco-titulo {
-  font-size: 18px;
-  font-weight: 600;
-  color: $text-primary;
+  @include fontSize($size: 18px, $weight: 600);
+  color: #ffffff;
   margin: 0;
   line-height: 1.4;
+
+  &.form-title {
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 640px) {
+    @include fontSize($size: 16px, $weight: 600);
+  }
 }
 
-.endereco-cep {
-  font-size: 14px;
-  color: $text-secondary;
+.endereco-cep, .endereco-tipo {
+  @include fontSize($size: 14px, $weight: 400);
+  color: $white-color;
   margin: 0;
   line-height: 1.5;
+
+  @media (max-width: 640px) {
+    @include fontSize($size: 13px, $weight: 400);
+  }
 }
 
-.endereco-tipo {
-  font-size: 14px;
-  color: $text-secondary;
-  margin: 0;
-  line-height: 1.5;
+.endereco-padrao {
+  @include fontSize($size: 14px, $weight: 700);
+  color: $success-color;
+  margin: 4px 0 0 0;
 }
 
-.endereco-contato {
-  font-size: 14px;
-  color: $text-secondary;
-  margin: 0;
-  line-height: 1.5;
+.item-actions {
+  @include displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 10px, $width: auto, $wrap: wrap);
+
+  @media (max-width: 736px) {
+    @include displayFlex($direction: row, $justify: flex-start, $aligh: center, $gap: 10px, $width: 100%, $wrap: wrap);
+    margin-top: 8px;
+  }
 }
 
 .endereco-excluir {
   background: none;
   border: none;
-  color: $accent-orange;
-  font-size: 14px;
-  font-weight: 600;
+  color: $descont-color;
+  @include fontSize($size: 14px, $weight: 600);
   cursor: pointer;
   padding: 8px 12px;
   border-radius: 4px;
   transition: all 0.3s ease;
-  text-decoration: none;
   white-space: nowrap;
-  align-self: flex-start;
-  margin-top: 0;
 
   &:hover {
-    background-color: rgba(255, 140, 66, 0.1);
-    color: color.adjust($accent-orange, $lightness: 10%, $space: hsl);
+    background-color: rgba($descont-color, 0.1);
+    color: color.adjust($descont-color, $lightness: 10%);
   }
 
   &:active {
     transform: scale(0.98);
   }
 
+  &.btn-cancel {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 24px;
+    border-radius: 6px;
+    color: #ffffff;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
   @media (max-width: 768px) {
-    font-size: 13px;
+    @include fontSize($size: 13px, $weight: 600);
     padding: 6px 10px;
   }
 }
 
 .enderecos-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
+  @include displayFlex($justify: center, $aligh: center, $width: 100%);
+  margin-top: 20px;
 }
 
 .btn-adicionar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  @include displayFlex($direction: row, $justify: center, $aligh: center, $gap: 8px, $width: auto);
   padding: 12px 24px;
-  background-color: $accent-color;
-  color: $text-primary;
+  background-color: $primary-text;
+  color: #ffffff;
   border: none;
   border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
+  @include fontSize($size: 16px, $weight: 600);
   cursor: pointer;
   transition: all 0.3s ease;
 
   .btn-icon {
-    font-size: 20px;
-    font-weight: bold;
+    @include fontSize($size: 20px, $weight: 700);
   }
 
   &:hover {
-    background-color: color.adjust($accent-color, $lightness: -10%, $space: hsl);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    background-color: color.adjust($primary-text, $lightness: -10%);
+    box-shadow: 0 4px 12px rgba($primary-text, 0.3);
     transform: translateY(-2px);
   }
 
@@ -183,82 +230,84 @@ $accent-orange: #ff8c42;
     transform: scale(0.98);
   }
 
+  &.btn-submit {
+    flex: 1;
+  }
+
   @media (max-width: 768px) {
     padding: 10px 20px;
-    font-size: 14px;
+    @include fontSize($size: 14px, $weight: 600);
 
     .btn-icon {
-      font-size: 18px;
+      @include fontSize($size: 18px, $weight: 700);
     }
   }
 }
 
-// Responsividade adicional para telas menores
-@media (max-width: 640px) {
-  .endereco-item {
-    padding: 16px 24px;
-    gap: 16px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .endereco-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .endereco-titulo {
-    font-size: 16px;
-  }
-
-  .endereco-cep,
-  .endereco-tipo,
-  .endereco-contato {
-    font-size: 13px;
-  }
-
-  .endereco-excluir {
-    font-size: 12px;
-    padding: 6px 8px;
-    align-self: flex-end;
-    margin-top: -32px;
-  }
-
-  .btn-adicionar {
-    padding: 10px 16px;
-    font-size: 13px;
-  }
-}
-
-
 .btn-voltar {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 30px;
+  @include displayFlex($direction: row, $justify: center, $aligh: center, $gap: 8px, $width: auto);
   padding: 10px 18px;
   background-color: transparent;
-  border: 1px solid $accent-color;
+  border: 1px solid $primary-text;
   border-radius: 6px;
-  color: $accent-color;
+  color: $primary-text;
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
+  @include fontSize($size: 15px, $weight: 600);
   cursor: pointer;
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: rgba(37, 99, 235, 0.12);
+    background-color: rgba($primary-text, 0.12);
     transform: translateX(-4px);
   }
 
-  &:active {
-    transform: scale(0.98);
-  }
-
   @media (max-width: 768px) {
-    font-size: 14px;
+    @include fontSize($size: 14px, $weight: 600);
     padding: 8px 14px;
   }
 }
 
+.error-message {
+  color: $descont-color;
+  text-align: center;
+  @include fontSize($size: 14px, $weight: 600);
+  margin: 0 0 20px 0;
+
+  &.form-error {
+    margin: 4px 0;
+    @include fontSize($size: 13px, $weight: 600);
+    text-align: left;
+  }
+}
+
+.status-message {
+  text-align: center;
+  color: $white-color;
+  padding: 20px;
+  @include fontSize($size: 15px, $weight: 400);
+}
+
+.form-card {
+  @include displayFlex($direction: column, $justify: flex-start, $aligh: stretch, $gap: 12px, $width: 100%);
+}
+
+.form-input {
+  background: #1a1f27;
+  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  @include fontSize($size: 14px, $weight: 400);
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-text;
+  }
+}
+
+.form-actions {
+  @include displayFlex($direction: row, $justify: center, $aligh: center, $gap: 10px, $width: 100%);
+  margin-top: 8px;
+}

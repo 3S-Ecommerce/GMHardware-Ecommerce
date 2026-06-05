@@ -8,23 +8,29 @@
       (blur)="closeDropdown()"
       (focus)="searchResults.length > 0 ? showDropdown = true : null"
     >
-    <span *ngIf="isSearching" class="loading-spinner">Buscando...</span>
+    
+    @if (isSearching) {
+      <span class="loading-spinner">Buscando...</span>
+    } @else {
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    }
   </div>
 
-  <div class="search-dropdown" *ngIf="showDropdown && searchResults.length > 0">
-    <ul class="result-list">
-      @for(product of searchResults; track product.id){
-      <li
-        class="result-item"
-        (mousedown)="onProductSelect(product.id)"
-      >
-        <img [src]="product.image_url" [alt]="product.name" class="product-thumb">
-        <div class="product-info">
-          <span class="product-name">{{ product.name }}</span>
-          <span class="product-price">{{ product.price | currency:'BRL' }}</span>
-        </div>
-      </li>
-    }
-    </ul>
-  </div>
+  <!-- Lista Suspensa de Resultados -->
+  @if (showDropdown && searchResults.length > 0) {
+    <div class="search-dropdown">
+      <ul class="result-list">
+        @for (product of searchResults; track product.id) {
+          <li class="result-item" (mousedown)="onProductSelect(product.id)">
+            <img [src]="product.image_url" [alt]="product.name" class="product-thumb">
+            
+            <div class="product-info">
+              <span class="product-name">{{ product.name }}</span>
+              <span class="product-price">{{ product.price | currency:'BRL' }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  }
 </div>

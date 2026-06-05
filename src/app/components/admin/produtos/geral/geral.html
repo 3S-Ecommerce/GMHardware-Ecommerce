@@ -1,54 +1,64 @@
 <section>
-    <div>
-        <h2 id="geralProdutosTitulo">Produtos</h2>
-        <button routerLink="novo" id="geralProdutosBtnNovo">Novo Produto</button>    
-    </div>
+  <div class="table-header">
+    <h2 class="enderecos-title" id="geralProdutosTitulo">Produtos</h2>
+    <button routerLink="novo" class="btn-adicionar" id="geralProdutosBtnNovo">
+      <span class="btn-icon">+</span> Novo Produto
+    </button>    
+  </div>
+
+  <div class="table-responsive">
     <table>
-        <thead>
+      <thead>
+        <tr>
+          <th class="col-id">ID</th>
+          <th id="geralProdutosTabelaImagem" class="col-img">Imagem</th>
+          <th id="geralProdutosTabelaProduto" class="col-name">Produto</th>
+          <th id="geralProdutosTabelaCadastrado" class="col-date">Cadastrado</th>
+          <th id="geralProdutosTabelaEstoque" class="col-stock">Estoque</th>
+          <th id="geralProdutosTabelaAcoes" class="col-actions">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(products()){
+          @for (product of products(); track product.id){
             <tr>
-                <th>ID</th>
-                <th id="geralProdutosTabelaImagem">Imagem</th>
-                <th id="geralProdutosTabelaProduto">Produto</th>
-                <th id="geralProdutosTabelaCadastrado">Cadastrado</th>
-                <th id="geralProdutosTabelaEstoque">Estoque</th>
-                <th id="geralProdutosTabelaAcoes">Ações</th>
+              <td class="col-id">{{ product.id }}</td>
+              <td class="col-img">
+                @if(product.image_url && product.image_url !== 'http://127.0.0.1:8000/storage/products/default.png'){
+                  <img ngSrc="{{ product.image_url }}" alt="imagem do produto" width="40" height="40" class="product-thumb">
+                }@else {
+                  <span class="img-placeholder">Sem Foto</span>
+                }
+              </td>
+              <td class="col-name name-cell">{{ product.name }}</td>
+              <td class="col-date">{{ product.created_at | date:'dd/MM/yyyy' }}</td>
+              <td class="col-stock">
+                @if(product.stock > 0){ 
+                  <span class="stock-count">{{ product.stock }} un.</span>
+                }@else { 
+                  <span class="status-badge inactive">Sem estoque</span> 
+                }
+              </td>
+              <td class="col-actions acoes">
+                <a [routerLink]="['editar', product.id]" class="action-btn edit" title="Editar">
+                  <i class="fa-solid fa-pen"></i>
+                </a>
+                <a routerLink="deletar" class="action-btn delete" title="Excluir">
+                  <i class="fa-solid fa-trash"></i>
+                </a>
+              </td>
             </tr>
-        </thead>
-        <tbody>
-            @if(products()){
-                @for (product of products(); track product.id){
-                <tr>
-                    <td>{{ product.id }}</td>
-                    <td>
-                        @if(product.image_url && product.image_url !== 'http://127.0.0.1:8000/storage/products/default.png'){
-                            <img ngSrc="{{ product.image_url }}" alt="imagem do produto" width="40" height="40">
-                        }@else {
-                            <span>Image</span>
-                        }
-                    </td>
-                    <td>{{ product.name }}</td>
-                    <td>{{ product.created_at | date:'dd/MM/yyyy' }}</td>
-                    <td>
-                        @if(product.stock > 0){ 
-                            {{ product.stock }} 
-                        }@else { 
-                            Produto sem estoque 
-                        }
-                    </td>
-                    <td class="acoes">
-                        <a [routerLink]="['editar', product.id]"><i class="fa-solid fa-pen"></i></a>
-                        <a routerLink="deletar"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
-                }
-                @empty {
-                    <tr>
-                        <td colspan="6" id="geralProdutosTabelaVazia">
-                            Nenhum produto cadastrado
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
+          }
+          @empty {
+            <tr>
+              <td colspan="6" id="geralProdutosTabelaVazia" class="empty-table-cell">
+                <i class="fa-solid fa-box-open" style="margin-bottom: 8px; font-size: 20px; display: block; color: rgba(255,255,255,0.3);"></i>
+                Nenhum produto cadastrado
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
     </table>
+  </div>
 </section>

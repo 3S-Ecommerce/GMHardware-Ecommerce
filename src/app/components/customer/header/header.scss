@@ -1,234 +1,182 @@
 @use "../../../../../public/assets/style.scss";
 
-@media(min-width:1200px){
-  header{
-      background-color: style.$primary-bg;
-  }
-  .header-search {
-      @include style.displayFlex();
-      padding: 15px;
-      h1{
-          text-align: end;
-          color: style.$primary-text;
-          @include style.fontSize($size: 40px, $weight: 600);
-          flex: 1;
-          margin-right: 32px;
-          cursor: pointer;
-      }
-      .search-bar {
-          @include style.displayFlex($width: 70%, $justify: center);
-          flex: 1;
-
-          i{
-              position: relative;
-              color: style.$white-color;
-              right: 24px;
-          }
-
-          input {
-              height: 35px;
-              background: none;
-              border: 1px solid style.$white-color;
-              color: white;
-              border-radius: 5px;
-              width: 100%;
-              padding-right: 30px;
-              padding-left: 5px;
-          }
-
-      }
-
-      nav {
-          @include style.displayFlex($justify: flex-start);
-          flex: 1;
-
-          a {
-              margin-left: 32px;
-              i {
-                  color: style.$white-color;
-              }
-          }
-
-      }
-  }
-  .header-nav{
-      @include style.displayFlex($gap: 32px);
-      flex-wrap: wrap;
-      a{
-          @include style.fontSize($size: 20px);
-          margin-left: 16px;
-          margin-right: 16px;
-          color: style.$white-color;
-      }
-      padding-bottom: 16px;
-  }
+header {
+  background-color: style.$primary-bg;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+// Containers internos alinhados com o limite de 1200px da aplicação
+.header-search, 
+.header-nav {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
 
+// Primeira Linha: Topbar
+.header-search {
+  @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 24px);
+  padding: 20px 16px;
 
-//tablete
-@media (min-width: 736px) and (max-width: 1199px) {
-  header{
-      background-color: style.$primary-bg;
+  @media (max-width: 736px) {
+    @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 12px);
+    padding: 14px 12px;
   }
-  .header-search{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 15px;
-    h1{
-      color: style.$primary-text;
-    }
-    .search-bar{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 10%;
-      flex: 1;
-      i{
-        position: relative;
-        color: style.$white-color;
-        right: 30px;
+
+  h1 {
+    color: style.$primary-text;
+    @include style.fontSize($size: 32px, $weight: 700);
+    margin: 0;
+    cursor: pointer;
+    white-space: nowrap;
+
+    @media (max-width: 1199px) { @include style.fontSize($size: 26px, $weight: 700); }
+    @media (max-width: 736px) { @include style.fontSize($size: 20px, $weight: 700); }
+  }
+
+  // Wrapper flexível para a barra de pesquisa customizada
+  .search-wrapper {
+    flex: 1;
+    max-width: 600px;
+    width: 100%;
+
+    input {
+      height: 38px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      border-radius: 6px;
+      width: 100%;
+      padding: 0 12px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+
+      &:focus {
+        border-color: style.$primary-text;
+        outline: none;
       }
-      input{
-        height: 35px;
-        background: none;
-        border: 1px solid style.$white-color;
+    }
+  }
+
+  // Menu de ícones de usuário e carrinho
+  .user-nav {
+    @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 24px, $width: auto);
+
+    @media (max-width: 736px) {
+      gap: 16px;
+    }
+
+    a {
+      color: style.$white-color;
+      @include style.fontSize($size: 24px);
+      transition: color 0.2s;
+
+      &:hover {
+        color: style.$primary-text;
+      }
+
+      @media (max-width: 736px) {
+        @include style.fontSize($size: 20px);
+      }
+    }
+
+    .cart-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+
+      .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color: #ef4444;
         color: white;
-        border-radius: 5px;
-        width: 60%;
-        padding-right: 30px;
-        padding-left: 5px;
+        @include style.fontSize($size: 11px, $weight: 700);
+        min-width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        @include style.displayFlex($justify: center, $aligh: center);
+        padding: 2px;
+        box-sizing: border-box;
       }
     }
-    nav{
-      display: flex;
-      align-items: center;
-      gap: 15px;
-
-      a{
-        color: style.$white-color;
-      }
-    }
-  }
-
-  .header-nav{
-    display: none;
   }
 }
 
-//mobile
-@media(max-width: 736px){
-  header{
-      background-color: style.$primary-bg;
-  }
-  .header-search{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 15px;
-    h1{
-      color: style.$primary-text;
-      font-size: 20px;
-    }
-    .search-bar{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      i{
-        display: none;
-      }
-      input{
-        height: 35px;
-        background: none;
-        border: 1px solid style.$white-color;
-        color: white;
-        border-radius: 5px;
-        width: 75%;
-        padding-right: 5px;
-        padding-left: 5px;
-      }
-    }
-    nav{
-      display: flex;
-      align-items: center;
-      gap: 15px;
+// Segunda Linha: Categorias e Idiomas
+.header-nav {
+  @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 20px);
+  padding: 0 16px 16px 16px;
 
-      a{
-        color: style.$white-color;
-      }
-    }
+  // Transforma o menu em lista arrastável horizontalmente em telas menores
+  @media (max-width: 1199px) {
+    padding: 0 12px 12px 12px;
   }
 
-  .header-nav{
-    display: none;
+  .nav-links-scroll {
+    @include style.displayFlex($direction: row, $justify: flex-start, $gap: 24px, $width: auto);
+    flex: 1;
+
+    @media (max-width: 1199px) {
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+      
+      &::-webkit-scrollbar {
+        display: none; // Oculta barra de scroll feia para manter o minimalismo
+      }
+    }
+
+    a {
+      @include style.fontSize($size: 16px, $weight: 500);
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      display: inline-block;
+
+      &:hover {
+        color: style.$primary-text;
+      }
+
+      @media (max-width: 736px) {
+        @include style.fontSize($size: 14px);
+      }
+    }
   }
 }
 
+// Bloco de Idiomas Unificado e Centralizado
 .language-buttons {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  @include style.displayFlex($direction: row, $gap: 6px, $width: auto);
+  flex-shrink: 0;
 
   button {
     background-color: transparent;
-    border: 1px solid style.$primary-text;
+    border: 1px solid rgba(style.$primary-text, 0.4);
     color: style.$primary-text;
-    padding: 4px 7px;
+    padding: 4px 8px;
     border-radius: 4px;
     font-weight: 600;
-    font-size: 12px;
+    @include style.fontSize($size: 12px);
     cursor: pointer;
     transition: all 0.2s ease;
 
     &:hover {
       background-color: style.$primary-text;
       color: style.$primary-bg;
-      transform: translateY(-1px);
+      border-color: style.$primary-text;
     }
 
     &:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
-  }
-}
 
-
-
-@media (min-width: 736px) and (max-width: 1199px) {
-  .language-buttons {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-
-    button {
-      background-color: transparent;
-      border: 1px solid style.$primary-text;
-      color: style.$primary-text;
+    @media (max-width: 736px) {
+      @include style.fontSize($size: 11px);
       padding: 3px 6px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-  }
-}
-
-@media(max-width: 736px) {
-  .language-buttons {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    button {
-      background-color: transparent;
-      border: 1px solid style.$primary-text;
-      color: style.$primary-text;
-      padding: 3px 5px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      cursor: pointer;
     }
   }
 }

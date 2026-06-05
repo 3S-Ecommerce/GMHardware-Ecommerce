@@ -2,12 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Product, ProductData } from '../../../core/services/product';
-
-// Importamos a classe 'Product' (que é o seu serviço) e a interface 'ProductData'
-// import { Product, ProductData } from '../../core/services/product'; 
 
 @Component({
   selector: 'app-search-bar',
@@ -19,7 +16,10 @@ import { Product, ProductData } from '../../../core/services/product';
 export class SearchBarComponent implements OnInit, OnDestroy {
   searchControl = new FormControl('');
   
-  // CORREÇÃO: Usamos ProductData para a lista de resultados
+  // Cache local contendo a lista completa vinda da API
+  private allProducts: ProductData[] = [];
+  
+  // Resultados filtrados exibidos no HTML
   searchResults: ProductData[] = [];
   
   isSearching = false;
@@ -27,35 +27,22 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   constructor(
-    // CORREÇÃO: O nome da classe do seu serviço é 'Product'
     private productService: Product, 
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    // Carrega todo o catálogo imediatamente ao iniciar a página
+    this.carregarTodosOsProdutos();
+
+    // Monitora a digitação e faz o filtro local em memória instantaneamente
     this.subscription.add(
       this.searchControl.valueChanges.pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        filter(query => {
-          if (!query || query.trim().length === 0) {
-            this.searchResults = [];
-            this.showDropdown = false;
-            return false;
-          }
-          this.isSearching = true;
-          return true;
-        }),
-        switchMap(query => this.productService.searchProducts(query || ''))
+        debounceTime(150), // Tempo reduzido já que o filtro local não consome rede
+        distinctUntilChanged()
       ).subscribe({
-        next: (results) => {
-          this.searchResults = results;
-          this.showDropdown = true;
-          this.isSearching = false;
-        },
-        error: (err) => {
-          console.error('Erro na busca:', err);
-          this.isSearching = false;
+        next: (query) => {
+          this.filtrarProdutosLocalmente(query || '');
         }
       })
     );
@@ -65,16 +52,54 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  // CORREÇÃO: O parâmetro é do tipo ProductData
-  onProductSelect(id: number){
+  private carregarTodosOsProdutos(): void {
+    this.isSearching = true;
+    
+    // Chamando o método original passando string vazia para trazer tudo do banco
+    this.productService.getProduct('').subscribe({
+      next: (products: ProductData[]) => {
+        this.allProducts = products;
+        this.isSearching = false;
+        
+        // Se o usuário digitou algo enquanto a API respondia, aplica o filtro
+        if (this.searchControl.value) {
+          this.filtrarProdutosLocalmente(this.searchControl.value);
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao carregar catálogo para cache:', err);
+        this.isSearching = false;
+      }
+    });
+  }
+
+  private filtrarProdutosLocalmente(query: string): void {
+    const termoLimpo = query.trim().toLowerCase();
+
+    // Se o input estiver vazio, esconde o dropdown
+    if (!termoLimpo) {
+      this.searchResults = [];
+      this.showDropdown = false;
+      return;
+    }
+
+    // Realiza a filtragem em memória na velocidade da luz
+    this.searchResults = this.allProducts.filter(product => 
+      product.name.toLowerCase().includes(termoLimpo)
+    );
+
+    // Mostra o dropdown apenas se houver correspondências
+    this.showDropdown = this.searchResults.length > 0;
+  }
+
+  onProductSelect(id: number): void {
     this.showDropdown = false;
-    console.log(id)
-    // ALTERAÇÃO AQUI: Força o roteador a processar a navegação mesmo estando na mesma URL básica
+    console.log(id);
     this.router.navigate(['/produto', { id: id }], { onSameUrlNavigation: 'reload' }); 
-    this.searchControl.setValue('');
+    this.searchControl.setValue('', { emitEvent: false }); // Limpa o campo sem re-disparar o filtro
   }
 
   closeDropdown(): void {
-    setTimeout(() => { this.showDropdown = false; }, 100);
+    setTimeout(() => { this.showDropdown = false; }, 120);
   }
 }

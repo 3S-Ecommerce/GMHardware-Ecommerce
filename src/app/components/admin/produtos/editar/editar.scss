@@ -1,247 +1,272 @@
+@use "sass:color";
 @use "../../../../../../public/assets/style.scss";
 
-.w100 {
-    width: 100%;
-}
-
-.w70 {
-    width: 68%;
-}
-
-.w60 {
-    width: 58%;
-}
-
-.w50 {
-    width: 48%;
-}
-
-.w40 {
-    width: 38%;
-}
-
-.w30 {
-    width: 28%;
-}
-
 section {
-    @include style.sectionPattern();
-    min-height: 80vh;
-    justify-content: flex-start;
-    gap: 48px;
+  @include style.sectionPattern();
+  min-height: 80vh;
+  justify-content: flex-start;
+  gap: 48px;
 
-    .form-admin {
-        @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
-        max-width: 70%;
-        padding: 24px;
-        background-color: style.$primary-bg;
-        border-radius: 10px;
+  @media (max-width: 1024px) {
+    gap: 32px;
+    padding: 20px;
+  }
 
-        form {
-            @include style.displayFlex($wrap: wrap, $justify: space-between);
-            row-gap: 24px;
-
-            .div-input {
-                display: flex;
-                flex-direction: column;
-                gap: 4px;
-
-                label {
-                    @include style.fontSize($size: 24px, $weight: 600);
-                    color: white;
-                }
-
-                input {
-                    padding: 12px 24px;
-                    background: none;
-                    color: white;
-                    border-radius: 10px;
-                    @include style.fontSize($size: 24px, $weight: 500);
-                    width: 100%;
-                    border: 1px solid rgba(255, 255, 255, 0.5);
-                    box-sizing: border-box;
-
-                    &[type='file'] {
-                        border: 1px solid style.$white-color;
-                        border-right: 2px solid gray;
-                        border-bottom: 2px solid gray;
-                        background: none;
-                        padding: 8px 12px;
-                    }
-                }
-
-                textarea {
-                    padding: 12px 24px;
-                    background: none;
-                    color: white;
-                    border-radius: 10px;
-                    @include style.fontSize($size: 24px, $weight: 500);
-                    width: 100%;
-                    border: 1px solid rgba(255, 255, 255, 0.5);
-                    box-sizing: border-box;
-                }
-
-                select {
-                    padding: 12px 24px;
-                    background: transparent;
-                    color: white;
-                    border-radius: 10px;
-                    @include style.fontSize($size: 24px, $weight: 500);
-                    width: 100%;
-                    border: 1px solid rgba(255, 255, 255, 0.5);
-                    box-sizing: border-box;
-
-                    option {
-                        color: black;
-                        background-color: white;
-                    }
-                }
-
-                #file {
-                    padding: 12px 24px;
-                    background: none;
-                    color: white;
-                    border-radius: 10px;
-                    @include style.fontSize($size: 24px, $weight: 500);
-                    width: 100%;
-                }
-
-                &.button {
-                    align-items: center;
-                }
-
-                .p {
-                    border: none;
-                    border-radius: 10px;
-                    padding: 4px 10px;
-                    min-width: 120px;
-                    justify-self: center;
-                    align-self: center;
-                    height: 40px;
-                    margin-left: 8px;
-                    cursor: pointer;
-                    background-color: style.$primary-text;
-                    color: white;
-                    @include style.fontSize($size: 22px, $weight: 600);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-            }
-
-            .button {
-                width: 100%;
-                justify-content: flex-end;
-                align-items: center;
-                gap: 16px;
-                display: flex;
-
-                button {
-                    border: none;
-                    border-radius: 10px;
-                    padding: 4px 10px;
-                    min-width: 120px;
-                    height: 40px;
-                    margin-left: 8px;
-                    cursor: pointer;
-                    background-color: style.$primary-text;
-                    color: white;
-                    @include style.fontSize($size: 22px, $weight: 600);
-
-                    &[disabled] {
-                        opacity: .5;
-                    }
-                }
-
-                .voltar {
-                    @include style.fontSize($size: 22px, $weight: 600);
-                    color: white;
-                }
-            }
-        }
-    }
+  @media (max-width: 768px) {
+    gap: 24px;
+    padding: 32px 20px;
+  }
 }
 
-// ==========================================================================
-// RESPONSIVIDADE ADICIONADA (MANTÉM O CÓDIGO ACIMA INTEGRALMENTE)
-// ==========================================================================
+.enderecos-title {
+  @include style.fontSize($size: 32px, $weight: 600);
+  color: #ffffff;
+  margin: 0;
+  text-align: left;
 
-// TABLET (Telas até 1024px)
-@media (max-width: 1024px) {
-    section {
-        gap: 32px;
-        padding: 20px;
-
-        .form-admin {
-            max-width: 90%;
-            width: 100%;
-        }
-    }
+  @media (max-width: 736px) {
+    @include style.fontSize($size: 24px, $weight: 600);
+  }
 }
 
-// MOBILE (Telas até 768px - Foco em 375px)
-@media (max-width: 768px) {
-    section {
-        gap: 20px;
-        padding: 10px;
-        align-items: center;
+.enderecos-list {
+  @include style.displayFlex($direction: column, $justify: flex-start, $aligh: center, $gap: 16px);
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+}
 
-        h2 {
-            font-size: 28px;
-            text-align: center;
-        }
+.form-card {
+  @include style.displayFlex($direction: column, $justify: flex-start, $aligh: stretch, $gap: 12px, $width: 100%);
+  background-color: style.$primary-bg;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: border-box;
 
-        .form-admin {
-            max-width: 100%;
-            width: 100%;
-            padding: 16px;
+  form {
+    @include style.displayFlex($wrap: wrap, $justify: space-between, $gap: 16px);
+    width: 100%;
 
-            form {
-                row-gap: 16px;
+    // Controle flexível e alinhamento do Grid
+    .w100 { width: 100%; }
+    .w60  { width: calc(58% - 8px); }
+    .w40  { width: calc(48% - 8px); } // Ajustado sutilmente para balancear melhor no flexbox
+    .w30  { width: calc(31% - 8px); }
 
-                .w60, .w40, .w30, .w50, .w70 {
-                    width: 100% !important;
-                }
-
-                .div-input {
-                    label {
-                        @include style.fontSize($size: 16px, $weight: 600);
-                    }
-
-                    input, textarea, select {
-                        padding: 8px 16px;
-                        @include style.fontSize($size: 16px, $weight: 500);
-                    }
-                    
-                    input[type='file'] {
-                        padding: 6px 12px;
-                    }
-
-                    .p {
-                        @include style.fontSize($size: 16px, $weight: 600);
-                        height: 36px;
-                        width: 100%;
-                        margin-left: 0;
-                    }
-                }
-
-                .button {
-                    justify-content: space-between;
-                    width: 100%;
-                    margin-top: 8px;
-
-                    .voltar {
-                        @include style.fontSize($size: 18px, $weight: 600);
-                    }
-
-                    button {
-                        @include style.fontSize($size: 18px, $weight: 600);
-                        min-width: 100px;
-                        height: 38px;
-                        margin-left: 0;
-                    }
-                }
-            }
-        }
+    @media (max-width: 768px) {
+      .w60, .w40, .w30 {
+        width: 100%;
+      }
     }
+  }
+}
+
+.div-input {
+  @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 6px, $width: auto);
+  box-sizing: border-box;
+}
+
+.form-label {
+  @include style.fontSize($size: 14px, $weight: 600);
+  color: style.$white-color;
+  text-align: left;
+}
+
+// Inputs de Texto e Controles Genéricos
+.form-input {
+  background: #1a1f27;
+  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  @include style.fontSize($size: 14px, $weight: 400);
+  width: 100%;
+  height: 45px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: style.$primary-text;
+  }
+}
+
+// Customização Elegante de Inputs de Upload de Arquivos
+.file-input {
+  padding: 8px 12px;
+  line-height: 25px;
+  cursor: pointer;
+
+  &::file-selector-button {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #3a3a3a;
+    }
+  }
+}
+
+// Campo de Textarea customizado
+.form-textarea {
+  background: #1a1f27;
+  color: #ffffff;
+  padding: 12px;
+  border: 1px solid #2a2a2a;
+  border-radius: 4px;
+  @include style.fontSize($size: 14px, $weight: 400);
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: style.$primary-text;
+  }
+}
+
+// Seleção de Categorias
+select.form-input {
+  cursor: pointer;
+  
+  option {
+    color: black;
+    background-color: white;
+  }
+}
+
+// Estilização Dinâmica de "+ Novo Detalhe" (Visual Pílula Discreta)
+.dynamic-action-container {
+  align-items: center;
+  justify-content: center;
+  margin: 4px 0;
+}
+
+.btn-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 6px 16px;
+  cursor: pointer;
+  background-color: transparent;
+  color: #ffffff;
+  @include style.fontSize($size: 13px, $weight: 600);
+  transition: all 0.2s ease;
+
+  .plus-icon {
+    color: style.$primary-text;
+    font-size: 16px;
+  }
+
+  &:hover {
+    border-color: style.$primary-text;
+    background-color: rgba(255, 255, 255, 0.02);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Ações Finais do Formulário (Salvar / Voltar)
+.form-actions {
+  @include style.displayFlex($direction: row, $justify: center, $aligh: center, $gap: 10px, $width: 100%);
+  margin-top: 16px;
+
+  @media (max-width: 480px) {
+    @include style.displayFlex($direction: column-reverse, $gap: 10px);
+  }
+}
+
+// Botão Primário (Salvar)
+.btn-adicionar {
+  @include style.displayFlex($direction: row, $justify: center, $aligh: center, $gap: 8px, $width: auto);
+  padding: 12px 24px;
+  background-color: style.$primary-text;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  @include style.fontSize($size: 16px, $weight: 600);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 45px;
+  box-sizing: border-box;
+
+  &:hover:not([disabled]) {
+    background-color: color.adjust(style.$primary-text, $lightness: -10%);
+    box-shadow: 0 4px 12px rgba(style.$primary-text, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &:active:not([disabled]) {
+    transform: scale(0.98);
+  }
+
+  &.btn-submit {
+    flex: 1;
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 20px;
+    @include style.fontSize($size: 14px, $weight: 600);
+  }
+}
+
+// Botão Secundário (Voltar)
+.endereco-excluir {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  &.btn-cancel {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 24px;
+    border-radius: 6px;
+    color: #ffffff;
+    @include style.fontSize($size: 16px, $weight: 600);
+    height: 45px;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+      padding: 10px 20px;
+      @include style.fontSize($size: 14px, $weight: 600);
+    }
+  }
 }

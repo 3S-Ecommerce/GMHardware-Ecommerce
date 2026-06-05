@@ -1,30 +1,48 @@
 <header>
-    <!-- <img src="" alt=""> -->
-    <div class="header-search">
-        <h1 routerLink="/inicio" aria-label="Nome da loja" id="headerCustomerTituloLoja">GMHardware</h1>
-        <app-search-bar></app-search-bar>
-        <nav>
-            @if (authService.isAuthenticated()) {
-            <a routerLink="/meu-perfil"><i class="fa-solid fa-circle-user" aria-label="Acessar Perfil"></i></a>
-            } @else {
-            <a routerLink="/login"><i class="fa-solid fa-circle-user" aria-label="Fazer Login"></i></a>
-            }
-            <a routerLink="/carrinho" id="cart"><i class="fa-solid fa-cart-arrow-down"
-                    aria-label="icone de carrinho"></i><span>{{ quantidadeCarrinho() }}</span></a>
-        </nav>
-    </div>
-    <nav class="header-nav">
-        <a routerLink="/placas-de-video" id="headerCustomerNavPlacasVideo">Placa de vídeo</a>
-        <a routerLink="/processadores" id="headerCustomerNavProcessadores">Processadores</a>
-        <a routerLink="/memorias-ram" id="headerCustomerNavMemoriasRam">Memórias RAM</a>
-        <a routerLink="/ssds" id="headerCustomerNavSsds">SSDs</a>
-        <a routerLink="/gabinetes" id="headerCustomerNavGabinetes">Gabinetes</a>
-        <a routerLink="/coolers" id="headerCustomerNavCoolers">Coolers</a>
-        <a routerLink="/fontes" id="headerCustomerNavFontes">Fontes</a>
-        <a routerLink="/perifericos" id="headerCustomerNavPerifericos">Periféricos</a>
-        <div class="language-buttons">
-            <button (click)="changeLanguage('pt')">PT</button>
-            <button (click)="changeLanguage('en')">EN</button>
-        </div>
+  <!-- Linha Principal: Logo, Busca e Links de Perfil/Carrinho -->
+  <div class="header-search">
+    <h1 routerLink="/inicio" aria-label="Nome da loja" id="headerCustomerTituloLoja">
+      GMHardware
+    </h1>
+    
+    <app-search-bar class="search-wrapper"></app-search-bar>
+    
+    <nav class="user-nav">
+      @if (authService.isAuthenticated()) {
+        <a routerLink="/meu-perfil" aria-label="Acessar Perfil">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+      } @else {
+        <a routerLink="/login" aria-label="Fazer Login">
+          <i class="fa-solid fa-circle-user"></i>
+        </a>
+      }
+      
+      <a routerLink="/carrinho" id="cart" class="cart-link" aria-label="Acessar carrinho">
+        <i class="fa-solid fa-cart-arrow-down"></i>
+        @if (quantidadeCarrinho() > 0) {
+          <span class="cart-badge">{{ quantidadeCarrinho() }}</span>
+        }
+      </a>
     </nav>
+  </div>
+
+  <!-- Linha de Categorias: Agora com rolagem horizontal no mobile -->
+  <nav class="header-nav">
+    <div class="nav-links-scroll">
+      <a routerLink="/placas-de-video" id="headerCustomerNavPlacasVideo">Placa de vídeo</a>
+      <a routerLink="/processadores" id="headerCustomerNavProcessadores">Processadores</a>
+      <a routerLink="/memorias-ram" id="headerCustomerNavMemoriasRam">Memórias RAM</a>
+      <a routerLink="/ssds" id="headerCustomerNavSsds">SSDs</a>
+      <a routerLink="/gabinetes" id="headerCustomerNavGabinetes">Gabinetes</a>
+      <a routerLink="/coolers" id="headerCustomerNavCoolers">Coolers</a>
+      <a routerLink="/fontes" id="headerCustomerNavFontes">Fontes</a>
+      <a routerLink="/perifericos" id="headerCustomerNavPerifericos">Periféricos</a>
+    </div>
+
+    <div class="language-buttons">
+      <button type="button" (click)="changeLanguage('pt')">PT</button>
+      <button type="button" (click)="changeLanguage('en')">EN</button>
+    </div>
+  </nav>
 </header>

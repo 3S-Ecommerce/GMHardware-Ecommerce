@@ -1,67 +1,188 @@
+@use "sass:color";
 @use "../../../../../../public/assets/style.scss";
 
-.item {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    @include style.displayFlex($justify: space-between);
-    height: 110px;
+.item-carrinho-row {
+    @include style.displayFlex($justify: space-between, $aligh: center, $gap: 24px);
     width: 100%;
+    padding: 24px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    .infos {
-        @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 8px);
+    &:last-of-type {
+        border-bottom: none; // Remove a linha divisória do último item da lista
+    }
 
-        .quantidade {
-            @include style.displayFlex($aligh: center);
-            width: auto;
-            font-size: 20px;
+    // Quebra para Tablet/Mobile médio
+    @media (max-width: 768px) {
+        @include style.displayFlex($direction: column, $justify: flex-start, $aligh: stretch, $gap: 16px);
+        padding: 16px 0;
+    }
+}
 
-            button {
+.infos {
+    @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 20px, $width: auto);
+    flex: 1;
 
-                background: none;
-                border: none;
-                cursor: pointer;
-                @include style.displayFlex($justify: flex-start, $width: auto);
-                color: style.$descont-color;
-                @include style.fontSize($size: 16px, $weight: 600);
+    @media (max-width: 580px) {
+        @include style.displayFlex($direction: row, $justify: flex-start, $aligh: flex-start, $gap: 12px, $width: 100%);
+    }
 
+    .quantidade {
+        @include style.displayFlex($justify: center, $aligh: center, $gap: 8px, $width: auto);
+        background-color: rgba(255, 255, 255, 0.03);
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
 
+        @media (max-width: 580px) {
+            flex-direction: column-reverse;
+            padding: 8px 6px;
+            gap: 12px;
+        }
+
+        .btn-qty {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: style.$descont-color;
+            @include style.fontSize($size: 14px, $weight: 600);
+            padding: 4px;
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: scale(1.15);
+            }
+            &:active {
+                transform: scale(0.9);
             }
         }
 
-        img {
-            border-radius: 10px;
-        }
-
-        .dados {
-            margin-left: 20px;
-
-            p,
-            h3 {
-                margin-bottom: 10px;
-                margin-top: 10px;
-                color: white;
-                @include style.fontSize($size: 24px, $weight: 600)
-            }
+        .qty-number {
+            color: #ffffff;
+            @include style.fontSize($size: 16px, $weight: 600);
+            min-width: 20px;
+            text-align: center;
         }
     }
 
-    .buttons {
-        button {
-            background-color: style.$descont-color;
-            border-radius: 5px;
-            width: 100px;
-            height: 35px;
-            border: none;
-            color: white;
+    // Estrutura responsiva da imagem com preenchimento nativo (fill)
+    .wrapper-img {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        min-width: 100px;
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #1a1f27;
+        flex-shrink: 0;
 
-            &.comprar {
-                margin-top: 15px;
-                background-color: style.$primary-text;
+        @media (max-width: 480px) {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+        }
+
+        .produto-img {
+            object-fit: cover;
+        }
+    }
+
+    .dados {
+        @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 4px, $width: 100%);
+        text-align: left;
+
+        h3 {
+            color: #ffffff;
+            margin: 0;
+            @include style.fontSize($size: 20px, $weight: 600);
+            line-height: 1.3;
+
+            @media (max-width: 640px) {
+                @include style.fontSize($size: 16px, $weight: 600);
+            }
+        }
+
+        .preco {
+            color: #ffffff;
+            margin: 0;
+            @include style.fontSize($size: 20px, $weight: 600);
+
+            @media (max-width: 640px) {
+                @include style.fontSize($size: 16px, $weight: 600);
+            }
+
+            span {
+                @include style.fontSize($size: 14px, $weight: 500);
+                color: rgba(255, 255, 255, 0.6);
+                margin-right: 2px;
             }
         }
     }
 }
 
-hr {
+.buttons {
+    @include style.displayFlex($direction: column, $justify: center, $aligh: flex-end, $gap: 12px, $width: auto);
+
+    @media (max-width: 768px) {
+        @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 12px, $width: 100%);
+    }
+
+    button {
+        border-radius: 6px;
+        width: 110px;
+        height: 38px;
+        border: none;
+        color: #ffffff;
+        cursor: pointer;
+        @include style.fontSize($size: 14px, $weight: 600);
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        @media (max-width: 768px) {
+            flex: 1;
+            max-width: 200px;
+            height: 42px;
+        }
+
+        &:active {
+            transform: scale(0.97);
+        }
+
+        &.btn-excluir {
+            background-color: style.$descont-color;
+
+            &:hover {
+                background-color: color.adjust(style.$descont-color, $lightness: -8%);
+            }
+        }
+
+        &.comprar {
+            background-color: style.$primary-text;
+
+            &:hover {
+                background-color: color.adjust(style.$primary-text, $lightness: -10%);
+                box-shadow: 0 4px 12px rgba(style.$primary-text, 0.25);
+            }
+        }
+    }
+}
+
+// Container e Mensagem de feedback do carrinho vazio
+.carrinho-vazio-container {
     width: 100%;
+    padding: 60px 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.carrinho-vazio-mensagem {
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+    @include style.fontSize($size: 22px, $weight: 500);
+
+    @media (max-width: 640px) {
+        @include style.fontSize($size: 18px, $weight: 500);
+    }
 }

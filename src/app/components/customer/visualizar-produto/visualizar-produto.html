@@ -1,19 +1,30 @@
 <app-header></app-header>
+
 <main class="produto">
-    @if (produto()){
+  @if (produto()) {
     <app-imagem-produto [produto]="produto()"></app-imagem-produto>
+
     <div class="conteudo">
-        <h1 (click)="teste()">{{ produto().name }}</h1>
-        <ul>
-            @for (especificacao of especificacoes(); track $index){
-            <li style="white-space: pre-line;">{{ especificacao }}</li>
-            }
-        </ul>
-        <app-adicionar-produto [produtoID]="produto().id" [price]="produto().price" [name]="produto().name" [image]="produto().image"></app-adicionar-produto>
+      <h1 (click)="teste()">{{ produto().name }}</h1>
+      
+      <ul class="especificacoes-lista">
+        @for (especificacao of especificacoes(); track especificacao) {
+          <li>{{ especificacao }}</li>
+        }
+      </ul>
+
+      <app-adicionar-produto 
+        [produtoID]="produto().id" 
+        [price]="produto().price" 
+        [name]="produto().name" 
+        [image]="produto().image">
+      </app-adicionar-produto>
     </div>
-    }
-    @else{
-    <p id="visualizarProdutoCarregando">Carregando Produto</p>
-    }
+  } @else {
+    <div class="loading-container">
+      <p id="visualizarProdutoCarregando">Carregando Produto...</p>
+    </div>
+  }
 </main>
+
 <app-footer></app-footer>

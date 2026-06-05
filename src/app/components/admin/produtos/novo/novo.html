@@ -1,79 +1,84 @@
 <section>
-    <h2 id="novoProdutosTitulo">Cadastrar Produto</h2>
-    <div class="form-admin">
-        <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
-            
-            <div class="div-input w60">
-                <label for="name" id="novoProdutosNome">Nome do produto:</label>
-                <input type="text" formControlName="name" id="name" placeholder="Exemplo produto" required>
-            </div>
-            
-            <div class="div-input w40">
-                <label for="category" id="novoProdutosCategoria">Categoria:</label>
-                <select formControlName="id_category" id="category">
-                    @if(categorias()){
-                        @for(categoria of categorias(); track categoria.id){
-                            <option value="{{ categoria.id }}">{{ categoria.name }}</option>
-                        }
-                    }
-                </select>
-            </div>
-            
-            <div class="div-input w30">
-                <label for="price" id="novoProdutosPreco">Preço:</label>
-                <input type="number" formControlName="price" id="price" placeholder="Preço" required>
-            </div>
-            
-            <div class="div-input w30">
-                <label for="stock" id="novoProdutosEstoque">Itens em estoque:</label>
-                <input type="number" formControlName="stock" id="stock" placeholder="ex. 10" required>
-            </div>
-            
-            <div class="div-input w30">
-                <label for="image" id="novoProdutosImagem">Imagem Principal:</label>
-                <input type="file" id="image" (change)="onFileChange($event, 'image')">
-            </div>
+  <h2 class="enderecos-title" id="novoProdutosTitulo">Cadastrar Produto</h2>
+  
+  <div class="enderecos-list">
+    <div class="endereco-item form-card">
+      <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
+          
+        <div class="div-input w60">
+          <label for="name" class="form-label" id="novoProdutosNome">Nome do produto:</label>
+          <input type="text" formControlName="name" id="name" placeholder="Exemplo produto" class="form-input" required>
+        </div>
+        
+        <div class="div-input w40">
+          <label for="category" class="form-label" id="novoProdutosCategoria">Categoria:</label>
+          <select formControlName="id_category" id="category" class="form-input">
+            @if(categorias()){
+              @for(categoria of categorias(); track categoria.id){
+                <option value="{{ categoria.id }}">{{ categoria.name }}</option>
+              }
+            }
+          </select>
+        </div>
+        
+        <div class="div-input w30">
+          <label for="price" class="form-label" id="novoProdutosPreco">Preço:</label>
+          <input type="number" formControlName="price" id="price" placeholder="Preço" class="form-input" required>
+        </div>
+        
+        <div class="div-input w30">
+          <label for="stock" class="form-label" id="novoProdutosEstoque">Itens em estoque:</label>
+          <input type="number" formControlName="stock" id="stock" placeholder="ex. 10" class="form-input" required>
+        </div>
+        
+        <div class="div-input w30">
+          <label for="image" class="form-label" id="novoProdutosImagem">Imagem Principal:</label>
+          <input type="file" id="image" (change)="onFileChange($event, 'image')" class="form-input file-input">
+        </div>
 
-            <div class="div-input w30">
-                <label for="image_2">Imagem 2 (Opcional):</label>
-                <input type="file" id="image_2" (change)="onFileChange($event, 'image_2')">
-            </div>
+        <div class="div-input w30">
+          <label for="image_2" class="form-label">Imagem 2 (Opcional):</label>
+          <input type="file" id="image_2" (change)="onFileChange($event, 'image_2')" class="form-input file-input">
+        </div>
 
-            <div class="div-input w30">
-                <label for="image_3">Imagem 3 (Opcional):</label>
-                <input type="file" id="image_3" (change)="onFileChange($event, 'image_3')">
-            </div>
+        <div class="div-input w30">
+          <label for="image_3" class="form-label">Imagem 3 (Opcional):</label>
+          <input type="file" id="image_3" (change)="onFileChange($event, 'image_3')" class="form-input file-input">
+        </div>
 
-            <div class="div-input w30">
-                <label for="image_4">Imagem 4 (Opcional):</label>
-                <input type="file" id="image_4" (change)="onFileChange($event, 'image_4')">
-            </div>
+        <div class="div-input w30">
+          <label for="image_4" class="form-label">Imagem 4 (Opcional):</label>
+          <input type="file" id="image_4" (change)="onFileChange($event, 'image_4')" class="form-input file-input">
+        </div>
 
-            <div class="div-input w30">
-                <label for="image_5">Imagem 5 (Opcional):</label>
-                <input type="file" id="image_5" (change)="onFileChange($event, 'image_5')">
-            </div>
-            
-            <div class="div-input w100">
-                <label for="description" id="novoProdutosDescricao">Descrição:</label>
-                <textarea formControlName="description" id="description" placeholder="Descrição do produto" rows="3"></textarea>
-            </div>
-            
-            <div id="div-details" class="div-input w100" formArrayName="details">
-                <label for="details" id="novoProdutosDetalhe">Detalhes:</label>
-                @for (detalhe of detalhesFormArray.controls; track $index){
-                    <input class="details" type="text" [formControlName]="$index" placeholder="Especificações" style="margin-bottom: 8px;">
-                }
-            </div>
-            
-            <div class="div-input w100 button">
-                <p class="p" (click)="novoDetalhe()" id="novoProdutosBtnNovoDetalhe">Novo detalhe</p> 
-            </div>
-            
-            <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar" id="novoProdutosVoltar">Voltar</a>
-                <button [disabled]="formProduct.invalid" type="submit" id="novoProdutosSalvar">Salvar</button>
-            </div>
-        </form>
+        <div class="div-input w30">
+          <label for="image_5" class="form-label">Imagem 5 (Opcional):</label>
+          <input type="file" id="image_5" (change)="onFileChange($event, 'image_5')" class="form-input file-input">
+        </div>
+        
+        <div class="div-input w100">
+          <label for="description" class="form-label" id="novoProdutosDescricao">Descrição:</label>
+          <textarea formControlName="description" id="description" placeholder="Descrição do produto" rows="3" class="form-textarea"></textarea>
+        </div>
+        
+        <div id="div-details" class="div-input w100" formArrayName="details">
+          <label for="details" class="form-label" id="novoProdutosDetalhe">Detalhes:</label>
+          @for (detalhe of detalhesFormArray.controls; track $index){
+            <input class="form-input" type="text" [formControlName]="$index" placeholder="Especificações" style="margin-bottom: 10px;">
+          }
+        </div>
+        
+        <div class="div-input w100 dynamic-action-container">
+          <span class="btn-secondary-link" (click)="novoDetalhe()" id="novoProdutosBtnNovoDetalhe">
+            <span class="plus-icon">+</span> Novo detalhe
+          </span> 
+        </div>
+        
+        <div class="form-actions">
+          <a routerLink="/finalizar-compra" class="endereco-excluir btn-cancel" id="novoProdutosVoltar">Voltar</a>
+          <button [disabled]="formProduct.invalid" type="submit" class="btn-adicionar btn-submit" id="novoProdutosSalvar">Salvar</button>
+        </div>
+      </form>
     </div>
+  </div>
 </section>

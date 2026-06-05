@@ -1,51 +1,75 @@
 @use "../../../../../public/assets/style.scss";
 
-
 .produto {
-    @include style.displayFlex($gap: 120px);
+    // Layout padrão para Monitores Grandes (Lado a lado)
+    @include style.displayFlex($direction: row, $aligh: flex-start, $justify: center, $gap: 80px);
     background-color: style.$secundary-bg;
     padding: 62px 148px;
     min-height: 80vh;
+    box-sizing: border-box;
+    width: 100%;
+
+    // Desktops Compactos e Notebooks
+    @media (max-width: 1400px) {
+        padding: 48px 60px;
+        gap: 48px;
+    }
+
+    // Tablets e Smartphones (Transiciona para empilhamento vertical)
+    @media (max-width: 992px) {
+        @include style.displayFlex($direction: column, $aligh: center, $justify: flex-start, $gap: 32px);
+        padding: 32px 20px;
+    }
 
     .conteudo {
         @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
         flex: 1;
-        height: 100%;
+        width: 100%;
+
         h1 {
             @include style.fontSize($size: 40px, $weight: 600);
             color: white;
-        }
-        ul{
-            li{
-                @include style.fontSize($size: 25px, $weight: 400);
-                color: style.$white-color;
-                margin-bottom: 8px;
-            }
-        }
-    }
-}
-@media (max-width: 1400px){
-    .produto {
-    @include style.displayFlex($gap:120px);
-    background-color: style.$secundary-bg;
-    padding: 62px 70px;
-    min-height: 80vh;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
 
-    .conteudo {
-        @include style.displayFlex($direction: column, $justify: flex-start, $aligh: flex-start, $gap: 16px);
-        flex: 1;
-        height: 100%;
-        h1 {
-            @include style.fontSize($size: 20px, $weight: 600);
-            color: white;
+            @media (max-width: 1400px) {
+                @include style.fontSize($size: 28px, $weight: 600);
+            }
+
+            @media (max-width: 480px) {
+                @include style.fontSize($size: 24px, $weight: 600);
+            }
         }
-        ul{
-            li{
-                @include style.fontSize($size: 20px, $weight: 400);
+
+        .especificacoes-lista {
+            width: 100%;
+            padding-left: 20px;
+            margin: 0 0 16px 0;
+
+            li {
+                @include style.fontSize($size: 22px, $weight: 400);
                 color: style.$white-color;
-                margin-bottom: 8px;
+                margin-bottom: 12px;
+                white-space: pre-line; // Movido com sucesso do HTML inline para cá
+                line-height: 1.5;
+
+                @media (max-width: 1400px) {
+                    @include style.fontSize($size: 16px, $weight: 400);
+                    margin-bottom: 8px;
+                }
             }
         }
     }
 }
+
+// Container isolado para centralizar o feedback textual de carregamento
+.loading-container {
+    @include style.displayFlex($justify: center, $aligh: center, $width: 100%);
+    min-height: 60vh;
+
+    p {
+        color: style.$white-color;
+        @include style.fontSize($size: 18px, $weight: 500);
+        margin: 0;
+    }
 }

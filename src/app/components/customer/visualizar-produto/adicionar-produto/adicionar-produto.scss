@@ -1,24 +1,29 @@
+@use "sass:color";
 @use "../../../../../../public/assets/style.scss";
 
 :host {
     display: block;
+    width: 100%;
     max-width: 500px;
     background-color: style.$primary-bg;
     padding: 24px;
     border-radius: 10px;
     justify-self: center;
+    box-sizing: border-box;
 }
 
 h3 {
     color: style.$descont-color;
     @include style.fontSize($size: 35px, $weight: 600);
     margin-bottom: 4px;
+    margin-top: 0;
 }
 
 .preco-antigo {
     @include style.fontSize($size: 18px, $weight: 400);
-    color: rgba(style.$white-color, 0.6);
-    text-decoration: line-through; // Dá o efeito visual de preço anterior riscado
+    color: style.$white-color;
+    opacity: 0.6;
+    text-decoration: line-through;
     display: block;
     margin-bottom: 12px;
 }
@@ -28,6 +33,7 @@ h3 {
         @include style.fontSize($size: 20px, $weight: 400);
         color: style.$white-color;
         line-height: 1.5;
+        margin: 0;
 
         strong {
             font-weight: 700;
@@ -36,38 +42,92 @@ h3 {
     }
 }
 
-p {
-    b#adicionarProdutoEstoque {
-        display: block;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        color: style.$success-color;
-        @include style.fontSize($size: 22px, $weight: 600);
+#adicionarProdutoEstoque {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: style.$success-color;
+    @include style.fontSize($size: 22px, $weight: 600);
+}
+
+// Estilização portada e higienizada do seletor de quantidade
+.controle-quantidade {
+    @include style.displayFlex($justify: flex-start, $aligh: center, $gap: 12px);
+    margin-bottom: 24px;
+    width: 100%;
+
+    .label-quantidade {
+        color: #ffffff;
+        @include style.fontSize($size: 16px, $weight: 700);
+    }
+
+    .seletor-quantidade {
+        @include style.displayFlex($justify: center, $aligh: center, $width: auto);
+        border: 1px solid #2a2a2a;
+        border-radius: 6px;
+        background: #1a1f27;
+        overflow: hidden;
+
+        .btn-qty {
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            padding: 8px 16px;
+            cursor: pointer;
+            @include style.fontSize($size: 18px, $weight: 400);
+            transition: background-color 0.2s ease;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            &:active {
+                transform: scale(0.95);
+            }
+        }
+
+        .valor-quantidade {
+            color: wheat;
+            min-width: 32px;
+            text-align: center;
+            @include style.fontSize($size: 16px, $weight: 700);
+        }
     }
 }
 
 .buttons {
     @include style.displayFlex($justify: space-between, $aligh: center, $gap: 16px);
     margin-top: 8px;
+    width: 100%;
+
+    // Evita quebra de layout e esmagamento de texto em telas minúsculas
+    @media (max-width: 400px) {
+        @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px);
+    }
 
     button {
         @include style.fontSize($size: 18px, $weight: 600);
         flex: 1;
-        height: 44px;
+        height: 46px;
         color: white;
-        border-radius: 5px;
+        border-radius: 6px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: transparent;
         cursor: pointer;
         @include style.displayFlex($justify: center, $aligh: center, $gap: 8px);
-        transition: background-color 0.2s;
+        transition: all 0.2s ease;
 
         i {
             font-size: 16px;
         }
 
         &:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        &:active {
+            transform: scale(0.98);
         }
 
         &.primary {
@@ -75,7 +135,9 @@ p {
             border: none;
 
             &:hover {
-                background-color: darkneen(style.$primary-text, 5%);
+                // Correção do erro tipográfico 'darkneen' para a abordagem recomendada do Sass
+                background-color: color.adjust(style.$primary-text, $lightness: -10%);
+                box-shadow: 0 4px 12px rgba(style.$primary-text, 0.25);
             }
         }
     }

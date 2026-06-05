@@ -1,167 +1,272 @@
+@use "sass:color";
 @use "../../../../../../public/assets/style.scss";
 
-@media(min-width:1200px){
-section{
-    @include style.sectionPattern();
-    min-height: 80vh;
-    justify-content: flex-start;
-    gap: 48px;
+section {
+  @include style.sectionPattern();
+  min-height: 80vh;
+  justify-content: flex-start;
+  gap: 48px;
 
-    div{
-        @include style.displayFlex($justify: space-between,);
-        button{
-            @include style.fontSize($size: 32px, $weight: 600);
-            background-color: style.$primary-text;
-            padding: 4px 8px;
-            border-radius: 10px;
-            border: none;
-            color: white;
-        }
-    }
+  @media (max-width: 1024px) {
+    gap: 32px;
+    padding: 20px;
+  }
 
-    table {
-        min-width: 900px;
-        background-color: style.$primary-bg;
-        border-radius: 10px;
-        border-collapse: collapse;
-
-        thead {
-            th {
-                color: white;
-                @include style.fontSize($size: 24px, $weight: 600);
-                border-bottom: 1px solid white;
-                max-height: 70px;
-                padding: 16px
-            }
-
-            padding-bottom: 4px;
-        }
-
-        tbody {
-            td {
-                color: style.$white-color;
-                @include style.fontSize($size: 24px, $weight: 600);
-                border-bottom: 1px solid white;
-                text-align: center;
-                max-height: 70px;
-                padding: 16px;
-                border-bottom-left-radius: 10px;
-                border-bottom-right-radius: 10px;
-
-                &.acoes {
-                    a {
-                        color: orange;
-                        margin-right: 8px;
-                        margin-left: 8px;
-                    }
-                }
-            }
-        }
-    }
-}
-}
-@media (min-width: 736px) and (max-width: 1199px) {
-section{
-    @include style.sectionPattern();
-    max-width: 100%;
+  @media (max-width: 768px) {
     gap: 24px;
-
-    div{
-        @include style.displayFlex($justify: space-between,);
-        button{
-            @include style.fontSize($size: 32px, $weight: 600);
-            background-color: style.$primary-text;
-            padding: 4px 8px;
-            border-radius: 10px;
-            border: none;
-            color: white;
-        }
-    }
-    table{
-        background-color: style.$primary-bg;
-        border-radius: 10px;
-        border-collapse: collapse;
-        thead{
-            th{
-                color: white;
-                @include style.fontSize($size: 16px, $weight: 600);
-                border-bottom: 1px solid white;
-                max-height: 70px;
-                padding: 16px
-            }
-            padding-bottom: 4px;
-        }
-        tbody{
-            td{
-                color: style.$white-color;
-                @include style.fontSize($size: 16px, $weight: 600);
-                border-bottom: 1px solid white;
-                text-align: center;
-                max-height: 70px;
-                padding: 16px;
-                border-bottom-left-radius: 10px;
-                border-bottom-right-radius: 10px;
-                &.acoes{
-                    a{
-                        color: orange;
-                        margin-right: 8px;
-                        margin-left: 8px;
-                    }
-                }
-            }
-        }
-    }
+    padding: 32px 20px;
+  }
 }
-}
-@media(max-width: 736px){
-  section{
-    @include style.sectionPattern();
 
-    gap: 14px;
-
-    div{
-        @include style.displayFlex($justify: space-between,);
-        button{
-            @include style.fontSize($size: 14px, $weight: 600);
-            background-color: style.$primary-text;
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-            color: white;
-        }
-    }
-    table{
-        background-color: style.$primary-bg;
-        border-radius: 10px;
-        border-collapse: collapse;
-        thead{
-            th{
-                color: white;
-                @include style.fontSize($size: 12px, $weight: 600);
-                border-bottom: 1px solid white;
-                max-height: 70px;
-                padding: 16px
-            }
-            padding-bottom: 4px;
-        }
-        tbody{
-            td{
-                color: style.$white-color;
-                @include style.fontSize($size: 12px, $weight: 600);
-                border-bottom: 1px solid white;
-                text-align: center;
-                padding: 10px;
-                border-bottom-left-radius:5px;
-                border-bottom-right-radius: 5px;
-                &.acoes{
-                    a{
-                        color: orange;
-                        margin-right: 4px;
-                        margin-left: 4px;
-                    }
-                }
-            }
-        }
-    }
+// Alinhamento do Cabeçalho Superior
+.table-header {
+  @include style.displayFlex($justify: space-between, $aligh: center, $width: 100%);
+  
+  @media (max-width: 480px) {
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 16px);
+  }
 }
+
+.enderecos-title {
+  @include style.fontSize($size: 32px, $weight: 600);
+  color: #ffffff;
+  margin: 0;
+
+  @media (max-width: 736px) {
+    @include style.fontSize($size: 24px, $weight: 600);
+  }
+}
+
+// Botão "Novo Produto" padronizado
+.btn-adicionar {
+  @include style.displayFlex($direction: row, $justify: center, $aligh: center, $gap: 8px, $width: auto);
+  padding: 12px 24px;
+  background-color: style.$primary-text;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  @include style.fontSize($size: 16px, $weight: 600);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 45px;
+  box-sizing: border-box;
+  white-space: nowrap;
+
+  .btn-icon {
+    @include style.fontSize($size: 20px, $weight: 700);
+  }
+
+  &:hover {
+    background-color: color.adjust(style.$primary-text, $lightness: -10%);
+    box-shadow: 0 4px 12px rgba(style.$primary-text, 0.3);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 768px) {
+    padding: 10px 16px;
+    @include style.fontSize($size: 13px, $weight: 600);
+
+    .btn-icon {
+      @include style.fontSize($size: 16px, $weight: 700);
+    }
+  }
+}
+
+// Wrapper Responsivo para Rolagem Lateral
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  background-color: style.$primary-bg;
+  
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 3px;
+  }
+}
+
+// Estrutura Base da Tabela Comercial
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 850px; 
+
+  thead {
+    background-color: #14181e;
+    
+    th {
+      color: #ffffff;
+      @include style.fontSize($size: 14px, $weight: 600);
+      padding: 16px;
+      border-bottom: 1px solid #2a2a2a;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #1e232b;
+      transition: background-color 0.2s ease;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.02);
+      }
+    }
+
+    td {
+      color: style.$white-color;
+      @include style.fontSize($size: 14px, $weight: 500);
+      padding: 12px 16px;
+      vertical-align: middle;
+    }
+  }
+
+  // Dimensionamento cirúrgico de colunas
+  .col-id {
+    width: 70px;
+    text-align: center;
+  }
+  .col-img {
+    width: 80px;
+    text-align: center;
+  }
+  .col-name {
+    text-align: left;
+    &.name-cell {
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+  .col-date {
+    width: 130px;
+    text-align: left;
+  }
+  .col-stock {
+    width: 150px;
+    text-align: center;
+  }
+  .col-actions {
+    width: 110px;
+    text-align: center;
+  }
+}
+
+// Elementos Visuais Internos (Thumbnail e Placeholders)
+.product-thumb {
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid #2a2a2a;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.img-placeholder {
+  @include style.fontSize($size: 11px, $weight: 600);
+  color: rgba(255, 255, 255, 0.4);
+  background-color: #1a1f27;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px dashed #2a2a2a;
+  text-transform: uppercase;
+}
+
+.stock-count {
+  color: #ffffff;
+  font-weight: 500;
+}
+
+// Estado de Lista Vazia Otimizado
+.empty-table-cell {
+  text-align: center !important;
+  padding: 48px 16px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  @include style.fontSize($size: 14px, $weight: 500);
+}
+
+// Badge de Alerta (Sem Estoque)
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  border-radius: 12px;
+  @include style.fontSize($size: 12px, $weight: 700);
+
+  &.inactive {
+    background-color: rgba(style.$descont-color, 0.1);
+    color: style.$descont-color;
+  }
+}
+
+// Botões das Células de Ação
+.acoes {
+  @include style.displayFlex($direction: row, $justify: center, $aligh: center, $gap: 8px, $width: 100%);
+
+  .action-btn {
+    @include style.displayFlex($justify: center, $aligh: center, $width: 32px);
+    height: 32px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+
+    &.edit {
+      color: style.$primary-text;
+      border: 1px solid rgba(37, 99, 235, 0.2);
+
+      &:hover {
+        background-color: rgba(37, 99, 235, 0.1);
+        border-color: style.$primary-text;
+      }
+    }
+
+    &.delete {
+      color: style.$descont-color;
+      border: 1px solid rgba(255, 107, 0, 0.2);
+
+      &:hover {
+        background-color: rgba(255, 107, 0, 0.1);
+        border-color: style.$descont-color;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+// Quebra Dinâmica e Ocultação de colunas supérfluas em telas minúsculas (Mobile)
+@media (max-width: 640px) {
+  table {
+    min-width: 100% !important;
+    table-layout: fixed;
+
+    // Esconde ID, Imagem e Data para manter Nome, Estoque e Ações sem quebrar o espaço
+    .col-id, .col-img, .col-date {
+      display: none !important;
+    }
+    
+    thead th, tbody td {
+      padding: 12px 8px;
+    }
+    
+    .col-name { width: 45%; }
+    .col-stock { width: 30%; }
+    .col-actions { width: 25%; }
+  }
 }

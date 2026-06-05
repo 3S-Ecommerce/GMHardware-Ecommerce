@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Validators, ReactiveFormsModule, FormBuilder } from "@angular/forms";
 import { Admin } from '../../../../core/services/admin';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-novo',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './novo.html',
   styleUrl: './novo.scss',
 })

@@ -1,35 +1,37 @@
 <h3>{{ pricePix() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</h3>
 
 <div class="info-precos">
-    <span class="preco-antigo">{{ priceOriginal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+  <span class="preco-antigo">{{ priceOriginal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
+  
+  <p>
+    <span id="adicionarProdutoTextoPix">À vista no PIX com 15% de desconto:</span>
+    <br><br>
     
-    <p>
-        <span id="adicionarProdutoTextoPix">À vista no PIX com 15% de desconto:</span>
-        <br><br>
-        
-        {{ priceOriginal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} 
-        <span id="adicionarProdutoTextoParcelado">em até 10x de</span>
-        <strong>{{ priceParcela() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong> 
-        <span id="adicionarProdutoTextoCartao">sem juros ou 1x com 10% de desconto no cartão</span>
-    </p>
+    {{ priceOriginal() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }} 
+    <span id="adicionarProdutoTextoParcelado">em até 10x de</span>
+    <strong>{{ priceParcela() | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong> 
+    <span id="adicionarProdutoTextoCartao">sem juros ou 1x com 10% de desconto no cartão</span>
+  </p>
 </div>
 
 <p><b id="adicionarProdutoEstoque">EM ESTOQUE</b></p>
 
-<div class="controle-quantidade" style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
-    <span style="color: white; font-weight: bold;">Quantidade:</span>
-    <div style="display: flex; align-items: center; border: 1px solid #2a2a2a; border-radius: 4px; background: #1a1f27;">
-        <button (click)="alterarQuantidade(-1)" type="button" style="background: transparent; border: none; color: white; padding: 8px 14px; cursor: pointer; font-size: 16px;">-</button>
-        <span style="color: wheat; min-width: 30px; text-align: center; font-weight: bold;">{{ quantidade() }}</span>
-        <button (click)="alterarQuantidade(1)" type="button" style="background: transparent; border: none; color: white; padding: 8px 14px; cursor: pointer; font-size: 16px;">+</button>
-    </div>
+<!-- Seletor de Quantidade Limpo -->
+<div class="controle-quantidade">
+  <span class="label-quantidade">Quantidade:</span>
+  <div class="seletor-quantidade">
+    <button (click)="alterarQuantidade(-1)" type="button" class="btn-qty">-</button>
+    <span class="valor-quantidade">{{ quantidade() }}</span>
+    <button (click)="alterarQuantidade(1)" type="button" class="btn-qty">+</button>
+  </div>
 </div>
 
+<!-- Ações Finais -->
 <div class="buttons">
-    <button (click)="adicionarAoCarrinhoComQtde()" id="adicionarProdutoBtnCarrinho">
-        <i class="fa-solid fa-cart-arrow-down"></i>Carrinho
-    </button>
-    <button (click)="comprarAgora()" class="primary" id="adicionarProdutoBtnComprar">
-        Comprar
-    </button>
+  <button (click)="adicionarAoCarrinhoComQtde()" id="adicionarProdutoBtnCarrinho" type="button">
+    <i class="fa-solid fa-cart-arrow-down"></i>Carrinho
+  </button>
+  <button (click)="comprarAgora()" class="primary" id="adicionarProdutoBtnComprar" type="button">
+    Comprar
+  </button>
 </div>

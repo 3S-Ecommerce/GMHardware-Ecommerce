@@ -1,52 +1,56 @@
 <section>
-    <h2 id="">Editar Administrador</h2>
-    <div class="form-admin">
-        @if(dados()){
+  <h2 class="enderecos-title">Editar Administrador</h2>
+  
+  <div class="enderecos-list">
+    <div class="endereco-item form-card">
+      @if(dados()){
         <form [formGroup]="formAdmin" (ngSubmit)="onSubmit()">
             
-            <div class="div-input w100">
-                <label for="name" id="labelNomeAdm">Nome:</label>
-                <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" value="{{ dados().name }}" required>
-            </div>
-            
-            <div class="div-input w100">
-                <label for="email" id="labelEmailAdm">Email:</label>
-                <input type="text" formControlName="email" id="email" placeholder="pedro@email.com" required>
-            </div>
-            
-            <div class="div-input w50">
-                <label for="password" id="labelSenhaAdm">Senha:</label>
-                <input type="password" formControlName="password" id="password" placeholder="Deixe em branco para não alterar">
-            </div>
-            
-            <div class="div-input w50">
-                <label for="password_confirmation" id="labelConfirmaAdm">Confirme a senha:</label>
-                <input type="password" formControlName="password_confirmation" id="password_confirmation" placeholder="Confirme a nova senha">
-            </div>
-            
-            <div class="div-input w100">
-                <label for="phone_number" id="labelTelefoneAdm">Telefone:</label>
-                <input type="text" formControlName="phone_number" id="phone_number" placeholder="11912341234">
-            </div>
-            
-            <div class="div-input w70">
-                <label for="document" id="labelDocumentoAdm">Documento:</label>
-                <input type="text" formControlName="document" id="document" placeholder="31029081787">
-            </div>
-            
-            <div class="div-input w30">
-                <label for="active" id="labelAtivoAdm">Ativo:</label>
-                <select formControlName="active" id="active">
-                    <option value="1" id="labelSimAtivoAdm">Sim</option>
-                    <option value="2" id="labelNaoAtivoAdm">Não</option>
-                </select>
-            </div>
-            
-            <div class="button">
-                <a routerLink="/finalizar-compra" class="voltar" id="labelVoltarAdm">Voltar</a>
-                <button [disabled]="formAdmin.invalid" type="submit" id="labelSalvarAdm">Salvar</button>
-            </div>
+          <div class="div-input w100">
+            <label for="name" class="form-label">Nome:</label>
+            <input type="text" formControlName="name" id="name" placeholder="Pedro Gregorio" [value]="dados().name" class="form-input" required>
+          </div>
+          
+          <div class="div-input w100">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" formControlName="email" id="email" placeholder="pedro@email.com" class="form-input" required>
+          </div>
+          
+          <div class="div-input w50">
+            <label for="password" class="form-label">Senha:</label>
+            <input type="password" formControlName="password" id="password" placeholder="Deixe em branco para não alterar" class="form-input">
+          </div>
+          
+          <div class="div-input w50">
+            <label for="password_confirmation" class="form-label">Confirme a senha:</label>
+            <input type="password" formControlName="password_confirmation" id="password_confirmation" placeholder="Confirme a nova senha" class="form-input">
+          </div>
+          
+          <div class="div-input w100">
+            <label for="phone_number" class="form-label">Telefone:</label>
+            <input type="text" formControlName="phone_number" id="phone_number" placeholder="11912341234" class="form-input">
+          </div>
+          
+          <div class="div-input w70">
+            <label for="document" class="form-label">Documento:</label>
+            <input type="text" formControlName="document" id="document" placeholder="31029081787" class="form-input">
+          </div>
+          
+          <div class="div-input w30">
+            <label for="active" class="form-label">Ativo:</label>
+            <select formControlName="active" id="active" class="form-input">
+              <option value="1">Sim</option>
+              <option value="2">Não</option>
+            </select>
+          </div>
+          
+          <div class="form-actions">
+            <a routerLink="/admin/administradores" class="endereco-excluir btn-cancel">Voltar</a>
+            <button [disabled]="formAdmin.invalid" type="submit" class="btn-adicionar btn-submit">Salvar</button>
+          </div>
+
         </form>
-        }
+      }
     </div>
+  </div>
 </section>
