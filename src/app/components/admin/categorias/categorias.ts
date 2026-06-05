@@ -52,7 +52,7 @@ export class NovoCategoria implements OnInit {
         this.formCategory.reset(); // Limpa o input após cadastrar
         this.carregarCategorias(); // Recarrega a tabela automaticamente!
       },
-      error: (err) => console.error('Erro ao cadastrar: ', err)
+      error: (err: any) => console.error('Erro ao cadastrar: ', err)
     });
   }
 

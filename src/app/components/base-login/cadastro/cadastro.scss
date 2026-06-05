@@ -3,49 +3,73 @@
   flex-direction: column;
   gap: 15px;
   width: 100%;
-  max-width: 550px; // 💡 Aumentado um pouco a largura máxima aqui
-  margin: 0 auto;   // Centraliza o bloco na tela
+  max-width: 550px;
+  margin: 0 auto;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  color: rgba(255, 255, 255, 0.500);
-  gap: 12px; // 💡 Aumentado levemente o espaçamento vertical entre blocos
+  color: rgba(255, 255, 255, 0.5);
+  gap: 12px;
 }
 
 form input {
   background-color: transparent;
-  border: 1px solid;
+  border: 1px solid rgba(255, 255, 255, 0.5);
   color: white;
   padding: 5px;
-  border-color: rgba(255, 255, 255, 0.500);
-  height: 35px; // 💡 Deixado o input sutilmente mais alto
+  height: 35px;
   border-radius: 5px;
-  width: 100%;  // Garante preenchimento total do espaço disponível
+  width: 100%;
   box-sizing: border-box;
 }
 
-// 💡 NOVA CLASSE: Alinha dois campos na mesma linha
 .linha-dupla {
   display: flex;
   flex-direction: row;
-  gap: 15px; // Espaçamento horizontal entre os dois inputs da linha
+  gap: 15px;
   width: 100%;
 
   .alinhar {
-    flex: 1; // Faz com que os dois campos dividam a linha meio a meio (50% cada)
+    flex: 1;
   }
+}
+
+.alinhar {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .termos {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  color: rgba(255, 255, 255, 0.500);
+  gap: 10px;
+  width: 100%;
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
-  margin-top: 5px;
+  line-height: 1.2;
+}
+
+.termos .caixa-termo {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  accent-color: #2563EB;
+}
+
+.termos label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .button {
@@ -57,7 +81,7 @@ form input {
 .cadastrar {
   background-color: #2563EB;
   color: white;
-  padding: 8px 5px; // 💡 Ajustado padding para o botão ficar mais robusto
+  padding: 8px 5px;
   border-radius: 5px;
   border: none;
   width: 50%;
@@ -71,19 +95,22 @@ form input {
   }
 }
 
-.alinhar {
-  display: flex;
-  flex-direction: column;
-  gap: 5px; // Espaço controlado entre a label e o input interno
-}
-
-// Responsividade: Se a tela for muito pequena (celulares antigos), eles voltam a empilhar
 @media (max-width: 480px) {
   .linha-dupla {
     flex-direction: column;
     gap: 12px;
   }
+
+  .termos {
+    justify-content: flex-start;
+    font-size: 13px;
+  }
+
+  .termos label {
+    white-space: normal;
+  }
+
   .cadastrar {
-    width: 100%; // Botão ocupa tudo no mobile para facilitar o clique
+    width: 100%;
   }
 }

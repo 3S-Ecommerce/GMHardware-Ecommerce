@@ -1,6 +1,6 @@
 <div class="meu-perfil-container">
   <h1 class="perfil-title">Meu Perfil</h1>
-
+  
   <div class="perfil-grid">
     <!-- Card Endereço -->
 
@@ -46,18 +46,17 @@
       </div>
     </a>
 
-@if (authService.isAuthenticated() && authService.isAdmin()) {
-  <a routerLink="/admin" class="perfil-card">
-    <div class="card-icon">
-      <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">
-    </div>
-    <div class="card-content">
-      <h2 class="card-title">Acessar área de admin</h2>
-      <p class="card-description">Acessar área de administrador</p>
-    </div>
-  </a>
-}
+    <a routerLink="/admin" class="perfil-card">
+      <div class="card-icon">
+        <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">Acessar área de admin</h2>
+        <p class="card-description">Acessar área de administrador</p>
+      </div>
+    </a>
 
+    
 
     <!-- Card Sair -->
     <!-- Card Sair -->

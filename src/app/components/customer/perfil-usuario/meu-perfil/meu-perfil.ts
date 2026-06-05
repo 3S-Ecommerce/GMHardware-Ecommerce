@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartaoService } from '../../../../core/services/cartao';
-import { Auth } from '../../../../core/services/auth';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -12,15 +11,13 @@ import { Auth } from '../../../../core/services/auth';
   templateUrl: './meu-perfil.html',
   styleUrls: ['./meu-perfil.scss']
 })
-
-
 export class MeuPerfil implements OnInit {
   private platformId = inject(PLATFORM_ID);
   constructor(
     private router: Router,
     private cartaoService: CartaoService
   ) { }
-  protected authService = inject(Auth);
+
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
 

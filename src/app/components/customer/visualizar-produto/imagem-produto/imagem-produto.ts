@@ -8,7 +8,7 @@ import { Component, Input, signal } from '@angular/core';
   styleUrl: './imagem-produto.scss',
 })
 export class ImagemProduto {
-  private readonly storageUrl = 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev';
+  private readonly storageUrl = 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/';
   
   // Guardará a lista de todas as fotos válidas que o produto possui
   galeriaImagens = signal<string[]>([]);

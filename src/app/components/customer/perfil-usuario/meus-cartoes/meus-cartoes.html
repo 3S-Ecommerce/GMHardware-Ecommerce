@@ -9,7 +9,7 @@
     
     <!-- Mensagem caso não tenha cartões -->
     <div *ngIf="cartoes.length === 0" style="text-align: center; color: #b0b0b0; padding: 20px;">
-      Nenhum cartão salvo.
+      Carregando cartões...
     </div>
 
     <div class="cartao-item" *ngFor="let cartao of cartoes">

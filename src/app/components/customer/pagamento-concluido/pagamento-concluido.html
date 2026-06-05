@@ -1,0 +1,49 @@
+<main class="success-container">
+  <div class="success-card">
+    
+    <div class="icon-wrapper">
+      <div class="success-icon">
+        <span class="icon-line line-tip"></span>
+        <span class="icon-line line-long"></span>
+        <div class="icon-circle"></div>
+        <div class="icon-fix"></div>
+      </div>
+    </div>
+
+    <h1 class="success-title">Pedido Concluído!</h1>
+    <p class="success-subtitle">Sua compra foi processada com sucesso. O resumo foi enviado para o seu e-mail.</p>
+
+    <div class="order-info">
+      <div class="info-group">
+        <span class="label">Pedido</span>
+        <span class="value">{{ order.id }}</span>
+      </div>
+      <div class="info-group">
+        <span class="label">Data</span>
+        <span class="value">{{ order.date }}</span>
+      </div>
+      <div class="info-group">
+        <span class="label">Pagamento</span>
+        <span class="value">{{ order.paymentMethod }}</span>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="delivery-estimate">
+      <div class="delivery-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+      </div>
+      <div class="delivery-text">
+        <h3>Previsão de Entrega</h3>
+        <p>Entre <strong>{{ order.deliveryEstimate }}</strong> após o faturamento.</p>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a (click)="redirect('home')" class="btn btn-primary">Continuar Comprando</a>
+      <a (click)="redirect('minhas')" class="btn btn-secondary">Ver Meus Pedidos</a>
+    </div>
+
+  </div>
+</main>

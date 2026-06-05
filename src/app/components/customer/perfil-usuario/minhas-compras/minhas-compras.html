@@ -18,7 +18,7 @@
   }
 @else if(!carregando && !erro && compras().length === 0){
     <div class="mensagem">
-      Nenhuma compra encontrada.
+      Carregando compras...
     </div>
   }
     @for(compra of compras(); track $index){

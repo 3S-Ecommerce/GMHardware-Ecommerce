@@ -47,7 +47,7 @@ import { PerfilUsuario } from './components/customer/perfil-usuario/perfil-usuar
 import { adminGuard } from './core/services/admin.guard';
 import { MinhasComprasComponent } from './components/customer/perfil-usuario/minhas-compras/minhas-compras';
 import { NovoCategoria } from './components/admin/categorias/categorias';
-
+import { PagamentoConcluido } from './components/customer/pagamento-concluido/pagamento-concluido';
 
 export const routes: Routes = [
     {
@@ -298,4 +298,8 @@ export const routes: Routes = [
         path: 'contato',
         component: Contato
     },
+    {
+        path: 'concluido',
+        component: PagamentoConcluido
+    }
 ];

@@ -1,7 +1,7 @@
 <section>
     <div>
         <h2 id="geralProdutosTitulo">Produtos</h2>
-        <button routerLink="novo" id="geralProdutosBtnNovo">Novo Produto</button>
+        <button routerLink="novo" id="geralProdutosBtnNovo">Novo Produto</button>    
     </div>
     <table>
         <thead>
@@ -29,10 +29,10 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.created_at | date:'dd/MM/yyyy' }}</td>
                     <td>
-                        @if(product.stock > 0){
-                            {{ product.stock }}
-                        }@else {
-                            Produto sem estoque
+                        @if(product.stock > 0){ 
+                            {{ product.stock }} 
+                        }@else { 
+                            Produto sem estoque 
                         }
                     </td>
                     <td class="acoes">
