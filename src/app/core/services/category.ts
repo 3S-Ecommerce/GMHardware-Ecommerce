@@ -21,4 +21,7 @@ export class Category {
   updateCategory(formdata: FormData, id:string){
     return this.http.put(`${this.apiUrl}/${id}`, formdata)
   }
+  deleteCategory(id: string) {
+  return this.http.delete(`${this.apiUrl}/${id}`);
+} 
 }

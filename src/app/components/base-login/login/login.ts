@@ -36,7 +36,7 @@ export class Login {
         // 🔥 CORREÇÃO: res.admin agora vem como booleano puro do Laravel (true / false)
         if (res.admin === true) {
           console.log('Redirecionando para área Admin...');
-          this.router.navigate(['/admin/dashboard']);
+          this.router.navigate(['/admin']);
         } else {
           console.log('Redirecionando para Home...');
           this.router.navigate(['/inicio']);

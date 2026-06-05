@@ -91,7 +91,7 @@ export class MinhasComprasComponent implements OnInit {
       return imagem;
     }
 
-    return `http://localhost:8000/storage/${imagem}`;
+    return `https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/${imagem}`;
   }
 
   getNomeProduto(item: any): string {

@@ -1,0 +1,285 @@
+// Paleta de cores e Mixins fornecidos
+$primary-bg: #0F1115;
+$secundary-bg: #181C23;
+$primary-text: #2563EB;
+$descont-color: #FF6B00;
+$success-color: #22C55E;
+$white-color: #FFFFFF88;
+$gradient: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
+
+@mixin displayFlex($justify: center, $aligh: center, $gap: 0px, $width: 100%, $direction: row, $wrap: unset){
+    display: flex;
+    flex-direction: $direction;
+    width: $width;
+    justify-content: $justify;
+    align-items: $aligh;
+    gap: $gap;
+    flex-wrap: $wrap;
+}
+
+@mixin fontSize($size: 24px, $weight: 400){
+    font-size: $size;
+    font-weight: $weight;
+}
+
+@mixin sectionPattern(){
+    @include displayFlex(
+        $direction: column,
+        $aligh: flex-start,
+        $justify: flex-start,
+        $gap: 48px
+    );
+    background-color: $secundary-bg;
+    padding: 62px 148px;
+    min-height: 80vh;
+
+    h2{
+        @include fontSize($size: 40px, $weight: 600);
+        color: white;
+    }
+
+    @media (min-width: 736px) and (max-width: 1199px){
+        padding: 48px 64px;
+        gap: 40px;
+        h2{ font-size: 32px; }
+    }
+
+    @media(max-width: 736px){
+        padding: 32px 20px;
+        gap: 24px;
+        h2{ font-size: 24px; }
+    }
+}
+
+// Estilização do Componente aplicando a sua identidade
+:host {
+    @include sectionPattern();
+    background-color: $primary-bg; // Mantém o fundo escuro principal da loja
+    align-items: center;
+    justify-content: center;
+}
+
+.success-container {
+    @include displayFlex($justify: center, $aligh: center, $width: 100%);
+    height: 100vh;
+    max-width: 550px;
+}
+
+.success-card {
+    @include displayFlex($direction: column, $justify: center, $aligh: center, $gap: 24px, $width: 100%);
+    background-color: $secundary-bg;
+    border-radius: 16px;
+    padding: 40px 32px;
+    border: 1px solid rgba($white-color, 0.1);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.success-title {
+    @include fontSize($size: 28px, $weight: 700);
+    color: #FFFFFF;
+    margin: 8px 0 0 0;
+    text-align: center;
+}
+
+.success-subtitle {
+    @include fontSize($size: 15px, $weight: 400);
+    color: $white-color;
+    margin: 0;
+    line-height: 1.5;
+    text-align: center;
+}
+
+// Grid de informações do pedido
+.order-info {
+    @include displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 16px, $width: 100%);
+    background-color: lighten($secundary-bg, 3%);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba($white-color, 0.05);
+    box-sizing: border-box;
+
+    .info-group {
+        @include displayFlex($direction: column, $justify: center, $aligh: center, $gap: 6px, $width: auto);
+        flex: 1;
+
+        .label {
+            @include fontSize($size: 11px, $weight: 600);
+            color: $white-color;
+            text-transform: uppercase;
+            letter-spacing: 0.75px;
+        }
+
+        .value {
+            @include fontSize($size: 14px, $weight: 700);
+            color: $primary-text; // Destaca os dados com o azul principal
+        }
+    }
+
+    @media(max-width: 500px) {
+        @include displayFlex($direction: column, $gap: 16px, $width: 100%);
+        .info-group { width: 100%; }
+    }
+}
+
+.divider {
+    width: 100%;
+    border: 0;
+    border-top: 1px solid rgba($white-color, 0.1);
+    margin: 8px 0;
+}
+
+// Bloco com a estimativa de entrega (Usando o seu gradiente)
+.delivery-estimate {
+    @include displayFlex($direction: row, $justify: flex-start, $aligh: center, $gap: 16px, $width: 100%);
+    background: #1F2743; // Base escura do seu gradiente para combinar perfeitamente
+    border: 1px solid rgba($primary-text, 0.2);
+    padding: 16px 20px;
+    border-radius: 12px;
+    box-sizing: border-box;
+
+    .delivery-icon {
+        @include displayFlex($justify: center, $aligh: center, $width: auto);
+        color: $primary-text;
+        background: $secundary-bg;
+        padding: 10px;
+        border-radius: 50%;
+    }
+
+    .delivery-text {
+        h3 {
+            @include fontSize($size: 15px, $weight: 600);
+            color: #FFFFFF;
+            margin: 0 0 4px 0;
+        }
+        p {
+            @include fontSize($size: 13px, $weight: 400);
+            color: $white-color;
+            margin: 0;
+            
+            strong {
+                color: $descont-color; // Destaca o prazo com a cor de desconto/alerta
+            }
+        }
+    }
+}
+
+// Botões de Ação estruturados com os mixins
+.action-buttons {
+    @include displayFlex($direction: column, $gap: 12px, $width: 100%);
+
+    .btn {
+        @include displayFlex($justify: center, $aligh: center, $width: 100%);
+        padding: 14px 24px;
+        border-radius: 8px;
+        @include fontSize($size: 15px, $weight: 600);
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: $primary-text;
+        color: #FFFFFF;
+        border: 1px solid $primary-text;
+
+        &:hover {
+            background-color: darken($primary-text, 8%);
+            border-color: darken($primary-text, 8%);
+        }
+    }
+
+    .btn-secondary {
+        background-color: transparent;
+        color: #FFFFFF;
+        border: 1px solid rgba($white-color, 0.3);
+
+        &:hover {
+            background-color: rgba($white-color, 0.05);
+            border-color: #FFFFFF;
+        }
+    }
+}
+
+// Animação do círculo de sucesso adaptado para sua cor $success-color
+.icon-wrapper {
+    @include displayFlex($justify: center, $aligh: center, $width: auto);
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: content-box;
+    border: 4px solid rgba($success-color, .2);
+
+    .icon-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        position: absolute;
+        left: -4px;
+        top: -4px;
+        z-index: 1;
+        box-sizing: content-box;
+        border: 4px solid $success-color;
+    }
+
+    .icon-line {
+        height: 5px;
+        background-color: $success-color;
+        display: block;
+        border-radius: 2px;
+        position: absolute;
+        z-index: 10;
+        
+        &.line-tip {
+            width: 25px;
+            left: 14px;
+            top: 46px;
+            transform: rotate(45deg);
+            animation: animateTip 0.75s;
+        }
+        
+        &.line-long {
+            width: 47px;
+            right: 12px;
+            top: 38px;
+            transform: rotate(-45deg);
+            animation: animateLong 0.75s;
+        }
+    }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes animateTip {
+    0% { width: 0; left: 1px; top: 19px; }
+    54% { width: 0; left: 1px; top: 19px; }
+    70% { width: 5px; left: 14px; top: 37px; }
+    84% { width: 17px; left: 14px; top: 48px; }
+    100% { width: 25px; left: 14px; top: 46px; }
+}
+
+@keyframes animateLong {
+    0% { width: 0; right: 46px; top: 54px; }
+    65% { width: 0; right: 46px; top: 54px; }
+    84% { width: 38px; right: 21px; top: 35px; }
+    100% { width: 47px; right: 12px; top: 38px; }
+}
+
+// Tratamentos responsivos usando seus break-points de mídia
+@media (max-width: 736px) {
+    .success-card {
+        padding: 32px 20px;
+        gap: 20px;
+    }
+    .success-title {
+        font-size: 24px;
+    }
+}

@@ -125,7 +125,7 @@ export class Revisar {
             id: produtoDoBanco.id,
             name: produtoDoBanco.name,
             price: Number(produtoDoBanco.price || produtoDoBanco.preco || 0),
-            image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev' + produtoDoBanco.image || 'assets/images/placeholder.png', // Fallback se não houver imagem
+            image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/' + produtoDoBanco.image || 'assets/images/placeholder.png', // Fallback se não houver imagem
             quantity: quantidadeBuscada
           }]);
           console.log(this.produtos())
@@ -419,7 +419,7 @@ export class Revisar {
 
         alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
 
-        this.router.navigate(['/inicio']);
+        this.router.navigate(['/concluido']);
       },
       error: (err) => {
         console.error(err);

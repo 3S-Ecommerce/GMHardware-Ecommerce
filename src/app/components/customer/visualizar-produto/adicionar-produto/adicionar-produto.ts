@@ -54,7 +54,7 @@ export class AdicionarProduto {
       id: this.produtoID,
       name: this.name, // O nome será resolvido pelo restante do seu fluxo/API
       price: this.precoBase(),
-      image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev' + this.image,
+      image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/' + this.image,
       quantity: this.quantidade()
     };
 

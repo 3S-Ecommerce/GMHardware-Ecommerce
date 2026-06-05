@@ -8,12 +8,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "3S-projeto-integrador": {
-       "i18n":{
-      "sourceLocale": "pt-BR",
-      "locales": {
-        "en-US": "src/locale/messages.en.xlf"
-      }
-    },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -27,7 +21,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "localize":["en-US"],
+            "baseHref": "/",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -40,35 +34,27 @@
             "styles": [
               "src/styles.scss"
             ],
-            "stylePreprocessorOptions":{
+            "stylePreprocessorOptions": {
               "includePaths": [
                 "public/assets"
               ]
             },
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            },
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "outputMode": "static",
+            "ssr": false,
+            "prerender": false
           },
           "configurations": {
             "production": {
+              "baseHref": "/",
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "1mb",
+                  "maximumError": "2mb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "prerender": false
             },
             "development": {
               "optimization": false,
