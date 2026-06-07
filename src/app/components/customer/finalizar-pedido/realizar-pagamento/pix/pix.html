@@ -1,14 +1,33 @@
 <section class="pix">
-    <h2 id="pagamentoPixMensagemValor">Pague R$ 9999,99 pelo pix abaixo:</h2>
-    <div class="pix-pagamento">
-        <h2 id="pagamentoPixTituloQr">Escaneie o código QR para pagar</h2>
-        <p id="pagamentoPixPasso1">1. Acesse seu Internet Banking ou app de pagamentos.</p>
-        <p id="pagamentoPixPasso2">2. Escolha pagar via Pix.</p>
-        <p id="pagamentoPixPasso3">3. Escaneie o seguinte código:</p>
-        <br>
-        <img src="" alt="" width="250" height="250">
-        <br>
-        <h2 id="pagamentoPixTituloCopiaCola">Ou copie este código para fazer o pagamento:</h2>
-        <textarea rows="4" cols="" readonly>skdsalkowadma12390dmik3j212904kifdsmfds934o42908</textarea>
+  @if (carregando) {
+    <div class="pix-carregando">
+      <h2>Gerando seu QR Code Pix...</h2>
+      <p>Aguarde enquanto preparamos os seus dados de pagamento.</p>
     </div>
+  } @else if (erro) {
+    <div class="pix-erro">
+      <h2>Ocorreu um problema</h2>
+      <p>{{ erro }}</p>
+      <button type="button" class="btn-tentar" (click)="gerarQrCodePix()">Tentar Novamente</button>
+    </div>
+  } @else {
+    <h2 id="pagamentoPixMensagemValor">Pague R$ {{ valorPedido | number:'1.2-2' }} pelo Pix abaixo:</h2>
+    
+    <div class="pix-pagamento">
+      <h2 id="pagamentoPixTituloQr">Escaneie o código QR para pagar</h2>
+      <p id="pagamentoPixPasso1">1. Acesse seu Internet Banking ou app de pagamentos.</p>
+      <p id="pagamentoPixPasso2">2. Escolha pagar via Pix.</p>
+      <p id="pagamentoPixPasso3">3. Escaneie o seguinte código:</p>
+      
+      <br>
+      <div class="qr-wrapper">
+        <img [src]="qrCodeUrl" alt="QR Code Pix GMHardware" width="250" height="250">
+      </div>
+      <br>
+      
+      <h2 id="pagamentoPixTituloCopiaCola">Ou copie este código para fazer o pagamento:</h2>
+      <textarea rows="4" readonly (click)="copiarTexto($event)">{{ textoCopiaCola }}</textarea>
+      <p class="aviso-copia">Clique na caixa acima para copiar o código</p>
+    </div>
+  }
 </section>

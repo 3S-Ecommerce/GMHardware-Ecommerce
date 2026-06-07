@@ -375,17 +375,14 @@ export class Revisar {
       alert('Selecione um endereço antes de finalizar a compra.');
       return;
     }
-
     if (this.metodoPagamento() === 'Não selecionado') {
       alert('Selecione uma forma de pagamento antes de finalizar a compra.');
       return;
     }
-
     if (this.metodoPagamento() === 'Cartão de Crédito' && !this.cartaoSelecionado) {
       alert('Selecione um cartão antes de finalizar a compra.');
       return;
     }
-
     if (this.produtos().length === 0) {
       alert('Seu carrinho está vazio.');
       return;
@@ -417,15 +414,21 @@ export class Revisar {
           localStorage.removeItem('metodoPagamento');
         }
 
-        alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
-
-        this.router.navigate(['/concluido']);
+        // ALTERAÇÃO AQUI: Se for PIX, envia para a tela do QR Code do Pix
+        if (payload.payment_method.toLowerCase().includes('pix')) {
+          // O seu backend Laravel deve retornar o ID do pedido criado (ex: res.order_id ou res.id)
+          const orderId = res?.order_id || res?.id || 0;
+          this.router.navigate(['/finalizar-compra/pix'], {
+            queryParams: { id_order: orderId, total: payload.total_price }
+          });
+        } else {
+          alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
+          this.router.navigate(['/concluido']);
+        }
       },
       error: (err) => {
         console.error(err);
-
         const mensagem = err?.error?.message || err?.error?.error || 'Erro ao finalizar compra.';
-
         alert(mensagem);
       }
     });

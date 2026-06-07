@@ -113,17 +113,15 @@ export class Pagamento {
       if (isPlatformBrowser(this.platformId)) {
         localStorage.removeItem('cartaoSelecionado');
       }
-
+      // ADICIONADO: Mantém os queryParams de produto_id e quantidade se existirem
       this.router.navigate(['/finalizar-compra/revisar'], { queryParamsHandling: 'merge'});
       return;
     }
 
     this.mostrarCartoes = true;
-
     if (this.cartoes.length === 0) {
       this.mostrarFormularioCartao = true;
     }
-
     this.cdr.detectChanges();
   }
 
