@@ -139,7 +139,9 @@ class OrderController extends Controller
 
             return response()->json([
                 'message' => 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.',
-                'order' => $order
+                'order' => $order,
+                'id' => $order->id,          // <-- ADICIONADO: Mapeia o ID direto na raiz
+                'order_id' => $order->id     // <-- ADICIONADO: Garante compatibilidade com o Angular
             ], 201);
 
         } catch (\Throwable $e) {

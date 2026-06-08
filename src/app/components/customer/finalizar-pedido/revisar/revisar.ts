@@ -418,7 +418,7 @@ export class Revisar {
         if (payload.payment_method.toLowerCase().includes('pix')) {
           // O seu backend Laravel deve retornar o ID do pedido criado (ex: res.order_id ou res.id)
           const orderId = res?.order_id || res?.id || 0;
-          this.router.navigate(['/finalizar-compra/pix'], {
+          this.router.navigate(['/finalizar-compra/pagamento/pix'], {
             queryParams: { id_order: orderId, total: payload.total_price }
           });
         } else {
