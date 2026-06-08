@@ -2,6 +2,18 @@
 /****************************************************************************\
 qrcode.php - Generate QR Codes. MIT license.
 \****************************************************************************/
+
+// Configura os cabeçalhos para permitir requisições de outras origens (CORS), caso necessário
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+
+// Trata a requisição de pré-vôo do CORS (OPTIONS)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
+
+// Garante que a biblioteca seja buscada na mesma pasta public/api/
 include(__DIR__ . "/qrcode.php");
 
 // Configurações do Cloudflare R2
@@ -9,18 +21,15 @@ define('R2_ACCOUNT_ID', '70472f08ee4fc836a76c8ee222b5a1ab');
 define('R2_BUCKET_NAME', 'qrcodes');
 define('R2_ACCESS_KEY', '8c69ab5600725530668a5f9eb5078d49');
 define('R2_SECRET_KEY', 'ed49a2d46cee1c005475edf768127c2814cfac89133410fa1f07fb6514a11044');
-// Se você vinculou um domínio personalizado ao seu bucket (ex: cdn.gmhardware.com)
 define('R2_PUBLIC_URL', 'https://pub-25c0dd25f2674cc08b638a62174677e8.r2.dev'); 
 
 if (isset($_POST["qr"]) && $_POST["qr"] != "") {
 
     $text = $_POST["qr"];
     $name = md5(time() . uniqid()) . '.png';
-    $file = "files/{$name}";
-
-    if (!is_dir('files')) {
-        mkdir('files', 0755, true);
-    }
+    
+    // Utiliza o diretório temporário do sistema operacional
+    $file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . $name;
 
     $options = array(
         "w"=> 450,
@@ -74,14 +83,12 @@ if (isset($_POST["qr"]) && $_POST["qr"] != "") {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         $response = curl_exec($ch);
-        
-        // Correção do parâmetro nomeado inválido do PHP 8.0+
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        
-        // Nota: curl_close($ch) foi removido aqui por estar obsoleto (deprecated) no PHP 8.5+
 
-        // Limpa o arquivo temporário local do servidor para economizar espaço
-        unlink($file);
+        // Limpa o arquivo temporário local do sistema
+        if (file_exists($file)) {
+            unlink($file);
+        }
 
         if ($httpCode == 200) {
             // URL final pública hospedada no R2
@@ -105,22 +112,12 @@ if (isset($_POST["qr"]) && $_POST["qr"] != "") {
             exit;
         }
     }
+} else {
+    header('Content-Type: application/json', true, 400);
+    echo json_encode([
+        "status" => "error",
+        "message" => "Requisicao invalida ou parâmetro 'qr' ausente."
+    ]);
+    exit;
 }
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador QR Code - Cloudflare R2</title>
-</head>
-
-<body>
-    <form method="POST" action="">
-        <input type="text" name="qr" placeholder="Insira a URL ou texto do pedido">
-        <button type="submit">Gerar e Enviar</button>
-    </form>
-</body>
-
-</html>
