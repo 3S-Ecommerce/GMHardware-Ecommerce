@@ -28,6 +28,9 @@ Route::apiResource('admin', AdminController::class);
 
 Route::get('/orders-public/{id}', [OrderController::class, 'showPublic']);
 
+// ROTA PÚBLICA: Adicione junto com o seu 'orders-public'
+Route::post('/order/confirmar-pagamento', [OrderController::class, 'confirmarPagamento']);
+
 Route::apiResource('order' , OrderController::class)
     ->middleware('auth:sanctum');
 Route::apiResource('category', CategoryController::class);
