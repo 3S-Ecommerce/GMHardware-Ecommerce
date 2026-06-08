@@ -108,7 +108,7 @@ class OrderController extends Controller
                 $paymentMethod = 'Cartão de Crédito';
             }
 
-            $statusInicial = ($paymentMethod === 'PIX') ? 'Aguardando pagamento' : 'Pedido realizado';
+            $statusInicial = ($paymentMethod === 'PIX') ? 'Aguardando pagamento' : 'Pago';
 
             $cardId = null;
             $cardLastDigits = null;

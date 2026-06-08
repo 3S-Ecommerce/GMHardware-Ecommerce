@@ -422,7 +422,7 @@ export class Revisar {
             queryParams: { id_order: orderId, total: payload.total_price }
           });
         } else {
-          alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
+          // alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
           this.router.navigate(['/concluido']);
         }
       },
