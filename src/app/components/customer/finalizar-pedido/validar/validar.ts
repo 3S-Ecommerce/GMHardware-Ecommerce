@@ -47,17 +47,16 @@ export class Validar implements OnInit {
   buscarDadosPedido(): void {
     this.carregando = true;
 
-    // Busca os detalhes do pedido para exibir o valor real na tela do mobile
-    this.http.get<any>(`${this.apiUrl}/order/${this.orderId}`).subscribe({
+    // Ajustado para o novo endpoint público seguro
+    this.http.get<any>(`${this.apiUrl}/orders-public/${this.orderId}`).subscribe({
       next: (res) => {
-        // Mapeia o preço total baseando-se no retorno do seu checkout do Laravel
-        this.valorTotal = res.total_price || res.order?.total_price || 0;
+        this.valorTotal = res.total_price || 0;
         this.carregando = false;
-        this.cdr.detectChanges(); // Força a renderização segura do HTML
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error('Erro ao buscar pedido:', err);
-        this.erro = 'Não foi possível carregar os dados deste pedido. Verifique se ele existe.';
+        this.erro = 'Não foi possível carregar os dados deste pedido.';
         this.carregando = false;
         this.cdr.detectChanges();
       }

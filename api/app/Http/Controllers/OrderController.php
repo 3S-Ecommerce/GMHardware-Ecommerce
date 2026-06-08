@@ -12,6 +12,33 @@ use Illuminate\Support\Facades\DB;
 // Ajuste o caminho de onde você salvou o qrcode.php
 class OrderController extends Controller
 {
+    public function showPublic($id)
+{
+    try {
+        // Busca o pedido de forma isolada, sem depender de usuário logado
+        $order = Order::find($id);
+
+        if (!$order) {
+            return response()->json([
+                'error' => 'Pedido não encontrado.'
+            ], 404);
+        }
+
+        // Retorna apenas o estritamente necessário para o celular exibir na tela
+        return response()->json([
+            'id' => $order->id,
+            'total_price' => $order->total_price,
+            'status' => $order->status
+        ], 200);
+
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => 'Erro ao processar consulta pública do pedido',
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
+
    public function index(Request $request)
 {
     $user = $request->user();

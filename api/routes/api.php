@@ -26,7 +26,7 @@ Route::apiResource('user', UserController::class);
 
 Route::apiResource('admin', AdminController::class);
 
-Route::get('/orders/{id}', [OrderController::class, 'show']);
+Route::get('/orders-public/{id}', [OrderController::class, 'showPublic']);
 
 Route::apiResource('order' , OrderController::class)
     ->middleware('auth:sanctum');
