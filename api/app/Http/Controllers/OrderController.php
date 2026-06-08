@@ -9,7 +9,7 @@ use App\Models\DadosCartao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-include(__DIR__ . "/qrcode.php"); // Ajuste o caminho de onde você salvou o qrcode.php
+// Ajuste o caminho de onde você salvou o qrcode.php
 class OrderController extends Controller
 {
    public function index(Request $request)

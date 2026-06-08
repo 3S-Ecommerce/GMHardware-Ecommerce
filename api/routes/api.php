@@ -68,4 +68,4 @@ Route::put('/addresses/{id}/default', [AddressController::class, 'makeDefault'])
 Route::apiResource('addresses', AddressController::class)
     ->middleware('auth:sanctum');
 
-Route::post('/order/qrcode', [OrderController::class, 'gerarQrCode']);
+// Route::post('/order/qrcode', [OrderController::class, 'gerarQrCode']);

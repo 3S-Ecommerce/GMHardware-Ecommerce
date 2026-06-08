@@ -16,15 +16,16 @@ export class Pix implements OnInit {
 
   orderId: string = '';
   valorPedido: number = 0;
-  
+
   qrCodeUrl: string = '';
   textoCopiaCola: string = '';
-  
+
   carregando: boolean = true;
   erro: string = '';
 
   // Substitua pelo endereço real onde está hospedado o seu arquivo PHP gerador
-  private readonly phpGeradorUrl = 'https://gmhardware-ecommerce.onrender.com/api/gerador.php'; 
+  // No seu arquivo pix.ts, garanta que a URL está assim:
+  private readonly phpGeradorUrl = 'https://gmhardware-ecommerce.onrender.com/api/gerador.php';
 
   ngOnInit(): void {
     this.orderId = this.route.snapshot.queryParamMap.get('id_order') || '';
