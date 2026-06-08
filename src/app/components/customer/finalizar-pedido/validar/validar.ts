@@ -76,7 +76,7 @@ export class Validar implements OnInit {
     this.http.post(`${this.apiUrl}/order/confirmar-pagamento`, payload).subscribe({
       next: () => {
         alert(confirmado ? 'Pagamento confirmado com sucesso!' : 'Pedido cancelado.');
-        this.router.navigate(['/']); // Redireciona o usuário para a Home ou tela de sucesso
+        // this.router.navigate(['/']); // Redireciona o usuário para a Home ou tela de sucesso
       },
       error: (err) => {
         console.error('Erro ao atualizar status do pedido:', err);

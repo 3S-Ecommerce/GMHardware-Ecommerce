@@ -51,7 +51,7 @@ export class Pix implements OnInit {
     this.cdr.detectChanges();
 
     // A URL final contida no QRCode que aponta para o validador mobile da Cloudflare Pages
-    this.textoCopiaCola = `https://gmhardware.pages.dev/finalizar-compra/validar?id_order=${this.orderId}`;
+    this.textoCopiaCola = `https://gmhardware.pages.dev/validar?id_order=${this.orderId}`;
 
     // Montando o payload clássico de formulário ($_POST["qr"]) que o seu PHP espera
     const formData = new FormData();

@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiUrl } from './api-url';
 
 export interface CheckoutItem {
   id_product: number;
@@ -21,11 +22,12 @@ export interface CheckoutPayload {
 })
 export class Order {
   private http = inject(HttpClient);
-  private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order';
-  private readonly checkoutUrl = 'https://gmhardware-ecommerce.onrender.com/api/orders/checkout';
+  private api = inject(ApiUrl);
+  private readonly apiUrl = this.api.getUrl();
+  private readonly checkoutUrl = this.api.getUrl() + '/orders/checkout'
+  // private readonly apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/order';
+  // private readonly checkoutUrl = 'https://gmhardware-ecommerce.onrender.com/api/orders/checkout';
 
-  // private readonly apiUrl = 'http://127.0.0.1:8000/api/order';
-  // private readonly checkoutUrl = 'http://127.0.0.1:8000/api/orders/checkout';
 
   private getHeaders(): HttpHeaders {
     const token = typeof window !== 'undefined'
@@ -44,38 +46,25 @@ export class Order {
   }
 
   getOrder(id: string = ''): Observable<any> {
-    const url = id !== '' && id !== 'null'
-      ? `${this.apiUrl}/${id}`
-      : this.apiUrl;
 
-    return this.http.get<any>(url, {
-      headers: this.getHeaders()
-    });
+    const url = id !== '' && id !== 'null' ? `${this.apiUrl}/order/${id}` : this.apiUrl;
+    return this.http.get<any>(url, { headers: this.getHeaders() });
+
   }
 
   listarMinhasCompras(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl, {
-      headers: this.getHeaders()
-    });
+    return this.http.get<any[]>(`${this.apiUrl}/order`, { headers: this.getHeaders() });
   }
 
   checkout(payload: CheckoutPayload): Observable<any> {
-    return this.http.post(
-      this.checkoutUrl,
-      payload,
-      { headers: this.getHeaders() }
-    );
+    return this.http.post(this.checkoutUrl, payload, { headers: this.getHeaders() });
   }
 
   createOrder(formdata: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, formdata, {
-      headers: this.getHeaders()
-    });
+    return this.http.post(`${this.apiUrl}/order`, formdata, { headers: this.getHeaders() });
   }
 
   updateOrder(formdata: FormData, id: string): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, formdata, {
-      headers: this.getHeaders()
-    });
+    return this.http.put(`${this.apiUrl}/order/${id}`, formdata, { headers: this.getHeaders() });
   }
 }

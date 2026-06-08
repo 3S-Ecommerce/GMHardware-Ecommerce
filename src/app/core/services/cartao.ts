@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiUrl } from './api-url';
 
 export interface Cartao {
   id: number;
@@ -22,8 +23,10 @@ export interface CartaoPayload {
   providedIn: 'root'
 })
 export class CartaoService {
+  private api = inject(ApiUrl);
+  private apiUrl = this.api.getUrl();
   // private apiUrl = 'http://localhost:8000/api';
-  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api';
+  // private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api';
 
 
   constructor(private http: HttpClient) {}
