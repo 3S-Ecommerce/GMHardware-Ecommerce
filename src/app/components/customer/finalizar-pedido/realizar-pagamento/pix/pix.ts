@@ -24,7 +24,7 @@ export class Pix implements OnInit {
   erro: string = '';
 
   // Substitua pelo endereço real onde está hospedado o seu arquivo PHP gerador
-  private readonly phpGeradorUrl = 'https://gmhardwa.com/api/gerar-qrcode.php'; 
+  private readonly phpGeradorUrl = 'https://gmhardware-ecommerce.onrender.com/api/gerador.php'; 
 
   ngOnInit(): void {
     this.orderId = this.route.snapshot.queryParamMap.get('id_order') || '';

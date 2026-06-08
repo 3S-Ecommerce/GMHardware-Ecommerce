@@ -230,11 +230,11 @@ public function gerarQrCode(Request $request)
     }
 
     // Configurações do Cloudflare R2
-    $r2AccountId = 'SEU_ACCOUNT_ID_DO_CLOUDFLARE';
+    $r2AccountId = '70472f08ee4fc836a76c8ee222b5a1ab';
     $r2BucketName = 'qrcodes';
-    $r2AccessKey = 'SUA_ACCESS_KEY_ID';
-    $r2SecretKey = 'SUA_SECRET_ACCESS_KEY';
-    $r2PublicUrl = 'https://seu-dominio-customizado.com'; 
+    $r2AccessKey = '8c69ab5600725530668a5f9eb5078d49';
+    $r2SecretKey = 'ed49a2d46cee1c005475edf768127c2814cfac89133410fa1f07fb6514a11044';
+    $r2PublicUrl = 'https://pub-25c0dd25f2674cc08b638a62174677e8.r2.dev'; 
 
     $name = md5(time() . uniqid()) . '.png';
     

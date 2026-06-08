@@ -2,7 +2,7 @@
 /****************************************************************************\
 qrcode.php - Generate QR Codes. MIT license.
 \****************************************************************************/
-include("qrcode.php");
+include(__DIR__ . "/qrcode.php");
 
 // Configurações do Cloudflare R2
 define('R2_ACCOUNT_ID', '70472f08ee4fc836a76c8ee222b5a1ab');
