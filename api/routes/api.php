@@ -26,6 +26,8 @@ Route::apiResource('user', UserController::class);
 
 Route::apiResource('admin', AdminController::class);
 
+Route::get('/orders/{id}', [OrderController::class, 'show']);
+
 Route::apiResource('order' , OrderController::class)
     ->middleware('auth:sanctum');
 Route::apiResource('category', CategoryController::class);

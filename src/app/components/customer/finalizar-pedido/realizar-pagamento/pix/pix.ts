@@ -1,7 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-pix',
@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 export class Pix implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
+  private cdr = inject(ChangeDetectorRef);
+  private platformId = inject(PLATFORM_ID);
 
   orderId: string = '';
   valorPedido: number = 0;
@@ -23,26 +25,30 @@ export class Pix implements OnInit {
   carregando: boolean = true;
   erro: string = '';
 
-  // Substitua pelo endereço real onde está hospedado o seu arquivo PHP gerador
-  // No seu arquivo pix.ts, garanta que a URL está assim:
   private readonly phpGeradorUrl = 'https://gmhardware-ecommerce.onrender.com/api/gerador.php';
 
   ngOnInit(): void {
+    // Captura os parâmetros da URL de forma segura
     this.orderId = this.route.snapshot.queryParamMap.get('id_order') || '';
     this.valorPedido = Number(this.route.snapshot.queryParamMap.get('total')) || 0;
 
-    if (!this.orderId) {
-      this.erro = 'ID do pedido não identificado. Volte ao carrinho e tente novamente.';
+    if (!this.orderId || this.orderId === '0') {
+      this.erro = 'ID do pedido inválido ou não identificado. Volte ao carrinho.';
       this.carregando = false;
       return;
     }
 
-    this.gerarQrCodePix();
+    // CORREÇÃO CRÍTICA: Só dispara a chamada HTTP se estiver rodando no navegador do cliente.
+    // Isso evita que o SSR trave a renderização inicial da página em modo "carregando".
+    if (isPlatformBrowser(this.platformId)) {
+      this.gerarQrCodePix();
+    }
   }
 
   gerarQrCodePix(): void {
     this.carregando = true;
     this.erro = '';
+    this.cdr.detectChanges();
 
     // A URL final contida no QRCode que aponta para o validador mobile da Cloudflare Pages
     this.textoCopiaCola = `https://gmhardware.pages.dev/finalizar-compra/validar?id_order=${this.orderId}`;
@@ -59,11 +65,13 @@ export class Pix implements OnInit {
           this.erro = 'Não foi possível gerar o QR Code de pagamento.';
         }
         this.carregando = false;
+        this.cdr.detectChanges(); // Força o Angular a atualizar a view após a resposta assíncrona
       },
       error: (err) => {
         console.error('Erro ao gerar Pix no PHP:', err);
-        this.erro = 'Falha na comunicação com o servidor de pagamentos.';
+        this.erro = 'Falha na comunicação com o servidor de pagamentos. Verifique os logs da API.';
         this.carregando = false;
+        this.cdr.detectChanges(); // Força o Angular a exibir o estado de erro
       }
     });
   }
@@ -74,4 +82,4 @@ export class Pix implements OnInit {
     document.execCommand('copy');
     alert('Código de pagamento copiado para a área de transferência!');
   }
-} 
+}

@@ -1,5 +1,5 @@
 <section class="pix">
-  @if (carregando) {
+  @if (!qrCodeUrl && !erro) {
     <div class="pix-carregando">
       <h2>Gerando seu QR Code Pix...</h2>
       <p>Aguarde enquanto preparamos os seus dados de pagamento.</p>
