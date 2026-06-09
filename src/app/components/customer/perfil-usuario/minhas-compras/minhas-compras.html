@@ -33,7 +33,7 @@
             <button 
               class="status-tag aguardando clicavel" 
               [routerLink]="['/validar']" 
-              [queryParams]="{ id_order: compra.id, total: compra.total_price }">
+              [queryParams]="{ id_order: compra.id }">
               {{ compra.status }}
             </button>
           } @else {

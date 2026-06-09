@@ -43,6 +43,7 @@ export class MinhasComprasComponent implements OnInit {
           this.compras.set(Array.isArray(res) ? res : []);
           this.carregando = false;
         }, 10);
+        console.log(this.compras())
       },
       error: (err) => {
         console.error('Erro ao carregar compras:', err);

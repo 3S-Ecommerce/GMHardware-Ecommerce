@@ -100,11 +100,11 @@ class OrderController extends Controller
 
             $paymentMethod = $request->payment_method;
 
-            if ($paymentMethod === 'pix') {
+            if ($paymentMethod === 'pix' || $paymentMethod === 'PIX') {
                 $paymentMethod = 'PIX';
             }
 
-            if ($paymentMethod === 'cartao') {
+            if ($paymentMethod === 'cartao' || $paymentMethod === 'Cartão de Crédito') {
                 $paymentMethod = 'Cartão de Crédito';
             }
 

@@ -1,8 +1,9 @@
+@use "../../../../../public/assets/style.scss";
+
 .example-container {
   width: auto;
   height: 100%;
   position: fixed;
-
   left: 0;
   top: 0;
 }
@@ -15,19 +16,20 @@
 }
 
 .example-sidenav {
-    background-color: rgba(128, 128, 128, 0.350);
+  background-color: rgba(128, 128, 128, 0.350);
   backdrop-filter: blur(10px);
-    padding: 20px;
+  padding: 20px;
 }
 
-// 1. Ajuste do Fundo Geral (Garante rolagem se o conteúdo for maior que a tela do celular)
+// 1. Ajuste do Fundo Geral
 .fundo {
-  min-height: 100vh; // Usa min-height em vez de height fixo
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327); // Margem de segurança para o card não colar nas bordas do celular
+  background: linear-gradient(to right, #1F2743, #2A2A4A, #5A3327);
   box-sizing: border-box;
+  padding: 12px; // Evita que o card cole nos cantos em telas muito pequenas
 }
 
 // 2. Ajuste do Container Interno do Painel
@@ -35,8 +37,7 @@
   background: #181C23;
   padding: 20px;
   width: 100%;
-  max-width: 600px; // Limita o tamanho máximo no Desktop
-  min-height: auto; // Remove o 100vh fixo que quebrava o mobile
+  max-width: 600px;
   border-radius: 12px;
   color: white;
   box-sizing: border-box;
@@ -51,7 +52,6 @@
   }
 }
 
-// 3. Ajuste do container que envolve o card
 .perfil-container {
   width: 100%;
   display: flex;
@@ -60,14 +60,17 @@
   box-sizing: border-box;
 }
 
-// 4. O Card base agora começa adaptado para Mobile (Mobile First)
+// ==================================================================
+// 3. ESTRUTURA BASE: MOBILE FIRST (Focado na largura de 375px)
+// ==================================================================
 .perfil-card {
   background-color: #0d1117;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   width: 100%;
-  padding: 1.5rem; // Padding menor no mobile para dar espaço ao texto
+  max-width: 375px; // Fixa a largura máxima ideal para mobile
+  padding: 1.5rem;
   color: #f0f6fc;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   box-sizing: border-box;
@@ -114,10 +117,9 @@
       font-weight: 600;
     }
 
-    // No Mobile, se o texto não couber, ele quebra em linha de forma organizada
     .campo-dado {
       display: flex;
-      flex-direction: column; // Empilha label e valor no mobile por padrão
+      flex-direction: column; // Garante empilhamento vertical limpo no mobile
       align-items: flex-start;
       gap: 0.5rem;
       background: rgba(255, 255, 255, 0.03);
@@ -146,16 +148,18 @@
         font-size: 0.95rem;
         word-break: break-all;
         text-align: left;
+        width: 100%;
       }
     }
   }
 
-  // Botões empilhados no mobile para facilitar o toque com o polegar
+  // Ações empilhadas no mobile para cliques fáceis e sem esmagamento de texto
   .acoes-perfil {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     margin-top: 2rem;
+    width: 100%;
 
     button {
       width: 100%;
@@ -169,25 +173,54 @@
       justify-content: center;
       gap: 0.5rem;
     }
+  }
+}
 
-    .btn-voltar {
-      background-color: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #c9d1d9;
+// ==========================================
+// 4. MEDIA QUERY: EXCLUSIVA PARA TABLETS
+// ==========================================
+@media (min-width: 600px) and (max-width: 1023px) {
+  .fundo-div {
+    padding: 30px;
+  }
+
+  .perfil-card {
+    max-width: 500px; // Alarga um pouco mais o bloco no tablet
+    padding: 2rem;
+
+    .dados-section {
+      .campo-dado {
+        flex-direction: row; // Divide o espaço lado a lado suavemente
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem 1.1rem;
+
+        span {
+          text-align: right;
+          width: auto;
+        }
+        
+        .input-perfil {
+          max-width: 220px;
+        }
+      }
     }
 
-    .btn-logout {
-      background-color: #da3633;
-      border: none;
-      color: #ffffff;
+    .acoes-perfil {
+      flex-direction: row; // Coloca os botões lado a lado no tablet
+      gap: 0.85rem;
+
+      button {
+        flex: 1;
+      }
     }
   }
 }
 
 // ==========================================
-// MEDIA QUERY: REGRAS EXCLUSIVAS PARA DESKTOP
+// 5. MEDIA QUERY: EXCLUSIVA PARA DESKTOP
 // ==========================================
-@media (min-width: 576px) {
+@media (min-width: 1024px) {
   .fundo-div {
     padding: 40px;
     
@@ -197,6 +230,7 @@
   }
 
   .perfil-card {
+    max-width: none; // Libera a restrição do mobile
     padding: 3rem 2.5rem;
 
     .avatar-section {
@@ -209,7 +243,6 @@
     .dados-section {
       h3 { font-size: 1.3rem; }
 
-      // Restaura o alinhamento lado a lado no PC
       .campo-dado {
         flex-direction: row;
         justify-content: space-between;
@@ -226,22 +259,28 @@
           font-size: 1rem;
           text-align: right;
           padding-left: 1rem;
+          width: auto;
+        }
+
+        .input-perfil {
+          max-width: 250px; // Mantém a limitação para não esticar no PC
+          text-align: left;
         }
       }
     }
 
-    // Restaura os botões lado a lado no PC
     .acoes-perfil {
       flex-direction: row;
-      gap: 1.2rem;
+      gap: 1rem;
 
       button {
-        flex: 1;
+        flex: 1; // Garante que os 3 botões dividam o espaço igualmente
       }
     }
   }
 }
 
+// Estilos Gerais de Inputs e Botões
 .input-perfil {
   background: #181c23;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -260,7 +299,6 @@
   }
 }
 
-// Botões novos do fluxo de edição
 .btn-home {
   background-color: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -268,10 +306,11 @@
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.08);
-    border-color: #38bdf8; // Dá um leve brilho azul ao passar o mouse
+    border-color: #38bdf8;
     color: #ffffff;
   }
 }
+
 .btn-editar {
   background-color: #2563eb;
   border: none;
@@ -279,8 +318,15 @@
   &:hover { background-color: #1d4ed8; }
 }
 
+.btn-logout {
+  background-color: #da3633;
+  border: none;
+  color: #ffffff;
+  &:hover { background-color: #bd2c2a; }
+}
+
 .btn-salvar {
-  background-color: #16a34a; // Verde para sucesso
+  background-color: #16a34a;
   border: none;
   color: white;
   &:hover { background-color: #15803d; }
@@ -294,45 +340,27 @@
   &:hover { background-color: rgba(255, 255, 255, 0.08); }
 }
 
-// Ajuste fino para os campos com inputs no desktop
-@media (min-width: 576px) {
-  .campo-dado {
-    .input-perfil {
-      max-width: 250px; // Evita que o input estique demais no PC
-      text-align: left;
-    }
-  }
-}
-.perfil-card {
-  .acoes-perfil {
-    flex-direction: row;
-    gap: 1rem; // Ajusta o espaçamento entre os 3 botões
-
-    button {
-      flex: 1; // Faz os 3 botões dividirem o espaço do card por igual
-    }
-  }
-}
+// Sidenav Responsiva Extra
 @media(max-width: 500px){
   .example-container {
-  height: 100%;
-  position:fixed;
-  left: 0;
-  top: 0;
-}
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+  }
 
-.example-sidenav-content {
-  display: flex;
-  height: 100%;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 
-.mat-drawer{
-  width: 300px;
-}
+  .mat-drawer {
+    width: 300px;
+  }
 
-.example-sidenav {
-  padding: 20px;
-}
+  .example-sidenav {
+    padding: 20px;
+  }
 }

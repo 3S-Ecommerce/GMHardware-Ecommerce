@@ -417,7 +417,7 @@ export class Revisar {
         // ALTERAÇÃO AQUI: Se for PIX, envia para a tela do QR Code do Pix
         if (payload.payment_method.toLowerCase().includes('pix')) {
           // O seu backend Laravel deve retornar o ID do pedido criado (ex: res.order_id ou res.id)
-          const orderId = res?.order_id || res?.id || 0;
+          const orderId = res?.order.id || res?.id || 0;
           this.router.navigate(['/finalizar-compra/pagamento/pix'], {
             queryParams: { id_order: orderId, total: payload.total_price }
           });

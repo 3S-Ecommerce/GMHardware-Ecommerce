@@ -2,28 +2,53 @@
 
 <main class="produto">
   @if (produto()) {
-    <app-imagem-produto [produto]="produto()"></app-imagem-produto>
+  <app-imagem-produto [produto]="produto()"></app-imagem-produto>
 
-    <div class="conteudo">
-      <h1 (click)="teste()">{{ produto().name }}</h1>
-      
-      <ul class="especificacoes-lista">
-        @for (especificacao of especificacoes(); track especificacao) {
-          <li>{{ especificacao }}</li>
-        }
-      </ul>
+  <div class="conteudo">
+    <h1 (click)="teste()">{{ produto().name }}</h1>
 
-      <app-adicionar-produto 
-        [produtoID]="produto().id" 
-        [price]="produto().price" 
-        [name]="produto().name" 
-        [image]="produto().image">
-      </app-adicionar-produto>
-    </div>
+    <ul class="especificacoes-lista">
+      @for (especificacao of especificacoes(); track especificacao) {
+      <li>{{ especificacao }}</li>
+      }
+    </ul>
+
+    <app-adicionar-produto [produtoID]="produto().id" [price]="produto().price" [name]="produto().name"
+      [image]="produto().image">
+    </app-adicionar-produto>
+  </div>
   } @else {
-    <div class="loading-container">
-      <p id="visualizarProdutoCarregando">Carregando Produto...</p>
+  <div class="main-produto-skeleton"
+    style="flex: 1; max-width: 500px; width: 100%; display: flex; flex-direction: column; gap: 16px;">
+    <div class="skeleton" style="width: 100%; height: 450px; border-radius: 5px;"></div>
+    <div style="display: flex; gap: 12px; width: 100%;">
+      <div class="skeleton" style="width: 70px; height: 70px; border-radius: 5px;"></div>
+      <div class="skeleton" style="width: 70px; height: 70px; border-radius: 5px;"></div>
+      <div class="skeleton" style="width: 70px; height: 70px; border-radius: 5px;"></div>
     </div>
+  </div>
+
+  <div class="conteudo" style="flex: 1; width: 100%; display: flex; flex-direction: column; gap: 20px;">
+    <div class="skeleton" style="width: 85%; height: 42px; border-radius: 6px;"></div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; padding-left: 20px;">
+      <div class="skeleton" style="width: 90%; height: 20px;"></div>
+      <div class="skeleton" style="width: 75%; height: 20px;"></div>
+      <div class="skeleton" style="width: 80%; height: 20px;"></div>
+    </div>
+
+    <div
+      style="width: 100%; max-width: 500px; background-color: rgba(255,255,255,0.02); padding: 24px; border-radius: 10px; display: flex; flex-direction: column; gap: 16px; border: 1px solid rgba(255,255,255,0.05);">
+      <div class="skeleton" style="width: 50%; height: 35px;"></div>
+      <div class="skeleton" style="width: 30%; height: 18px;"></div>
+      <div class="skeleton" style="width: 100%; height: 60px;"></div>
+      <div class="skeleton" style="width: 40%; height: 24px; margin: 16px 0;"></div>
+      <div style="display: flex; gap: 16px; width: 100%;">
+        <div class="skeleton" style="flex: 1; height: 46px;"></div>
+        <div class="skeleton" style="flex: 1; height: 46px;"></div>
+      </div>
+    </div>
+  </div>
   }
 </main>
 

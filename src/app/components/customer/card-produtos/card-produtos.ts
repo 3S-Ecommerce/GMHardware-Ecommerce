@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, Input, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, Input, computed, OnDestroy } from '@angular/core';
 import { NgOptimizedImage } from "@angular/common";
 import { Router, RouterLink } from '@angular/router';
 import { Product } from '../../../core/services/product';
@@ -38,13 +38,18 @@ export class CardProdutos implements OnInit {
       next: (data) => {
         //Loading.isLoading.set(false)
         this.todosProdutos.set(data)
-        this.isLoading.set(false)
+        this.isLoading.update(p => false)
       },
       error: (err) => {
         console.error('Erro: ', err)
       }
     })
   }
+
+  ngOnDestroy():void{
+    this.isLoading.update(p => true)
+  }
+
   comprarAgora(produtoID: number) {
     this.router.navigate(['/finalizar-compra'], {
       queryParams: {

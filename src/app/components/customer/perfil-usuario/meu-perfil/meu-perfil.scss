@@ -30,22 +30,31 @@ $hover-bg: #1a1f27;
   }
 }
 
+// ==================================================================
+// CONFIGURAÇÃO DO GRID RESPONSIVO (MOBILE FIRST & ISOLADO)
+// ==================================================================
 .perfil-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
+  
+  // 1. MOBILE (Padrão): Força 1 coluna perfeita (Ideal para telas de 375px)
+  grid-template-columns: 1fr;
+  gap: 16px;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+  // 2. TABLET: Entre 600px e 1023px (Trava em exatamente 2 colunas simétricas)
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+  // 3. DESKTOP: A partir de 1024px (Volta ao comportamento fluido original)
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
   }
 }
+// ==================================================================
 
 .perfil-card {
   background-color: $bg-card;
@@ -60,6 +69,8 @@ $hover-bg: #1a1f27;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
+  width: 100%; // Ocupa o espaço total da coluna do grid
+  box-sizing: border-box;
 
   &:hover {
     background-color: $hover-bg;
@@ -68,8 +79,9 @@ $hover-bg: #1a1f27;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
+  // Ajustes de espaçamento interno para telas menores
   @media (max-width: 768px) {
-    padding: 16px 24px;
+    padding: 16px 20px;
     gap: 16px;
   }
 }
@@ -88,6 +100,12 @@ $hover-bg: #1a1f27;
     height: 100%;
     object-fit: contain;
   }
+
+  @media (max-width: 640px) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
 }
 
 .card-content {
@@ -103,6 +121,10 @@ $hover-bg: #1a1f27;
   color: $text-primary;
   margin: 0;
   line-height: 1.4;
+
+  @media (max-width: 640px) {
+    font-size: 16px;
+  }
 }
 
 .card-description {
@@ -110,38 +132,15 @@ $hover-bg: #1a1f27;
   color: $text-secondary;
   margin: 4px 0 0 0;
   line-height: 1.5;
+
+  @media (max-width: 640px) {
+    font-size: 13px;
+  }
 }
 
 .logout-card {
   &:hover {
     border-color: #ef4444;
     background-color: rgba(239, 68, 68, 0.05);
-  }
-}
-
-// Responsividade adicional
-@media (max-width: 1024px) {
-  .perfil-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .perfil-card {
-    padding: 16px 24px;
-    gap: 16px;
-  }
-
-  .card-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .card-title {
-    font-size: 16px;
-  }
-
-  .card-description {
-    font-size: 13px;
   }
 }

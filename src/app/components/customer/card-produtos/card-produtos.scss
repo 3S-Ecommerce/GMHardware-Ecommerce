@@ -1,24 +1,26 @@
 @use "../../../../../public/assets/style.scss";
 
-// Mixin unificado para manter a estrutura e o reset de tamanho dos cards
+// Mixin limpo para manter a altura e bordas dos cards unificados
 @mixin card-structure {
     height: 40rem;
     border-radius: 10px;
     box-sizing: border-box;
-    width: 22rem;
-    min-width: 22rem;
-    max-width: 22rem;
 }
 
 .loading {
     @include card-structure;
-    // Ocupa a linha inteira (1 por linha) no estado de loadings
+    width: 100%; 
+    max-width: 22rem; // Mantém o tamanho original do loader no desktop
 
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ffffff11;
     margin: 20px 0;
+
+    @media (max-width: 1023px) {
+        max-width: 100%; // No mobile/tablet ele ocupa a largura total
+    }
 
     .spinner {
         width: 40px;
@@ -30,13 +32,8 @@
     }
 
     @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 }
 
@@ -54,15 +51,15 @@
     padding: 0 10px;
     box-sizing: border-box;
 
-    // Configuração Flexbox para o container principal
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start; // Alinha os cards ao início da linha
-    gap: 16px; // Espaçamento padrão para mobile
+    justify-content: center; // Centraliza os itens no celular e tablet
+    gap: 16px;
 
     @media (min-width: 1024px) {
-        gap: 48px; // Aumenta o espaçamento no desktop
+        justify-content: flex-start; // Alinha à esquerda no Desktop como o original
+        gap: 48px;
         padding: 0;
     }
 
@@ -74,26 +71,28 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
 
         // ==========================================
-        // RESPONSIVIDADE DOS CARDS (FLEXBOX)
+        // RESPONSIVIDADE INDEPENDENTE POR TELA
         // ==========================================
 
-        // 1. CELULAR (Padrão): Ocupa a tela inteira (1 por linha)
+        // 1. MOBILE: Perfeito para 375px (1 por linha bem centralizado)
         width: 100%;
+        max-width: 375px; 
         flex: 0 0 100%;
 
-        // 2. TABLETS (Telas intermediárias): Mostra 2 por linha
+        // 2. TABLET: Mostra exatamente 2 por linha
         @media (min-width: 600px) {
+            max-width: none;
             width: calc(50% - 8px);
             flex: 0 0 calc(50% - 8px);
         }
 
-        // 3. DESKTOP: Organiza de 5 a 6 cards por linha dependendo do monitor
+        // 3. DESKTOP: Voltou ao normal perfeito! (Tamanho fixo original de 22rem)
         @media (min-width: 1024px) {
-            max-width: 22rem; // Remove o limite antigo de 22rem para poder encolher e caber mais
-            width: calc(16.66% - 40px); // Base matemática para mirar em 6 colunas considerando o gap largo
-            flex: 1 1 14rem; // Permite o card crescer e encolher entre 14rem e o limite de forma fluida
+            width: 22rem;
+            min-width: 22rem;
+            max-width: 22rem;
+            flex: 0 0 22rem;
         }
-
         // ==========================================
 
         &:hover {
@@ -113,6 +112,8 @@
             border-top-right-radius: 10px;
             overflow-wrap: normal;
             cursor: pointer;
+            width: 100%;
+            height: 100%;
         }
 
         span {

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, OnDestroy } from '@angular/core';
 import { Auth } from '../../../core/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -48,7 +48,14 @@ export class PerfilUsuario implements OnInit {
         // Força o preenchimento inicial dos dados salvos
         this.preencherCamposFormulario(parsed);
       }
+      else{
+        this.userLocal.set(null);
+      }
     }
+  }
+
+  ngOnDestroy():void {
+    this.userLocal.update(p => null)
   }
 
   preencherCamposFormulario(dados: any) {

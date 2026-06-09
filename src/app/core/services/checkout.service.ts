@@ -6,8 +6,10 @@ export type PaymentMethod = 'pix' | 'cartao' | null;
   providedIn: 'root'
 })
 export class CheckoutService {
+  // Inicializa o Signal direto com o valor do localStorage (SSR safe)
   private _paymentMethod = signal<PaymentMethod>(this.getSavedPaymentMethod());
 
+  // Expõe como Readonly para os componentes assistirem às mudanças de estado nativas
   paymentMethod = this._paymentMethod.asReadonly();
 
   setPaymentMethod(method: PaymentMethod): void {
@@ -22,16 +24,23 @@ export class CheckoutService {
     }
   }
 
+  // Retorna o valor atual do Signal (reativo e sempre atualizado)
   getPaymentMethod(): PaymentMethod {
-    const currentMethod = this._paymentMethod();
-
-    if (currentMethod) {
-      return currentMethod;
-    }
-
-    return this.getSavedPaymentMethod();
+    return this._paymentMethod();
   }
 
+  /**
+   * Retorna o formato exato que a Request do Laravel espera receber
+   * no campo 'payment_method' dentro do método checkout()
+   */
+  getPaymentMethodPayload(): string {
+    const method = this.getPaymentMethod();
+    return method ? method : ''; // Retorna 'pix' ou 'cartao'
+  }
+
+  /**
+   * Usado apenas para exibição de texto amigável na View do HTML (.html)
+   */
   getPaymentMethodName(): string {
     const method = this.getPaymentMethod();
 
