@@ -26,6 +26,11 @@ Route::apiResource('user', UserController::class);
 
 Route::apiResource('admin', AdminController::class);
 
+Route::get('/orders-public/{id}', [OrderController::class, 'showPublic']);
+
+// ROTA PÚBLICA: Adicione junto com o seu 'orders-public'
+Route::post('/order/confirmar-pagamento', [OrderController::class, 'confirmarPagamento']);
+
 Route::apiResource('order' , OrderController::class)
     ->middleware('auth:sanctum');
 Route::apiResource('category', CategoryController::class);
@@ -67,3 +72,5 @@ Route::put('/addresses/{id}/default', [AddressController::class, 'makeDefault'])
 
 Route::apiResource('addresses', AddressController::class)
     ->middleware('auth:sanctum');
+
+// Route::post('/order/qrcode', [OrderController::class, 'gerarQrCode']);
