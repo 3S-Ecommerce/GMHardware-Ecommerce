@@ -35,7 +35,7 @@ export class PerfilUsuario implements OnInit {
     // 2. Tenta capturar os dados apenas no lado do cliente (Navegador)
     if (typeof window !== 'undefined') {
       const storageUser = localStorage.getItem('user');
-      console.log('CONTEÚDO DO LOCALSTORAGE NO INIT:', storageUser);
+      // console.log('CONTEÚDO DO LOCALSTORAGE NO INIT:', storageUser);
 
       if (storageUser) {
         const parsed = JSON.parse(storageUser);
@@ -98,7 +98,7 @@ export class PerfilUsuario implements OnInit {
     }
 
     const userId = String(this.userLocal().id);
-    console.log('Enviando requisição de update para ID:', userId);
+    // console.log('Enviando requisição de update para ID:', userId);
 
     this.authService.updateUser(formData, userId).subscribe({
       next: (usuarioAtualizado: any) => {

@@ -107,12 +107,12 @@ class OrderController extends Controller
             if ($paymentMethod === 'cartao' || $paymentMethod === 'Cartão de Crédito') {
                 $paymentMethod = 'Cartão de Crédito';
             }
-
+            
             $statusInicial = 'teste';
 
-            if ($paymentMethod === 'PIX') {
+            if($paymentMethod === 'PIX'){
                 $statusInicial = 'Aguardando pagamento';
-            } else {
+            }else{
                 $statusInicial = 'Pago';
             }
 
@@ -146,11 +146,7 @@ class OrderController extends Controller
                 $cardId = $cartao->id;
                 $cardLastDigits = substr($cartao->numero_cartao, -4);
             }
-            // Coloque isso logo ANTES da linha: $order = Order::create([...]);
-            dd([
-                'status_calculado' => $statusInicial,
-                'payment_method_que_chegou' => $request->payment_method
-            ]);
+
             $order = Order::create([
                 'id_user' => $request->user()->id,
                 'endereco_id' => $enderecoId,

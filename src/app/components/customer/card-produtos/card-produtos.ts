@@ -36,9 +36,10 @@ export class CardProdutos implements OnInit {
     //Loading.isLoading.set(true)
     this.api.getProduct('').subscribe({
       next: (data) => {
-        //Loading.isLoading.set(false)
-        this.todosProdutos.set(data)
-        this.isLoading.update(p => false)
+        setTimeout(() => {
+          this.todosProdutos.set(data);
+          this.isLoading.update(p => false);
+        }, 0);
       },
       error: (err) => {
         console.error('Erro: ', err)

@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  OnInit,
   PLATFORM_ID,
   signal
 } from '@angular/core';
@@ -32,7 +33,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './revisar.html',
   styleUrl: './revisar.scss',
 })
-export class Revisar {
+export class Revisar implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private orderService = inject(Order);
@@ -63,17 +64,20 @@ export class Revisar {
 
   constructor() {
     afterNextRender(() => {
-      if (!isPlatformBrowser(this.platformId)) {
-        return;
-      }
+    });
+  }
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      
       this.cart.iniciar();
       this.carregarUsuarioLogado();
       this.carregarEnderecos();
       this.carregarCartaoSelecionado();
-
+      
       this.inicializarProdutos();
-    });
+    }
+
   }
 
   // produtos = computed(() => {
@@ -128,7 +132,7 @@ export class Revisar {
             image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/' + produtoDoBanco.image || 'assets/images/placeholder.png', // Fallback se não houver imagem
             quantity: quantidadeBuscada
           }]);
-          console.log(this.produtos())
+          // console.log(this.produtos())
           this.comId.update(p => true)
         },
         error: (err) => {
@@ -177,7 +181,7 @@ export class Revisar {
     }
 
     this.usuarioLogado = JSON.parse(usuarioStr);
-    console.log(this.usuarioLogado)
+    // console.log(this.usuarioLogado)
   }
 
   carregarCartaoSelecionado(): void {

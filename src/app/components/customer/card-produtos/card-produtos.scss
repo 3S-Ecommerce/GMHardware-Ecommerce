@@ -1,3 +1,5 @@
+
+
 @use "../../../../../public/assets/style.scss";
 
 // Mixin limpo para manter a altura e bordas dos cards unificados
@@ -10,7 +12,7 @@
 .loading {
     @include card-structure;
     width: 100%; 
-    max-width: 22rem; // Mantém o tamanho original do loader no desktop
+    width: 22rem; // Mantém o tamanho original do loader no desktop
 
     display: flex;
     justify-content: center;

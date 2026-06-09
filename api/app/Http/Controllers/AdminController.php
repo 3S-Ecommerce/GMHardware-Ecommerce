@@ -68,6 +68,10 @@ class AdminController extends Controller
         return response()->json($admin, 200);
 
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(Admin $admin)
     {
         $data = Admin::find($admin->id);

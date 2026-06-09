@@ -12,7 +12,7 @@ import { Order } from '../../../../core/services/order';
 })
 export class MinhasComprasComponent implements OnInit {
   compras = signal<any[]>([])
-  carregando = false;
+  carregando = true;
   erro = '';
   private orderService = inject(Order)
   private router = inject(Router)
@@ -31,7 +31,8 @@ export class MinhasComprasComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   carregarCompras(): void {
     this.carregando = true;
@@ -42,8 +43,10 @@ export class MinhasComprasComponent implements OnInit {
         setTimeout(() => {
           this.compras.set(Array.isArray(res) ? res : []);
           this.carregando = false;
+        // console.log(this.compras())
+
         }, 10);
-        console.log(this.compras())
+        // console.log(this.compras())
       },
       error: (err) => {
         console.error('Erro ao carregar compras:', err);
