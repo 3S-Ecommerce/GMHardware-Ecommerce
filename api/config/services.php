@@ -35,4 +35,20 @@ return [
         ],
     ],
 
+    'melhor_envio' => [
+    'url' => env(
+        'MELHOR_ENVIO_URL',
+        'https://sandbox.melhorenvio.com.br'
+    ),
+
+    'token' => env('MELHOR_ENVIO_TOKEN'),
+
+    'from_cep' => env('MELHOR_ENVIO_FROM_CEP'),
+
+    'user_agent' => env(
+        'MELHOR_ENVIO_USER_AGENT',
+        'GMHardware (andreluizszabreu@gmail.com)'
+    ),
+],
+
 ];

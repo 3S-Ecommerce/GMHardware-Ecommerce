@@ -50,6 +50,7 @@ import { NovoCategoria } from './components/admin/categorias/categorias';
 import { PagamentoConcluido } from './components/customer/pagamento-concluido/pagamento-concluido';
 import { Validar } from './components/customer/finalizar-pedido/validar/validar';
 
+
 export const routes: Routes = [
     {
         path: '',
