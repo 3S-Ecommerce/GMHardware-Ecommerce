@@ -6,7 +6,7 @@ import { Injectable, signal } from '@angular/core';
 })
 export class Auth {
   // private readonly apiUrl = 'http://localhost:8000/api';
-  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api';
+ private apiUrl = 'http://127.0.0.1:8000/api';
 
   // 1. Blindamos a inicialização checando se estamos no navegador
   isLoggedIn = signal<boolean>(

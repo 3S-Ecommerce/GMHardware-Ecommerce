@@ -22,8 +22,8 @@ export interface EnderecoPayload {
   providedIn: 'root'
 })
 export class EnderecoService {
-  // private readonly apiUrl = 'http://localhost:8000/api/addresses';
-  private apiUrl = 'https://gmhardware-ecommerce.onrender.com/api/addresses';
+  private readonly apiUrl =
+    'http://127.0.0.1:8000/api/addresses';
 
   constructor(private http: HttpClient) {}
 
@@ -39,11 +39,15 @@ export class EnderecoService {
     const token = this.getToken();
 
     let headers = new HttpHeaders({
+      Accept: 'application/json',
       'Content-Type': 'application/json'
     });
 
     if (token) {
-      headers = headers.set('Authorization', `Bearer ${token}`);
+      headers = headers.set(
+        'Authorization',
+        `Bearer ${token}`
+      );
     }
 
     return headers;
@@ -52,30 +56,43 @@ export class EnderecoService {
   listar(): Observable<Endereco[]> {
     return this.http.get<Endereco[]>(
       this.apiUrl,
-      { headers: this.getHeaders() }
+      {
+        headers: this.getHeaders()
+      }
     );
   }
 
-  salvar(dados: EnderecoPayload): Observable<Endereco> {
+  salvar(
+    dados: EnderecoPayload
+  ): Observable<Endereco> {
     return this.http.post<Endereco>(
       this.apiUrl,
       dados,
-      { headers: this.getHeaders() }
+      {
+        headers: this.getHeaders()
+      }
     );
   }
 
-  atualizar(id: number, dados: EnderecoPayload): Observable<Endereco> {
+  atualizar(
+    id: number,
+    dados: EnderecoPayload
+  ): Observable<Endereco> {
     return this.http.put<Endereco>(
       `${this.apiUrl}/${id}`,
       dados,
-      { headers: this.getHeaders() }
+      {
+        headers: this.getHeaders()
+      }
     );
   }
 
   excluir(id: number): Observable<any> {
     return this.http.delete(
       `${this.apiUrl}/${id}`,
-      { headers: this.getHeaders() }
+      {
+        headers: this.getHeaders()
+      }
     );
   }
 
@@ -83,7 +100,9 @@ export class EnderecoService {
     return this.http.put(
       `${this.apiUrl}/${id}/default`,
       {},
-      { headers: this.getHeaders() }
+      {
+        headers: this.getHeaders()
+      }
     );
   }
 }

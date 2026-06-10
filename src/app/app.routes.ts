@@ -49,6 +49,7 @@ import { MinhasComprasComponent } from './components/customer/perfil-usuario/min
 import { NovoCategoria } from './components/admin/categorias/categorias';
 import { PagamentoConcluido } from './components/customer/pagamento-concluido/pagamento-concluido';
 
+
 export const routes: Routes = [
     {
         path: '',
