@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, OnDestroy } from '@angular/core';
 import { Auth } from '../../../core/services/auth';
 import { Router, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -35,7 +35,7 @@ export class PerfilUsuario implements OnInit {
     // 2. Tenta capturar os dados apenas no lado do cliente (Navegador)
     if (typeof window !== 'undefined') {
       const storageUser = localStorage.getItem('user');
-      console.log('CONTEÚDO DO LOCALSTORAGE NO INIT:', storageUser);
+      // console.log('CONTEÚDO DO LOCALSTORAGE NO INIT:', storageUser);
 
       if (storageUser) {
         const parsed = JSON.parse(storageUser);
@@ -48,7 +48,14 @@ export class PerfilUsuario implements OnInit {
         // Força o preenchimento inicial dos dados salvos
         this.preencherCamposFormulario(parsed);
       }
+      else{
+        this.userLocal.set(null);
+      }
     }
+  }
+
+  ngOnDestroy():void {
+    this.userLocal.update(p => null)
   }
 
   preencherCamposFormulario(dados: any) {
@@ -91,7 +98,7 @@ export class PerfilUsuario implements OnInit {
     }
 
     const userId = String(this.userLocal().id);
-    console.log('Enviando requisição de update para ID:', userId);
+    // console.log('Enviando requisição de update para ID:', userId);
 
     this.authService.updateUser(formData, userId).subscribe({
       next: (usuarioAtualizado: any) => {

@@ -33,7 +33,7 @@ export class VisualizarProduto implements OnInit {
     this.api.getProduct(id).subscribe({
       next: (data) => {
         this.produto.set(data);
-        console.log(this.produto())
+        // console.log(this.produto())
       },
       error: (err) => {
         console.error('Error: ', err)

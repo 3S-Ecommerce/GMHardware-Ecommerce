@@ -68,35 +68,43 @@ export class FormaEntrega {
 
     this.enderecoService.listar().subscribe({
       next: (res) => {
-        console.log('ENDEREÇOS RECEBIDOS:', res);
+        setTimeout(() => {
 
-        this.enderecos = res || [];
 
-        const enderecoPadrao = this.enderecos.find((endereco) => {
-          return endereco.padrao === true || endereco.padrao === 1;
-        });
-
-        this.enderecoSelecionado = enderecoPadrao || this.enderecos[0] || null;
-
-        this.carregandoEnderecos = false;
-        this.cdr.detectChanges();
+          console.log('ENDEREÇOS RECEBIDOS:', res);
+  
+          this.enderecos = res || [];
+  
+          const enderecoPadrao = this.enderecos.find((endereco) => {
+            return endereco.padrao === true || endereco.padrao === 1;
+          });
+  
+          this.enderecoSelecionado = enderecoPadrao || this.enderecos[0] || null;
+  
+          this.carregandoEnderecos = false;
+          this.cdr.detectChanges();
+        })
       },
       error: (err) => {
-        console.error('ERRO AO CARREGAR ENDEREÇOS:', err);
+        setTimeout(() => {
 
-        this.carregandoEnderecos = false;
 
-        if (err.status === 401) {
-          if (isPlatformBrowser(this.platformId)) {
-            localStorage.clear();
+          console.error('ERRO AO CARREGAR ENDEREÇOS:', err);
+  
+          this.carregandoEnderecos = false;
+  
+          if (err.status === 401) {
+            if (isPlatformBrowser(this.platformId)) {
+              localStorage.clear();
+            }
+  
+            this.router.navigate(['/login']);
+            return;
           }
-
-          this.router.navigate(['/login']);
-          return;
-        }
-
-        this.erroEndereco = 'Erro ao carregar endereços.';
-        this.cdr.detectChanges();
+  
+          this.erroEndereco = 'Erro ao carregar endereços.';
+          this.cdr.detectChanges();
+        })
       }
     });
   }

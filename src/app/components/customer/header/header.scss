@@ -15,14 +15,24 @@ header {
   box-sizing: border-box;
 }
 
-// Primeira Linha: Topbar
+// ==================================================================
+// PRIMEIRA LINHA: TOPBAR (LOGO, BUSCA E ICONS)
+// ==================================================================
 .header-search {
   @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 24px);
   padding: 20px 16px;
 
-  @media (max-width: 736px) {
-    @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 12px);
-    padding: 14px 12px;
+  // 1. MOBILE (Base 375px): Empilha a busca abaixo do Logo/Icons para não esmagar
+  @media (max-width: 599px) {
+    flex-wrap: wrap; // Permite quebra de linha
+    gap: 16px;
+    padding: 16px 12px;
+  }
+
+  // 2. TABLET: Ajuste de espaçamento intermediário
+  @media (min-width: 600px) and (max-width: 1023px) {
+    gap: 16px;
+    padding: 16px;
   }
 
   h1 {
@@ -33,7 +43,10 @@ header {
     white-space: nowrap;
 
     @media (max-width: 1199px) { @include style.fontSize($size: 26px, $weight: 700); }
-    @media (max-width: 736px) { @include style.fontSize($size: 20px, $weight: 700); }
+    @media (max-width: 736px) { @include style.fontSize($size: 22px, $weight: 700); }
+    
+    // Ajuste fino para a base de 375px
+    @media (max-width: 375px) { @include style.fontSize($size: 20px, $weight: 700); }
   }
 
   // Wrapper flexível para a barra de pesquisa customizada
@@ -41,6 +54,13 @@ header {
     flex: 1;
     max-width: 600px;
     width: 100%;
+
+    // Joga a busca para baixo no mobile ocupando 100% da largura
+    @media (max-width: 599px) {
+      order: 3; // Manda para o final do container flex
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
 
     input {
       height: 38px;
@@ -65,7 +85,7 @@ header {
     @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 24px, $width: auto);
 
     @media (max-width: 736px) {
-      gap: 16px;
+      gap: 18px;
     }
 
     a {
@@ -78,7 +98,7 @@ header {
       }
 
       @media (max-width: 736px) {
-        @include style.fontSize($size: 20px);
+        @include style.fontSize($size: 22px);
       }
     }
 
@@ -105,16 +125,19 @@ header {
   }
 }
 
-// Segunda Linha: Categorias e Idiomas
+// ==================================================================
+// SEGUNDA LINHA: CATEGORIAS E IDIOMAS
+// ==================================================================
 .header-nav {
   @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 20px);
   padding: 0 16px 16px 16px;
 
-  // Transforma o menu em lista arrastável horizontalmente em telas menores
   @media (max-width: 1199px) {
     padding: 0 12px 12px 12px;
+    gap: 12px;
   }
 
+  // Controla o scroll horizontal suave no tablet/mobile
   .nav-links-scroll {
     @include style.displayFlex($direction: row, $justify: flex-start, $gap: 24px, $width: auto);
     flex: 1;
@@ -123,10 +146,11 @@ header {
       overflow-x: auto;
       white-space: nowrap;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 4px;
+      padding-bottom: 6px; // Espaço para não cortar letras como 'g' ou 'p'
+      gap: 16px; // Encolhe o vão entre as categorias no mobile
       
       &::-webkit-scrollbar {
-        display: none; // Oculta barra de scroll feia para manter o minimalismo
+        display: none; // Oculta barra de rolagem nativa do navegador
       }
     }
 
@@ -148,7 +172,7 @@ header {
   }
 }
 
-// Bloco de Idiomas Unificado e Centralizado
+// Bloco de Idiomas Unificado
 .language-buttons {
   @include style.displayFlex($direction: row, $gap: 6px, $width: auto);
   flex-shrink: 0;

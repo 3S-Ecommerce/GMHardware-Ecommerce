@@ -9,30 +9,57 @@ use App\Models\DadosCartao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-include(__DIR__ . "/qrcode.php"); // Ajuste o caminho de onde você salvou o qrcode.php
+// Ajuste o caminho de onde você salvou o qrcode.php
 class OrderController extends Controller
 {
-   public function index(Request $request)
-{
-    $user = $request->user();
+    public function showPublic($id)
+    {
+        try {
+            // Busca o pedido de forma isolada, sem depender de usuário logado
+            $order = Order::find($id);
 
-    if (!$user) {
-        return response()->json([
-            'message' => 'Usuário não autenticado'
-        ], 401);
+            if (!$order) {
+                return response()->json([
+                    'error' => 'Pedido não encontrado.'
+                ], 404);
+            }
+
+            // Retorna apenas o estritamente necessário para o celular exibir na tela
+            return response()->json([
+                'id' => $order->id,
+                'total_price' => $order->total_price,
+                'status' => $order->status
+            ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Erro ao processar consulta pública do pedido',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    $orders = Order::with([
+    public function index(Request $request)
+    {
+        $user = $request->user();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'Usuário não autenticado'
+            ], 401);
+        }
+
+        $orders = Order::with([
             'order_items.product',
             'endereco',
             'cartao'
         ])
-        ->where('id_user', $user->id)
-        ->orderBy('created_at', 'desc')
-        ->get();
+            ->where('id_user', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    return response()->json($orders, 200);
-}
+        return response()->json($orders, 200);
+    }
 
     public function checkout(Request $request)
     {
@@ -73,13 +100,24 @@ class OrderController extends Controller
 
             $paymentMethod = $request->payment_method;
 
-            if ($paymentMethod === 'pix') {
+            if ($paymentMethod === 'pix' || $paymentMethod === 'PIX') {
                 $paymentMethod = 'PIX';
             }
 
-            if ($paymentMethod === 'cartao') {
+            if ($paymentMethod === 'cartao' || $paymentMethod === 'Cartão de Crédito') {
                 $paymentMethod = 'Cartão de Crédito';
             }
+            
+            $statusInicial = 'teste';
+
+            if($paymentMethod === 'PIX'){
+                $statusInicial = 'Aguardando pagamento';
+            }else{
+                $statusInicial = 'Pago';
+            }
+
+
+            // $statusInicial = ($paymentMethod === 'PIX') ? 'Aguardando pagamento' : 'Pago';
 
             $cardId = null;
             $cardLastDigits = null;
@@ -114,7 +152,7 @@ class OrderController extends Controller
                 'endereco_id' => $enderecoId,
                 'endereco_snapshot' => $enderecoSnapshot,
                 'total_price' => $request->total_price,
-                'status' => 'Pedido realizado',
+                'status' => $statusInicial,
                 'payment_method' => $paymentMethod,
                 'card_id' => $cardId,
                 'card_last_digits' => $cardLastDigits
@@ -139,7 +177,9 @@ class OrderController extends Controller
 
             return response()->json([
                 'message' => 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.',
-                'order' => $order
+                'order' => $order,
+                'id' => $order->id,          // <-- ADICIONADO: Mapeia o ID direto na raiz
+                'order_id' => $order->id     // <-- ADICIONADO: Garante compatibilidade com o Angular
             ], 201);
 
         } catch (\Throwable $e) {
@@ -155,10 +195,10 @@ class OrderController extends Controller
     public function show(Request $request, $id)
     {
         $order = Order::with([
-                'order_items.product',
-                'endereco',
-                'cartao'
-            ])
+            'order_items.product',
+            'endereco',
+            'cartao'
+        ])
             ->where('id_user', $request->user()->id)
             ->where('id', $id)
             ->first();
@@ -215,97 +255,41 @@ class OrderController extends Controller
         ], 200);
     }
 
-    
 
-public function gerarQrCode(Request $request)
-{
-    // 1. Valida se a string do QR Code veio na requisição
-    $text = $request->input('qr');
-    
-    if (!$text) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'O parâmetro "qr" é obrigatório.'
-        ], 400);
+    public function confirmarPagamento(Request $request)
+    {
+        try {
+            // Valida os dados que o Angular está enviando no FormData/JSON
+            $request->validate([
+                'id_order' => 'required|exists:orders,id',
+                'status' => 'required|string|in:Pago,Cancelado'
+            ]);
+
+            // Busca o pedido no banco de dados de forma pública
+            $order = Order::find($request->id_order);
+
+            if (!$order) {
+                return response()->json([
+                    'error' => 'Pedido não encontrado.'
+                ], 404);
+            }
+
+            // Atualiza o status do pedido ('Pago' ou 'Cancelado')
+            $order->status = $request->status;
+            $order->save();
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Status do pedido atualizado com sucesso!',
+                'order_id' => $order->id,
+                'novo_status' => $order->status
+            ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'error' => 'Erro interno ao confirmar pagamento do pedido.',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
-
-    // Configurações do Cloudflare R2
-    $r2AccountId = 'SEU_ACCOUNT_ID_DO_CLOUDFLARE';
-    $r2BucketName = 'qrcodes';
-    $r2AccessKey = 'SUA_ACCESS_KEY_ID';
-    $r2SecretKey = 'SUA_SECRET_ACCESS_KEY';
-    $r2PublicUrl = 'https://seu-dominio-customizado.com'; 
-
-    $name = md5(time() . uniqid()) . '.png';
-    
-    $options = [
-        "w" => 450,
-        "h" => 450
-    ];
-
-    // 2. Gera o QR Code usando a biblioteca
-    $generator = new \QRCode($text, $options);
-    $image = $generator->render_image();
-
-    // 3. Captura a imagem diretamente no buffer de memória do PHP (evita salvar arquivo em disco)
-    ob_start();
-    imagepng($image);
-    $fileData = ob_get_contents();
-    ob_end_clean();
-    imagedestroy($image);
-
-    // 4. Configuração de cabeçalhos e assinatura AWS S3 v4 para o Cloudflare R2
-    $host = $r2BucketName . "." . $r2AccountId . ".r2.cloudflarestorage.com";
-    $url = "https://" . $host . "/{$name}";
-    
-    $timestamp = gmdate('Ymd\THis\Z');
-    $date = gmdate('Ymd');
-    $contentType = "image/png";
-    
-    $headers = [
-        'Host: ' . $host,
-        'x-amz-content-sha256: ' . hash('sha256', $fileData),
-        'x-amz-date: ' . $timestamp,
-        'Content-Type: ' . $contentType
-    ];
-    
-    $hashedCanonicalRequest = hash('sha256', "PUT\n/{$name}\n\ncontent-type:{$contentType}\nhost:{$host}\nx-amz-content-sha256:" . hash('sha256', $fileData) . "\nx-amz-date:{$timestamp}\n\ncontent-type;host;x-amz-content-sha256;x-amz-date\n" . hash('sha256', $fileData));
-    $stringToSign = "AWS4-HMAC-SHA256\n{$timestamp}\n{$date}/auto/s3/aws4_request\n" . $hashedCanonicalRequest;
-    
-    $kDate = hash_hmac('sha256', $date, "AWS4" . $r2SecretKey, true);
-    $kRegion = hash_hmac('sha256', "auto", $kDate, true);
-    $kService = hash_hmac('sha256', "s3", $kRegion, true);
-    $kSigning = hash_hmac('sha256', "aws4_request", $kService, true);
-    $signature = hash_hmac('sha256', $stringToSign, $kSigning);
-    
-    $headers[] = "Authorization: AWS4-HMAC-SHA256 Credential=" . $r2AccessKey . "/{$date}/auto/s3/aws4_request, SignedHeaders=content-type;host;x-amz-content-sha256;x-amz-date, Signature=" . $signature;
-
-    // 5. Disparo via cURL seguindo o padrão moderno do PHP 8.5+ (sem curl_close)
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $fileData);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-    $response = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-    if ($httpCode == 200) {
-        $finalUrl = $r2PublicUrl . "/{$name}";
-        
-        return response()->json([
-            "status" => "success",
-            "message" => "QR Code salvo no Cloudflare R2!",
-            "url" => $finalUrl
-        ], 200);
-    } else {
-        return response()->json([
-            "status" => "error",
-            "message" => "Erro ao enviar para o Cloudflare R2.",
-            "http_code" => $httpCode,
-            "details" => $response
-        ], 500);
-    }
-}
 }

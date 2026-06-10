@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  OnInit,
   PLATFORM_ID,
   signal
 } from '@angular/core';
@@ -32,7 +33,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './revisar.html',
   styleUrl: './revisar.scss',
 })
-export class Revisar {
+export class Revisar implements OnInit {
   private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
   private orderService = inject(Order);
@@ -63,17 +64,20 @@ export class Revisar {
 
   constructor() {
     afterNextRender(() => {
-      if (!isPlatformBrowser(this.platformId)) {
-        return;
-      }
+    });
+  }
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      
       this.cart.iniciar();
       this.carregarUsuarioLogado();
       this.carregarEnderecos();
       this.carregarCartaoSelecionado();
-
+      
       this.inicializarProdutos();
-    });
+    }
+
   }
 
   // produtos = computed(() => {
@@ -128,7 +132,7 @@ export class Revisar {
             image: 'https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/' + produtoDoBanco.image || 'assets/images/placeholder.png', // Fallback se não houver imagem
             quantity: quantidadeBuscada
           }]);
-          console.log(this.produtos())
+          // console.log(this.produtos())
           this.comId.update(p => true)
         },
         error: (err) => {
@@ -177,7 +181,7 @@ export class Revisar {
     }
 
     this.usuarioLogado = JSON.parse(usuarioStr);
-    console.log(this.usuarioLogado)
+    // console.log(this.usuarioLogado)
   }
 
   carregarCartaoSelecionado(): void {
@@ -417,12 +421,12 @@ export class Revisar {
         // ALTERAÇÃO AQUI: Se for PIX, envia para a tela do QR Code do Pix
         if (payload.payment_method.toLowerCase().includes('pix')) {
           // O seu backend Laravel deve retornar o ID do pedido criado (ex: res.order_id ou res.id)
-          const orderId = res?.order_id || res?.id || 0;
-          this.router.navigate(['/finalizar-compra/pix'], {
+          const orderId = res?.order.id || res?.id || 0;
+          this.router.navigate(['/finalizar-compra/pagamento/pix'], {
             queryParams: { id_order: orderId, total: payload.total_price }
           });
         } else {
-          alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
+          // alert(res?.message || 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.');
           this.router.navigate(['/concluido']);
         }
       },

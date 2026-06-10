@@ -1,58 +1,60 @@
 <div class="cards-produtos">
-  
+
   <!-- Estado de Carregamento (Skeletons/Spinners) -->
   @if (isLoading()) {
-    @for (skeleton of [1, 2, 3, 4, 5]; track skeleton) {
-      <div class="loading loading-overlay">
-        <div class="spinner"></div>
-      </div>
-    }
+  @for (skeleton of [1, 2, 3, 4, 5]; track skeleton) {
+  <span>
+    <div class="loading loading-overlay">
+      <div class="spinner"></div>
+    </div>
+  </span>
+  }
   } @else {
 
-    <!-- Listagem de Produtos Filtrada -->
-    @for (item of produtos(); track item.id) {
-      @if (categoria === 'todos' || item.category.name === categoria) {
-        <div class="card-produto">
-          
-          <div class="div-img">
-            <img [routerLink]="['/produto', { id: item.id }]" [ngSrc]="item.image_url" alt="Imagem do produto" fill>
-          </div>
+  <!-- Listagem de Produtos Filtrada -->
+  @for (item of produtos(); track item.id) {
+  @if (categoria === 'todos' || item.category.name === categoria) {
+  <div class="card-produto">
 
-          <!-- ID dinâmico dependendo da categoria selecionada -->
-          <span [id]="categoria === 'todos' ? 'cardProdutosAvaliacoesTodos-' + item.id : 'cardProdutosAvaliacoes-' + item.id">
-            Avaliações: 4.8(243)
-          </span>
+    <div class="div-img">
+      <img [routerLink]="['/produto', { id: item.id }]" [ngSrc]="item.image_url" alt="Imagem do produto" fill>
+    </div>
 
-          <h4>{{ item.name }}</h4>
-          <p><span>R$</span>{{ item.price }}</p>
+    <!-- ID dinâmico dependendo da categoria selecionada -->
+    <span [id]="categoria === 'todos' ? 'cardProdutosAvaliacoesTodos-' + item.id : 'cardProdutosAvaliacoes-' + item.id">
+      Avaliações: 4.8(243)
+    </span>
 
-          <div class="card-buttons">
-            <button class="carrinho"
-                    [id]="'cardProdutosBtnCarrinhoTodos-' + item.id"
-                    (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})">
-              <i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
-              Carrinho
-            </button>
+    <h4>{{ item.name }}</h4>
+    <p><span>R$</span>{{ item.price }}</p>
 
-            <!-- Alternância inteligente de ação do botão Comprar -->
-            @if (categoria === 'todos') {
-              <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar" [id]="'cardProdutosBtnComprarTodos-' + item.id">
-                Comprar
-              </button>
-            } @else {
-              <button (click)="comprarAgora(item.id)" class="comprar" [id]="'cardProdutosBtnComprarTodos-' + item.id">
-                Comprar
-              </button>
-            }
-          </div>
+    <div class="card-buttons">
+      <button class="carrinho" [id]="'cardProdutosBtnCarrinhoTodos-' + item.id"
+        (click)="adicionarCarrinho({ id: item.id, name: item.name, price: item.price, image: item.image_url, quantity: 1})">
+        <i class="fa-solid fa-cart-arrow-down" aria-label="icone de carrinho"></i>
+        Carrinho
+      </button>
 
-        </div>
+      <!-- Alternância inteligente de ação do botão Comprar -->
+      @if (categoria === 'todos') {
+      <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar"
+        [id]="'cardProdutosBtnComprarTodos-' + item.id">
+        Comprar
+      </button>
+      } @else {
+      <button (click)="comprarAgora(item.id)" class="comprar" [id]="'cardProdutosBtnComprarTodos-' + item.id">
+        Comprar
+      </button>
       }
-    } @empty {
-      <h1 class="mensagem-vazia" id="cardProdutosNenhumEncontrado">
-        Nenhum hardware encontrado nessa categoria
-      </h1>
-    }
+    </div>
+
+  </div>
+  }
+  } @empty {
+  <h1 class="mensagem-vazia" id="cardProdutosNenhumEncontrado">
+    Nenhum hardware encontrado nessa categoria
+  </h1>
+  }
 
   }
 </div>

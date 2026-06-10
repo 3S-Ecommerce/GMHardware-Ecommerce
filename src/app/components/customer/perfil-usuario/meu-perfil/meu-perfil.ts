@@ -1,8 +1,9 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartaoService } from '../../../../core/services/cartao';
+import { Auth } from '../../../../core/services/auth';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -13,6 +14,8 @@ import { CartaoService } from '../../../../core/services/cartao';
 })
 export class MeuPerfil implements OnInit {
   private platformId = inject(PLATFORM_ID);
+  auth = inject(Auth)
+  adminLogado = signal<string>('');
   constructor(
     private router: Router,
     private cartaoService: CartaoService
@@ -26,9 +29,10 @@ export class MeuPerfil implements OnInit {
       if (!token) {
         this.router.navigate(['/login']);
       }
-      console.log('Rodando no navegador com acesso ao localStorage:', token);
-
-    }
+      // console.log('Rodando no navegador com acesso ao localStorage:', token);
+      this.adminLogado.set(this.auth.admin())
+    } 
+  
   }
 
   logout(): void {

@@ -58,13 +58,16 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     // Chamando o método original passando string vazia para trazer tudo do banco
     this.productService.getProduct('').subscribe({
       next: (products: ProductData[]) => {
-        this.allProducts = products;
-        this.isSearching = false;
-        
-        // Se o usuário digitou algo enquanto a API respondia, aplica o filtro
-        if (this.searchControl.value) {
-          this.filtrarProdutosLocalmente(this.searchControl.value);
-        }
+        setTimeout(() => {
+
+          this.allProducts = products;
+          this.isSearching = false;
+          
+          // Se o usuário digitou algo enquanto a API respondia, aplica o filtro
+          if (this.searchControl.value) {
+            this.filtrarProdutosLocalmente(this.searchControl.value);
+          }
+        }, 0)
       },
       error: (err) => {
         console.error('Erro ao carregar catálogo para cache:', err);
@@ -94,7 +97,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   onProductSelect(id: number): void {
     this.showDropdown = false;
-    console.log(id);
+    // console.log(id);
     this.router.navigate(['/produto', { id: id }], { onSameUrlNavigation: 'reload' }); 
     this.searchControl.setValue('', { emitEvent: false }); // Limpa o campo sem re-disparar o filtro
   }

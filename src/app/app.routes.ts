@@ -48,6 +48,7 @@ import { adminGuard } from './core/services/admin.guard';
 import { MinhasComprasComponent } from './components/customer/perfil-usuario/minhas-compras/minhas-compras';
 import { NovoCategoria } from './components/admin/categorias/categorias';
 import { PagamentoConcluido } from './components/customer/pagamento-concluido/pagamento-concluido';
+import { Validar } from './components/customer/finalizar-pedido/validar/validar';
 
 export const routes: Routes = [
     {
@@ -104,32 +105,32 @@ export const routes: Routes = [
 
 
             },
-             {
+            {
                 path: 'meu-perfil',
                 loadComponent: () => import('./components/customer/perfil-usuario/meu-perfil/meu-perfil')
-                  .then(m => m.MeuPerfil)
-             },
-             {
-              path: 'meus-cartoes',
-             loadComponent: () => import('./components/customer/perfil-usuario/meus-cartoes/meus-cartoes')
-                  .then(m => m.MeusCartoesComponent)
-             },
-
-             {
-                path: 'checkout',
-                loadComponent: () => import('./components/customer/checkout/checkout')
-                .then(m => m.CheckoutComponent)
+                    .then(m => m.MeuPerfil)
             },
-             {
-                path: 'meus-enderecos',
-                loadComponent: () => import('./components/customer/perfil-usuario/meus-enderecos/meus-enderecos')
-                .then(m => m.MeusEnderecosComponent)
+            {
+                path: 'meus-cartoes',
+                loadComponent: () => import('./components/customer/perfil-usuario/meus-cartoes/meus-cartoes')
+                    .then(m => m.MeusCartoesComponent)
             },
 
             {
-                 path: 'minhas-compras',
+                path: 'checkout',
+                loadComponent: () => import('./components/customer/checkout/checkout')
+                    .then(m => m.CheckoutComponent)
+            },
+            {
+                path: 'meus-enderecos',
+                loadComponent: () => import('./components/customer/perfil-usuario/meus-enderecos/meus-enderecos')
+                    .then(m => m.MeusEnderecosComponent)
+            },
+
+            {
+                path: 'minhas-compras',
                 loadComponent: () => import('./components/customer/perfil-usuario/minhas-compras/minhas-compras')
-                .then(m => m.MinhasComprasComponent)
+                    .then(m => m.MinhasComprasComponent)
             }
 
         ]
@@ -214,6 +215,11 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'validar',
+        component: Validar
+    },
+
+    {
         path: 'cadastro',
         component: CadastroProduto,
         pathMatch: 'full'
@@ -275,9 +281,9 @@ export const routes: Routes = [
                 canActivate: [authGuard]
             },
             {
-              path:'categoria',
-              component: NovoCategoria,
-              canActivate: [authGuard]
+                path: 'categoria',
+                component: NovoCategoria,
+                canActivate: [authGuard]
             }
         ]
     },

@@ -23,15 +23,27 @@
 
     @for (compra of compras(); track compra.id) {
       <div class="compra-card">
-        <div class="compra-header">
+       <div class="compra-header">
           <div>
             <strong>Pedido #{{ compra.id }}</strong>
             <p>Realizado em: {{ formatarData(compra.created_at) }}</p>
           </div>
 
-          <span class="status-tag">
-            {{ compra.status }}
-          </span>
+          @if (compra.status === 'Aguardando pagamento') {
+            <button 
+              class="status-tag aguardando clicavel" 
+              [routerLink]="['/validar']" 
+              [queryParams]="{ id_order: compra.id }">
+              {{ compra.status }}
+            </button>
+          } @else {
+            <span class="status-tag" [ngClass]="{
+              'pago': compra.status === 'Pago' || compra.status === 'Pedido realizado',
+              'cancelado': compra.status === 'Cancelado'
+            }">
+              {{ compra.status }}
+            </span>
+          }
         </div>
 
         <div class="compra-detalhes">

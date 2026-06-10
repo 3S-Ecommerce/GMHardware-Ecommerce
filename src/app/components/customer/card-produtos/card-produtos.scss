@@ -1,9 +1,9 @@
+
+
 @use "../../../../../public/assets/style.scss";
 
-// Mixin auxiliar para manter o padrão de tamanho dos cards e loaders unificado
+// Mixin limpo para manter a altura e bordas dos cards unificados
 @mixin card-structure {
-    width: 100%;
-    max-width: 22rem;
     height: 40rem;
     border-radius: 10px;
     box-sizing: border-box;
@@ -11,10 +11,18 @@
 
 .loading {
     @include card-structure;
+    width: 100%; 
+    width: 22rem; // Mantém o tamanho original do loader no desktop
+
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff22;
+    background-color: #ffffff11;
+    margin: 20px 0;
+
+    @media (max-width: 1023px) {
+        max-width: 100%; // No mobile/tablet ele ocupa a largura total
+    }
 
     .spinner {
         width: 40px;
@@ -41,14 +49,19 @@
 }
 
 .cards-produtos {
-    // Centraliza em telas pequenas para um visual mais limpo, alinha à esquerda em desktops
-    @include style.displayFlex($direction: row, $aligh: flex-start, $wrap: wrap, $justify: center, $gap: 24px);
     width: 100%;
     padding: 0 10px;
     box-sizing: border-box;
 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center; // Centraliza os itens no celular e tablet
+    gap: 16px;
+
     @media (min-width: 1024px) {
-        @include style.displayFlex($direction: row, $aligh: flex-start, $wrap: wrap, $justify: flex-start, $gap: 48px);
+        justify-content: flex-start; // Alinha à esquerda no Desktop como o original
+        gap: 48px;
         padding: 0;
     }
 
@@ -58,6 +71,31 @@
         padding-bottom: 20px;
         border: 1px solid style.$white-color;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        // ==========================================
+        // RESPONSIVIDADE INDEPENDENTE POR TELA
+        // ==========================================
+
+        // 1. MOBILE: Perfeito para 375px (1 por linha bem centralizado)
+        width: 100%;
+        max-width: 375px; 
+        flex: 0 0 100%;
+
+        // 2. TABLET: Mostra exatamente 2 por linha
+        @media (min-width: 600px) {
+            max-width: none;
+            width: calc(50% - 8px);
+            flex: 0 0 calc(50% - 8px);
+        }
+
+        // 3. DESKTOP: Voltou ao normal perfeito! (Tamanho fixo original de 22rem)
+        @media (min-width: 1024px) {
+            width: 22rem;
+            min-width: 22rem;
+            max-width: 22rem;
+            flex: 0 0 22rem;
+        }
+        // ==========================================
 
         &:hover {
             box-shadow: 0px 4px 15px rgba(243, 243, 243, 0.2);
@@ -76,6 +114,8 @@
             border-top-right-radius: 10px;
             overflow-wrap: normal;
             cursor: pointer;
+            width: 100%;
+            height: 100%;
         }
 
         span {
@@ -88,7 +128,7 @@
             color: white;
             margin: 0 12px;
             @include style.fontSize($size: 22px, $weight: 600);
-            
+
             @media (max-width: 480px) {
                 @include style.fontSize($size: 18px, $weight: 600);
             }
@@ -113,7 +153,6 @@
             width: 100%;
             box-sizing: border-box;
 
-            // Empilha os botões verticalmente em dispositivos mobile muito estreitos
             @media (max-width: 480px) {
                 @include style.displayFlex($direction: column, $justify: flex-end, $gap: 8px, $aligh: stretch);
             }
@@ -143,16 +182,16 @@
 
                 &.carrinho {
                     background-color: style.$primary-text;
-                    
+
                     &:hover {
-                        background-color: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), style.$primary-text;
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
                     }
                 }
 
                 &.comprar {
                     background: none;
                     border: 1px solid rgba(255, 255, 255, 0.2);
-                    
+
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.08);
                         border-color: rgba(255, 255, 255, 0.4);

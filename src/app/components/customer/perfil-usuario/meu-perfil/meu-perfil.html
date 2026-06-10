@@ -1,9 +1,9 @@
 <div class="meu-perfil-container">
   <h1 class="perfil-title">Meu Perfil</h1>
-  
+
   <div class="perfil-grid">
     <!-- Card Endereço -->
-
+    @if(adminLogado()){
     <a routerLink="/perfil" class="perfil-card">
       <div class="card-icon">
         <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">
@@ -13,6 +13,7 @@
         <p class="card-description">Verificar e alterar meus dados</p>
       </div>
     </a>
+    }
 
     <a routerLink="/meus-enderecos" class="perfil-card">
       <div class="card-icon">
@@ -45,7 +46,7 @@
         <p class="card-description">Cartões salvos na conta</p>
       </div>
     </a>
-
+    @if(!adminLogado()){
     <a routerLink="/admin" class="perfil-card">
       <div class="card-icon">
         <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">
@@ -55,19 +56,20 @@
         <p class="card-description">Acessar área de administrador</p>
       </div>
     </a>
+    }
 
-    
+
 
     <!-- Card Sair -->
     <!-- Card Sair -->
-<a (click)="logout()" class="perfil-card logout-card" style="cursor: pointer;">
-  <div class="card-icon">
-    <img src="/assets/icones-meuperfil/sair.png" alt="Sair">
-  </div>
-  <div class="card-content">
-    <h2 class="card-title">Sair</h2>
-    <p class="card-description">Sair da sua conta</p>
-  </div>
-</a>
+    <a (click)="logout()" class="perfil-card logout-card" style="cursor: pointer;">
+      <div class="card-icon">
+        <img src="/assets/icones-meuperfil/sair.png" alt="Sair">
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">Sair</h2>
+        <p class="card-description">Sair da sua conta</p>
+      </div>
+    </a>
   </div>
 </div>
