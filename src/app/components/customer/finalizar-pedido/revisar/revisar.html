@@ -1,28 +1,60 @@
 <section class="revisar">
   <h2 id="revisarTitulo">Revise e confirme</h2>
 
-  <!-- Bloco: Dados do Solicitante -->
   <div class="div-layout">
-    <h3 id="revisarDadosSolicitante">Dados do Solicitante</h3>
-    <p>{{ usuarioLogado?.name || 'Nome não encontrado' }}</p>
-    <p>{{ usuarioLogado?.email || 'E-mail não encontrado' }}</p>
-    <p>CPF: {{ usuarioLogado?.document || 'CPF não encontrado' }}</p>
+    <h3 id="revisarDadosSolicitante">
+      Dados do Solicitante
+    </h3>
+
+    <p>
+      {{ usuarioLogado?.name || 'Nome não encontrado' }}
+    </p>
+
+    <p>
+      {{ usuarioLogado?.email || 'E-mail não encontrado' }}
+    </p>
+
+    <p>
+      CPF:
+      {{ usuarioLogado?.document || 'CPF não encontrado' }}
+    </p>
   </div>
 
-  <!-- Bloco: Detalhe da Entrega -->
   <div class="div-layout">
-    <h3 id="revisarDetalheEntrega">Detalhe da Entrega</h3>
+    <h3 id="revisarDetalheEntrega">
+      Detalhe da Entrega
+    </h3>
 
     @if (enderecoSelecionado) {
-      <p class="texto-apoio">{{ formatarEndereco(enderecoSelecionado) }}</p>
+      <p class="texto-apoio">
+        {{ formatarEndereco(enderecoSelecionado) }}
+      </p>
+
+      <p class="cep-entrega">
+        CEP:
+        <strong>
+          {{ enderecoSelecionado.zip_code }}
+        </strong>
+      </p>
     } @else {
-      <p class="texto-apoio">Nenhum endereço selecionado.</p>
+      <p class="texto-apoio">
+        Nenhum endereço selecionado.
+      </p>
     }
 
     <hr class="divisor">
 
-    <button type="button" id="revisarBtnOutroEndereco" class="btn-link" (click)="abrirEscolhaEndereco()">
-      {{ mostrarEscolhaEndereco ? 'Fechar endereços' : 'Escolher outro Endereço' }}
+    <button
+      type="button"
+      id="revisarBtnOutroEndereco"
+      class="btn-link"
+      (click)="abrirEscolhaEndereco()"
+    >
+      {{
+        mostrarEscolhaEndereco
+          ? 'Fechar endereços'
+          : 'Escolher outro endereço'
+      }}
     </button>
 
     @if (mostrarEscolhaEndereco) {
@@ -30,25 +62,54 @@
         <h4>Endereços cadastrados</h4>
 
         @if (enderecos.length === 0) {
-          <p class="texto-apoio">Nenhum endereço cadastrado.</p>
+          <p class="texto-apoio">
+            Nenhum endereço cadastrado.
+          </p>
         }
 
-        <!-- Listagem de Endereços -->
         <div class="enderecos-lista">
           @for (endereco of enderecos; track endereco.id) {
-            <div class="endereco-card">
-              <p class="endereco-texto">{{ formatarEndereco(endereco) }}</p>
-              
+            <div
+              class="endereco-card"
+              [class.endereco-selecionado]="
+                enderecoSelecionado?.id === endereco.id
+              "
+            >
+              <p class="endereco-texto">
+                {{ formatarEndereco(endereco) }}
+              </p>
+
               @if (endereco.padrao) {
-                <p class="endereco-padrao">✓ Endereço Padrão</p>
+                <p class="endereco-padrao">
+                  ✓ Endereço padrão
+                </p>
+              }
+
+              @if (enderecoSelecionado?.id === endereco.id) {
+                <p class="endereco-em-uso">
+                  Endereço selecionado
+                </p>
               }
 
               <div class="endereco-acoes">
-                <button type="button" class="btn-azul-sm" (click)="selecionarEndereco(endereco)">
-                  Usar este endereço
+                <button
+                  type="button"
+                  class="btn-azul-sm"
+                  (click)="selecionarEndereco(endereco)"
+                >
+                  {{
+                    enderecoSelecionado?.id === endereco.id
+                      ? 'Usando este endereço'
+                      : 'Usar este endereço'
+                  }}
                 </button>
+
                 @if (!endereco.padrao) {
-                  <button type="button" class="btn-secundario-sm" (click)="definirEnderecoPadrao(endereco.id)">
+                  <button
+                    type="button"
+                    class="btn-secundario-sm"
+                    (click)="definirEnderecoPadrao(endereco.id)"
+                  >
                     Tornar padrão
                   </button>
                 }
@@ -57,28 +118,60 @@
           }
         </div>
 
-        <button type="button" class="btn-adicionar-endereco" (click)="abrirFormularioNovoEndereco()">
+        <button
+          type="button"
+          class="btn-adicionar-endereco"
+          (click)="abrirFormularioNovoEndereco()"
+        >
           + Cadastrar novo endereço
         </button>
 
-        <!-- Formulário Novo Endereço -->
         @if (mostrarFormularioEndereco) {
           <div class="form-endereco">
-            <h4>Novo Endereço</h4>
+            <h4>Novo endereço</h4>
 
-            <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP">
-            <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua">
-            
+            <input
+              type="text"
+              [(ngModel)]="novoEndereco.zip_code"
+              placeholder="CEP"
+              maxlength="9"
+              inputmode="numeric"
+            >
+
+            <input
+              type="text"
+              [(ngModel)]="novoEndereco.street"
+              placeholder="Rua"
+            >
+
             <div class="linha-inputs">
-              <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número">
-              <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade">
+              <input
+                type="text"
+                [(ngModel)]="novoEndereco.number"
+                placeholder="Número"
+              >
+
+              <input
+                type="text"
+                [(ngModel)]="novoEndereco.city"
+                placeholder="Cidade"
+              >
             </div>
 
             <div class="form-acoes">
-              <button type="button" class="btn-azul-sm" (click)="salvarNovoEnderecoNaRevisao()">
+              <button
+                type="button"
+                class="btn-azul-sm"
+                (click)="salvarNovoEnderecoNaRevisao()"
+              >
                 Salvar endereço
               </button>
-              <button type="button" class="btn-cancelar-sm" (click)="cancelarNovoEndereco()">
+
+              <button
+                type="button"
+                class="btn-cancelar-sm"
+                (click)="cancelarNovoEndereco()"
+              >
                 Cancelar
               </button>
             </div>
@@ -88,58 +181,350 @@
     }
   </div>
 
-  <!-- Bloco: Produtos -->
   <div class="div-layout">
-    <h3 id="revisarProdutosTitulo">Produtos</h3>
+    <h3>Frete e transportadora</h3>
+
+    @if (!enderecoSelecionado) {
+      <p class="texto-apoio">
+        Selecione um endereço para calcular o frete.
+      </p>
+    }
+
+    @if (enderecoSelecionado && produtos().length === 0) {
+      <p class="texto-apoio">
+        Não existem produtos para calcular o frete.
+      </p>
+    }
+
+    @if (enderecoSelecionado && carregandoFrete()) {
+      <div class="frete-carregando">
+        <p class="texto-apoio">
+          Calculando frete para o CEP
+          {{ enderecoSelecionado.zip_code }}...
+        </p>
+      </div>
+    }
+
+    @if (erroFrete && !carregandoFrete()) {
+      <div class="frete-erro-container">
+        <p class="frete-erro">
+          {{ erroFrete }}
+        </p>
+
+        @if (enderecoSelecionado && produtos().length > 0) {
+          <button
+            type="button"
+            class="btn-calcular-frete"
+            (click)="calcularFrete()"
+          >
+            Tentar novamente
+          </button>
+        }
+      </div>
+    }
+
+    @if (
+      enderecoSelecionado &&
+      produtos().length > 0 &&
+      !carregandoFrete() &&
+      !erroFrete &&
+      opcoesFrete.length === 0 &&
+      !freteSelecionado
+    ) {
+      <button
+        type="button"
+        class="btn-calcular-frete"
+        (click)="calcularFrete()"
+      >
+        Calcular frete
+      </button>
+    }
+
+    @if (opcoesFrete.length > 0) {
+      <div class="fretes-lista">
+        @for (frete of opcoesFrete; track frete.id) {
+          <div
+            class="frete-card"
+            [class.frete-selecionado]="
+              freteSelecionado?.id === frete.id
+            "
+          >
+            <div class="frete-cabecalho">
+              <div>
+                <h4>
+                  {{ frete.name }}
+                </h4>
+
+                @if (frete.company?.name) {
+                  <p class="frete-transportadora">
+                    {{ frete.company?.name }}
+                  </p>
+                }
+              </div>
+
+              @if (freteSelecionado?.id === frete.id) {
+                <span class="frete-status">
+                  Selecionado
+                </span>
+              }
+            </div>
+
+            @if (frete.error) {
+              <p class="frete-erro">
+                {{ frete.error }}
+              </p>
+            } @else {
+              <div class="frete-informacoes">
+                <p>
+                  Valor:
+                  <strong>
+                    R$
+                    {{
+                      (frete.custom_price ?? frete.price)
+                        | number:'1.2-2'
+                    }}
+                  </strong>
+                </p>
+
+                <p>
+                  Prazo:
+                  <strong>
+                    {{
+                      frete.custom_delivery_time ??
+                      frete.delivery_time
+                    }}
+                    dias úteis
+                  </strong>
+                </p>
+              </div>
+
+              <button
+                type="button"
+                class="btn-azul-sm"
+                [disabled]="
+                  freteSelecionado?.id === frete.id
+                "
+                (click)="selecionarFrete(frete)"
+              >
+                {{
+                  freteSelecionado?.id === frete.id
+                    ? 'Frete selecionado'
+                    : 'Selecionar frete'
+                }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (freteSelecionado) {
+      <hr class="divisor">
+
+      <div class="frete-resumo">
+        <h4>Frete escolhido</h4>
+
+        <p>
+          Serviço:
+          <strong>
+            {{ freteSelecionado.name }}
+          </strong>
+        </p>
+
+        @if (freteSelecionado.company?.name) {
+          <p>
+            Transportadora:
+            <strong>
+              {{ freteSelecionado.company?.name }}
+            </strong>
+          </p>
+        }
+
+        <p>
+          Valor do frete:
+          <strong>
+            R$ {{ valorFrete() | number:'1.2-2' }}
+          </strong>
+        </p>
+
+        <p>
+          Prazo estimado:
+          <strong>
+            {{
+              freteSelecionado.custom_delivery_time ??
+              freteSelecionado.delivery_time
+            }}
+            dias úteis
+          </strong>
+        </p>
+
+        <button
+          type="button"
+          class="btn-calcular-frete"
+          (click)="calcularFrete()"
+        >
+          Alterar opção de frete
+        </button>
+      </div>
+    }
+  </div>
+
+  <div class="div-layout">
+    <h3 id="revisarProdutosTitulo">
+      Produtos
+    </h3>
+
+    @if (produtos().length === 0) {
+      <p class="texto-apoio">
+        Nenhum produto encontrado.
+      </p>
+    }
 
     @for (produto of produtos(); track produto.id || $index) {
       <div class="div-img">
         <div class="img-wrapper">
-          <img ngSrc="{{ produto.image }}" alt="{{ produto.name }}" fill>
+          <img
+            [ngSrc]="produto.image"
+            [alt]="produto.name || 'Produto'"
+            fill
+          >
         </div>
 
-        <p class="produto-nome">{{ produto.name }}</p>
-        
+        <div class="produto-dados">
+          <p class="produto-nome">
+            {{ produto.name }}
+          </p>
+
+          <p class="produto-preco">
+            R$
+            {{
+              (
+                produto.price ??
+                produto.preco ??
+                produto.valor ??
+                0
+              ) | number:'1.2-2'
+            }}
+          </p>
+        </div>
+
         <div class="quantidade">
           @if (!comId()) {
-            <button type="button" class="fa-solid fa-arrow-left btn-controle" (click)="menosProduto(produto.id)"></button>
-            <span class="quantidade-numero">{{ produto.quantity }}</span>
-            <button type="button" class="fa-solid fa-arrow-right btn-controle" (click)="maisProduto(produto.id)"></button>
+            <button
+              type="button"
+              class="fa-solid fa-arrow-left btn-controle"
+              aria-label="Diminuir quantidade"
+              (click)="menosProduto(produto.id)"
+            ></button>
+
+            <span class="quantidade-numero">
+              {{ produto.quantity }}
+            </span>
+
+            <button
+              type="button"
+              class="fa-solid fa-arrow-right btn-controle"
+              aria-label="Aumentar quantidade"
+              (click)="maisProduto(produto.id)"
+            ></button>
           } @else {
-            <span class="quantidade-numero fixo" (click)="maisProduto(produto.id)">{{ produto.quantity }}</span>
+            <span class="quantidade-numero fixo">
+              Quantidade: {{ produto.quantity }}
+            </span>
           }
         </div>
       </div>
     }
   </div>
 
-  <!-- Bloco: Detalhe do Pagamento -->
   <div class="div-layout">
-    <h3 id="revisarDetalhePagamento">Detalhe do pagamento</h3>
+    <h3 id="revisarDetalhePagamento">
+      Detalhe do pagamento
+    </h3>
 
-    <p>{{ detalhePagamento() }}</p>
+    <p>
+      {{ detalhePagamento() }}
+    </p>
 
-    @if (cartaoSelecionado && metodoPagamento() === 'Cartão de Crédito') {
+    @if (
+      cartaoSelecionado &&
+      metodoPagamento() === 'Cartão de Crédito'
+    ) {
       <p class="cartao-aviso">
-        Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
+        Cartão selecionado:
+        {{
+          formatarNumeroCartao(
+            cartaoSelecionado.numero_cartao
+          )
+        }}
       </p>
     }
 
-    <p class="preco-total">R$ {{ valorTotal() }}</p>
+    <div class="resumo-valores">
+      <p>
+        Subtotal:
+        <strong>
+          R$ {{ valorTotal() | number:'1.2-2' }}
+        </strong>
+      </p>
+
+      @if (freteSelecionado) {
+        <p>
+          Frete:
+          <strong>
+            R$ {{ valorFrete() | number:'1.2-2' }}
+          </strong>
+        </p>
+      } @else {
+        <p>
+          Frete:
+          <strong>Aguardando seleção</strong>
+        </p>
+      }
+
+      <p class="preco-total">
+        Total:
+        <strong>
+          R$ {{ valorTotalComFrete() | number:'1.2-2' }}
+        </strong>
+      </p>
+    </div>
 
     <hr class="divisor">
 
-    <button type="button" routerLink="../forma-de-pagamento" id="revisarBtnAlterarPagamento" class="btn-link">
+    <button
+      type="button"
+      routerLink="../forma-de-pagamento"
+      id="revisarBtnAlterarPagamento"
+      class="btn-link"
+    >
       Alterar forma de pagamento
     </button>
   </div>
 
-  <!-- Ações Finais da Página -->
   <div class="button-container">
-    <button type="button" routerLink="../forma-de-pagamento" class="btn-cancelar-main" id="revisarBtnCancelar">
+    <button
+      type="button"
+      routerLink="../forma-de-pagamento"
+      class="btn-cancelar-main"
+      id="revisarBtnCancelar"
+    >
       Cancelar
     </button>
-    <button type="button" (click)="confirmarPedido()" id="revisarBtnConfirmar" class="btn-confirmar-main">
+
+    <button
+      type="button"
+      id="revisarBtnConfirmar"
+      class="btn-confirmar-main"
+      [disabled]="
+        !enderecoSelecionado ||
+        !freteSelecionado ||
+        carregandoFrete() ||
+        produtos().length === 0 ||
+        metodoPagamento() === 'Não selecionado'
+      "
+      (click)="confirmarPedido()"
+    >
       Confirmar e realizar pagamento
     </button>
   </div>

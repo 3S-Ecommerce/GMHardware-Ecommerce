@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\ShippingController;
 
 
 // Rota de busca de produtos - DEVE VIR ANTES do Route::apiResource("product")
@@ -74,3 +75,7 @@ Route::apiResource('addresses', AddressController::class)
     ->middleware('auth:sanctum');
 
 // Route::post('/order/qrcode', [OrderController::class, 'gerarQrCode']);
+    Route::post(
+    '/calcular-frete',
+    [ShippingController::class, 'calcularFrete']
+)->middleware('auth:sanctum');
