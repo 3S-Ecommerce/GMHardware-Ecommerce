@@ -3,7 +3,7 @@
 
   <div class="perfil-grid">
     <!-- Card Endereço -->
-    @if(adminLogado()){
+    @if(!adminLogado()){
     <a routerLink="/perfil" class="perfil-card">
       <div class="card-icon">
         <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">
@@ -46,7 +46,7 @@
         <p class="card-description">Cartões salvos na conta</p>
       </div>
     </a>
-    @if(!adminLogado()){
+    @if(adminLogado()){
     <a routerLink="/admin" class="perfil-card">
       <div class="card-icon">
         <img src="/assets/icones-meuperfil/cartao.png" alt="Cartão">

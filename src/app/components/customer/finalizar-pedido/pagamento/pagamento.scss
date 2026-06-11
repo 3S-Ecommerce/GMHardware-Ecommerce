@@ -2,266 +2,122 @@
 
 .pagamento {
   @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 24px);
-  max-width: 70%;
-  min-width: 700px;
-  padding: 24px;
-  background-color: style.$primary-bg;
-  border-radius: 10px;
-
-  h2 {
-    @include style.fontSize($size: 40px, $weight: 600);
-    color: white;
-  }
-
-  h3 {
-    color: white;
-    font-size: 22px;
-    font-weight: 600;
-    margin: 0;
-  }
-
-  hr {
-    width: 100%;
-  }
+  max-width: 70%; min-width: 700px; padding: 24px; background-color: style.$primary-bg; border-radius: 10px;
+  h2 { @include style.fontSize($size: 40px, $weight: 600); color: white; }
+  h3 { color: white; font-size: 22px; font-weight: 600; margin: 0; }
+  hr { width: 100%; }
 
   .pagamento-forma {
     @include style.displayFlex($justify: space-between);
-
     div {
       @include style.displayFlex($direction: column, $aligh: start, $gap: 16px);
-
-      p {
-        color: style.$white-color;
-        @include style.fontSize($size: 16px, $weight: 400);
-      }
+      p { color: style.$white-color; @include style.fontSize($size: 16px, $weight: 400); }
     }
-
     button {
-      @include style.displayFlex($width: auto);
-      color: style.$success-color;
-      border: none;
-      background: none;
-      height: 100%;
-      @include style.fontSize($size: 16px, $weight: 600);
-      cursor: pointer;
+      @include style.displayFlex($width: auto); color: style.$success-color; border: none; background: none;
+      height: 100%; @include style.fontSize($size: 16px, $weight: 600); cursor: pointer;
     }
   }
 }
 
-.cartoes-area {
-  width: 100%;
-  margin-top: 8px;
-  background: #0F1115;
-  border: 1px solid #2a2a2a;
-  border-radius: 10px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.mensagem-vazia {
-  color: #b0b0b0;
-  margin: 0;
-}
-
-.mensagem-erro {
-  color: #ff8c42;
-  font-weight: 600;
-  margin: 0;
-}
+.cartoes-area { width: 100%; margin-top: 8px; background: #0F1115; border: 1px solid #2a2a2a; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.mensagem-vazia { color: #b0b0b0; margin: 0; }
+.mensagem-erro { color: #ff8c42; font-weight: 600; margin: 0; }
 
 .cartao-card {
-  background: #181C23;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  align-items: center;
-  flex-wrap: wrap;
+  background: #181C23; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px;
+  display: flex; justify-content: space-between; gap: 14px; align-items: center; flex-wrap: wrap;
 }
 
 .cartao-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  h4 {
-    color: #ffffff;
-    margin: 0;
-    font-size: 18px;
-  }
-
-  p {
-    color: #b0b0b0;
-    margin: 0;
-  }
+  display: flex; flex-direction: column; gap: 4px;
+  h4 { color: #ffffff; margin: 0; font-size: 18px; }
+  p { color: #b0b0b0; margin: 0; }
 }
 
-.cartao-padrao {
-  color: #22c55e !important;
-  font-weight: 700;
-}
+.cartao-padrao { color: #22c55e !important; font-weight: 700; }
+.cartao-botoes, .form-botoes { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.cartao-botoes,
-.form-botoes {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn-azul,
-.btn-adicionar-cartao,
-.btn-continuar {
-  background: #2563EB;
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: #1d4ed8;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.btn-azul, .btn-adicionar-cartao, .btn-continuar {
+  background: #2563EB; color: #ffffff; border: none; border-radius: 6px; padding: 10px 16px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s ease;
+  &:hover { background: #1d4ed8; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 .btn-secundario {
-  background: transparent;
-  color: #ff8c42;
-  border: 1px solid #ff8c42;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: rgba(255, 140, 66, 0.12);
-  }
+  background: transparent; color: #ff8c42; border: 1px solid #ff8c42; border-radius: 6px;
+  padding: 10px 16px; font-weight: 600; cursor: pointer;
+  &:hover { background: rgba(255, 140, 66, 0.12); }
 }
 
 .btn-cancelar {
-  background: rgba(255, 255, 255, 0.05);
-  color: #ff8c42;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 16px;
-  font-weight: 600;
-  cursor: pointer;
-
-  &:hover {
-    background: rgba(255, 140, 66, 0.12);
-  }
+  background: rgba(255, 255, 255, 0.05); color: #ff8c42; border: none; border-radius: 6px;
+  padding: 10px 16px; font-weight: 600; cursor: pointer;
+  &:hover { background: rgba(255, 140, 66, 0.12); }
 }
 
 .form-cartao {
-  background: #181C23;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  h3 {
-    color: #ffffff;
-    margin: 0 0 8px 0;
-  }
-
+  background: #181C23; border: 1px solid #2a2a2a; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px;
+  h3 { color: #ffffff; margin: 0 0 8px 0; }
   input {
-    background: #1a1f27;
-    color: #ffffff;
-    padding: 10px;
-    border: 1px solid #2a2a2a;
-    border-radius: 4px;
-    outline: none;
-
-    &::placeholder {
-      color: #b0b0b0;
-    }
-
-    &:focus {
-      border-color: #2563EB;
-    }
+    background: #1a1f27; color: #ffffff; padding: 10px; border: 1px solid #2a2a2a; border-radius: 4px; outline: none;
+    &::placeholder { color: #b0b0b0; }
+    &:focus { border-color: #2563EB; }
   }
 }
 
-.linha-inputs {
-  display: flex;
-  gap: 10px;
+.linha-inputs { display: flex; gap: 10px; input { flex: 1; } }
+.avancar { background-color: style.$primary-bg; margin-top: 48px; padding: 10px; border: 1px solid style.$white-color; border-radius: 5px; color: style.$success-color; @include style.fontSize($size: 16px, $weight: 600); }
 
-  input {
-    flex: 1;
-  }
+// ==========================================
+// CONFIGURAÇÃO DOS LOADERS (SKELETON SHIMMER)
+// ==========================================
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.avancar {
-  background-color: style.$primary-bg;
-  margin-top: 48px;
-  padding: 10px;
-  border: 1px solid style.$white-color;
-  border-radius: 5px;
-  color: style.$success-color;
-  @include style.fontSize($size: 16px, $weight: 600);
+.skeleton-line, .skeleton-button {
+  height: 14px; background: linear-gradient(90deg, #22262f 25%, #2d323e 50%, #22262f 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 4px; display: inline-block;
 }
+.skeleton-button { height: 38px; width: 140px; border-radius: 6px; }
+.skeleton-card { pointer-events: none; border-color: rgba(#2a2a2a, 0.5) !important; }
 
+.width-40  { width: 40%; }
+.width-50  { width: 50%; }
+.width-60  { width: 60%; }
+.width-120 { width: 120px; }
+
+// ==========================================
+// MEDIA QUERIES RESPONSIVAS
+// ==========================================
 @media (min-width: 736px) and (max-width: 1199px) {
   .pagamento {
-    max-width: 100%;
-    min-width: 600px;
-
-    h2 {
-      @include style.fontSize($size: 19px, $weight: 600);
-    }
-
+    max-width: 100%; min-width: 600px;
+    h2 { @include style.fontSize($size: 19px, $weight: 600); }
     .pagamento-forma {
-      div p {
-        @include style.fontSize($size: 14px, $weight: 400);
-      }
-
-      button {
-        @include style.fontSize($size: 13px, $weight: 600);
-      }
+      div p { @include style.fontSize($size: 14px, $weight: 400); }
+      button { @include style.fontSize($size: 13px, $weight: 600); }
     }
   }
 }
 
 @media(max-width: 736px) {
   .pagamento {
-    max-width: 100%;
-    min-width: 0;
-    width: 100%;
-
-    h2 {
-      @include style.fontSize($size: 15px, $weight: 600);
-    }
-
+    max-width: 100%; min-width: 0; width: 100%;
+    h2 { @include style.fontSize($size: 15px, $weight: 600); }
     .pagamento-forma {
-      div p {
-        @include style.fontSize($size: 13px, $weight: 400);
-      }
-
-      button {
-        @include style.fontSize($size: 11px, $weight: 600);
-      }
+      div p { @include style.fontSize($size: 13px, $weight: 400); }
+      button { @include style.fontSize($size: 11px, $weight: 600); }
     }
   }
+  .cartao-card { flex-direction: column; align-items: stretch; }
+  .cartao-botoes, .form-botoes, .linha-inputs { flex-direction: column; }
+  .skeleton-button { width: 100% !important; }
+}
 
-  .cartao-card {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .cartao-botoes,
-  .form-botoes,
-  .linha-inputs {
-    flex-direction: column;
-  }
+.selecionarButton:disabled{
+  color: #22c55e77 !important
 }

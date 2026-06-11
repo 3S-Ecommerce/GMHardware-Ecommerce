@@ -68,6 +68,8 @@ export class Revisar implements OnInit {
   private enderecoService = inject(EnderecoService);
   private freteService = inject(FreteService);
   private platformId = inject(PLATFORM_ID);
+  carregandoItens = signal<boolean>(true);
+  confirmandoPedido = signal<boolean>(false);
 
   produtos = signal<any[]>([]);
   comId = signal<boolean>(false);
@@ -216,7 +218,7 @@ export class Revisar implements OnInit {
               weight: Number(produtoDoBanco.weight ?? 1)
             }
           ]);
-
+          this.carregandoItens.set(false)
           this.comId.set(true);
           this.tentarCalcularFrete();
         },
@@ -585,7 +587,7 @@ export class Revisar implements OnInit {
         );
 
         this.carregandoFrete.set(false);
-
+        console.log("Opções Frete: " + this.opcoesFrete)
         if (this.opcoesFrete.length === 0) {
           this.erroFrete = 'Nenhuma opção de frete foi encontrada para esse CEP.';
         }
@@ -644,6 +646,8 @@ export class Revisar implements OnInit {
   }
 
   confirmarPedido(): void {
+    this.confirmandoPedido.set(true);
+
     if (!this.enderecoSelecionado) {
       alert('Selecione um endereço antes de finalizar a compra.');
       return;
@@ -698,7 +702,7 @@ export class Revisar implements OnInit {
 
         if (payload.payment_method.toLowerCase().includes('pix')) {
           const orderId = res?.order.id || res?.id || 0;
-
+          this.confirmandoPedido.set(false);
           this.router.navigate(['/finalizar-compra/pagamento/pix'], {
             queryParams: { id_order: orderId, total: payload.total_price }
           });
@@ -708,6 +712,7 @@ export class Revisar implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao finalizar compra:', err);
+        this.confirmandoPedido.set(false);
         const mensagem = err?.error?.message || err?.error?.error || 'Erro ao finalizar compra.';
         alert(mensagem);
       }

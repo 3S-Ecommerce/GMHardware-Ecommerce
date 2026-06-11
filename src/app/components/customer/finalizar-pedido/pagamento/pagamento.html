@@ -4,10 +4,7 @@
       <h2 id="pagamentoPixTitulo">Pix</h2>
       <p id="pagamentoPixSubtitulo">Aprovação imediata</p>
     </div>
-
-    <button type="button" (click)="selecionarPagamento('pix')">
-      Selecionar
-    </button>
+    <button type="button" class="selecionarButton" [disabled]="carregandoCartoes" (click)="selecionarPagamento('pix')">Selecionar</button>
   </div>
 
   <hr>
@@ -15,91 +12,91 @@
   <div class="pagamento-forma">
     <div>
       <h2 id="pagamentoCreditoTitulo">Cartão de crédito</h2>
-
-      <p *ngIf="cartaoSelecionado" id="pagamentoCreditoSubtitulo">
-        Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
+      @if(carregandoCartoes){
+      <div class="skeleton-line width-40"></div>
+      }@else{
+      @if (cartaoSelecionado) {
+      <p id="pagamentoCreditoSubtitulo">Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
       </p>
-
-      <p *ngIf="!cartaoSelecionado" id="pagamentoCreditoSubtitulo">
-        Escolha ou cadastre um cartão
-      </p>
+      } @else {
+      <p id="pagamentoCreditoSubtitulo">Escolha ou cadastre um cartão</p>
+      }
+      }
     </div>
-
-    <button type="button" (click)="selecionarPagamento('cartao')">
-      Selecionar
-    </button>
+    <button type="button" class="selecionarButton" [disabled]="carregandoCartoes" (click)="selecionarPagamento('cartao')">Selecionar</button>
   </div>
 
-  <div class="cartoes-area" *ngIf="mostrarCartoes">
+  @if (mostrarCartoes) {
+  <div class="cartoes-area">
     <h3>Cartões cadastrados</h3>
 
-    <p *ngIf="carregandoCartoes" class="mensagem-vazia">
-      Carregando cartões...
-    </p>
-
-    <p *ngIf="erroCartao" class="mensagem-erro">
-      {{ erroCartao }}
-    </p>
-
-    <p *ngIf="!carregandoCartoes && cartoes.length === 0" class="mensagem-vazia">
-      Nenhum cartão cadastrado.
-    </p>
-
-    <div class="cartao-card" *ngFor="let cartao of cartoes">
+    @if (carregandoCartoes) {
+    @for (i of [1, 2]; track i) {
+    <div class="cartao-card skeleton-card">
+      <div class="cartao-info">
+        <div class="skeleton-line width-60" style="height: 18px; margin-bottom: 4px;"></div>
+        <div class="skeleton-line width-40"></div>
+        <div class="skeleton-line width-50"></div>
+      </div>
+      <div class="cartao-botoes">
+        <div class="skeleton-button"></div>
+        <div class="skeleton-button width-120"></div>
+      </div>
+    </div>
+    }
+    }
+    @if (erroCartao) {
+    <p class="mensagem-erro">{{ erroCartao }}</p>
+    }
+    @if (!carregandoCartoes && cartoes.length === 0) {
+    <p class="mensagem-vazia">Nenhum cartão cadastrado.</p>
+    }
+    @for (cartao of cartoes; track cartao.id) {
+    <div class="cartao-card">
       <div class="cartao-info">
         <h4>{{ formatarNumeroCartao(cartao.numero_cartao) }}</h4>
         <p>Validade: {{ cartao.vencimento }}</p>
         <p>Titular: {{ cartao.nome_titular }}</p>
-
-        <p *ngIf="cartao.is_default" class="cartao-padrao">
-          ✓ Cartão Padrão
-        </p>
+        @if (cartao.is_default) {
+        <p class="cartao-padrao">✓ Cartão Padrão</p>
+        }
       </div>
-
       <div class="cartao-botoes">
-        <button type="button" class="btn-azul" (click)="selecionarCartao(cartao)">
-          Usar este cartão
-        </button>
-
-        <button *ngIf="!cartao.is_default" type="button" class="btn-secundario"
-          (click)="definirCartaoPadrao(cartao.id)">
-          Tornar padrão
-        </button>
+        <button type="button" class="btn-azul" (click)="selecionarCartao(cartao)">Usar este cartão</button>
+        @if (!cartao.is_default) {
+        <button type="button" class="btn-secundario" (click)="definirCartaoPadrao(cartao.id)">Tornar padrão</button>
+        }
       </div>
     </div>
+    }
 
-    <button type="button" class="btn-adicionar-cartao" (click)="abrirFormularioCartao()">
-      + Cadastrar novo cartão
-    </button>
+    <button type="button" class="btn-adicionar-cartao" (click)="abrirFormularioCartao()">+ Cadastrar novo
+      cartão</button>
 
-    <div class="form-cartao" *ngIf="mostrarFormularioCartao">
+    @if (mostrarFormularioCartao) {
+    <div class="form-cartao">
       <h3>Novo Cartão</h3>
-
       <input type="text" [(ngModel)]="novoCartao.nome_titular" placeholder="Nome do Titular">
-
       <input type="text" [(ngModel)]="novoCartao.numero_cartao" placeholder="Número do Cartão">
-
       <div class="linha-inputs">
         <input type="text" [(ngModel)]="novoCartao.vencimento" placeholder="MM/AA" maxlength="5">
-
         <input type="text" [(ngModel)]="novoCartao.cvv" placeholder="CVV" maxlength="4">
       </div>
-
       <input type="text" [(ngModel)]="novoCartao.cpf" placeholder="CPF do Titular">
-
       <div class="form-botoes">
         <button type="button" class="btn-azul" (click)="salvarNovoCartao()" [disabled]="salvandoCartao">
           {{ salvandoCartao ? 'Salvando...' : 'Salvar cartão' }}
         </button>
-
-        <button type="button" class="btn-cancelar" (click)="cancelarFormularioCartao()" [disabled]="salvandoCartao">
-          Cancelar
-        </button>
+        <button type="button" class="btn-cancelar" (click)="cancelarFormularioCartao()"
+          [disabled]="salvandoCartao">Cancelar</button>
       </div>
     </div>
+    }
 
-    <button type="button" class="btn-continuar" (click)="continuarComCartao()" [disabled]="!cartaoSelecionado">
+    <button type="button" class="btn-continuar" (click)="continuarComCartao()"
+      [disabled]="!cartaoSelecionado || carregandoCartoes">
       Continuar com cartão selecionado
     </button>
   </div>
+  }
 </div>

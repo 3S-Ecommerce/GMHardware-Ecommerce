@@ -22,8 +22,10 @@
 
     <!-- ID dinâmico dependendo da categoria selecionada -->
     <span [id]="categoria === 'todos' ? 'cardProdutosAvaliacoesTodos-' + item.id : 'cardProdutosAvaliacoes-' + item.id">
-      Avaliações: 4.8(243)
+      <!-- Avaliações: 4.8(243) -->
     </span>
+    
+    <p></p>
 
     <h4 (click)="teste()">{{ item.name }}</h4>
     <p><span></span>{{ formatarPreco(item.price) }}</p>

@@ -1,5 +1,4 @@
 @use "sass:color";
-
 @use "../../../../../../../public/assets/style.scss";
 
 $bg-card: #0F1115;
@@ -24,45 +23,18 @@ $success: #22c55e;
   background-color: style.$primary-bg;
   border-radius: 10px;
 
-  h2,
-  h3 {
-    color: $text-primary;
-    margin: 0;
-  }
-
-  h2 {
-    font-size: 24px;
-    font-weight: 600;
-  }
-
-  h3 {
-    font-size: 18px;
-    font-weight: 600;
-  }
-
-  p {
-    color: $text-secondary;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-  }
-
-  hr {
-    width: 100%;
-    border: none;
-    border-top: 1px solid $border-color;
-  }
+  h2, h3 { color: $text-primary; margin: 0; }
+  h2 { font-size: 24px; font-weight: 600; }
+  h3 { font-size: 18px; font-weight: 600; }
+  p { color: $text-secondary; font-size: 16px; font-weight: 400; line-height: 1.5; }
+  hr { width: 100%; border: none; border-top: 1px solid $border-color; }
 
   button {
     border: none;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.25s ease;
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
   }
 
   .div-button {
@@ -70,49 +42,21 @@ $success: #22c55e;
     display: flex;
     justify-content: space-between;
     gap: 12px;
-
-    button {
-      background: transparent;
-      padding: 10px 14px;
-      border-radius: 6px;
-    }
-
+    button { background: transparent; padding: 10px 14px; border-radius: 6px; }
     .escolher-endereco {
       color: $accent-orange;
-
-      &:hover {
-        background-color: rgba(255, 140, 66, 0.12);
-      }
+      &:hover { background-color: rgba(255, 140, 66, 0.12); }
     }
-
     .selecionar {
       color: $success;
-
-      &:hover {
-        background-color: rgba(34, 197, 94, 0.12);
-      }
+      &:hover { background-color: rgba(34, 197, 94, 0.12); }
     }
   }
 }
 
-.erro-endereco {
-  color: $accent-orange !important;
-  font-weight: 600 !important;
-  margin: 0;
-}
-
-.enderecos-area {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 8px;
-}
-
-.mensagem-vazia {
-  color: $text-secondary;
-  margin: 0;
-}
+.erro-endereco { color: $accent-orange !important; font-weight: 600 !important; margin: 0; }
+.enderecos-area { width: 100%; display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+.mensagem-vazia { color: $text-secondary; margin: 0; }
 
 .endereco-card {
   width: 100%;
@@ -125,32 +69,12 @@ $success: #22c55e;
   gap: 12px;
 }
 
-.endereco-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.endereco-info { display: flex; flex-direction: column; gap: 6px; }
+.endereco-texto { color: $text-primary !important; margin: 0; }
+.endereco-padrao { color: $success !important; font-weight: 700 !important; margin: 0; }
+.endereco-botoes, .form-botoes { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.endereco-texto {
-  color: $text-primary !important;
-  margin: 0;
-}
-
-.endereco-padrao {
-  color: $success !important;
-  font-weight: 700 !important;
-  margin: 0;
-}
-
-.endereco-botoes,
-.form-botoes {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.btn-azul,
-.btn-adicionar-endereco {
+.btn-azul, .btn-adicionar-endereco {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +82,6 @@ $success: #22c55e;
   background-color: $accent-blue;
   color: $text-primary;
   border-radius: 6px;
-
   &:hover {
     background-color: color.adjust($accent-blue, $lightness: -10%, $space: hsl);
     transform: translateY(-1px);
@@ -174,10 +97,7 @@ $success: #22c55e;
   border: 1px solid $accent-orange !important;
   color: $accent-orange;
   border-radius: 6px;
-
-  &:hover {
-    background-color: rgba(255, 140, 66, 0.12);
-  }
+  &:hover { background-color: rgba(255, 140, 66, 0.12); }
 }
 
 .btn-cancelar {
@@ -188,10 +108,7 @@ $success: #22c55e;
   background-color: rgba(255, 255, 255, 0.05);
   color: $accent-orange;
   border-radius: 6px;
-
-  &:hover {
-    background-color: rgba(255, 140, 66, 0.12);
-  }
+  &:hover { background-color: rgba(255, 140, 66, 0.12); }
 }
 
 .form-endereco {
@@ -203,7 +120,6 @@ $success: #22c55e;
   display: flex;
   flex-direction: column;
   gap: 12px;
-
   input {
     width: 100%;
     background-color: $bg-input;
@@ -212,65 +128,56 @@ $success: #22c55e;
     border: 1px solid $border-color;
     border-radius: 6px;
     outline: none;
-
-    &::placeholder {
-      color: $text-secondary;
-    }
-
-    &:focus {
-      border-color: $accent-blue;
-      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
-    }
+    &::placeholder { color: $text-secondary; }
+    &:focus { border-color: $accent-blue; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
   }
 }
 
+// ==========================================
+// CONFIGURAÇÃO DOS LOADERS (SKELETON SHIMMER)
+// ==========================================
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-line, .skeleton-button {
+  height: 16px;
+  background: linear-gradient(90deg, #22262f 25%, #2d323e 50%, #22262f 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.skeleton-wrapper { display: flex; flex-direction: column; gap: 8px; width: 100%; margin: 4px 0; }
+.skeleton-button { height: 38px; width: 150px; border-radius: 6px; }
+.skeleton-card { pointer-events: none; border-color: rgba($border-color, 0.5) !important; }
+
+.width-40  { width: 40%; }
+.width-50  { width: 50%; }
+.width-70  { width: 70%; }
+.width-80  { width: 80%; }
+.width-120 { width: 120px; }
+
+// ==========================================
+// MEDIA QUERIES RESPONSIVAS
+// ==========================================
 @media (max-width: 1199px) {
   .div-entrega {
-    max-width: 100%;
-    min-width: 0;
-    width: 100%;
-    padding: 20px;
-    gap: 16px;
-
-    h2 {
-      font-size: 20px;
-    }
-
-    p {
-      font-size: 14px;
-    }
+    max-width: 100%; min-width: 0; width: 100%; padding: 20px; gap: 16px;
+    h2 { font-size: 20px; }
+    p { font-size: 14px; }
   }
 }
 
 @media (max-width: 736px) {
   .div-entrega {
-    padding: 18px;
-    gap: 14px;
-
-    h2 {
-      font-size: 22px;
-    }
-
-    p {
-      font-size: 13px;
-    }
-
-    .div-button {
-      flex-direction: column;
-      align-items: stretch;
-
-      button {
-        width: 100%;
-      }
-    }
+    padding: 18px; gap: 14px;
+    h2 { font-size: 22px; }
+    p { font-size: 13px; }
+    .div-button { flex-direction: column; align-items: stretch; button { width: 100%; } }
   }
-
-  .endereco-botoes,
-  .form-botoes {
-    flex-direction: column;
-
-    button {
-      width: 100%;
-    }
-  }
+  .endereco-botoes, .form-botoes { flex-direction: column; button { width: 100%; } }
+  .skeleton-button { width: 100% !important; }
 }

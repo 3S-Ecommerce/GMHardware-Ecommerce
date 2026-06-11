@@ -18,7 +18,7 @@ export class NovaSenha {
   // Removi os Validators temporariamente para garantir que o botão funcione
   formReset = this.fb.group({
     email: [''],
-    old_password: [''],
+    // old_password: [''],
     password: [''],
     password_confirmation: ['']
   });

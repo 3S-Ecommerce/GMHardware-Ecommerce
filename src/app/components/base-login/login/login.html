@@ -18,12 +18,19 @@
     </div>
 
     <div class="buttons">
-      <!-- Botão de cadastro redireciona usando routerLink -->
-      <button type="button" routerLink="/cadastro" class="cadastrar" id="baseLoginLoginBtnCadastrar">Cadastrar</button>
+  <button type="button" routerLink="/cadastro" class="cadastrar" id="baseLoginLoginBtnCadastrar" [disabled]="cadastrando()">Cadastrar</button>
 
-      <!-- O botão de Login agora dispara o formulário e fica desabilitado se estiver inválido -->
-      <button type="submit" class="login" [disabled]="formLogin.invalid" id="baseLoginLoginBtnLogin">Login</button>
-    </div>
+  <button type="submit" class="login" [disabled]="formLogin.invalid || cadastrando()" id="baseLoginLoginBtnLogin">
+    @if (cadastrando()) {
+      <div class="spinner-container">
+        <span class="spinner"></span>
+        <span>Entrando...</span>
+      </div>
+    } @else {
+      Login
+    }
+  </button>
+</div>
 
   </form>
 </div>

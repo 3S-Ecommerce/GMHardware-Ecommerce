@@ -36,7 +36,7 @@ export class Pagamento {
   mostrarCartoes = false;
   mostrarFormularioCartao = false;
 
-  carregandoCartoes = false;
+  carregandoCartoes = true;
   salvandoCartao = false;
   erroCartao = '';
 

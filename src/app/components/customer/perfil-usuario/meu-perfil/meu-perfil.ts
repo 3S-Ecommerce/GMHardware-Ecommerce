@@ -15,7 +15,7 @@ import { Auth } from '../../../../core/services/auth';
 export class MeuPerfil implements OnInit {
   private platformId = inject(PLATFORM_ID);
   auth = inject(Auth)
-  adminLogado = signal<string>('');
+  adminLogado = signal<boolean>(false);
   constructor(
     private router: Router,
     private cartaoService: CartaoService
@@ -30,7 +30,7 @@ export class MeuPerfil implements OnInit {
         this.router.navigate(['/login']);
       }
       // console.log('Rodando no navegador com acesso ao localStorage:', token);
-      this.adminLogado.set(this.auth.admin())
+      this.adminLogado.set(this.auth.admin() === 'true' ? true : false)
     } 
   
   }

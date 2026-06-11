@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { ApiUrl } from './api-url';
 
 export interface FreteItem {
   id: number;
@@ -48,9 +49,8 @@ export interface FreteOpcao {
 })
 export class FreteService {
   private http = inject(HttpClient);
-
-  private readonly apiUrl =
-    'http://127.0.0.1:8000/api';
+  private api = inject(ApiUrl)
+  private readonly apiUrl = this.api.getUrl();
 
   private getAuthHeaders(): HttpHeaders {
     const token =

@@ -37,8 +37,8 @@ export class FormaEntrega {
   mostrarEscolhaEndereco = false;
   mostrarFormularioEndereco = false;
 
-  carregandoEnderecos = false;
-  salvandoEndereco = false;
+  carregandoEnderecos = true;
+  salvandoEndereco = true;
   erroEndereco = '';
 
   novoEndereco: EnderecoPayload = {
@@ -82,6 +82,7 @@ export class FormaEntrega {
           this.enderecoSelecionado = enderecoPadrao || this.enderecos[0] || null;
   
           this.carregandoEnderecos = false;
+          this.salvandoEndereco = false;
           this.cdr.detectChanges();
         })
       },
@@ -216,6 +217,7 @@ export class FormaEntrega {
 
         this.mostrarFormularioEndereco = false;
         this.salvandoEndereco = false;
+        
 
         this.novoEndereco = {
           zip_code: '',

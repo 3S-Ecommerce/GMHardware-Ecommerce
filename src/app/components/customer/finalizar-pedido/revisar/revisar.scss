@@ -9,882 +9,171 @@ $card-interno: #0f1115;
 $borda: #2a2a2a;
 $texto-secundario: #b0b0b0;
 
-/* ======================================================
-   DESKTOP
-====================================================== */
-
+/* ====================================================== DESKTOP ====================================================== */
 @media (min-width: 1200px) {
   .revisar {
-    @include style.displayFlex(
-      $direction: column,
-      $aligh: flex-start,
-      $gap: 48px
-    );
-
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    box-sizing: border-box;
-
-    h2 {
-      @include style.fontSize(
-        $size: 40px,
-        $weight: 600
-      );
-
-      color: white;
-      margin: 0;
-    }
-
+    @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 48px);
+    width: 100%; max-width: 1000px; margin: 0 auto; padding: 40px 20px; box-sizing: border-box; min-width: 1000px;
+    h2 { @include style.fontSize($size: 40px, $weight: 600); color: white; margin: 0; }
     .div-layout {
-      @include style.displayFlex(
-        $direction: column,
-        $justify: center,
-        $aligh: flex-start,
-        $gap: 24px
-      );
-
-      width: 100%;
-      padding: 24px;
-      background-color: style.$primary-bg;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      h3 {
-        @include style.fontSize(
-          $size: 32px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      h4 {
-        @include style.fontSize(
-          $size: 20px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      p {
-        @include style.fontSize(
-          $size: 18px,
-          $weight: 400
-        );
-
-        color: style.$white-color;
-        margin: 0;
-        line-height: 1.5;
-      }
-
-      hr {
-        width: 100%;
-      }
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 24px);
+      width: 100%; padding: 24px; background-color: style.$primary-bg; border-radius: 10px; box-sizing: border-box;
+      h3 { @include style.fontSize($size: 32px, $weight: 600); color: white; margin: 0; }
+      h4 { @include style.fontSize($size: 20px, $weight: 600); color: white; margin: 0; }
+      p { @include style.fontSize($size: 18px, $weight: 400); color: style.$white-color; margin: 0; line-height: 1.5; }
+      hr { width: 100%; }
     }
   }
 }
 
-/* ======================================================
-   TABLET
-====================================================== */
-
+/* ====================================================== TABLET ====================================================== */
 @media (min-width: 736px) and (max-width: 1199px) {
   .revisar {
-    @include style.displayFlex(
-      $direction: column,
-      $aligh: stretch,
-      $gap: 32px
-    );
-
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 20px;
-    box-sizing: border-box;
-
-    h2 {
-      @include style.fontSize(
-        $size: 30px,
-        $weight: 600
-      );
-
-      color: white;
-      margin: 0;
-    }
-
+    @include style.displayFlex($direction: column, $aligh: stretch, $gap: 32px);
+    width: 100%; max-width: 900px; margin: 0 auto; padding: 32px 20px; box-sizing: border-box;
+    h2 { @include style.fontSize($size: 30px, $weight: 600); color: white; margin: 0; }
     .div-layout {
-      @include style.displayFlex(
-        $direction: column,
-        $justify: center,
-        $aligh: flex-start,
-        $gap: 16px
-      );
-
-      width: 100%;
-      padding: 20px;
-      background-color: style.$primary-bg;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      h3 {
-        @include style.fontSize(
-          $size: 22px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      h4 {
-        @include style.fontSize(
-          $size: 18px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      p {
-        @include style.fontSize(
-          $size: 15px,
-          $weight: 400
-        );
-
-        color: style.$white-color;
-        margin: 0;
-        line-height: 1.5;
-      }
-
-      hr {
-        width: 100%;
-      }
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 16px);
+      width: 100%; padding: 20px; background-color: style.$primary-bg; border-radius: 10px; box-sizing: border-box;
+      h3 { @include style.fontSize($size: 22px, $weight: 600); color: white; margin: 0; }
+      h4 { @include style.fontSize($size: 18px, $weight: 600); color: white; margin: 0; }
+      p { @include style.fontSize($size: 15px, $weight: 400); color: style.$white-color; margin: 0; line-height: 1.5; }
+      hr { width: 100%; }
     }
   }
 }
 
-/* ======================================================
-   MOBILE
-====================================================== */
-
+/* ====================================================== MOBILE ====================================================== */
 @media (max-width: 735px) {
   .revisar {
-    @include style.displayFlex(
-      $direction: column,
-      $aligh: stretch,
-      $gap: 24px
-    );
-
-    width: 100%;
-    margin: 0 auto;
-    padding: 24px 12px;
-    box-sizing: border-box;
-
-    h2 {
-      @include style.fontSize(
-        $size: 25px,
-        $weight: 600
-      );
-
-      color: white;
-      margin: 0;
-    }
-
+    @include style.displayFlex($direction: column, $aligh: stretch, $gap: 24px);
+    width: 100%; margin: 0 auto; padding: 24px 12px; box-sizing: border-box;
+    h2 { @include style.fontSize($size: 25px, $weight: 600); color: white; margin: 0; }
     .div-layout {
-      @include style.displayFlex(
-        $direction: column,
-        $justify: center,
-        $aligh: flex-start,
-        $gap: 14px
-      );
-
-      width: 100%;
-      padding: 16px;
-      background-color: style.$primary-bg;
-      border-radius: 10px;
-      box-sizing: border-box;
-
-      h3 {
-        @include style.fontSize(
-          $size: 18px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      h4 {
-        @include style.fontSize(
-          $size: 16px,
-          $weight: 600
-        );
-
-        color: white;
-        margin: 0;
-      }
-
-      p {
-        @include style.fontSize(
-          $size: 13px,
-          $weight: 400
-        );
-
-        color: style.$white-color;
-        margin: 0;
-        line-height: 1.5;
-      }
-
-      hr {
-        width: 100%;
-      }
+      @include style.displayFlex($direction: column, $justify: center, $aligh: flex-start, $gap: 14px);
+      width: 100%; padding: 16px; background-color: style.$primary-bg; border-radius: 10px; box-sizing: border-box;
+      h3 { @include style.fontSize($size: 18px, $weight: 600); color: white; margin: 0; }
+      h4 { @include style.fontSize($size: 16px, $weight: 600); color: white; margin: 0; }
+      p { @include style.fontSize($size: 13px, $weight: 400); color: style.$white-color; margin: 0; line-height: 1.5; }
+      hr { width: 100%; }
     }
   }
 }
 
-/* ======================================================
-   ELEMENTOS GERAIS
-====================================================== */
-
-.divisor {
-  width: 100%;
-  border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  margin: 4px 0;
-}
-
-.texto-apoio {
-  color: $texto-secundario !important;
-}
-
-.cep-entrega {
-  color: $texto-secundario !important;
-
-  strong {
-    color: white;
-  }
-}
-
-.cartao-aviso {
-  color: $laranja !important;
-  font-weight: 600 !important;
-}
+/* ====================================================== ELEMENTOS GERAIS ====================================================== */
+.divisor { width: 100%; border: none; border-top: 1px solid rgba(255, 255, 255, 0.12); margin: 4px 0; }
+.texto-apoio { color: $texto-secundario !important; }
+.cep-entrega { color: $texto-secundario !important; strong { color: white; } }
+.cartao-aviso { color: $laranja !important; font-weight: 600 !important; }
 
 .btn-link {
-  width: auto;
-  padding: 0;
-  background: none;
-  border: none;
-  color: style.$descont-color;
-  cursor: pointer;
-  text-align: left;
-
-  @include style.fontSize(
-    $size: 16px,
-    $weight: 600
-  );
-
-  &:hover {
-    opacity: 0.8;
-  }
+  width: auto; padding: 0; background: none; border: none; color: style.$descont-color; cursor: pointer; text-align: left;
+  @include style.fontSize($size: 16px, $weight: 600);
+  &:hover { opacity: 0.8; }
 }
 
-/* ======================================================
-   ENDEREÇOS
-====================================================== */
+/* ====================================================== ENDEREÇOS ====================================================== */
+.enderecos-gerenciador { @include style.displayFlex($direction: column, $aligh: stretch, $gap: 16px); width: 100%; }
+.enderecos-lista { @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px); width: 100%; }
+.endereco-card { @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 8px); width: 100%; padding: 16px; background-color: $card-interno; border: 1px solid $borda; border-radius: 8px; box-sizing: border-box; }
+.endereco-selecionado { border-color: $azul-principal; background-color: rgba($azul-principal, 0.08); }
+.endereco-texto { color: white !important; }
+.endereco-padrao { color: $verde !important; font-weight: 700 !important; }
+.endereco-em-uso { color: #60a5fa !important; font-weight: 700 !important; }
+.endereco-acoes, .form-acoes { @include style.displayFlex($direction: row, $justify: flex-start, $aligh: center, $gap: 10px, $width: auto); margin-top: 6px; }
 
-.enderecos-gerenciador {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 16px
-  );
-
-  width: 100%;
-}
-
-.enderecos-lista {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 12px
-  );
-
-  width: 100%;
-}
-
-.endereco-card {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: flex-start,
-    $gap: 8px
-  );
-
-  width: 100%;
-  padding: 16px;
-  background-color: $card-interno;
-  border: 1px solid $borda;
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.endereco-selecionado {
-  border-color: $azul-principal;
-  background-color: rgba($azul-principal, 0.08);
-}
-
-.endereco-texto {
-  color: white !important;
-}
-
-.endereco-padrao {
-  color: $verde !important;
-  font-weight: 700 !important;
-}
-
-.endereco-em-uso {
-  color: #60a5fa !important;
-  font-weight: 700 !important;
-}
-
-.endereco-acoes,
-.form-acoes {
-  @include style.displayFlex(
-    $direction: row,
-    $justify: flex-start,
-    $aligh: center,
-    $gap: 10px,
-    $width: auto
-  );
-
-  margin-top: 6px;
-}
-
-.btn-azul-sm,
-.btn-secundario-sm,
-.btn-cancelar-sm,
-.btn-adicionar-endereco {
-  min-height: 38px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-
-  @include style.fontSize(
-    $size: 14px,
-    $weight: 600
-  );
-
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
-
-  &:active:not(:disabled) {
-    transform: scale(0.98);
-  }
+.btn-azul-sm, .btn-secundario-sm, .btn-cancelar-sm, .btn-adicionar-endereco {
+  min-height: 38px; padding: 8px 14px; border-radius: 6px; cursor: pointer;
+  @include style.fontSize($size: 14px, $weight: 600); transition: all 0.2s ease;
+  &:active:not(:disabled) { transform: scale(0.98); }
 }
 
 .btn-azul-sm {
-  background-color: $azul-principal;
-  border: 1px solid $azul-principal;
-  color: white;
-
-  &:hover:not(:disabled) {
-    background-color: $azul-hover;
-    border-color: $azul-hover;
-  }
-
-  &:disabled {
-    background-color: #4b5563;
-    border-color: #4b5563;
-    color: #d1d5db;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
+  background-color: $azul-principal; border: 1px solid $azul-principal; color: white;
+  &:hover:not(:disabled) { background-color: $azul-hover; border-color: $azul-hover; }
+  &:disabled { background-color: #4b5563; border-color: #4b5563; color: #d1d5db; cursor: not-allowed; opacity: 0.7; }
 }
-
-.btn-secundario-sm {
-  background-color: transparent;
-  border: 1px solid rgba($laranja, 0.5);
-  color: $laranja;
-
-  &:hover {
-    background-color: rgba($laranja, 0.1);
-    border-color: $laranja;
-  }
-}
-
-.btn-cancelar-sm {
-  background-color: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
-
-  &:hover {
-    color: $vermelho;
-    background-color: rgba($vermelho, 0.1);
-    border-color: rgba($vermelho, 0.4);
-  }
-}
-
-.btn-adicionar-endereco {
-  width: 100%;
-  background-color: transparent;
-  border: 1px dashed rgba(255, 255, 255, 0.25);
-  color: white;
-
-  &:hover {
-    background-color: rgba($azul-principal, 0.08);
-    border-color: $azul-principal;
-  }
-}
+.btn-secundario-sm { background-color: transparent; border: 1px solid rgba($laranja, 0.5); color: $laranja; &:hover { background-color: rgba($laranja, 0.1); border-color: $laranja; } }
+.btn-cancelar-sm { background-color: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); color: white; &:hover { color: $vermelho; background-color: rgba($vermelho, 0.1); border-color: rgba($vermelho, 0.4); } }
+.btn-adicionar-endereco { width: 100%; background-color: transparent; border: 1px dashed rgba(255, 255, 255, 0.25); color: white; &:hover { background-color: rgba($azul-principal, 0.08); border-color: $azul-principal; } }
 
 .form-endereco {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 12px
-  );
-
-  width: 100%;
-  padding: 18px;
-  background-color: $card-interno;
-  border: 1px solid $borda;
-  border-radius: 8px;
-  box-sizing: border-box;
-
+  @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px); width: 100%; padding: 18px; background-color: $card-interno; border: 1px solid $borda; border-radius: 8px; box-sizing: border-box;
   input {
-    width: 100%;
-    height: 42px;
-    padding: 10px 12px;
-    color: white;
-    background-color: #1a1f27;
-    border: 1px solid $borda;
-    border-radius: 6px;
-    outline: none;
-    box-sizing: border-box;
-
-    &:focus {
-      border-color: $azul-principal;
-    }
+    width: 100%; height: 42px; padding: 10px 12px; color: white; background-color: #1a1f27; border: 1px solid $borda; border-radius: 6px; outline: none; box-sizing: border-box;
+    &:focus { border-color: $azul-principal; }
   }
 }
+.linha-inputs { @include style.displayFlex($direction: row, $aligh: center, $gap: 12px); width: 100%; input { flex: 1; } }
 
-.linha-inputs {
-  @include style.displayFlex(
-    $direction: row,
-    $aligh: center,
-    $gap: 12px
-  );
+/* ====================================================== FRETE ====================================================== */
+.frete-carregando { width: 100%; padding: 16px; background-color: rgba($azul-principal, 0.05); border: 1px solid rgba($azul-principal, 0.15); border-radius: 8px; box-sizing: border-box; }
+.frete-erro-container { @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 12px); width: 100%; padding: 14px; background-color: rgba($vermelho, 0.08); border: 1px solid rgba($vermelho, 0.3); border-radius: 8px; box-sizing: border-box; }
+.frete-erro { color: #f87171 !important; font-weight: 600 !important; }
+.btn-calcular-frete { min-height: 40px; padding: 9px 16px; color: white; background-color: $azul-principal; border: 1px solid $azul-principal; border-radius: 6px; cursor: pointer; @include style.fontSize($size: 14px, $weight: 600); &:hover { background-color: $azul-hover; border-color: $azul-hover; } }
+.fretes-lista { @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px); width: 100%; }
+.frete-card { @include style.displayFlex($direction: column, $aligh: stretch, $gap: 12px); width: 100%; padding: 16px; background-color: $card-interno; border: 1px solid $borda; border-radius: 8px; box-sizing: border-box; h4 { color: white; margin: 0; } .btn-azul-sm { align-self: flex-start; } }
+.frete-selecionado { border-color: $verde; background-color: rgba($verde, 0.07); }
+.frete-cabecalho { @include style.displayFlex($direction: row, $justify: space-between, $aligh: flex-start, $gap: 12px); width: 100%; }
+.frete-transportadora { color: $texto-secundario !important; }
+.frete-status { padding: 5px 10px; color: #4ade80; background-color: rgba($verde, 0.14); border: 1px solid rgba($verde, 0.35); border-radius: 999px; @include style.fontSize($size: 12px, $weight: 700); }
+.frete-informacoes { @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 6px); width: 100%; p { color: $texto-secundario !important; strong { color: white; } } }
+.frete-resumo { @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 10px); width: 100%; padding: 16px; background-color: rgba($azul-principal, 0.07); border: 1px solid rgba($azul-principal, 0.3); border-radius: 8px; box-sizing: border-box; h4 { color: white; margin: 0; } p { color: $texto-secundario !important; strong { color: white; } } }
 
-  width: 100%;
+/* ====================================================== PRODUTOS ====================================================== */
+.div-img { @include style.displayFlex($direction: row, $justify: space-between, $aligh: center, $gap: 16px); width: 100%; padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); &:last-child { padding-bottom: 0; border-bottom: none; } }
+.img-wrapper { position: relative; width: 100px; height: 100px; flex-shrink: 0; overflow: hidden; border: 2px solid white; border-radius: 50%; img { border-radius: 50%; object-fit: cover; } }
+.produto-dados { @include style.displayFlex($direction: column, $aligh: flex-start, $gap: 5px); flex: 1; }
+.produto-nome { color: white !important; font-weight: 600 !important; }
+.produto-preco { color: $texto-secundario !important; font-weight: 600 !important; }
+.quantidade { @include style.displayFlex($direction: row, $aligh: center, $justify: center, $gap: 8px, $width: auto); }
+.quantidade-numero { min-width: 26px; color: wheat; font-weight: 600; text-align: center; &.fixo { color: $texto-secundario; } }
+.btn-controle { @include style.displayFlex($justify: center, $aligh: center); width: 32px; height: 32px; padding: 0; color: white; background-color: rgba(255, 255, 255, 0.07); border: none; border-radius: 50%; cursor: pointer; &:hover { background-color: rgba(255, 255, 255, 0.16); } }
 
-  input {
-    flex: 1;
-  }
-}
+/* ====================================================== PAGAMENTO ====================================================== */
+.resumo-valores { @include style.displayFlex($direction: column, $aligh: stretch, $gap: 8px); width: 100%; padding: 16px; background-color: rgba(255, 255, 255, 0.03); border-radius: 8px; box-sizing: border-box; }
+.preco-total { padding-top: 10px; margin-top: 4px !important; color: $verde !important; border-top: 1px solid rgba(255, 255, 255, 0.1); strong { color: $verde; } }
 
-/* ======================================================
-   FRETE
-====================================================== */
-
-.frete-carregando {
-  width: 100%;
-  padding: 14px;
-  background-color: rgba($azul-principal, 0.08);
-  border: 1px solid rgba($azul-principal, 0.25);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.frete-erro-container {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: flex-start,
-    $gap: 12px
-  );
-
-  width: 100%;
-  padding: 14px;
-  background-color: rgba($vermelho, 0.08);
-  border: 1px solid rgba($vermelho, 0.3);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.frete-erro {
-  color: #f87171 !important;
-  font-weight: 600 !important;
-}
-
-.btn-calcular-frete {
-  min-height: 40px;
-  padding: 9px 16px;
-  color: white;
-  background-color: $azul-principal;
-  border: 1px solid $azul-principal;
-  border-radius: 6px;
-  cursor: pointer;
-
-  @include style.fontSize(
-    $size: 14px,
-    $weight: 600
-  );
-
-  &:hover {
-    background-color: $azul-hover;
-    border-color: $azul-hover;
-  }
-}
-
-.fretes-lista {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 12px
-  );
-
-  width: 100%;
-}
-
-.frete-card {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 12px
-  );
-
-  width: 100%;
-  padding: 16px;
-  background-color: $card-interno;
-  border: 1px solid $borda;
-  border-radius: 8px;
-  box-sizing: border-box;
-
-  h4 {
-    color: white;
-    margin: 0;
-  }
-
-  .btn-azul-sm {
-    align-self: flex-start;
-  }
-}
-
-.frete-selecionado {
-  border-color: $verde;
-  background-color: rgba($verde, 0.07);
-}
-
-.frete-cabecalho {
-  @include style.displayFlex(
-    $direction: row,
-    $justify: space-between,
-    $aligh: flex-start,
-    $gap: 12px
-  );
-
-  width: 100%;
-}
-
-.frete-transportadora {
-  color: $texto-secundario !important;
-}
-
-.frete-status {
-  padding: 5px 10px;
-  color: #4ade80;
-  background-color: rgba($verde, 0.14);
-  border: 1px solid rgba($verde, 0.35);
-  border-radius: 999px;
-
-  @include style.fontSize(
-    $size: 12px,
-    $weight: 700
-  );
-}
-
-.frete-informacoes {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: flex-start,
-    $gap: 6px
-  );
-
-  width: 100%;
-
-  p {
-    color: $texto-secundario !important;
-
-    strong {
-      color: white;
-    }
-  }
-}
-
-.frete-resumo {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: flex-start,
-    $gap: 10px
-  );
-
-  width: 100%;
-  padding: 16px;
-  background-color: rgba($azul-principal, 0.07);
-  border: 1px solid rgba($azul-principal, 0.3);
-  border-radius: 8px;
-  box-sizing: border-box;
-
-  h4 {
-    color: white;
-    margin: 0;
-  }
-
-  p {
-    color: $texto-secundario !important;
-
-    strong {
-      color: white;
-    }
-  }
-}
-
-/* ======================================================
-   PRODUTOS
-====================================================== */
-
-.div-img {
-  @include style.displayFlex(
-    $direction: row,
-    $justify: space-between,
-    $aligh: center,
-    $gap: 16px
-  );
-
-  width: 100%;
-  padding-bottom: 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-
-  &:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-}
-
-.img-wrapper {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 2px solid white;
-  border-radius: 50%;
-
-  img {
-    border-radius: 50%;
-    object-fit: cover;
-  }
-}
-
-.produto-dados {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: flex-start,
-    $gap: 5px
-  );
-
-  flex: 1;
-}
-
-.produto-nome {
-  color: white !important;
-  font-weight: 600 !important;
-}
-
-.produto-preco {
-  color: $texto-secundario !important;
-  font-weight: 600 !important;
-}
-
-.quantidade {
-  @include style.displayFlex(
-    $direction: row,
-    $aligh: center,
-    $justify: center,
-    $gap: 8px,
-    $width: auto
-  );
-}
-
-.quantidade-numero {
-  min-width: 26px;
-  color: wheat;
-  font-weight: 600;
-  text-align: center;
-
-  &.fixo {
-    color: $texto-secundario;
-  }
-}
-
-.btn-controle {
-  @include style.displayFlex(
-    $justify: center,
-    $aligh: center
-  );
-
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.07);
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.16);
-  }
-}
-
-/* ======================================================
-   PAGAMENTO
-====================================================== */
-
-.resumo-valores {
-  @include style.displayFlex(
-    $direction: column,
-    $aligh: stretch,
-    $gap: 8px
-  );
-
-  width: 100%;
-  padding: 16px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  box-sizing: border-box;
-}
-
-.preco-total {
-  padding-top: 10px;
-  margin-top: 4px !important;
-  color: $verde !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-  strong {
-    color: $verde;
-  }
-}
-
-/* ======================================================
-   BOTÕES FINAIS
-====================================================== */
-
-.button-container {
-  @include style.displayFlex(
-    $direction: row,
-    $justify: flex-end,
-    $aligh: center,
-    $gap: 16px
-  );
-
-  width: 100%;
-
-  button {
-    min-width: 150px;
-    min-height: 42px;
-    padding: 10px 18px;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-
-    @include style.fontSize(
-      $size: 16px,
-      $weight: 600
-    );
-  }
-}
-
-.btn-cancelar-main {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-}
-
+/* ====================================================== BOTÕES FINAIS ====================================================== */
+.button-container { @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 16px); width: 100%; button { min-width: 150px; min-height: 42px; padding: 10px 18px; color: white; border-radius: 8px; cursor: pointer; @include style.fontSize($size: 16px, $weight: 600); } }
+.btn-cancelar-main { background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.25); &:hover { background-color: rgba(255, 255, 255, 0.06); } }
 .btn-confirmar-main {
-  background-color: $azul-principal;
-  border: 1px solid $azul-principal;
-
-  &:hover:not(:disabled) {
-    background-color: $azul-hover;
-    border-color: $azul-hover;
-  }
-
-  &:disabled {
-    color: #d1d5db;
-    background-color: #4b5563;
-    border-color: #4b5563;
-    cursor: not-allowed;
-    opacity: 0.65;
-  }
+  background-color: $azul-principal; border: 1px solid $azul-principal; &:hover:not(:disabled) { background-color: $azul-hover; border-color: $azul-hover; }
+  &:disabled { color: #d1d5db; background-color: #4b5563; border-color: #4b5563; cursor: not-allowed; opacity: 0.65; }
 }
 
-/* ======================================================
-   RESPONSIVIDADE DOS ELEMENTOS INTERNOS
-====================================================== */
+/* ====================================================== LOADERS ANIMATIONS ====================================================== */
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+.skeleton-line {
+  height: 12px; background: linear-gradient(90deg, #1a1f27 25%, #2a313d 50%, #1a1f27 75%);
+  background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 4px; display: inline-block; margin-top: 6px;
+}
+.skeleton-card { pointer-events: none; }
+.skeleton-circle {
+  background: linear-gradient(90deg, #1a1f27 25%, #2a313d 50%, #1a1f27 75%) !important;
+  background-size: 200% 100% !important; animation: shimmer 1.5s infinite linear !important;
+  border: none !important;
+}
+.width-40 { width: 40%; }
+.width-50 { width: 50%; }
+.width-60 { width: 60%; }
 
+/* ====================================================== RESPONSIVIDADE INTERNA ====================================================== */
 @media (max-width: 735px) {
-  .endereco-acoes,
-  .form-acoes,
-  .linha-inputs,
-  .button-container {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-  }
-
-  .btn-azul-sm,
-  .btn-secundario-sm,
-  .btn-cancelar-sm,
-  .btn-calcular-frete,
-  .button-container button {
-    width: 100%;
-  }
-
-  .div-img {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .img-wrapper {
-    width: 70px;
-    height: 70px;
-  }
-
-  .produto-dados {
-    min-width: calc(100% - 90px);
-  }
-
-  .quantidade {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .frete-cabecalho {
-    flex-direction: column;
-  }
-
-  .frete-card .btn-azul-sm {
-    align-self: stretch;
-  }
+  .endereco-acoes, .form-acoes, .linha-inputs, .button-container { flex-direction: column; align-items: stretch; width: 100%; }
+  .btn-azul-sm, .btn-secundario-sm, .btn-cancelar-sm, .btn-calcular-frete, .button-container button { width: 100%; }
+  .div-img { align-items: flex-start; flex-wrap: wrap; }
+  .img-wrapper { width: 70px; height: 70px; }
+  .produto-dados { min-width: calc(100% - 90px); }
+  .quantidade { width: 100%; justify-content: flex-start; }
+  .frete-cabecalho { flex-direction: column; }
+  .frete-card .btn-azul-sm { align-self: stretch; }
 }
+
+.button-container { @include style.displayFlex($direction: row, $justify: flex-end, $aligh: center, $gap: 16px); width: 100%; button { min-width: 150px; min-height: 42px; padding: 10px 18px; color: white; border-radius: 8px; cursor: pointer; @include style.fontSize($size: 16px, $weight: 600); } }
+.btn-cancelar-main { background-color: transparent; border: 1px solid rgba(255, 255, 255, 0.25); &:hover { background-color: rgba(255, 255, 255, 0.06); } &:disabled { opacity: 0.5; cursor: not-allowed; } }
+.btn-confirmar-main { background-color: $azul-principal; border: 1px solid $azul-principal; &:hover:not(:disabled) { background-color: $azul-hover; border-color: $azul-hover; } &:disabled { color: #d1d5db; background-color: #4b5563; border-color: #4b5563; cursor: not-allowed; opacity: 0.65; } }
+
+.spinner-container { @include style.displayFlex($direction: row, $justify: center, $aligh: center, $gap: 10px, $width: auto); }
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: white; animation: girarSpinner 0.8s infinite linear; display: inline-block; }
+@keyframes girarSpinner { to { transform: rotate(360deg); } }

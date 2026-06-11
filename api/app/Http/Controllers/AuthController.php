@@ -92,17 +92,16 @@ class AuthController extends Controller
         try {
             $request->validate([
                 'email' => 'required|email|exists:users,email',
-                'old_password' => 'required',
                 'password' => 'required|string|min:8|confirmed',
             ]);
 
             $user = User::where('email', $request->email)->first();
 
-            if (!Hash::check($request->old_password, $user->password)) {
-                return response()->json([
-                    'error' => 'A senha antiga está incorreta.'
-                ], 401);
-            }
+            // if (!Hash::check($request->old_password, $user->password)) {
+            //     return response()->json([
+            //         'error' => 'A senha antiga está incorreta.'
+            //     ], 401);
+            // }
 
             $user->password = Hash::make($request->password);
             $user->save();

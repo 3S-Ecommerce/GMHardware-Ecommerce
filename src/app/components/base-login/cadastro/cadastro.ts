@@ -18,6 +18,7 @@ export class Cadastro {
   private router = inject(Router);
   showModal = signal<boolean>(false)
   dados = signal<any>([]);
+  cadastrando = signal<boolean>(false)
 
   // Configuração do formulário expandido
   formRegister = this.fb.group({
@@ -36,6 +37,7 @@ export class Cadastro {
   }
 
   onSubmit() {
+    this.cadastrando.set(true);
     if (this.formRegister.invalid) {
       return;
     }
@@ -64,7 +66,7 @@ export class Cadastro {
         
         // Sincroniza a sessão local do navegador
         this.authService.setSession(res.token, res.user, false);
-        
+            this.cadastrando.set(false);
         // Segue a sua mesma lógica de navegação usando o ID do retorno
         this.router.navigate(['/']);
       },
@@ -75,6 +77,7 @@ export class Cadastro {
         } else {
           alert('Falha ao processar cadastro no servidor.');
         }
+        this.cadastrando.set(false);
       }
     });
   }

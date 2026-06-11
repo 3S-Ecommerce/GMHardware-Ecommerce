@@ -21,5 +21,7 @@ class CategorySeeder extends Seeder
         Category::create(['name' => 'Fonte']);
         Category::create(['name' => 'Gabinete']);
         Category::create(['name' => 'Periférico']);
+        Category::create(['name' => 'Mousers']);
+        Category::create(['name' => 'Placa mãe']);
     }
 }

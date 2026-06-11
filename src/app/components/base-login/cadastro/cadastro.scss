@@ -114,3 +114,6 @@ form input {
     width: 100%;
   }
 }
+.spinner-container { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 10px; width: auto; }
+.spinner { width: 18px; height: 18px; border: 2px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top-color: white; animation: girarSpinner 0.8s infinite linear; display: inline-block; }
+@keyframes girarSpinner { to { transform: rotate(360deg); } }
