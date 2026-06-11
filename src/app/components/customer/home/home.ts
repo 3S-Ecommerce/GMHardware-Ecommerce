@@ -13,8 +13,12 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit{
+
   constructor(private title: Title){}
+
   ngOnInit(): void {
+
     this.title.setTitle('GMHardware')
+    
   }
 }

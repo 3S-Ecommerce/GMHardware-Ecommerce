@@ -11,6 +11,8 @@ import { Title } from '@angular/platform-browser';
 })
 export class Devolucao {
   constructor(private title: Title){
+
     this.title.setTitle('Devolução')
+    
   }
 }

@@ -229,16 +229,24 @@ class ProductSeeder extends Seeder
             'id_admin' => 1,
             'name' => 'Cooler supreme Galaxyon X',
             'price' => 1000000,
-            'description' => 'Um cooler gamer lendário de nível cósmico, construído com tecnologia de uma civilização intergaláctica avançada. Sua estrutura é composta por titânio negro escovado e ligas metálicas futuristas, com design agressivo e industrial. No centro existe um reator de energia estelar encapsulado em um cilindro de cristal transparente, irradiando intensos brilhos roxos, azuis e magentas.
-
-Duas gigantescas ventoinhas RGB ocupam as laterais do cooler. As pás parecem feitas de energia condensada e exibem o efeito visual de uma galáxia girando dentro delas. Raios elétricos percorrem o núcleo enquanto tubos de refrigeração líquida transparentes transportam um fluido luminoso semelhante a plasma cósmico.
-
-A estrutura possui símbolos tecnológicos brilhantes, circuitos holográficos e detalhes inspirados em naves espaciais militares. O cooler repousa sobre uma plataforma futurista cercada por anéis energéticos flutuantes e runas digitais.
-
-Ao fundo, uma imensa nebulosa roxa e azul ilumina o ambiente espacial. Um buraco negro supermassivo com disco de acreção brilhante domina o horizonte, enquanto asteroides e partículas cósmicas flutuam ao redor. A iluminação é cinematográfica, com reflexos realistas, sombras profundas e efeitos de ray tracing avançado.',
+            'description' => 'Um cooler gamer lendário de nível cósmico, construído com tecnologia de uma civilização intergaláctica avançada. Sua estrutura é composta por titânio negro escovado e ligas metálicas futuristas, com design agressivo e industrial. No centro existe um reator de energia estelar encapsulado em um cilindro de cristal transparente, irradiando intensos brilhos roxos, azuis e magentas.Duas gigantescas ventoinhas RGB ocupam as laterais do cooler. As pás parecem feitas de energia condensada e exibem o efeito visual de uma galáxia girando dentro delas. Raios elétricos percorrem o núcleo enquanto tubos de refrigeração líquida transparentes transportam um fluido luminoso semelhante a plasma cósmico. Ao fundo, uma imensa nebulosa roxa e azul ilumina o ambiente espacial. Um buraco negro supermassivo com disco de acreção brilhante domina o horizonte, enquanto asteroides e partículas cósmicas flutuam ao redor. A iluminação é cinematográfica, com reflexos realistas, sombras profundas e efeitos de ray tracing avançado.',
             'details' => 'Ventoinhas de 140 mm com efeito de galáxia viva, Núcleo de fusão estelar visível., Sistema de refrigeração líquida com plasma energético., Estrutura em titânio negro e carbono forjado., Iluminação RGB cósmica dinâmica.,  Anéis gravitacionais flutuantes., Tecnologia alienígena avançada., Atmosfera épica de ficção científica., Ultra detalhado., Hiper-realista., Qualidade 16K., Unreal Engine 5., Octane Render., Concept Art AAA., Produto premium de luxo para gamers extremos.',
-            'stock' => '',
+            'stock' => '4',
             'image' => 'product/K68sp2pTuGnNGknU4eJBHL4ChuiO0i6GVyDjyqCK.jpg',
+            'image_2' => '',
+            'image_3' => '',
+            'image_4' => '',
+            'image_5' => ''
+        ]);
+        Product::updateOrCreate([
+            'id_category' => 6,
+            'id_admin' => 1,
+            'name' => 'Fonte Galaxyon X',
+            'price' => 2000000,
+            'description' => 'Para alimentar um ecossistema composto por reatores quânticos, memórias hiperlumínicas e GPUs de escala cósmica, você não pode confiar em uma corrente elétrica comum. A Galaxion X Power Supply é o gerador definitivo, projetado para fundir, estabilizar e distribuir energia pura com eficiência cirúrgica. Com uma blindagem digna de uma nave estelar, ela garante que seu setup permaneça indestrutível e perfeitamente energizado mesmo sob as cargas de overclock mais brutais do universo.',
+            'details' => 'Conversor de Energia Estelar (1600W Brutos), Certificação Galáctica 95+ Diamond, Cabos Modulares em Fibra de Carbono, Arrefecimento por Levitação Magnética,Monitoramento de Plasma Dinâmico,Capacitores Japoneses de Cristal 105°C,Pronta para o Padrão ATX 3.1 & PCIe 5.1,Pronta para o Padrão ATX 3.1 & PCIe 5.1',
+            'stock' => '10',
+            'image' => 'product/s7yWMQ6aB6ZCLwibiJRUdlsFQqbfZewLe7B5teWQ.jpg',
             'image_2' => '',
             'image_3' => '',
             'image_4' => '',

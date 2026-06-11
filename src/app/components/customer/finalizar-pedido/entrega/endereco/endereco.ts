@@ -9,8 +9,11 @@ import { RouterLink } from '@angular/router';
   styleUrl: './endereco.scss',
 })
 export class Endereco {
+
   private formBuilder = inject(FormBuilder);
+
   formEndereco = this.formBuilder.group({
+
     cep: ['', Validators.required],
     rua: ['', Validators.required],
     numero: ['', Validators.required],
@@ -18,6 +21,7 @@ export class Endereco {
     info: [''],
     recebedor: ['', Validators.required],
     cpf: ['', Validators.required]
+    
   })
 
 }

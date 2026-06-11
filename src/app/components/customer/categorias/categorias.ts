@@ -9,11 +9,15 @@ import { CardProdutos } from '../card-produtos/card-produtos';
   styleUrl: './categorias.scss',
 })
 export class Categorias {
+
   categoriaAtual: string = '';
+
   constructor(private route: ActivatedRoute) {
+
     this.route.data.subscribe(data => {
+
       this.categoriaAtual = data['categoria'];
-      //função para filtrar os produtos
+      
     })
   }
 }

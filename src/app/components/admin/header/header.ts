@@ -9,24 +9,34 @@ import { Language } from '../../../core/services/language';
   styleUrl: './header.scss',
 })
 export class Header {
+
   language = inject(Language);
   router = inject(Router);
 
   constructor() {
+
     afterNextRender(() => {
+
       this.language.loadSavedLanguage();
+
     })
 
     this.router.events.subscribe(event => {
+
       if (event instanceof NavigationEnd) {
+
         setTimeout(() => {
+
           this.language.loadSavedLanguage();
+
         }, 100);
       }
     });
   }
 
   changeLanguage(lang: string) {
+
     this.language.changeLanguage(lang);
+    
   }
 }

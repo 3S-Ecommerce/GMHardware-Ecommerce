@@ -20,8 +20,8 @@ export class Cadastro {
   dados = signal<any>([]);
   cadastrando = signal<boolean>(false)
 
-  // Configuração do formulário expandido
   formRegister = this.fb.group({
+
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     document: ['', [Validators.required, Validators.minLength(11)]],
@@ -29,27 +29,34 @@ export class Cadastro {
     address: ['', [Validators.required, Validators.minLength(10)]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     password_confirmation: ['', Validators.required]
+
   });
 
-  // 2. ADICIONE ESTE MÉTODO AQUI
   toggleModal() {
+
     this.showModal.update(p => !p);
+
   }
 
   onSubmit() {
+
     this.cadastrando.set(true);
+
     if (this.formRegister.invalid) {
+
       return;
+
     }
 
     const form = this.formRegister.value;
 
     if (form.password !== form.password_confirmation) {
+
       alert('Senhas não coincidem');
       return;
+
     }
 
-    // Enviando o payload completo com os novos campos para a sua API
     this.authService.register({
       name: form.name,
       email: form.email,
@@ -59,24 +66,30 @@ export class Cadastro {
       password: form.password,
       password_confirmation: form.password_confirmation
     }).subscribe({
+
       next: (res: any) => {
+
         console.log('SUCESSO', res);
         alert('Usuário cadastrado com sucesso!');
         this.dados.set(res);
-        
-        // Sincroniza a sessão local do navegador
         this.authService.setSession(res.token, res.user, false);
-            this.cadastrando.set(false);
-        // Segue a sua mesma lógica de navegação usando o ID do retorno
+        this.cadastrando.set(false);
         this.router.navigate(['/']);
+
       },
       error: (err: any) => {
+
         console.error('ERRO BACK:', err.error);
         if (err.status === 422) {
+
           alert('Erro de validação: ' + JSON.stringify(err.error.errors));
+
         } else {
+
           alert('Falha ao processar cadastro no servidor.');
+
         }
+        
         this.cadastrando.set(false);
       }
     });

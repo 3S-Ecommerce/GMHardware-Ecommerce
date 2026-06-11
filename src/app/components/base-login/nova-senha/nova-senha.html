@@ -23,7 +23,16 @@
     </div>
 
     <div class="button">
-      <button type="submit" class="nova-senha" [disabled]="formReset.invalid" id="baseLoginNovaSenhaBtnNovaSenha">Alterar Senha</button>
+      <button type="submit" class="nova-senha" [disabled]="formReset.invalid || alterandoSenha()" id="baseLoginNovaSenhaBtnNovaSenha">
+        @if (alterandoSenha()) {
+          <div class="spinner-container">
+            <span class="spinner"></span>
+            <span>Alterando senha...</span>
+          </div>
+        } @else {
+          Alterar Senha
+        }
+      </button>
     </div>
   </form>
 </div>

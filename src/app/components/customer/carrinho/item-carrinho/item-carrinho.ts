@@ -19,42 +19,55 @@ export interface item {
 })
 
 export class ItemCarrinho {
+
   cart = inject(Cart);
   itens = signal<item[]>([]);
+
   produtos = computed(() => {
+
     return this.cart.items()
+
   })
   constructor() {
+
     afterNextRender(() => {
+
       const data = localStorage.getItem('carrinho');
       const array = JSON.parse(`${data}`)
       this.cart.cartItems.set(array)
       //console.log(this.produtos())
+
     })
   }
 
   menosProduto(itemId: number) {
+
     if (this.cart.removerCarrinho(Number(itemId)))
       alert('Item removido do carrinho!')
     else
       alert('Erro ao remover item do carrinho!')
   }
   maisProduto(itemId: number) {
+
     if (this.cart.somarProduto(itemId))
       alert('Item aumentado do carrinho!')
     else
       alert('Erro ao remover item do carrinho!')
+
   }
   apagarItem(itemId: number) {
+
     if (confirm('Deseja remover esse item?')) {
+
       if (this.cart.apagarItem(itemId)) {
+
         alert('Item removido!')
+
       } else {
+
         console.error('Falha ao remover esse item')
+
       }
     }
-  }
-  teste() {
-    console.log('teste')
   }
 }

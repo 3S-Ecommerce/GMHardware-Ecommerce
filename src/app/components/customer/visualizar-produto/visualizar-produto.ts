@@ -17,35 +17,34 @@ import { Title } from '@angular/platform-browser';
 export class VisualizarProduto implements OnInit {
   private route = inject(ActivatedRoute);
   private api = inject(Product);
+  private title = inject(Title);
   produto = signal<any>(null);
 
-  constructor(private title: Title){}
-  
-  ngOnInit(): void {
+  constructor(){}
+
+  ngOnInit(){
     const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.pullProduct(id);
-    }
-    this.title.setTitle('Produto')
+    if (id) { this.pullProduct(id); }
+    this.title.setTitle('Produto');
   }
-  
-  pullProduct(id: string) {
+
+  pullProduct(id: string){
     this.api.getProduct(id).subscribe({
       next: (data) => {
         this.produto.set(data);
-        // console.log(this.produto())
       },
       error: (err) => {
-        console.error('Error: ', err)
+        console.error('Error: ', err);
       }
-    })
+    });
   }
+
   especificacoes = computed(() => {
     const lista = this.produto();
     return lista?.details ? Object.values(lista.details.split(',')) : [];
-  }
-  )
+  });
+
   teste(){
-    console.log(this.especificacoes())
+    console.log(this.especificacoes());
   }
 }

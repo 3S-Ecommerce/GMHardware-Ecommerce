@@ -13,28 +13,26 @@ import { SearchBarComponent } from '../search-bar/search-bar';
 })
 export class Header {
   language = inject(Language);
-  authService = inject(Auth)
+  authService = inject(Auth);
   router = inject(Router);
   cart = inject(Cart);
-  quantidadeCarrinho = computed(() => {
-    return this.cart.totalItems();
-  })
+  quantidadeCarrinho = computed(() => { return this.cart.totalItems(); });
 
-  constructor() {
+  constructor(){
     afterNextRender(() => {
       this.cart.iniciar();
       this.language.loadSavedLanguage();
-
-       this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        setTimeout(() => {
-          this.language.loadSavedLanguage();
-        }, 100);
-      }
+      this.router.events.subscribe({
+        next: (event) => {
+          if (event instanceof NavigationEnd) {
+            setTimeout(() => { this.language.loadSavedLanguage(); }, 100);
+          }
+        }
+      });
     });
-    })
   }
-    changeLanguage(lang: string) {
+
+  changeLanguage(lang: string){
     this.language.changeLanguage(lang);
   }
 }

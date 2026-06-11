@@ -14,24 +14,34 @@ import { RouterLink } from '@angular/router';
   styleUrl: './carrinho.scss',
 })
 export class Carrinho implements OnInit{
+
   private cart = inject(Cart);
   produtos = signal<any[]>([])
+
   totais = computed(() => {
+
     return this.cart.totalItems()
+
   })
 
   constructor(private title: Title){}
 
   ngOnInit(): void {
+
     this.produtos.set(this.cart.items())
     this.title.setTitle('Carrinho')
+
   }
 
   apagar(){
+
     this.cart.apagarCarrinho()
+
   }
   
   adicionar(){
+
     this.cart.adicionarCarrinho({id: 3, name: 'Teste2', price: 14.90, image: '../../', quantity: 2})
+    
   }
 }

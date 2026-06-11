@@ -11,8 +11,12 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './finalizar-pedido.scss',
 })
 export class FinalizarPedido implements OnInit{
+
   constructor(private title: Title){}
+
   ngOnInit(): void {
+
     this.title.setTitle('Finalizar Pedido')
+    
   }
 }

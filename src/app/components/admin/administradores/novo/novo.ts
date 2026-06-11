@@ -10,11 +10,13 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './novo.scss',
 })
 export class Novo {
+
   private readonly apiAdmin = inject(Admin);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router)
 
   formAdmin = this.formBuilder.group({
+
     name: ['', Validators.required],
     email: ['', Validators.email],
     password: ['', Validators.required],
@@ -22,29 +24,43 @@ export class Novo {
     phone_number: [''],
     document: ['', Validators.required],
     active: ['', Validators.required || true]
-  }
-  )
+
+  })
+
   onSubmit() {
+
     const formData = new FormData;
     const admin = this.formAdmin.value;
+
     if(admin.password !== admin.password_confirmation){
+
       return alert("As senhas não coincidem");
+
     }
 
     Object.entries(this.formAdmin.value).forEach(([key, value]) => {
+
       if (value !== null) {
+
         formData.append(key, value as any);
+
       }
     });
+
     this.apiAdmin.createAdmin(formData).subscribe({
+
       next: (res) => {
+
         alert("Administrador cadastrado com sucesso!");
         this.formAdmin.reset();
         this.router.navigate(['/admin/administradores'])
+
       },
       error: (err) => {
+
         console.error('Error: ', err);
         alert(err)
+        
       }
     })
   }

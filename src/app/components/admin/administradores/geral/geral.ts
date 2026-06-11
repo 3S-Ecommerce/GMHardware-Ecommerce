@@ -15,12 +15,18 @@ export class Geral implements OnInit {
   admins = signal<any>(null);
 
   ngOnInit(): void {
+
     this.apiAdmin.getAdmin('').subscribe({
+
       next: (data) => {
+
         this.admins.set(data);
+
       },
       error: (err) => {
+
         console.error("Error: ", err);
+        
       }
     })
   }

@@ -14,28 +14,20 @@ import { Auth } from '../../../../core/services/auth';
 })
 export class MeuPerfil implements OnInit {
   private platformId = inject(PLATFORM_ID);
-  auth = inject(Auth)
+  auth = inject(Auth);
   adminLogado = signal<boolean>(false);
-  constructor(
-    private router: Router,
-    private cartaoService: CartaoService
-  ) { }
 
-  ngOnInit(): void {
+  constructor(private router: Router, private cartaoService: CartaoService){}
+
+  ngOnInit(){
     if (isPlatformBrowser(this.platformId)) {
-
-      // Cole aqui dentro o seu código original que usa o localStorage/sessionStorage. Exemplo:
       const token = localStorage.getItem('token');
-      if (!token) {
-        this.router.navigate(['/login']);
-      }
-      // console.log('Rodando no navegador com acesso ao localStorage:', token);
-      this.adminLogado.set(this.auth.admin() === 'true' ? true : false)
-    } 
-  
+      if (!token) { this.router.navigate(['/login']); }
+      this.adminLogado.set(this.auth.admin() === 'true' ? true : false);
+    }
   }
 
-  logout(): void {
+  logout(){
     if (confirm('Deseja realmente sair da sua conta?')) {
       this.cartaoService.logout().subscribe({
         next: () => {
@@ -43,31 +35,27 @@ export class MeuPerfil implements OnInit {
         },
         error: (err) => {
           console.error('Erro ao deslogar no servidor:', err);
-
           this.limparSessaoERedirecionar();
         }
       });
     }
   }
 
-
-  private limparSessaoERedirecionar(): void {
+  private limparSessaoERedirecionar(){
     localStorage.clear();
     sessionStorage.clear();
     this.router.navigate(['/']);
   }
 
-
-  goToEndereco(): void {
+  goToEndereco(){
     this.router.navigate(['/meus-enderecos']);
   }
 
-  goToCompras(): void {
+  goToCompras(){
     this.router.navigate(['/compras']);
   }
 
-
-  goToCartao(): void {
+  goToCartao(){
     this.router.navigate(['/meus-cartoes']);
   }
 }

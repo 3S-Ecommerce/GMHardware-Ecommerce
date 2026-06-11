@@ -10,7 +10,11 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './garantia.scss',
 })
 export class Garantia {
+
   constructor(private title: Title){
+    
     this.title.setTitle("Garantia");
+    
   }
+
 }

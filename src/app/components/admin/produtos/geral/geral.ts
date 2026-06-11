@@ -10,16 +10,23 @@ import { RouterLink } from '@angular/router';
   styleUrl: './geral.scss',
 })
 export class Geralp {
+
   private apiProduct = inject(Product);
   products = signal<any>(null);
 
   ngOnInit(): void {
+
     this.apiProduct.getProduct('').subscribe({
+
       next: (data) => {
+
         this.products.set(data)
+
       },
       error: (err) => {
+
         console.error("Error: ", err);
+        
       }
     })
   }

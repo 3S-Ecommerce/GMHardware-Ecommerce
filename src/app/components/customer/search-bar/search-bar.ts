@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -14,31 +14,22 @@ import { Product, ProductData } from '../../../core/services/product';
   styleUrls: ['./search-bar.scss']
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
+  private productService = inject(Product);
+  private router = inject(Router);
   searchControl = new FormControl('');
-  
-  // Cache local contendo a lista completa vinda da API
   private allProducts: ProductData[] = [];
-  
-  // Resultados filtrados exibidos no HTML
   searchResults: ProductData[] = [];
-  
   isSearching = false;
   showDropdown = false;
   private subscription: Subscription = new Subscription();
 
-  constructor(
-    private productService: Product, 
-    private router: Router
-  ) {}
+  constructor(){}
 
-  ngOnInit(): void {
-    // Carrega todo o catálogo imediatamente ao iniciar a página
+  ngOnInit(){
     this.carregarTodosOsProdutos();
-
-    // Monitora a digitação e faz o filtro local em memória instantaneamente
     this.subscription.add(
       this.searchControl.valueChanges.pipe(
-        debounceTime(150), // Tempo reduzido já que o filtro local não consome rede
+        debounceTime(150),
         distinctUntilChanged()
       ).subscribe({
         next: (query) => {
@@ -48,26 +39,19 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(){
     this.subscription.unsubscribe();
   }
 
-  private carregarTodosOsProdutos(): void {
+  private carregarTodosOsProdutos(){
     this.isSearching = true;
-    
-    // Chamando o método original passando string vazia para trazer tudo do banco
     this.productService.getProduct('').subscribe({
       next: (products: ProductData[]) => {
         setTimeout(() => {
-
           this.allProducts = products;
           this.isSearching = false;
-          
-          // Se o usuário digitou algo enquanto a API respondia, aplica o filtro
-          if (this.searchControl.value) {
-            this.filtrarProdutosLocalmente(this.searchControl.value);
-          }
-        }, 0)
+          if (this.searchControl.value) { this.filtrarProdutosLocalmente(this.searchControl.value); }
+        }, 0);
       },
       error: (err) => {
         console.error('Erro ao carregar catálogo para cache:', err);
@@ -76,33 +60,24 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     });
   }
 
-  private filtrarProdutosLocalmente(query: string): void {
+  private filtrarProdutosLocalmente(query: string){
     const termoLimpo = query.trim().toLowerCase();
-
-    // Se o input estiver vazio, esconde o dropdown
     if (!termoLimpo) {
       this.searchResults = [];
       this.showDropdown = false;
       return;
     }
-
-    // Realiza a filtragem em memória na velocidade da luz
-    this.searchResults = this.allProducts.filter(product => 
-      product.name.toLowerCase().includes(termoLimpo)
-    );
-
-    // Mostra o dropdown apenas se houver correspondências
+    this.searchResults = this.allProducts.filter(product => product.name.toLowerCase().includes(termoLimpo));
     this.showDropdown = this.searchResults.length > 0;
   }
 
-  onProductSelect(id: number): void {
+  onProductSelect(id: number){
     this.showDropdown = false;
-    // console.log(id);
-    this.router.navigate(['/produto', { id: id }], { onSameUrlNavigation: 'reload' }); 
-    this.searchControl.setValue('', { emitEvent: false }); // Limpa o campo sem re-disparar o filtro
+    this.router.navigate(['/produto', {id: id}], {onSameUrlNavigation: 'reload'});
+    this.searchControl.setValue('', {emitEvent: false});
   }
 
-  closeDropdown(): void {
+  closeDropdown(){
     setTimeout(() => { this.showDropdown = false; }, 120);
   }
 }

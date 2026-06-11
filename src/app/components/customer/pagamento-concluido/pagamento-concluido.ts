@@ -15,24 +15,16 @@ interface OrderSummary {
   styleUrl: './pagamento-concluido.scss',
 })
 export class PagamentoConcluido implements OnInit {
-  route = inject(Router)
-  
-  // Dados simulados do pedido. Em produção, você pode buscar de um Service ou do ActivatedRoute
-  order: OrderSummary = {
-    id: 'GM-2026-8943',
-    date: new Date().toLocaleDateString('pt-BR'),
-    paymentMethod: 'Cartão',
-    deliveryEstimate: '2 e 5 dias úteis'
-  };
-  redirect(tipo:string){
-    if(tipo === 'home')
-      this.route.navigate(['/inicio'])
-    if(tipo === 'minhas')
-      this.route.navigate(['/minhas-compras'])
-  }
-  constructor() {}
+  route = inject(Router);
+  order: OrderSummary = {id: 'GM-2026-8943', date: new Date().toLocaleDateString('pt-BR'), paymentMethod: 'Cartão', deliveryEstimate: '2 e 5 dias úteis'};
 
-  ngOnInit(): void {
-    // Aqui você pode capturar dados passados pela rota se necessário
+  constructor(){}
+
+  ngOnInit(){
+  }
+
+  redirect(tipo: string){
+    if (tipo === 'home') { this.route.navigate(['/inicio']); }
+    if (tipo === 'minhas') { this.route.navigate(['/minhas-compras']); }
   }
 }

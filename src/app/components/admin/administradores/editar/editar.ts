@@ -40,7 +40,6 @@ export class Editar implements OnInit {
             document: this.dados().document,
             active: this.dados().active
           })
-          console.log(this.dados())
         }
       },
       error: (err) => {
@@ -50,47 +49,47 @@ export class Editar implements OnInit {
   }
 
   onSubmit() {
+
     const formData = new FormData;
     const admin = this.formAdmin.value;
     const id = String(this.route.snapshot.params['id']);
+
     if (admin.password || admin.password_confirmation) {
+
       if(admin.password !== admin.password_confirmation){
+
         return alert("As senhas não coincidem");
+
       }
     }
+
     delete admin.password_confirmation
+
     Object.entries(admin).forEach(([key, value]) => {
+
       if (value !== null && value !== undefined && value !== '') {
+
         formData.append(key, value as any);
+
       }
     });
+
     formData.append('_method', 'PUT')
+
     this.apiAdmin.updateAdmin(formData, id).subscribe({
+
       next: (res) => {
+
         alert("Administrador atualizado com sucesso!");
         this.router.navigate(['/admin/administradores'])
+
       },
       error: (err) => {
+
         console.error('Error: ', err);
         alert("Erro ao atualizar administrador")
+        
       }
     })
   }
-  //   onSubmit() {
-  //   const admin = this.formAdmin.value;
-  //   const id = String(this.route.snapshot.params['id']);
-
-  //   if (admin.password !== admin.passwordsd) {
-  //     return alert("As senhas não coincidem");
-  //   }
-
-  //   // Em vez de FormData, enviamos o objeto direto
-  //   this.apiAdmin.updateAdmin(admin, id).subscribe({
-  //     next: (res) => {
-  //       alert("Administrador atualizado com sucesso!");
-  //       this.formAdmin.reset();
-  //     },
-  //     error: (err) => console.error(err)
-  //   });
-  // }
 }

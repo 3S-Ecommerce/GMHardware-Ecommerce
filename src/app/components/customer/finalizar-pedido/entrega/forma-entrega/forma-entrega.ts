@@ -25,18 +25,15 @@ import {
   styleUrl: './forma-entrega.scss',
 })
 export class FormaEntrega {
-  @Input('variante') variante: string = 'receber';
 
+  @Input('variante') variante: string = 'receber';
   private enderecoService = inject(EnderecoService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
-
   enderecos: Endereco[] = [];
   enderecoSelecionado: Endereco | null = null;
-
   mostrarEscolhaEndereco = false;
   mostrarFormularioEndereco = false;
-
   carregandoEnderecos = true;
   salvandoEndereco = true;
   erroEndereco = '';
@@ -49,54 +46,65 @@ export class FormaEntrega {
   };
 
   constructor(
+
     @Inject(PLATFORM_ID) private platformId: object
   ) {
+
     afterNextRender(() => {
+
       if (!isPlatformBrowser(this.platformId)) {
         return;
+
       }
 
       setTimeout(() => {
+
         this.carregarEnderecos();
+
       }, 0);
     });
   }
 
   carregarEnderecos(): void {
+
     this.carregandoEnderecos = true;
     this.erroEndereco = '';
 
     this.enderecoService.listar().subscribe({
       next: (res) => {
+
         setTimeout(() => {
 
-
-          console.log('ENDEREÇOS RECEBIDOS:', res);
-  
+          // console.log('ENDEREÇOS RECEBIDOS:', res);
           this.enderecos = res || [];
   
           const enderecoPadrao = this.enderecos.find((endereco) => {
+
             return endereco.padrao === true || endereco.padrao === 1;
+
           });
   
           this.enderecoSelecionado = enderecoPadrao || this.enderecos[0] || null;
-  
           this.carregandoEnderecos = false;
           this.salvandoEndereco = false;
           this.cdr.detectChanges();
+
         })
       },
       error: (err) => {
+
         setTimeout(() => {
 
 
           console.error('ERRO AO CARREGAR ENDEREÇOS:', err);
-  
           this.carregandoEnderecos = false;
   
           if (err.status === 401) {
+
             if (isPlatformBrowser(this.platformId)) {
+
               localStorage.clear();
+              
             }
   
             this.router.navigate(['/login']);

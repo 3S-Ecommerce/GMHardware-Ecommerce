@@ -77,10 +77,8 @@ export class Pagamento {
         this.cartaoSelecionado = cartaoPadrao || this.cartoes[0] || null;
 
         if (this.cartaoSelecionado && isPlatformBrowser(this.platformId)) {
-          localStorage.setItem(
-            'cartaoSelecionado',
-            JSON.stringify(this.cartaoSelecionado)
-          );
+
+          localStorage.setItem('cartaoSelecionado', JSON.stringify(this.cartaoSelecionado));
         }
 
         this.carregandoCartoes = false;
@@ -107,13 +105,16 @@ export class Pagamento {
   }
 
   selecionarPagamento(metodo: PaymentMethod): void {
+
     this.checkoutService.setPaymentMethod(metodo);
 
     if (metodo === 'pix') {
+
       if (isPlatformBrowser(this.platformId)) {
+
         localStorage.removeItem('cartaoSelecionado');
+
       }
-      // ADICIONADO: Mantém os queryParams de produto_id e quantidade se existirem
       this.router.navigate(['/finalizar-compra/revisar'], { queryParamsHandling: 'merge'});
       return;
     }
@@ -126,43 +127,50 @@ export class Pagamento {
   }
 
   selecionarCartao(cartao: Cartao): void {
+
     this.cartaoSelecionado = cartao;
 
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(
-        'cartaoSelecionado',
-        JSON.stringify(cartao)
-      );
+
+      localStorage.setItem( 'cartaoSelecionado', JSON.stringify(cartao));
     }
 
     this.cdr.detectChanges();
   }
 
   definirCartaoPadrao(id: number): void {
+
     this.cartaoService.definirPadrao(id).subscribe({
+
       next: () => {
         this.cartoes.forEach(cartao => {
+
           cartao.is_default = cartao.id === id ? 1 : 0;
+
         });
 
         const novoPadrao = this.cartoes.find(cartao => cartao.id === id);
 
         if (novoPadrao) {
+
           this.selecionarCartao(novoPadrao);
+
         }
 
         alert('Cartão definido como padrão!');
       },
       error: (err) => {
+
         console.error(err);
         alert('Erro ao definir cartão padrão.');
+
       }
     });
   }
 
   abrirFormularioCartao(): void {
-    this.mostrarFormularioCartao = true;
 
+    this.mostrarFormularioCartao = true;
     this.novoCartao = {
       nome_titular: '',
       numero_cartao: '',
@@ -189,23 +197,26 @@ export class Pagamento {
   }
 
   salvarNovoCartao(): void {
+
     if (!this.formularioCartaoValido()) {
+
       alert('Preencha todos os campos do cartão corretamente.');
       return;
+
     }
 
     this.salvandoCartao = true;
     this.cdr.detectChanges();
 
     this.cartaoService.salvarCartao(this.novoCartao).subscribe({
+
       next: (res) => {
+
         this.cartaoSelecionado = res;
 
         if (isPlatformBrowser(this.platformId)) {
-          localStorage.setItem(
-            'cartaoSelecionado',
-            JSON.stringify(res)
-          );
+
+          localStorage.setItem('cartaoSelecionado', JSON.stringify(res));
         }
 
         this.salvandoCartao = false;
@@ -224,6 +235,7 @@ export class Pagamento {
         alert('Cartão cadastrado com sucesso!');
       },
       error: (err) => {
+
         console.error(err);
 
         this.salvandoCartao = false;
@@ -235,34 +247,37 @@ export class Pagamento {
   }
 
   continuarComCartao(): void {
+
     if (!this.cartaoSelecionado) {
+
       this.mostrarCartoes = true;
       this.mostrarFormularioCartao = true;
       this.cdr.detectChanges();
-
       alert('Selecione ou cadastre um cartão antes de continuar.');
       return;
+
     }
 
     this.checkoutService.setPaymentMethod('cartao');
 
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(
-        'cartaoSelecionado',
-        JSON.stringify(this.cartaoSelecionado)
-      );
+
+      localStorage.setItem('cartaoSelecionado', JSON.stringify(this.cartaoSelecionado));
+
     }
 
     this.router.navigate(['/finalizar-compra/revisar'], { queryParamsHandling: 'merge' });
   }
 
   formatarNumeroCartao(numero: string): string {
-    if (!numero) return '';
 
+    if (!numero) return '';
     return '**** **** **** ' + numero.slice(-4);
+
   }
 
   private formularioCartaoValido(): boolean {
+
     return (
       this.novoCartao.nome_titular.trim().length > 0 &&
       this.novoCartao.numero_cartao.trim().length >= 13 &&
@@ -270,5 +285,6 @@ export class Pagamento {
       this.novoCartao.cvv.trim().length >= 3 &&
       this.novoCartao.cpf.trim().length >= 11
     );
+    
   }
 }
