@@ -257,7 +257,7 @@
 
                 @if (frete.company?.name) {
                   <p class="frete-transportadora">
-                    {{ frete.company.name }}
+                    {{ frete.company?.name }}
                   </p>
                 }
               </div>
@@ -335,7 +335,7 @@
           <p>
             Transportadora:
             <strong>
-              {{ freteSelecionado.company.name }}
+              {{ freteSelecionado.company?.name }}
             </strong>
           </p>
         }
