@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { sign } from 'crypto';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,10 @@ export class Language {
 
     }
 
+  }
+
+  puxarLingua(){
+    return this.currentLanguage
   }
 
 }

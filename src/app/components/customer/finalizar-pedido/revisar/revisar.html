@@ -196,7 +196,7 @@
       </p>
     }
 
-    @if (enderecoSelecionado && carregandoFrete) {
+    @if (enderecoSelecionado && carregandoFrete()) {
       <div class="frete-carregando">
         <p class="texto-apoio">
           Calculando frete para o CEP
@@ -205,7 +205,7 @@
       </div>
     }
 
-    @if (erroFrete && !carregandoFrete) {
+    @if (erroFrete && !carregandoFrete()) {
       <div class="frete-erro-container">
         <p class="frete-erro">
           {{ erroFrete }}
@@ -226,7 +226,7 @@
     @if (
       enderecoSelecionado &&
       produtos().length > 0 &&
-      !carregandoFrete &&
+      !carregandoFrete() &&
       !erroFrete &&
       opcoesFrete.length === 0 &&
       !freteSelecionado
@@ -257,7 +257,7 @@
 
                 @if (frete.company?.name) {
                   <p class="frete-transportadora">
-                    {{ frete.company?.name }}
+                    {{ frete.company.name }}
                   </p>
                 }
               </div>
@@ -335,7 +335,7 @@
           <p>
             Transportadora:
             <strong>
-              {{ freteSelecionado.company?.name }}
+              {{ freteSelecionado.company.name }}
             </strong>
           </p>
         }
@@ -519,7 +519,7 @@
       [disabled]="
         !enderecoSelecionado ||
         !freteSelecionado ||
-        carregandoFrete ||
+        carregandoFrete() ||
         produtos().length === 0 ||
         metodoPagamento() === 'Não selecionado'
       "
