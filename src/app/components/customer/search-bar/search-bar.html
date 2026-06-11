@@ -8,7 +8,7 @@
       (blur)="closeDropdown()"
       (focus)="searchResults.length > 0 ? showDropdown = true : null"
     >
-    
+
     @if (isSearching) {
       <span class="loading-spinner">Buscando...</span>
     } @else {
@@ -23,7 +23,7 @@
         @for (product of searchResults; track product.id) {
           <li class="result-item" (mousedown)="onProductSelect(product.id)">
             <img [src]="product.image_url" [alt]="product.name" class="product-thumb">
-            
+
             <div class="product-info">
               <span class="product-name">{{ product.name }}</span>
               <span class="product-price">{{ product.price | currency:'BRL' }}</span>
