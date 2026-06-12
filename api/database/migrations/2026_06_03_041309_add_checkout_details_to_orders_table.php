@@ -32,6 +32,22 @@ return new class extends Migration
             $table->string('card_last_digits', 4)
                 ->nullable()
                 ->after('card_id');
+
+            $table->string('shipping_service')
+                ->nullable()
+                ->after('card_last_digits');
+
+            $table->string('shipping_company')
+                ->nullable()
+                ->after('shipping_service');
+
+            $table->decimal('shipping_price', 10, 2)
+                ->nullable()
+                ->after('shipping_company');
+
+            $table->integer('shipping_delivery_time')
+                ->nullable()
+                ->after('shipping_price');
         });
     }
 
@@ -46,7 +62,11 @@ return new class extends Migration
                 'endereco_snapshot',
                 'payment_method',
                 'card_id',
-                'card_last_digits'
+                'card_last_digits',
+                'shipping_service',
+                'shipping_company',
+                'shipping_price',
+                'shipping_delivery_time'
             ]);
         });
     }

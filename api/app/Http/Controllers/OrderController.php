@@ -9,13 +9,11 @@ use App\Models\DadosCartao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-// Ajuste o caminho de onde você salvou o qrcode.php
 class OrderController extends Controller
 {
     public function showPublic($id)
     {
         try {
-            // Busca o pedido de forma isolada, sem depender de usuário logado
             $order = Order::find($id);
 
             if (!$order) {
@@ -24,7 +22,6 @@ class OrderController extends Controller
                 ], 404);
             }
 
-            // Retorna apenas o estritamente necessário para o celular exibir na tela
             return response()->json([
                 'id' => $order->id,
                 'total_price' => $order->total_price,
@@ -74,6 +71,11 @@ class OrderController extends Controller
                 'endereco_id' => 'nullable|exists:enderecos,id',
                 'payment_method' => 'required|string|in:PIX,Cartão de Crédito,pix,cartao',
                 'card_id' => 'nullable|exists:dados_cartao,id',
+
+                'shipping_service' => 'nullable|string|max:255',
+                'shipping_company' => 'nullable|string|max:255',
+                'shipping_price' => 'nullable|numeric|min:0',
+                'shipping_delivery_time' => 'nullable|integer|min:0',
             ]);
 
             DB::beginTransaction();
@@ -107,17 +109,14 @@ class OrderController extends Controller
             if ($paymentMethod === 'cartao' || $paymentMethod === 'Cartão de Crédito') {
                 $paymentMethod = 'Cartão de Crédito';
             }
-            
+
             $statusInicial = 'teste';
 
-            if($paymentMethod === 'PIX'){
+            if ($paymentMethod === 'PIX') {
                 $statusInicial = 'Aguardando pagamento';
-            }else{
+            } else {
                 $statusInicial = 'Pago';
             }
-
-
-            // $statusInicial = ($paymentMethod === 'PIX') ? 'Aguardando pagamento' : 'Pago';
 
             $cardId = null;
             $cardLastDigits = null;
@@ -155,7 +154,12 @@ class OrderController extends Controller
                 'status' => $statusInicial,
                 'payment_method' => $paymentMethod,
                 'card_id' => $cardId,
-                'card_last_digits' => $cardLastDigits
+                'card_last_digits' => $cardLastDigits,
+
+                'shipping_service' => $request->shipping_service,
+                'shipping_company' => $request->shipping_company,
+                'shipping_price' => $request->shipping_price,
+                'shipping_delivery_time' => $request->shipping_delivery_time,
             ]);
 
             foreach ($request->items as $item) {
@@ -178,8 +182,8 @@ class OrderController extends Controller
             return response()->json([
                 'message' => 'Compra realizada com sucesso! Os dados foram salvos em Minhas Compras.',
                 'order' => $order,
-                'id' => $order->id,          // <-- ADICIONADO: Mapeia o ID direto na raiz
-                'order_id' => $order->id     // <-- ADICIONADO: Garante compatibilidade com o Angular
+                'id' => $order->id,
+                'order_id' => $order->id
             ], 201);
 
         } catch (\Throwable $e) {
@@ -255,17 +259,14 @@ class OrderController extends Controller
         ], 200);
     }
 
-
     public function confirmarPagamento(Request $request)
     {
         try {
-            // Valida os dados que o Angular está enviando no FormData/JSON
             $request->validate([
                 'id_order' => 'required|exists:orders,id',
                 'status' => 'required|string|in:Pago,Cancelado'
             ]);
 
-            // Busca o pedido no banco de dados de forma pública
             $order = Order::find($request->id_order);
 
             if (!$order) {
@@ -274,7 +275,6 @@ class OrderController extends Controller
                 ], 404);
             }
 
-            // Atualiza o status do pedido ('Pago' ou 'Cancelado')
             $order->status = $request->status;
             $order->save();
 
