@@ -68,7 +68,7 @@ export class Cadastro implements OnInit {
 
       const telefoneFormatado = phone
       .replace(/^(\d{2})(\d)/, '($1) $2')
-      .replace(/^(\(\d{2}\)\s(\d{5}))(\d{4})/, '$1-$2')
+      .replace(/^(\(\d{2}\)\s\d{5})(\d{4})/, '$1-$2')
 
       this.formRegister.get('phone_number')?.patchValue(telefoneFormatado, { emitEvent: false })
       console.log(telefoneFormatado)
