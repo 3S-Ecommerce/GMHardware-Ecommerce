@@ -14,21 +14,26 @@ export class MinhasComprasComponent implements OnInit {
   private orderService = inject(Order);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
+
   compras = signal<any[]>([]);
   carregando = true;
   erro = '';
 
-  constructor(){
+  constructor() {
     afterNextRender(() => {
-      if (!isPlatformBrowser(this.platformId)) { return; }
-      setTimeout(() => { this.carregarCompras(); }, 0);
+      if (!isPlatformBrowser(this.platformId)) {
+        return;
+      }
+
+      setTimeout(() => {
+        this.carregarCompras();
+      }, 0);
     });
   }
 
-  ngOnInit(){
-  }
+  ngOnInit() {}
 
-  carregarCompras(){
+  carregarCompras() {
     this.carregando = true;
     this.erro = '';
 
@@ -41,13 +46,19 @@ export class MinhasComprasComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao carregar compras:', err);
+
         setTimeout(() => {
           this.carregando = false;
+
           if (err.status === 401) {
-            if (isPlatformBrowser(this.platformId)) { localStorage.clear(); }
+            if (isPlatformBrowser(this.platformId)) {
+              localStorage.clear();
+            }
+
             this.router.navigate(['/login']);
             return;
           }
+
           this.erro = 'Erro ao carregar suas compras.';
         }, 10);
       }
@@ -55,19 +66,33 @@ export class MinhasComprasComponent implements OnInit {
   }
 
   formatarData(data: string): string {
-    if (!data) { return ''; }
+    if (!data) {
+      return '';
+    }
+
     return new Date(data).toLocaleDateString('pt-BR');
   }
 
   formatarValor(valor: any): string {
     const numero = Number(valor || 0);
-    return numero.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+
+    return numero.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    });
   }
 
   getImagemProduto(item: any): string {
     const imagem = item?.product?.image;
-    if (!imagem) { return '/assets/placeholder.png'; }
-    if (imagem.startsWith('http')) { return imagem; }
+
+    if (!imagem) {
+      return '/assets/placeholder.png';
+    }
+
+    if (imagem.startsWith('http')) {
+      return imagem;
+    }
+
     return `https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/${imagem}`;
   }
 
@@ -80,10 +105,38 @@ export class MinhasComprasComponent implements OnInit {
   }
 
   getPagamento(compra: any): string {
-    if (!compra?.payment_method) { return 'Pagamento não informado'; }
+    if (!compra?.payment_method) {
+      return 'Pagamento não informado';
+    }
+
     if (compra.payment_method === 'Cartão de Crédito' && compra.card_last_digits) {
       return `Cartão de Crédito - final ${compra.card_last_digits}`;
     }
+
     return compra.payment_method;
+  }
+
+  getTransportadora(compra: any): string {
+    return compra?.shipping_company || 'Transportadora não informada';
+  }
+
+  getServicoFrete(compra: any): string {
+    return compra?.shipping_service || 'Serviço de frete não informado';
+  }
+
+  getPrazoEntrega(compra: any): string {
+    if (!compra?.shipping_delivery_time) {
+      return 'Prazo não informado';
+    }
+
+    return `${compra.shipping_delivery_time} dias úteis`;
+  }
+
+  getValorFrete(compra: any): string {
+    if (!compra?.shipping_price) {
+      return 'Frete não informado';
+    }
+
+    return this.formatarValor(compra.shipping_price);
   }
 }

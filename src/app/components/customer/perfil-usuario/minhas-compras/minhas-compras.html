@@ -23,7 +23,7 @@
 
     @for (compra of compras(); track compra.id) {
       <div class="compra-card">
-       <div class="compra-header">
+        <div class="compra-header">
           <div>
             <strong>Pedido #{{ compra.id }}</strong>
             <p>Realizado em: {{ formatarData(compra.created_at) }}</p>
@@ -58,6 +58,26 @@
           </p>
 
           <p>
+            <strong>Transportadora:</strong>
+            {{ getTransportadora(compra) }}
+          </p>
+
+          <p>
+            <strong>Serviço de frete:</strong>
+            {{ getServicoFrete(compra) }}
+          </p>
+
+          <p>
+            <strong>Prazo de entrega:</strong>
+            {{ getPrazoEntrega(compra) }}
+          </p>
+
+          <p>
+            <strong>Valor do frete:</strong>
+            {{ getValorFrete(compra) }}
+          </p>
+
+          <p>
             <strong>Pagamento:</strong>
             {{ getPagamento(compra) }}
           </p>
@@ -65,13 +85,16 @@
 
         <div class="produtos-lista">
           <h3>Produtos</h3>
+
           @for (item of compra.order_items; track item.id) {
             <div class="compra-item">
               <img [src]="getImagemProduto(item)" class="produto-img" alt="Produto">
 
               <div class="produto-info">
                 <h4>{{ getNomeProduto(item) }}</h4>
+
                 <p>Quantidade: {{ item.quantity }}</p>
+
                 <p>
                   Preço unitário:
                   <strong>{{ formatarValor(item.price) }}</strong>
