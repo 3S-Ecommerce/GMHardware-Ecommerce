@@ -1,7 +1,7 @@
 <div class="meus-enderecos-container">
-  <h1 class="enderecos-title">Meus Endereços</h1>
+  <h1 id="meusEnderecosTitulo" class="enderecos-title">Meus Endereços</h1>
 
-  <a routerLink="/meu-perfil" class="btn-voltar">
+  <a id="meusEnderecosBtnVoltarPerfil" routerLink="/meu-perfil" class="btn-voltar">
     ← Voltar para Meu Perfil
   </a>
 
@@ -16,11 +16,11 @@
     <div class="enderecos-list">
 
       @if (carregando) {
-        <div class="status-message">
+        <div id="meusEnderecosCarregando" class="status-message">
           Carregando endereços...
         </div>
       } @else if (enderecos.length === 0) {
-        <div class="status-message">
+        <div id="meusEnderecosNenhumCadastrado" class="status-message">
           Nenhum endereço cadastrado.
         </div>
       }
@@ -90,7 +90,7 @@
           <button class="btn-adicionar btn-submit" type="button" (click)="salvarEndereco()" [disabled]="carregando">
             {{ carregando ? 'Salvando...' : (editando ? 'Salvar Alterações' : 'Salvar Endereço') }}
           </button>
-          <button class="endereco-excluir btn-cancel" type="button" (click)="cancelarAdicao()" [disabled]="carregando">
+          <button id="meusEnderecosBtnCancelar" class="endereco-excluir btn-cancel" type="button" (click)="cancelarAdicao()" [disabled]="carregando">
             Cancelar
           </button>
         </div>
@@ -103,7 +103,7 @@
   <!-- Ações Inferiores -->
   @if (!mostrarFormulario) {
     <div class="enderecos-actions">
-      <button class="btn-adicionar" type="button" (click)="adicionarEndereco()">
+      <button id="meusEnderecosBtnAdicionarNovoEndereco" class="btn-adicionar" type="button" (click)="adicionarEndereco()">
         <span class="btn-icon">+</span>
         Adicionar Novo Endereço
       </button>

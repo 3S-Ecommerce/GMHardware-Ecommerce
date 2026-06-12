@@ -18,7 +18,7 @@
 
 <!-- Seletor de Quantidade Limpo -->
 <div class="controle-quantidade">
-  <span class="label-quantidade">Quantidade:</span>
+  <span id="adicionarProdutoQuantidade" class="label-quantidade">Quantidade:</span>
   <div class="seletor-quantidade">
     <button (click)="alterarQuantidade(-1)" type="button" class="btn-qty">-</button>
     <span class="valor-quantidade">{{ quantidade() }}</span>

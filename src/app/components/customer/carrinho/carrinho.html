@@ -1,14 +1,14 @@
 <app-header></app-header>
 
 <section>
-  <h2>Meu Carrinho</h2>
+  <h2 id="carrinhoTitulo">Meu Carrinho</h2>
   
   <div class="itens-carrinho">
     <app-item-carrinho></app-item-carrinho>
   </div>
 
   <div class="carrinho-actions">
-    <button class="comprar" routerLink="/finalizar-compra" [disabled]="totais() === 0">
+    <button id="carrinhoBtnFinalizarCompra" class="comprar" routerLink="/finalizar-compra" [disabled]="totais() === 0">
       Finalizar Compra
     </button>
   </div>

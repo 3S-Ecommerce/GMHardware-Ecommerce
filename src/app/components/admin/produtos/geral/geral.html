@@ -10,7 +10,7 @@
     <table>
       <thead>
         <tr>
-          <th class="col-id">ID</th>
+          <th id="geralProdutosTabelaId" class="col-id">ID</th>
           <th id="geralProdutosTabelaImagem" class="col-img">Imagem</th>
           <th id="geralProdutosTabelaProduto" class="col-name">Produto</th>
           <th id="geralProdutosTabelaCadastrado" class="col-date">Cadastrado</th>
@@ -27,7 +27,7 @@
                 @if(product.image_url && product.image_url !== 'http://127.0.0.1:8000/storage/products/default.png'){
                   <img ngSrc="{{ product.image_url }}" alt="imagem do produto" width="40" height="40" class="product-thumb">
                 }@else {
-                  <span class="img-placeholder">Sem Foto</span>
+                  <span id="geralProdutosSemImagem" class="img-placeholder">Sem Foto</span>
                 }
               </td>
               <td class="col-name name-cell">{{ product.name }}</td>
@@ -36,7 +36,7 @@
                 @if(product.stock > 0){ 
                   <span class="stock-count">{{ product.stock }} un.</span>
                 }@else { 
-                  <span class="status-badge inactive">Sem estoque</span> 
+                  <span id="geralProdutosEsgotado" class="status-badge inactive">Sem estoque</span> 
                 }
               </td>
               <td class="col-actions acoes">

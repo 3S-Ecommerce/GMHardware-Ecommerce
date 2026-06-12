@@ -4,46 +4,46 @@
       @if (processado() && !cancelado()) { <i class="fa-solid fa-circle-check sucesso"></i> }
       @else if (processado() && cancelado()) { <i class="fa-solid fa-circle-xmark cancelado"></i> }
       @else { <i class="fa-solid fa-shield-check"></i> }
-      <h2>Validação de Compra</h2>
+      <h2 id="validarTitulo">Validação de Compra</h2>
     </header>
 
     @if (carregando) {
-      <div class="status-area"><p>Carregando dados do pedido...</p></div>
+      <div class="status-area"><p id="validarCarregandoPedido">Carregando dados do pedido...</p></div>
     } @else if (erro) {
       <div class="status-area erro"><p>{{ erro }}</p></div>
     } @else if (processado()) {
       @if (!cancelado()) {
         <div class="status-area-resultado">
-          <h3 class="msg-sucesso">Pagamento Confirmado!</h3>
-          <p>O pagamento do seu pedido foi concluído com sucesso. Você já pode fechar esta página.</p>
+          <h3 id="validarPagamentoConfirmado" class="msg-sucesso">Pagamento Confirmado!</h3>
+          <p id="validarPagamentoConfirmadoTexto">O pagamento do seu pedido foi concluído com sucesso. Você já pode fechar esta página.</p>
         </div>
       } @else {
         <div class="status-area-resultado">
-          <h3 class="msg-cancelado">Pagamento Cancelado</h3>
-          <p>A validação foi negada ou o pagamento foi cancelado. Você já pode fechar esta página.</p>
+          <h3 id="validarPagamentoCancelado" class="msg-cancelado">Pagamento Cancelado</h3>
+          <p id="validarPagamentoCanceladoTexto">A validação foi negada ou o pagamento foi cancelado. Você já pode fechar esta página.</p>
         </div>
       }
     } @else {
       <div class="dados-pedido">
         <p class="label">Pedido ID: <strong>#{{ orderId }}</strong></p>
-        <p class="valor-label">Valor a validar:</p>
+        <p id="validarValorLabel" class="valor-label">Valor a validar:</p>
         <h3 class="valor-total">R$ {{ valorTotal | number:'1.2-2' }}</h3>
       </div>
 
       <div class="instrucao">
-        <p>Você confirma que realizou o pagamento via Pix para a GMHardware?</p>
+        <p id="validarInstrucaoPix">Você confirma que realizou o pagamento via Pix para a GMHardware?</p>
       </div>
 
       <form class="form-validacao">
         <button type="button" class="btn-confirmar" (click)="confirmarPagamento(true)" [disabled]="processando()">
           {{ processando() ? 'Processando...' : 'SIM, CONFIRMAR PAGAMENTO' }}
         </button>
-        <button type="button" class="btn-negar" (click)="confirmarPagamento(false)" [disabled]="processando()">
+        <button type="button" id="validarBtnNaoValidar" class="btn-negar" (click)="confirmarPagamento(false)" [disabled]="processando()">
           NÃO VALIDAR / CANCELAR
         </button>
       </form>
     }
 
-    <footer class="validar-footer"><p>GMHardware - Segurança em cada transação</p></footer>
+    <footer class="validar-footer"><p id="validarFooterSeguranca">GMHardware - Segurança em cada transação</p></footer>
   </div>
 </section>

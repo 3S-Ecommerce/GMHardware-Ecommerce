@@ -14,7 +14,7 @@
       <p class="texto-apoio">{{ formatarEndereco(enderecoSelecionado) }}</p>
       <p class="cep-entrega">CEP: <strong>{{ enderecoSelecionado.zip_code }}</strong></p>
     } @else {
-      <p class="texto-apoio">Nenhum endereço selecionado.</p>
+      <p id="revisarEnderecoNaoSelecionado" class="texto-apoio">Nenhum endereço selecionado.</p>
     }
     <hr class="divisor">
     <button type="button" id="revisarBtnOutroEndereco" class="btn-link" (click)="abrirEscolhaEndereco()">
@@ -23,9 +23,9 @@
 
     @if (mostrarEscolhaEndereco) {
       <div class="enderecos-gerenciador">
-        <h4>Endereços cadastrados</h4>
+        <h4 id="revisarEnderecosCadastradosTitulo">Endereços cadastrados</h4>
         @if (enderecos.length === 0) {
-          <p class="texto-apoio">Nenhum endereço cadastrado.</p>
+          <p id="revisarNenhumEnderecoCadastrado" class="texto-apoio">Nenhum endereço cadastrado.</p>
         }
         <div class="enderecos-lista">
           @for (endereco of enderecos; track endereco.id) {
@@ -44,11 +44,11 @@
             </div>
           }
         </div>
-        <button type="button" class="btn-adicionar-endereco" (click)="abrirFormularioNovoEndereco()">+ Cadastrar novo endereço</button>
+        <button type="button" id="revisarBtnCadastrarNovoEndereco" class="btn-adicionar-endereco" (click)="abrirFormularioNovoEndereco()">+ Cadastrar novo endereço</button>
 
         @if (mostrarFormularioEndereco) {
           <div class="form-endereco">
-            <h4>Novo endereço</h4>
+            <h4 id="revisarNovoEnderecoTitulo">Novo endereço</h4>
             <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP" maxlength="9" inputmode="numeric">
             <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua">
             <div class="linha-inputs">
@@ -56,8 +56,8 @@
               <input type="text" [(ngModel)]="novoEndereco.city" placeholder="Cidade">
             </div>
             <div class="form-acoes">
-              <button type="button" class="btn-azul-sm" (click)="salvarNovoEnderecoNaRevisao()">Salvar endereço</button>
-              <button type="button" class="btn-cancelar-sm" (click)="cancelarNovoEndereco()">Cancelar</button>
+              <button type="button" id="revisarBtnSalvarEndereco" class="btn-azul-sm" (click)="salvarNovoEnderecoNaRevisao()">Salvar endereço</button>
+              <button type="button" id="revisarBtnCancelarEndereco" class="btn-cancelar-sm" (click)="cancelarNovoEndereco()">Cancelar</button>
             </div>
           </div>
         }
@@ -66,9 +66,9 @@
   </div>
 
   <div class="div-layout">
-    <h3>Frete e transportadora</h3>
-    @if (!enderecoSelecionado) { <p class="texto-apoio">Selecione um endereço para calcular o frete.</p> }
-    @if (enderecoSelecionado && produtos().length === 0 && !carregandoItens()) { <p class="texto-apoio">Não existem produtos para calcular o frete.</p> }
+    <h3 id="revisarFreteTitulo">Frete e transportadora</h3>
+    @if (!enderecoSelecionado) { <p id="revisarFreteSelecioneEndereco" class="texto-apoio">Selecione um endereço para calcular o frete.</p> }
+    @if (enderecoSelecionado && produtos().length === 0 && !carregandoItens()) { <p id="revisarFreteSemProdutos" class="texto-apoio">Não existem produtos para calcular o frete.</p> }
 
     @if (enderecoSelecionado && carregandoFrete()) {
       <div class="frete-carregando skeleton-card">
@@ -81,12 +81,12 @@
       <div class="frete-erro-container">
         <p class="frete-erro">{{ erroFrete }}</p>
         @if (enderecoSelecionado && produtos().length > 0) {
-          <button type="button" class="btn-calcular-frete" (click)="calcularFrete()">Tentar novamente</button>
+          <button type="button" id="revisarFreteBtnTentarNovamente" class="btn-calcular-frete" (click)="calcularFrete()">Tentar novamente</button>
         }
       </div>
     }
     @if (enderecoSelecionado && produtos().length > 0 && !carregandoFrete() && !erroFrete && opcoesFrete.length === 0 && !freteSelecionado) {
-      <button type="button" class="btn-calcular-frete" (click)="calcularFrete()">Calcular frete</button>
+      <button type="button" id="revisarFreteBtnCalcular" class="btn-calcular-frete" (click)="calcularFrete()">Calcular frete</button>
     }
 
     @if (opcoesFrete.length > 0 && !carregandoFrete()) {
@@ -119,12 +119,12 @@
     @if (freteSelecionado && !carregandoFrete()) {
       <hr class="divisor">
       <div class="frete-resumo">
-        <h4>Frete escolhido</h4>
+        <h4 id="revisarFreteEscolhidoTitulo">Frete escolhido</h4>
         <p>Serviço: <strong>{{ freteSelecionado.name }}</strong></p>
         @if (freteSelecionado.company?.name) { <p>Transportadora: <strong>{{ freteSelecionado.company?.name }}</strong></p> }
         <p>Valor do frete: <strong>R$ {{ valorFrete() | number:'1.2-2' }}</strong></p>
         <p>Prazo estimado: <strong>{{ freteSelecionado.custom_delivery_time ?? freteSelecionado.delivery_time }} dias úteis</strong></p>
-        <button type="button" class="btn-calcular-frete" (click)="calcularFrete()">Alterar opção de frete</button>
+        <button type="button" id="revisarFreteBtnAlterarOpcao" class="btn-calcular-frete" (click)="calcularFrete()">Alterar opção de frete</button>
       </div>
     }
   </div>
@@ -148,7 +148,7 @@
     }
 
     @if (!carregandoItens() && produtos().length === 0) {
-      <p class="texto-apoio">Nenhum produto encontrado.</p>
+      <p id="revisarNenhumProdutoEncontrado" class="texto-apoio">Nenhum produto encontrado.</p>
     }
 
     @if (!carregandoItens()) {
@@ -186,7 +186,7 @@
       @if (freteSelecionado) {
         <p>Frete: <strong>R$ {{ valorFrete() | number:'1.2-2' }}</strong></p>
       } @else {
-        <p>Frete: <strong>Aguardando seleção</strong></p>
+        <p>Frete: <strong id="revisarFreteAguardandoSelecao">Aguardando seleção</strong></p>
       }
       <p class="preco-total">Total: <strong>R$ {{ valorTotalComFrete() | number:'1.2-2' }}</strong></p>
     </div>
@@ -200,7 +200,7 @@
       @if (confirmandoPedido()) {
         <div class="spinner-container">
           <span class="spinner"></span>
-          <span>Processando pagamento...</span>
+          <span id="revisarProcessandoPagamento">Processando pagamento...</span>
         </div>
       } @else {
         Confirmar e realizar pagamento

@@ -1,9 +1,9 @@
-<p>cadastro-produto works!</p>
 <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
     <input formControlName="name" placeholder="Digite o nome do produto">
     <input formControlName="price" type="number" placeholder="Preço">
     <input formControlName="stock" type="number" placeholder="Estoque">
     <input formControlName="id_admin" type="number" placeholder="1\2">
+
     <select formControlName="id_category" id="">
         <option value="1" id="cadastroProdutoOpcaoPlacaVideo">Placa de vídeo</option>
         <option value="2" id="cadastroProdutoOpcaoProcessador">Processador</option>
@@ -14,6 +14,5 @@
     
     <input type="file" (change)="onFileChange($event)">
 
-    <button type="submit" [disabled]="productForm.invalid">Cadastrar Produto</button>
-
+    <button id="cadastroProdutoBtnCadastrar" type="submit" [disabled]="productForm.invalid">Cadastrar Produto</button>
 </form>

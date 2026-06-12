@@ -4,7 +4,7 @@
       <h2 id="pagamentoPixTitulo">Pix</h2>
       <p id="pagamentoPixSubtitulo">Aprovação imediata</p>
     </div>
-    <button type="button" class="selecionarButton" [disabled]="carregandoCartoes" (click)="selecionarPagamento('pix')">Selecionar</button>
+    <button type="button" class="selecionarButton" id="pagamentoPixBtnSelecionar" [disabled]="carregandoCartoes" (click)="selecionarPagamento('pix')">Selecionar</button>
   </div>
 
   <hr>
@@ -16,19 +16,19 @@
       <div class="skeleton-line width-40"></div>
       }@else{
       @if (cartaoSelecionado) {
-      <p id="pagamentoCreditoSubtitulo">Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
+      <p>Cartão selecionado: {{ formatarNumeroCartao(cartaoSelecionado.numero_cartao) }}
       </p>
       } @else {
       <p id="pagamentoCreditoSubtitulo">Escolha ou cadastre um cartão</p>
       }
       }
     </div>
-    <button type="button" class="selecionarButton" [disabled]="carregandoCartoes" (click)="selecionarPagamento('cartao')">Selecionar</button>
+    <button type="button" class="selecionarButton" id="pagamentoCreditoBtnSelecionar" [disabled]="carregandoCartoes" (click)="selecionarPagamento('cartao')">Selecionar</button>
   </div>
 
   @if (mostrarCartoes) {
   <div class="cartoes-area">
-    <h3>Cartões cadastrados</h3>
+    <h3 id="pagamentoCartoesCadastradosTitulo">Cartões cadastrados</h3>
 
     @if (carregandoCartoes) {
     @for (i of [1, 2]; track i) {
@@ -49,7 +49,7 @@
     <p class="mensagem-erro">{{ erroCartao }}</p>
     }
     @if (!carregandoCartoes && cartoes.length === 0) {
-    <p class="mensagem-vazia">Nenhum cartão cadastrado.</p>
+    <p class="mensagem-vazia" id="pagamentoNenhumCartaoCadastrado">Nenhum cartão cadastrado.</p>
     }
     @for (cartao of cartoes; track cartao.id) {
     <div class="cartao-card">
@@ -70,12 +70,12 @@
     </div>
     }
 
-    <button type="button" class="btn-adicionar-cartao" (click)="abrirFormularioCartao()">+ Cadastrar novo
+    <button type="button" class="btn-adicionar-cartao" id="pagamentoBtnCadastrarNovoCartao" (click)="abrirFormularioCartao()">+ Cadastrar novo
       cartão</button>
 
     @if (mostrarFormularioCartao) {
     <div class="form-cartao">
-      <h3>Novo Cartão</h3>
+      <h3 id="pagamentoNovoCartaoTitulo">Novo Cartão</h3>
       <input type="text" [(ngModel)]="novoCartao.nome_titular" placeholder="Nome do Titular">
       <input type="text" [(ngModel)]="novoCartao.numero_cartao" placeholder="Número do Cartão">
       <div class="linha-inputs">
@@ -87,13 +87,13 @@
         <button type="button" class="btn-azul" (click)="salvarNovoCartao()" [disabled]="salvandoCartao">
           {{ salvandoCartao ? 'Salvando...' : 'Salvar cartão' }}
         </button>
-        <button type="button" class="btn-cancelar" (click)="cancelarFormularioCartao()"
+        <button type="button" class="btn-cancelar" id="pagamentoBtnCancelarCartao" (click)="cancelarFormularioCartao()"
           [disabled]="salvandoCartao">Cancelar</button>
       </div>
     </div>
     }
 
-    <button type="button" class="btn-continuar" (click)="continuarComCartao()"
+    <button type="button" class="btn-continuar" id="pagamentoBtnContinuarCartaoSelecionado" (click)="continuarComCartao()"
       [disabled]="!cartaoSelecionado || carregandoCartoes">
       Continuar com cartão selecionado
     </button>

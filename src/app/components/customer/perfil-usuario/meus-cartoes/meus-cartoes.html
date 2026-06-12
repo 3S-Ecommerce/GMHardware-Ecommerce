@@ -1,14 +1,14 @@
 <div class="meus-cartoes-container">
-  <h1 class="cartoes-title">Meus Cartões</h1>
+  <h1 id="meusCartoesTitulo" class="cartoes-title">Meus Cartões</h1>
 
   <!-- Botão Voltar (Usando sua classe .btn-voltar) -->
-  <a routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
+  <a id="meusCartoesBtnVoltarPerfil" routerLink="/meu-perfil" class="btn-voltar">← Voltar para Meu Perfil</a>
 
   <!-- Lista de Cartões (Usando suas classes de lista e item) -->
   <div class="cartoes-list" *ngIf="!mostrarFormulario">
     
     <!-- Mensagem caso não tenha cartões -->
-    <div *ngIf="cartoes.length === 0" style="text-align: center; color: #b0b0b0; padding: 20px;">
+    <div id="meusCartoesCarregando" *ngIf="cartoes.length === 0" style="text-align: center; color: #b0b0b0; padding: 20px;">
       Carregando cartões...
     </div>
 
@@ -24,39 +24,39 @@
         <p class="cartao-vencimento">Validade: {{ cartao.vencimento }}</p>
       </div>
 
-     <div style="display:flex; gap:10px;">
+      <div style="display:flex; gap:10px;">
   
-  <button
-    *ngIf="!cartao.is_default"
-    class="btn-adicionar"
-    (click)="definirPadrao(cartao.id)">
-    Tornar padrão
-  </button>
+        <button
+          *ngIf="!cartao.is_default"
+          class="btn-adicionar"
+          (click)="definirPadrao(cartao.id)">
+          Tornar padrão
+        </button>
 
-  <span
-    *ngIf="cartao.is_default"
-    style="
-      color:#4CAF50;
-      font-weight:bold;
-      align-self:center;
-    ">
-    ✓ Cartão Padrão
-  </span>
+        <span
+          *ngIf="cartao.is_default"
+          style="
+            color:#4CAF50;
+            font-weight:bold;
+            align-self:center;
+          ">
+          ✓ Cartão Padrão
+        </span>
 
-  <button
-    class="cartao-excluir"
-    (click)="excluirCartao(cartao.id)">
-    Excluir
-  </button>
+        <button
+          class="cartao-excluir"
+          (click)="excluirCartao(cartao.id)">
+          Excluir
+        </button>
 
-</div>
+      </div>
     </div>
   </div>
 
   <!-- FORMULÁRIO DE ADIÇÃO (Ajustado para seguir o estilo do seu projeto) -->
   <div class="cartoes-list" *ngIf="mostrarFormulario">
     <div class="cartao-item" style="flex-direction: column; align-items: stretch; gap: 15px;">
-      <h2 class="cartao-numero" style="margin-bottom: 10px;">Novo Cartão</h2>
+      <h2 id="meusCartoesNovoCartaoTitulo" class="cartao-numero" style="margin-bottom: 10px;">Novo Cartão</h2>
       
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <input type="text" [(ngModel)]="novoCartao.nome_titular" placeholder="Nome do Titular" 
@@ -84,7 +84,7 @@
         </button>
         
         <!-- Botão Cancelar (Reaproveitando o estilo do .cartao-excluir) -->
-        <button class="cartao-excluir" (click)="cancelarAdicao()" style="background: rgba(255,255,255,0.05);">
+        <button id="meusCartoesBtnCancelar" class="cartao-excluir" (click)="cancelarAdicao()" style="background: rgba(255,255,255,0.05);">
           Cancelar
         </button>
       </div>
@@ -95,7 +95,7 @@
 
   <!-- Botão Adicionar (Usando sua classe .btn-adicionar) -->
   <div class="cartoes-actions" *ngIf="!mostrarFormulario">
-    <button class="btn-adicionar" (click)="adicionarCartao()">
+    <button id="meusCartoesBtnAdicionarNovoCartao" class="btn-adicionar" (click)="adicionarCartao()">
       <span class="btn-icon">+</span>
       Adicionar Novo Cartão
     </button>

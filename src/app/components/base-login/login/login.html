@@ -18,19 +18,19 @@
     </div>
 
     <div class="buttons">
-  <button type="button" routerLink="/cadastro" class="cadastrar" id="baseLoginLoginBtnCadastrar" [disabled]="logando()">Cadastrar</button>
+      <button type="button" routerLink="/cadastro" class="cadastrar" id="baseLoginLoginBtnCadastrar" [disabled]="logando()">Cadastrar</button>
 
-  <button type="submit" class="login" [disabled]="formLogin.invalid || logando()" id="baseLoginLoginBtnLogin">
-    @if (logando()) {
-      <div class="spinner-container">
-        <span class="spinner"></span>
-        <span>Entrando...</span>
-      </div>
-    } @else {
-      Login
-    }
-  </button>
-</div>
+      <button type="submit" class="login" [disabled]="formLogin.invalid || logando()" id="baseLoginLoginBtnLogin">
+        @if (logando()) {
+          <div class="spinner-container">
+            <span class="spinner"></span>
+            <span id="baseLoginLoginEntrando">Entrando...</span>
+          </div>
+        } @else {
+          Login
+        }
+      </button>
+    </div>
 
   </form>
 </div>

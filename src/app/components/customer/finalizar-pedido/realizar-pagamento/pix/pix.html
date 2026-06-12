@@ -1,14 +1,14 @@
 <section class="pix">
   @if (!qrCodeUrl && !erro) {
     <div class="pix-carregando">
-      <h2>Gerando seu QR Code Pix...</h2>
-      <p>Aguarde enquanto preparamos os seus dados de pagamento.</p>
+      <h2 id="pagamentoPixCarregandoTitulo">Gerando seu QR Code Pix...</h2>
+      <p id="pagamentoPixCarregandoTexto">Aguarde enquanto preparamos os seus dados de pagamento.</p>
     </div>
   } @else if (erro) {
     <div class="pix-erro">
-      <h2>Ocorreu um problema</h2>
+      <h2 id="pagamentoPixErroTitulo">Ocorreu um problema</h2>
       <p>{{ erro }}</p>
-      <button type="button" class="btn-tentar" (click)="gerarQrCodePix()">Tentar Novamente</button>
+      <button type="button" class="btn-tentar" (click)="gerarQrCodePix()" id="pagamentoPixBtnTentarNovamente">Tentar Novamente</button>
     </div>
   } @else {
     <h2 id="pagamentoPixMensagemValor">Pague R$ {{ valorPedido | number:'1.2-2' }} pelo Pix abaixo:</h2>
@@ -27,7 +27,7 @@
       
       <h2 id="pagamentoPixTituloCopiaCola">Ou copie este código para fazer o pagamento:</h2>
       <textarea rows="4" readonly (click)="copiarTexto($event)">{{ textoCopiaCola }}</textarea>
-      <p class="aviso-copia">Clique na caixa acima para copiar o código</p>
+      <p class="aviso-copia" id="pagamentoPixAvisoCopia">Clique na caixa acima para copiar o código</p>
     </div>
   }
 </section>

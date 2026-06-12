@@ -1,17 +1,17 @@
 <section>
-  <h2 class="enderecos-title">Editar Produto</h2>
+  <h2 id="editarProdutosTitulo" class="enderecos-title">Editar Produto</h2>
   
   <div class="enderecos-list">
     <div class="endereco-item form-card">
       <form [formGroup]="formProduct" (ngSubmit)="onSubmit()">
           
         <div class="div-input w60">
-          <label for="name" class="form-label">Nome do produto:</label>
+          <label id="editarProdutosNome" for="name" class="form-label">Nome do produto:</label>
           <input type="text" formControlName="name" id="name" placeholder="Exemplo produto" class="form-input" required>
         </div>
         
         <div class="div-input w40">
-          <label for="category" class="form-label">Categoria:</label>
+          <label id="editarProdutosCategoria" for="category" class="form-label">Categoria:</label>
           <select formControlName="id_category" id="category" class="form-input">
             @if(categorias()){
               @for(categoria of categorias(); track categoria.id){
@@ -22,47 +22,47 @@
         </div>
         
         <div class="div-input w30">
-          <label for="price" class="form-label">Preço:</label>
+          <label id="editarProdutosPreco" for="price" class="form-label">Preço:</label>
           <input type="number" formControlName="price" id="price" placeholder="Preço" class="form-input">
         </div>
         
         <div class="div-input w30">
-          <label for="stock" class="form-label">Itens em estoque:</label>
+          <label id="editarProdutosEstoque" for="stock" class="form-label">Itens em estoque:</label>
           <input type="number" formControlName="stock" id="stock" placeholder="ex. 10" class="form-input">
         </div>
         
         <div class="div-input w30">
-          <label for="image" class="form-label">Imagem Principal:</label>
+          <label id="editarProdutosImagem" for="image" class="form-label">Imagem Principal:</label>
           <input type="file" id="image" (change)="onFileChange($event, 'image')" class="form-input file-input">
         </div>
 
         <div class="div-input w30">
-          <label for="image_2" class="form-label">Imagem 2:</label>
+          <label id="editarProdutosImagem2" for="image_2" class="form-label">Imagem 2:</label>
           <input type="file" id="image_2" (change)="onFileChange($event, 'image_2')" class="form-input file-input">
         </div>
 
         <div class="div-input w30">
-          <label for="image_3" class="form-label">Imagem 3:</label>
+          <label id="editarProdutosImagem3" for="image_3" class="form-label">Imagem 3:</label>
           <input type="file" id="image_3" (change)="onFileChange($event, 'image_3')" class="form-input file-input">
         </div>
 
         <div class="div-input w30">
-          <label for="image_4" class="form-label">Imagem 4:</label>
+          <label id="editarProdutosImagem4" for="image_4" class="form-label">Imagem 4:</label>
           <input type="file" id="image_4" (change)="onFileChange($event, 'image_4')" class="form-input file-input">
         </div>
 
         <div class="div-input w30">
-          <label for="image_5" class="form-label">Imagem 5:</label>
+          <label id="editarProdutosImagem5" for="image_5" class="form-label">Imagem 5:</label>
           <input type="file" id="image_5" (change)="onFileChange($event, 'image_5')" class="form-input file-input">
         </div>
         
         <div class="div-input w100">
-          <label for="description" class="form-label">Descrição:</label>
+          <label id="editarProdutosDescricao" for="description" class="form-label">Descrição:</label>
           <textarea formControlName="description" id="description" placeholder="Descrição do produto" rows="3" class="form-textarea"></textarea>
         </div>
         
         <div id="div-details" class="div-input w100" formArrayName="details">
-          <label for="details" class="form-label">Detalhes:</label>   
+          <label id="editarProdutosDetalhe" for="details" class="form-label">Detalhes:</label>   
           @for (detalhe of detalhesFormArray.controls; track $index){
             <input class="form-input" type="text" [formControlName]="$index" placeholder="Especificações" style="margin-bottom: 10px;">
           }
@@ -75,8 +75,8 @@
         </div>
         
         <div class="form-actions">
-          <a routerLink="/admin/produtos" class="endereco-excluir btn-cancel">Voltar</a>
-          <button [disabled]="formProduct.invalid" type="submit" class="btn-adicionar btn-submit">Salvar</button>
+          <a id="editarProdutosVoltar" routerLink="/admin/produtos" class="endereco-excluir btn-cancel">Voltar</a>
+          <button id="editarProdutosSalvar" [disabled]="formProduct.invalid" type="submit" class="btn-adicionar btn-submit">Salvar</button>
         </div>
       </form>
     </div>

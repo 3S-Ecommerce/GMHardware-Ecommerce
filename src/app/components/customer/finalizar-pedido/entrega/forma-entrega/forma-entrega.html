@@ -30,7 +30,7 @@
 
   @if (mostrarEscolhaEndereco) {
     <div class="enderecos-area">
-      <h3>Endereços cadastrados</h3>
+      <h3 id="formaEntregaEnderecosCadastrados">Endereços cadastrados</h3>
 
       @if (carregandoEnderecos) {
         @for (i of [1, 2]; track i) {
@@ -47,7 +47,7 @@
         }
       }
       @if (!carregandoEnderecos && enderecos.length === 0) {
-        <p class="mensagem-vazia">Nenhum endereço cadastrado.</p>
+        <p id="formaEntregaNenhumEnderecoCadastrado" class="mensagem-vazia">Nenhum endereço cadastrado.</p>
       }
       @for (endereco of enderecos; track endereco.id) {
         <div class="endereco-card">
@@ -66,11 +66,11 @@
         </div>
       }
 
-      <button type="button" class="btn-adicionar-endereco" (click)="abrirFormularioNovoEndereco()">+ Cadastrar novo endereço</button>
+      <button type="button" class="btn-adicionar-endereco" id="formaEntregaBtnCadastrarNovoEndereco" (click)="abrirFormularioNovoEndereco()">+ Cadastrar novo endereço</button>
 
       @if (mostrarFormularioEndereco) {
         <div class="form-endereco">
-          <h3>Novo Endereço</h3>
+          <h3 id="formaEntregaNovoEnderecoTitulo">Novo Endereço</h3>
           <input type="text" [(ngModel)]="novoEndereco.zip_code" placeholder="CEP">
           <input type="text" [(ngModel)]="novoEndereco.street" placeholder="Rua">
           <input type="text" [(ngModel)]="novoEndereco.number" placeholder="Número">
@@ -79,7 +79,7 @@
             <button type="button" class="btn-azul" (click)="salvarNovoEndereco()" [disabled]="salvandoEndereco">
               {{ salvandoEndereco ? 'Salvando...' : 'Salvar endereço' }}
             </button>
-            <button type="button" class="btn-cancelar" (click)="cancelarNovoEndereco()" [disabled]="salvandoEndereco">Cancelar</button>
+            <button type="button" class="btn-cancelar" id="formaEntregaBtnCancelarNovoEndereco" (click)="cancelarNovoEndereco()" [disabled]="salvandoEndereco">Cancelar</button>
           </div>
         </div>
       }
