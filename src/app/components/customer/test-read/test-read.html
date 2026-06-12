@@ -12,6 +12,18 @@
         <input formControlName="id" type="number" step="1" value="">
         <button type="submit" [disabled]="formId.invalid">Buscar</button>
     </form>
+
+    <form [formGroup]="formTeste" (ngSubmit)="onSubmit2()">
+        <input type="text" formControlName="string">
+        <input type="text" formControlName="number">
+        <button type="submit">Testar</button>
+    </form>
+
+    <div>
+        <input type="text" id="cpf" #cpfInput [(ngModel)]="usuario.cpf" (ngModelChange)="onCpfChange($event, cpfInput)">
+        <input type="text" [(ngModel)]="usuario.data">
+        <button type="button" (click)="onSubmit3()">Testar</button>
+    </div>
     <table>
         <thead>
             <tr>
