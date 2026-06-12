@@ -21,7 +21,11 @@ class Order extends Model
         'status',
         'payment_method',
         'card_id',
-        'card_last_digits'
+        'card_last_digits',
+        'shipping_service',
+        'shipping_company',
+        'shipping_price',
+        'shipping_delivery_time',
     ];
 
     public function user()
