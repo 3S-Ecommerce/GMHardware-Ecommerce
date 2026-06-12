@@ -26,7 +26,7 @@
       <button type="button" class="btn-excluir" (click)="apagarItem(item.id)" [id]="'itemCarrinhoBtnExcluir-' + item.id">
         Excluir
       </button>
-      <button type="button" class="comprar" [routerLink]="['/finalizar-compra', { id: item.id}]" [id]="'itemCarrinhoBtnComprar-' + item.id">
+      <button type="button" class="comprar" [routerLink]="['/finalizar-compra']" [queryParams]="{ produto_id: item.id, quantidade: 1 }" [id]="'itemCarrinhoBtnComprar-' + item.id">
         Comprar
       </button>
     </div>

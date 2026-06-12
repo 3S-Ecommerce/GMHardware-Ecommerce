@@ -39,7 +39,7 @@
 
       <!-- Alternância inteligente de ação do botão Comprar -->
       @if (categoria === 'todos') {
-      <button [routerLink]="['/finalizar-compra', { id: item.id }]" class="comprar"
+      <button [routerLink]="['/finalizar-compra']" [queryParams]="{ produto_id: item.id, quantidade: 1 }" class="comprar"
         [id]="'cardProdutosBtnComprarTodos-' + item.id">
         Comprar
       </button>

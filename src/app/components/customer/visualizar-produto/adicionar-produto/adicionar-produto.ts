@@ -20,9 +20,9 @@ export class AdicionarProduto {
   @Input() image !: string;
   private precoBase = signal<number>(0);
   priceOriginal = computed(() => this.precoBase());
-  pricePix = computed(() => this.precoBase() * 0.85);
+  pricePix = computed(() => this.precoBase() * 0.90);
   priceParcela = computed(() => this.precoBase() / 10);
-  priceCartao = computed(() => this.precoBase() * 0.90);
+  // priceCartao = computed(() => this.precoBase() * 0.95);
   quantidade = signal<number>(1);
 
   comprarAgora(){
