@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.scss',
 })
@@ -52,6 +52,7 @@ export class Cadastro {
 
     if (form.password !== form.password_confirmation) {
 
+      this.cadastrando.set(false);
       alert('Senhas não coincidem');
       return;
 
@@ -89,7 +90,7 @@ export class Cadastro {
           alert('Falha ao processar cadastro no servidor.');
 
         }
-        
+
         this.cadastrando.set(false);
       }
     });
