@@ -1,18 +1,18 @@
-import {afterNextRender,Component,computed,inject,OnInit,PLATFORM_ID,signal} from '@angular/core';
-import {CommonModule,isPlatformBrowser,NgOptimizedImage} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {ActivatedRoute,Router,RouterLink} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {Order,CheckoutPayload} from '../../../../core/services/order';
-import {Cart} from '../../../../core/services/cart';
-import {CheckoutService} from '../../../../core/services/checkout.service';
-import {EnderecoService,Endereco,EnderecoPayload} from '../../../../core/services/endereco';
-import {FreteService,FreteOpcao} from '../../../../core/services/frete';
+import { afterNextRender, Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser, NgOptimizedImage } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Order, CheckoutPayload } from '../../../../core/services/order';
+import { Cart } from '../../../../core/services/cart';
+import { CheckoutService } from '../../../../core/services/checkout.service';
+import { EnderecoService, Endereco, EnderecoPayload } from '../../../../core/services/endereco';
+import { FreteService, FreteOpcao } from '../../../../core/services/frete';
 
 @Component({
   selector: 'app-revisar',
   standalone: true,
-  imports: [CommonModule,FormsModule,RouterLink,NgOptimizedImage],
+  imports: [CommonModule, FormsModule, RouterLink, NgOptimizedImage],
   templateUrl: './revisar.html',
   styleUrl: './revisar.scss'
 })
@@ -55,11 +55,11 @@ export class Revisar implements OnInit {
   carregandoFrete = signal<boolean>(false);
   erroFrete = '';
 
-  constructor(){
-    afterNextRender(() => {});
+  constructor() {
+    afterNextRender(() => { });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.cart.iniciar();
       this.carregarUsuarioLogado();
@@ -82,7 +82,7 @@ export class Revisar implements OnInit {
     return this.checkoutService.getPaymentMethodName();
   });
 
-  inicializarProdutos(){
+  inicializarProdutos() {
     const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
     const urlQuantidade = this.route.snapshot.queryParamMap.get('quantidade');
 
@@ -95,19 +95,31 @@ export class Revisar implements OnInit {
           const imagem = produtoDoBanco.image
             ? `https://pub-38889ba16be84990a69dfca8fd011b2c.r2.dev/${produtoDoBanco.image}`
             : 'assets/images/placeholder.png';
-
-          this.produtos.set([{
-            id: produtoDoBanco.id,
-            name: produtoDoBanco.name,
-            price: Number(produtoDoBanco.price ?? produtoDoBanco.preco ?? 0),
-            image: imagem,
-            quantity: quantidadeBuscada,
-            width: Number(produtoDoBanco.width ?? 20),
-            height: Number(produtoDoBanco.height ?? 10),
-            length: Number(produtoDoBanco.length ?? 30),
-            weight: Number(produtoDoBanco.weight ?? 1)
-          }]);
-
+          if (this.metodoPagamento() == 'PIX') {
+            this.produtos.set([{
+              id: produtoDoBanco.id,
+              name: produtoDoBanco.name,
+              price: Number(produtoDoBanco.price ?? produtoDoBanco.preco ?? 0) * .9,
+              image: imagem,
+              quantity: quantidadeBuscada,
+              width: Number(produtoDoBanco.width ?? 20),
+              height: Number(produtoDoBanco.height ?? 10),
+              length: Number(produtoDoBanco.length ?? 30),
+              weight: Number(produtoDoBanco.weight ?? 1)
+            }]);
+          } else {
+            this.produtos.set([{
+              id: produtoDoBanco.id,
+              name: produtoDoBanco.name,
+              price: Number(produtoDoBanco.price ?? produtoDoBanco.preco ?? 0),
+              image: imagem,
+              quantity: quantidadeBuscada,
+              width: Number(produtoDoBanco.width ?? 20),
+              height: Number(produtoDoBanco.height ?? 10),
+              length: Number(produtoDoBanco.length ?? 30),
+              weight: Number(produtoDoBanco.weight ?? 1)
+            }]);
+          }
           this.carregandoItens.set(false);
           this.comId.set(true);
           this.tentarCalcularFrete();
@@ -143,7 +155,7 @@ export class Revisar implements OnInit {
     return localStorage.getItem(chave);
   }
 
-  private limparSessao(){
+  private limparSessao() {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -156,7 +168,7 @@ export class Revisar implements OnInit {
     localStorage.removeItem('metodoPagamento');
   }
 
-  carregarUsuarioLogado(){
+  carregarUsuarioLogado() {
     const usuarioStr = this.getLocalStorageItem('user');
 
     if (!usuarioStr) {
@@ -173,7 +185,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  carregarCartaoSelecionado(){
+  carregarCartaoSelecionado() {
     const cartaoStr = this.getLocalStorageItem('cartaoSelecionado');
 
     if (!cartaoStr) {
@@ -189,7 +201,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  carregarEnderecos(){
+  carregarEnderecos() {
     const enderecoSelecionadoStr = this.getLocalStorageItem('enderecoSelecionado');
 
     if (enderecoSelecionadoStr) {
@@ -263,7 +275,7 @@ export class Revisar implements OnInit {
     return metodo;
   }
 
-  abrirEscolhaEndereco(){
+  abrirEscolhaEndereco() {
     this.mostrarEscolhaEndereco = !this.mostrarEscolhaEndereco;
 
     if (this.mostrarEscolhaEndereco) {
@@ -271,7 +283,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  selecionarEndereco(endereco: Endereco){
+  selecionarEndereco(endereco: Endereco) {
     const enderecoMudou = this.enderecoSelecionado?.id !== endereco.id;
 
     this.enderecoSelecionado = endereco;
@@ -288,7 +300,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  definirEnderecoPadrao(id: number){
+  definirEnderecoPadrao(id: number) {
     this.enderecoService.definirPadrao(id).subscribe({
       next: () => {
         this.enderecos.forEach(endereco => {
@@ -328,7 +340,7 @@ export class Revisar implements OnInit {
     });
   }
 
-  abrirFormularioNovoEndereco(){
+  abrirFormularioNovoEndereco() {
     this.mostrarFormularioEndereco = true;
 
     this.novoEndereco = {
@@ -339,7 +351,7 @@ export class Revisar implements OnInit {
     };
   }
 
-  cancelarNovoEndereco(){
+  cancelarNovoEndereco() {
     this.mostrarFormularioEndereco = false;
 
     this.novoEndereco = {
@@ -350,7 +362,7 @@ export class Revisar implements OnInit {
     };
   }
 
-  salvarNovoEnderecoNaRevisao(){
+  salvarNovoEnderecoNaRevisao() {
     if (!this.formularioEnderecoValido()) {
       alert('Preencha CEP, Rua, Número e Cidade.');
       return;
@@ -417,7 +429,7 @@ export class Revisar implements OnInit {
     );
   }
 
-  private tentarCalcularFrete(){
+  private tentarCalcularFrete() {
     if (
       !this.enderecoSelecionado ||
       this.produtos().length === 0 ||
@@ -431,7 +443,7 @@ export class Revisar implements OnInit {
     this.calcularFrete();
   }
 
-  calcularFrete(){
+  calcularFrete() {
     if (!this.enderecoSelecionado) {
       this.erroFrete = 'Selecione um endereço para calcular o frete.';
       return;
@@ -507,7 +519,7 @@ export class Revisar implements OnInit {
     });
   }
 
-  selecionarFrete(frete: FreteOpcao){
+  selecionarFrete(frete: FreteOpcao) {
     if (frete.error) {
       return;
     }
@@ -519,7 +531,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  private limparFrete(){
+  private limparFrete() {
     this.opcoesFrete = [];
     this.freteSelecionado = null;
     this.erroFrete = '';
@@ -540,7 +552,7 @@ export class Revisar implements OnInit {
     return Number(this.valorTotal()) + this.valorFrete();
   }
 
-  confirmarPedido(){
+  confirmarPedido() {
     if (!this.enderecoSelecionado) {
       alert('Selecione um endereço antes de finalizar a compra.');
       return;
@@ -629,7 +641,7 @@ export class Revisar implements OnInit {
     });
   }
 
-  menosProduto(itemId: number){
+  menosProduto(itemId: number) {
     const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
 
     if (urlProdutoId) {
@@ -652,7 +664,7 @@ export class Revisar implements OnInit {
     }
   }
 
-  maisProduto(itemId: number){
+  maisProduto(itemId: number) {
     const urlProdutoId = this.route.snapshot.queryParamMap.get('produto_id');
 
     if (urlProdutoId) {
